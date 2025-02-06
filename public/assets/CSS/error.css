@@ -1,0 +1,83 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background-image: url('/gl/public/assets/images/seamless-pattern-with-green-leaves-plants.jpg');
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+    background-color: #f3f4f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    color: #333;
+  }
+
+  .error-container {
+    text-align: center;
+    background-color: #fff;
+    padding: 50px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    max-width: 800px;
+  }
+
+  .error-icon {
+    font-size: 6rem;
+    color: #4CAF50;
+    margin-bottom: 20px;
+  }
+
+  h1 {
+    font-size: 80px;
+    color: #1a472a;
+    margin: 0;
+  }
+
+  p {
+    font-size: 1.5rem;
+    color: #555;
+    margin: 20px 0;
+  }
+
+  .action-buttons {
+    margin-top: 30px;
+  }
+
+  .btn {
+    padding: 15px 30px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1.2rem;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: background-color 0.3s;
+    margin: 10px;
+  }
+
+  .btn:hover {
+    background-color: #388e3c;
+  }
+
+  .btn-alt {
+    background-color: #f44336;
+  }
+
+  .btn-alt:hover {
+    background-color: #d32f2f;
+  }
+
+  .error-footer {
+    margin-top: 50px;
+    font-size: 1rem;
+    color: #777;
+  }
+
+  .error-footer a {
+    text-decoration: none;
+    color: #4CAF50;
+  }
+
+  .error-footer a:hover {
+    text-decoration: underline
+  }
