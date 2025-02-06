@@ -1,0 +1,383 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-image: url("../images/seamless-pattern-with-green-leaves-plants.jpg");
+  background-size: cover;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-attachment: fixed;
+}
+
+.signup-section {
+  width: 100%;
+  max-width: 1100px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 30px;
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  overflow: hidden;
+  display: flex;
+  position: relative;
+}
+
+.signup-sidebar {
+  width: 300px;
+  background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%);
+  padding: 40px;
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+.sidebar-content {
+  position: relative;
+  z-index: 2;
+}
+
+.signup-sidebar::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200"><path fill="%23FFFFFF" opacity="0.1" d="M40,120 Q100,180 160,120 Q100,60 40,120 Z"/></svg>');
+  background-size: 200px;
+  opacity: 0.1;
+  animation: patternMove 20s linear infinite;
+}
+
+@keyframes patternMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 500px 500px;
+  }
+}
+
+.logo {
+  font-size: 24px;
+  font-weight: 700;
+  margin-bottom: 40px;
+}
+
+.sidebar-title {
+  font-size: 25px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.sidebar-text {
+  font-size: 15px;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin-bottom: 40px;
+}
+
+.feature-list {
+  list-style: none;
+  margin-top: 30px;
+}
+
+.feature-list li {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.feature-icon {
+  width: 28px;
+  height: 28px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+}
+
+.feature-list li::before {
+  content: "✓";
+  margin-right: 10px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+}
+
+.main-content {
+  flex: 1;
+  padding: 40px;
+  position: relative;
+}
+
+.signup-header {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.signup-header h2 {
+  font-size: 24px;
+  color: #333;
+  margin-bottom: 10px;
+}
+
+.signup-header p {
+  color: #666;
+  font-size: 14px;
+}
+
+.role-select-container {
+  margin-bottom: 40px;
+}
+
+.role-options {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
+.role-option {
+  flex: 1;
+  max-width: 160px;
+}
+
+.role-option input[type="radio"] {
+  display: none;
+}
+
+.role-option label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  background: #f8f9fa;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+}
+
+.role-option label .icon {
+  width: 48px;
+  height: 48px;
+  background: #e9ecef;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 12px;
+  transition: all 0.3s ease;
+}
+
+.role-option input[type="radio"]:checked + label {
+  border-color: #2e7d32;
+  background: #f1f8f1;
+}
+
+.role-option input[type="radio"]:checked + label .icon {
+  background: #2e7d32;
+  color: white;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.form-row {
+  display: flex;
+  gap: 30px;
+}
+
+.form-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.form-group {
+  position: relative;
+}
+
+.form-group label {
+  position: absolute;
+  left: 15px;
+  top: -10px;
+  background: white;
+  padding: 0 5px;
+  font-size: 13px;
+  color: #666;
+  font-weight: 500;
+  z-index: 1;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 12px;
+  font-size: 15px;
+  transition: all 0.3s ease;
+  background: white;
+}
+
+.form-group input:focus {
+  border-color: #2e7d32;
+  outline: none;
+  box-shadow: 0 0 0 4px rgba(46, 125, 50, 0.1);
+}
+
+.password-strength {
+  height: 4px;
+  background: #f0f0f0;
+  border-radius: 2px;
+  margin-top: 8px;
+  overflow: hidden;
+}
+
+.password-strength::before {
+  content: "";
+  display: block;
+  height: 100%;
+  width: 0;
+  background: #2e7d32;
+  transition: width 0.3s ease;
+}
+
+.form-group input:valid ~ .password-strength::before {
+  width: 100%;
+}
+
+.signup-button {
+  background: #2e7d32;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  padding: 16px 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.signup-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.2) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transition: left 0.5s ease;
+}
+
+.signup-button:hover::before {
+  left: 100%;
+}
+
+.progress-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: #f0f0f0;
+}
+
+.progress-bar::before {
+  content: "";
+  position: absolute;
+  height: 100%;
+  width: var(--progress, 0%);
+  background: #2e7d32;
+  transition: width 0.3s ease;
+}
+
+@media (max-width: 992px) {
+  .signup-section {
+    flex-direction: column;
+  }
+
+  .signup-sidebar {
+    display: block;
+    width: 100%;
+    padding: 20px;
+    text-align: center;
+  }
+
+  .main-content {
+    padding: 20px;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-row {
+    flex-direction: column;
+  }
+
+  .role-options {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .role-option {
+    width: 100%;
+    max-width: 200px;
+  }
+
+  .signup-sidebar {
+    padding: 15px;
+  }
+}
+
+/* Added animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-group {
+  animation: slideIn 0.5s ease forwards;
+  opacity: 0;
+}
+
+.form-group:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.form-group:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.form-group:nth-child(3) {
+  animation-delay: 0.3s;
+}
