@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/landowner/index.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/landowner.css">
 
     <title>Document</title>
     
@@ -17,7 +17,7 @@ require ROOT . '/views/components/navbar.php';
 ?>
 
 
-<div id="dashboard-section" class="section">
+<div id="dashboard-section" >
                 <div class="metric-grid">
                     <div class="metric-card">
                         <h2>Total Lands</h2>

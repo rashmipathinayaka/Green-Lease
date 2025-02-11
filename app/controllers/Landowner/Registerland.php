@@ -22,7 +22,7 @@ class Registerland
                 'size' => $_POST['size'] ?? null,
                 'duration'  => $_POST['duration'], 
                 'crop' => $_POST['crop'] ?? null,
-               //  'document' => $_POST['document'] ?? null,
+                 'document' => $_POST['document'] ?? null,
                 
             ];
             if($registerland->validate($formData)){
