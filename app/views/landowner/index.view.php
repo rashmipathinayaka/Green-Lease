@@ -17,7 +17,7 @@ require ROOT . '/views/components/navbar.php';
 ?>
 
 
-<div id="dashboard-section" >
+<div id="dashboard-section" class="section">
                 <div class="metric-grid">
                     <div class="metric-card">
                         <h2>Total Lands</h2>

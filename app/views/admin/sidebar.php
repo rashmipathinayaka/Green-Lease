@@ -12,9 +12,9 @@
 <div class="sidebar">
             <ul>
                 <li><a href="<?php echo URLROOT; ?>/Admin/Index">Dashboard</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/Manage_bids">Manage Bids</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/Manage_buyers">Manage Buyers</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/Manage_supervisor">Manage Supervisors</a></li>
+                <li><a href="<?php echo URLROOT; ?>/Admin/manage_bids">Manage Bids</a></li>
+                <li><a href="<?php echo URLROOT; ?>/Admin/manage_buyers">Manage Buyers</a></li>
+                <li><a href="<?php echo URLROOT; ?>/Admin/manage_supervisor">Manage Supervisors</a></li>
                 <li><a href="<?php echo URLROOT; ?>/Admin/Manage_sitehead">Manage Site Heads</a></li>
                 <li><a href="<?php echo URLROOT; ?>/Admin/Manage_worker">Manage Workers</a></li>
                 <li><a href="<?php echo URLROOT; ?>/Admin/Manage_land">Manage Lands</a></li>

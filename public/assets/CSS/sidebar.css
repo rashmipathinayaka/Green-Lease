@@ -1,0 +1,223 @@
+.sidebar {
+    margin-top: 30px;
+    width: 250px;
+    /* Changed to use more dramatic curved design */
+    border-radius: 0 30px 30px 0;
+    background: linear-gradient(11deg, #052610  0%, #0a8911   100%);
+    /* color: #fff; */
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: -250px;
+    overflow-y: auto;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    /* Added subtle box shadow for depth */
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+}
+
+.sidebar.active {
+    left: 0;
+}
+
+.menu-header {
+    height: 150px;
+    background: linear-gradient(135deg, #2e7d32 0%, #388e3c 100%);
+    border-radius: 0 30px 30px 0;
+    margin-bottom: 20px;
+    padding: 30px 20px;
+    position: relative;
+    overflow: hidden;
+}
+
+.menu-header::after {
+    content: '';
+    position: absolute;
+    bottom: -50px;
+    right: -50px;
+    width: 100px;
+    height: 100px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+}
+
+.sidebar ul {
+    list-style-type: none;
+    padding: 15px;
+    margin: 0;
+}
+
+.sidebar ul li {
+    margin-bottom: 10px;
+}
+
+.sidebar ul li a {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    text-decoration: none;
+    font-weight: 500;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    gap: 10px;
+}
+
+
+
+.logout {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 30px);
+    margin: 0 15px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    /* background: rgba(255, 255, 255, 0.1); */
+    transition: all 0.3s ease;
+}
+.logout {
+    position: absolute;
+    bottom: 20px;
+    width: calc(100% - 30px);
+    margin: 0 15px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    /* background: rgba(255, 255, 255, 0.1); */
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Ensure spacing between icon and text */
+}
+
+.logout i {
+    width: 20px;
+    height: 20px;
+}
+
+
+
+
+/* .logout:hover {
+    background: rgba(255, 255, 255, 0.9);
+    color: #1a472a;
+} */
+
+@media (min-width: 769px) {
+    .sidebar {
+        left: 0;
+        top: 0;
+        padding-top: 60px;
+    }
+    
+    body {
+        padding-left: 250px;
+    }
+}
+.menu-icon {
+    width: 20px;  /* Adjust size as needed */
+    height: 20px;  /* Adjust size as needed */
+    margin-right: 10px;
+    vertical-align: middle;
+    /* Optional: if you want to make all icons the same color as text */
+    /* filter: brightness(0) invert(1); */ /* This makes icons white */
+}
+
+
+
+li {
+    display: flex;
+    align-items: center;
+    padding: 12px 15px;
+    border-radius: 10px;
+    
+    border-top-left-radius: 10px;
+    border-top-right-radius: -10px;
+    border-bottom-right-radius: -10px;
+    border-bottom-left-radius: 10px;
+    transition: all 0.3s ease;
+    /* background: rgba(255, 255, 255, 0.1); */
+    margin-bottom: 10px;
+}
+
+.menu-icon {
+    width: 20px;  /* Adjust size as needed */
+    height: 20px;  /* Adjust size as needed */
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: 500;
+} 
+
+ li:hover {
+    background: rgba(255, 255, 255, 0.9);
+    transform: translateX(5px);
+ }
+    li:hover a {
+        color: black;
+    }
+    
+    .sidebar ul li a:hover {
+        color: black;
+    }
+
+
+    @media (min-width: 769px) {
+        .sidebar {
+            left: 0;
+            top: 0;
+            padding-top: 60px;
+        }
+    
+        body {
+            padding-left: 250px;
+        }
+    }
+
+
+  
+
+  
+
+.menu-btn {
+    font-size: 25px;
+    position: fixed;
+    top: 15px;
+    left: 15px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #2c3e50;
+    display: none; /* Hidden on large screens */
+}
+/* Responsive Styles */
+@media (max-width: 768px) {
+    .menu-btn {
+        display: block; /* Show menu button on small screens */
+    }
+    .sidebar.active {
+        left: 0; /* Slide in */
+    }
+}
+
+
+/* Hide close button by default */
+
+.close-btn {
+    display: none;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 20px;
+    background: none;
+    border: none;
+    color: white;
+    cursor: pointer;
+}
+
+/* Show close button when sidebar is active */
+.sidebar.active .close-btn {
+    display: block;
+}
