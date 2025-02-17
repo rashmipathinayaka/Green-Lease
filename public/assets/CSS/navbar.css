@@ -1,149 +1,80 @@
-.navbar {
+@import url(../styles.css);
+
+.admin-container {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 10px;
-    background-color: #fff;
+    min-height: 100vh;
+    flex-direction: column;
   }
   
-  .navbar-logo img {
-    max-height: 50px;
-    margin-left: 20px;
-  }
-  
-  .navbar-links {
-    display: flex;
-    align-items: center;
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-  }
-  
-  .navbar-links li {
-    margin-right: 30px;
-  }
-  
-  .navbar-links li a {
-    text-decoration: none;
-    color: black;
-    font-size: 20px;
-    padding-bottom: 5px;
-    position: relative;
-    transition: all 0.1s ease;
-  }
-  
-  .navbar-links li a:hover {
-    color: green;
-    border-bottom: 3px solid green;
-    /* transition: all 1s ease-out; */
-  }
-  
-  .signup-button {
-    padding: 10px 20px;
-    background-color: green;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 20px;
-    cursor: pointer;
-    text-decoration: none;
-  }
-  
-  /* Navbar adjustments */
-  
-  /* Hamburger icon */
-  .hamburger {
-    display: none;
-    font-size: 24px;
-    cursor: pointer;
-    margin-right: 20px;
-  }
-  
-  /* Show hamburger icon on smaller screens */
-  @media (max-width: 768px) {
-    .navbar {
+  @media (min-width: 769px) {
+    .admin-container {
       flex-direction: row;
-      align-items: center;
-      padding: 10px 20px;
-    }
-  
-    /* Adjust logo and hamburger position */
-    .navbar-logo {
-      flex: 1;
-    }
-  
-    .hamburger {
-      display: block;
-      position: absolute;
-      margin-top: 20px;
-      right: 20px;
-    }
-  
-    /* Hide navbar links initially */
-    .navbar-links {
-      display: none;
-      flex-direction: column;
-      width: 100%;
-      background-color: #fff;
-      position: absolute;
-      top: 60px; /* Adjust based on navbar height */
-      left: 0;
-      padding: 20px 0;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    }
-  
-    .navbar-links li {
-      margin: 10px 0;
-      text-align: center;
-    }
-  
-    .navbar-links.active {
-      display: flex;
     }
   }
   
-  /* Hamburger icon */
-  .hamburger {
-    display: none;
+  /* Top Bar */
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+  }
+  
+  .user-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-actions button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: green;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 15px;
+  }
+
+  .logo-section {
+    padding: 20px;
+    text-align: center;
+  }
+
+
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: #f7efef;
     font-size: 24px;
     cursor: pointer;
-    margin-right: 20px;
   }
   
-  /* Responsive Navbar */
-  @media (max-width: 768px) {
-    .navbar {
-      flex-direction: column;
-      align-items: flex-start;
+  @media (min-width: 769px) {
+    .menu-toggle {
+      display: none;
+    }
+  }
+
+
+
+    
+  @media (max-width: 480px) {
+    .top-bar {
+      padding: 0 10px;
     }
   
-    .navbar-logo {
-      margin: 10px;
-    }
-  
-    .navbar-links {
-      display: none; /* Hide navbar links initially */
-      flex-direction: column;
-      width: 100%;
-      background-color: #fff;
-    }
-  
-    .navbar-links li {
-      margin: 10px 0;
-      text-align: left;
-      padding: 10px 20px;
-    }
-  
-    .navbar-links li a {
-      font-size: 18px;
-    }
-  
-    .hamburger {
-      display: block;
-    }
-  
-    /* Show the navbar links when active */
-    .navbar-links.active {
-      display: flex;
+    .user-actions button {
+      width: 35px;
+      height: 35px;
+      margin-left: 10px;
     }
   }

@@ -1,7 +1,6 @@
-<?php 
+<?php
 
-if($_SERVER['SERVER_NAME'] == 'localhost')
-{
+if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	/** database config **/
 	define('DBNAME', 'green_lease');
 	define('DBHOST', 'localhost');
@@ -9,12 +8,9 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBPASS', '');
 	define('DBDRIVER', '');
 
-	define('ROOT', dirname(dirname(__FILE__))); 
-	define('URLROOT', 'http://localhost/gl2/public');
-	
-
-}else
-{
+	define('ROOT', dirname(dirname(__FILE__)));
+	define('URLROOT', 'http://localhost/GREEN-Lease/public');
+} else {
 	/** database config **/
 	define('DBNAME', 'abc');
 	define('DBHOST', 'localhost');
@@ -23,7 +19,6 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBDRIVER', '');
 
 	define('ROOT', 'https://www.yourwebsite.com');
-
 }
 
 define('APP_NAME', "My Webiste");
