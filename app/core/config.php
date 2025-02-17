@@ -10,7 +10,7 @@ if($_SERVER['SERVER_NAME'] == 'localhost')
 	define('DBDRIVER', '');
 
 	define('ROOT', dirname(dirname(__FILE__))); 
-	define('URLROOT', 'http://localhost/gl2/public');
+	define('URLROOT', 'http://localhost/Green-Lease/public');
 	
 
 }else
