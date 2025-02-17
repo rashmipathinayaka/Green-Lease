@@ -20,7 +20,7 @@
 					<li><a href="<?php echo URLROOT; ?>/Supervisor/Attendance">Attendance</a></li>
 				</ul>
 				<ul class="logout">
-					<li><a href="/gl/logout.php">Log Out</a></li>
+					<li><a href="/Greean-Lease/logout.php">Log Out</a></li>
 				</ul>
 			</div>
 </body>
