@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/registerlands.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/landowner/registerlands.css">
     <title>Register Land</title>
 </head>
 <body>
@@ -23,10 +23,26 @@ require ROOT . '/views/components/navbar.php';
 						<div class="form-group">
 							<label for="address">Address of the Land</label>
 							<input type="text" id="address" name="address" required="">
+
+							<label for="district">District</label>
+							<select id="district" name="district" required>
+								<option value="" disabled selected>Select District</option>
+								<option value="Matara">Matara</option>
+								<option value="Galle">Galle</option>
+								<option value="Hambanthota">Hambanthota</option>
+								<option value="Colombo">Colombo</option>
+								<option value="Anuradhapura">Anuradhapura</option>
+								<option value="Badulla">Badulla</option>
+								<option value="Gampaha">Gampaha</option>
+								<option value="Sabaragamuwa">Sabaragamuwa</option>
+							</select>
+
 							<label for="size">Size of the Land (In Sqm)</label>
 							<input type="number" id="size" name="size" required="">
+							
 							<label for="duration">Time Period for the Lease (In Years)</label>
 							<input type="number" id="duration" name="duration" required="">
+							
 							<label for="crop">Prefered Crop Type</label>
 							<select id="cropType" name="crop" required>
 								<option value="" disabled selected>Select a Crop Type</option>
