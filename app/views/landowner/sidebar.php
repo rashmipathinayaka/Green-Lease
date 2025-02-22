@@ -8,11 +8,9 @@
 </head>
 <body>
     <!-- Hamburger Menu Toggle Button -->
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
-    <!-- <button class="close-btn" onclick="toggleSidebar()">✖</button> -->
         <ul>
             <li>
                 <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
