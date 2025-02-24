@@ -12,7 +12,7 @@
 require ROOT . '/views/supervisor/sidebar.php';
 require ROOT . '/views/components/navbar.php';
 ?>
-<div id="event-schedule-section" class="section">
+<div id="event-schedule-section" >
 					<div class="worker-events-container">
 						<div class="worker-events-header">
 							<h2><i class="fas fa-calendar-check"></i> Today's Events</h2>

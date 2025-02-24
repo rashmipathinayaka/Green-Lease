@@ -13,7 +13,7 @@
 require ROOT . '/views/supervisor/sidebar.php';
 require ROOT . '/views/components/navbar.php';
 ?>
-<div id="manage-site-heads-section" class="section">
+<div id="manage-site-heads-section" >
 					<center>
 						<h1>Manage Site Heads</h1>
 					</center>

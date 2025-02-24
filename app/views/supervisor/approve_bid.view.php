@@ -13,7 +13,8 @@ require ROOT . '/views/supervisor/sidebar.php';
 require ROOT . '/views/components/navbar.php';
 ?>
 
-<div id="approve-bids-section" class="section">
+<div id="approve-bids-section" >
+
 					<center>
 						<h1>Manage Bids</h1>
 					</center>

@@ -12,7 +12,7 @@
 require ROOT . '/views/supervisor/sidebar.php';
 require ROOT . '/views/components/navbar.php';
 ?>
-<div id="manage-issues-section" class="section">
+<div id="manage-issues-section" >
 					<!-- Tab Navigation -->
 					<div class="tab-navigation">
 						<button class="tab-btn active" onclick="switchTabs('pending-issues')">Pending Issues</button>

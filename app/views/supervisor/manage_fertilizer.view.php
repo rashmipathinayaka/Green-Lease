@@ -12,7 +12,7 @@
 require ROOT . '/views/supervisor/sidebar.php';
 require ROOT . '/views/components/navbar.php';
 ?>
-<div id="manage-fertilizer-section" class="section">
+<div id="manage-fertilizer-section" >
 					<!-- Tab Navigation -->
 					<div class="tab-navigation">
 						<button class="tab-btn active" onclick="switchTab('handle-request')">Handle Request</button>

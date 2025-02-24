@@ -12,7 +12,7 @@
 require ROOT . '/views/supervisor/sidebar.php';
 require ROOT . '/views/components/navbar.php';
 ?>
-<div id="manage-workers-section" class="section">
+<div id="manage-workers-section" >
 					<center>
 						<h1>Manage Workers</h1>
 					</center>

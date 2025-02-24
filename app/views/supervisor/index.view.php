@@ -18,7 +18,7 @@ require ROOT . '/views/components/navbar.php';
 			
 			
 			<div class="content">
-				<div id="dashboard-section" class="section">
+				<div id="dashboard-section" >
 					<div class="metric-grid">
 						<div class="metric-card">
 							<h3>Lands in the Zone</h3>
@@ -43,17 +43,17 @@ require ROOT . '/views/components/navbar.php';
 					<br>
 					<div class="projects-grid">
 						<div class="project-card">
-							<img src="hero.jpg" alt="Project Image" />
+							<img src="/assets/Images/hero.jpg" alt="Project Image" />
 							<p>Site Location</p>
 							<p>Crop Type</p>
 						</div>
 						<div class="project-card">
-							<img src="hero.jpg" alt="Project Image" />
+							<img src="/assets/Images/hero.jpg" alt="Project Image" />
 							<p>Site Location</p>
 							<p>Crop Type</p>
 						</div>
 						<div class="project-card">
-							<img src="hero.jpg" alt="Project Image" />
+							<img src="/assets/Images/hero.jpg" alt="Project Image" />
 							<p>Site Location</p>
 							<p>Crop Type</p>
 						</div>
@@ -61,7 +61,7 @@ require ROOT . '/views/components/navbar.php';
 				</div>
 				<!-- Manage Fertilizer Section -->
 				
-				<!-- </div> -->
+				<!-- this is comment -->
 				
 				
 				
