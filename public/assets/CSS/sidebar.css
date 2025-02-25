@@ -73,8 +73,9 @@
     transition: all 0.3s ease;
 }
 .logout {
-    position: absolute;
+    position: relative;
     bottom: 20px;
+    margin-top: auto;
     width: calc(100% - 30px);
     margin: 0 15px;
     padding: 12px 15px;

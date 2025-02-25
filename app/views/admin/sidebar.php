@@ -1,28 +1,85 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin.css">
-
-
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/sidebar.css">
     <title>Document</title>
 </head>
 <body>
-<div class="sidebar">
-            <ul>
-                <li><a href="<?php echo URLROOT; ?>/Admin/Index">Dashboard</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/manage_bids">Manage Bids</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/manage_buyers">Manage Buyers</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/manage_supervisor">Manage Supervisors</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/Manage_sitehead">Manage Site Heads</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/Manage_worker">Manage Workers</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/Manage_land">Manage Lands</a></li>
-                <li><a href="<?php echo URLROOT; ?>/Admin/Site_visit">Site Visits</a></li>
-            </ul>
-            <ul class="logout">
-                <li><a href="/gl/logout.php">Log Out</a></li>
-            </ul>
-        </div>
+    <!-- Hamburger Menu Toggle Button -->
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <ul>
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Admin/index">Dashboard</a>
+            </li>
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Admin/manage_bids">Manage Bids</a>
+            </li>
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Admin/manage_buyers">Manage Buyers</a>
+            </li>
+
+
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Admin/manage_supervisor">Manage Supervisors</a>
+            </li>
+
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Admin/Manage_sitehead">Manage Siteheads</a>
+            </li>
+
+
+            
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Admin/Manage_worker">Manage Workers</a>
+            </li>
+
+            
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Admin/Manage_land">Manage Lands</a>
+            </li>
+
+
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Admin/Site_visit">Site Visits</a>
+            </li>
+
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Green-Lease/marketplace">Marketplace</a>
+            </li>
+        </ul>
+
+        <!-- Logout Section -->
+        <ul class="logout">
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/logout.png" alt="Logout Icon" class="menu-icon">
+                <a href="#">Log Out</a>
+            </li>
+        </ul>
+
+    </div>
+
+    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
+    <!-- JavaScript for Sidebar Toggle -->
+    <script>
+        function toggleSidebar() {
+    const sidebar = document.getElementById("sidebar");
+    sidebar.classList.toggle("active");
+}
+
+    </script>
 </body>
 </html>
