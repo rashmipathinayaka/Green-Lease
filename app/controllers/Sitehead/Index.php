@@ -3,7 +3,7 @@
 /**
  * home class
  */
-class Issue
+class Index
 {
 	use Controller;
 
@@ -11,7 +11,7 @@ class Issue
 	{
 		
 
-		$this->view('supervisor/issue');
+		$this->view('sitehead/index');
 	}
 
 }
