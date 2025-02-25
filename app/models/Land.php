@@ -20,7 +20,8 @@ class Land
 		'duration',
 		'crop',
 		'document',
-		'status'
+		'status',
+		'district'
 		
 	];
 
@@ -47,4 +48,6 @@ class Land
 
 		return false;
 	}
+
+	
 }
