@@ -1,0 +1,87 @@
+@import url(../styles.css);
+
+.admin-container {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+  }
+  
+  @media (min-width: 769px) {
+    .admin-container {
+      flex-direction: row;
+    }
+  }
+  
+  /* Top Bar */
+  .top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+  }
+  
+  .user-actions {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-actions button {
+    background: none;
+    border: none;
+    font-size: 18px;
+    color: green;
+    cursor: pointer;
+    padding: 5px;
+    margin-left: 15px;
+  }
+
+  .logo-section {
+    padding: 20px;
+    text-align: center;
+  }
+
+
+  .menu-toggle {
+    display: block;
+    background: none;
+    border: none;
+    color: #f7efef;
+    font-size: 24px;
+    cursor: pointer;
+  }
+  
+  @media (min-width: 769px) {
+    .menu-toggle {
+      display: none;
+    }
+  }
+
+
+
+    
+  @media (max-width: 480px) {
+    .top-bar {
+      padding: 0 10px;
+    }
+  
+    .user-actions button {
+      width: 35px;
+      height: 35px;
+      margin-left: 10px;
+    }
+  }
+
+  .menu-icon {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
