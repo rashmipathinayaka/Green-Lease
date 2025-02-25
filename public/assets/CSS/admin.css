@@ -87,7 +87,7 @@ body {
   z-index: 999;
 }
 
-.sidebar .active{
+.sidebar.active {
   left: 0;
 }
 
@@ -120,6 +120,7 @@ body {
   font-weight: 500;
   transition: background-color 0.3s;
 }
+
 .sidebar ul li a:hover {
   background-color: white;
   color: green;
@@ -863,3 +864,4 @@ body {
 body {
   padding-top: 70px; /* Same as navbar height */
 }
+
