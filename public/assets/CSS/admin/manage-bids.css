@@ -84,6 +84,7 @@
       margin: 20px 0;
       font-family: "Segoe UI", sans-serif;
       background: transparent;
+      padding: 20px;
     }
     
     /* Header Styles */
@@ -337,18 +338,146 @@
       }
     }
     
-    /* Ensure sidebar is visible on larger screens */
-    @media (min-width: 769px) {
-      body {
-        padding-left: 250px;
-      }
-    
-      .sidebar {
-        left: 0;
-      }
-    
-      .content {
-        margin-left: 0;
-      }
-    }
-    
+/* Metric Cards Styling */
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+  padding: 20px;
+}
+
+.metric-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.metric-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.metric-card h3 {
+  font-size: 18px;
+  color: green;
+  margin-bottom: 15px;
+}
+
+.metric-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.metric-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: black;
+}
+
+.metric-content i {
+  font-size: 36px;
+  color: green;
+}
+
+.metric-card button {
+  width: 100%;
+  padding: 10px;
+  background-color: black;
+  color: rgb(254, 252, 252);
+  border: none;
+  border-radius: 5px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.metric-card button:hover {
+  background-color: green;
+}
+
+.projects-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+
+.project-card {
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.project-card img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+.project-card p {
+  font-size: 18px;
+  margin: 5px 0;
+  color: black;
+}
+
+
+
+
+
+.projects-grid {
+  display: grid
+;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+user agent stylesheet
+div {
+  display: block;
+  unicode-bidi: isolate;
+}
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f4f6f9;
+  color: green;
+  font-size: 16px;
+  padding-top: 60px;
+}
+
+.bidding{
+  background-color: #01b546;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(63, 63, 63, 0.1);
+  padding: 7px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 60%;
+  color:white;
+  
+}
+
+.bidding:hover {
+  background-color: #000000;
+}
