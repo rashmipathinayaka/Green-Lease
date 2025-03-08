@@ -21,6 +21,7 @@ class Registerland
                 'duration'  => $_POST['duration'] ?? null,
                 'crop' => $_POST['crop'] ?? null,
                 'document' => null, // Default to null
+                'status'=>'pending',
             ];
         
             // Define upload directory
@@ -34,7 +35,7 @@ class Registerland
             // Check if a file was uploaded
             if (isset($_FILES['document']) && $_FILES['document']['error'] == UPLOAD_ERR_OK) {
                 $fileName = time() . "_" . basename($_FILES['document']['name']); // Add timestamp to avoid duplicate names
-                $targetFilePath = "/" .$uploadDir . $fileName;
+                $targetFilePath = $uploadDir . $fileName;
         
                 if (move_uploaded_file($_FILES['document']['tmp_name'], $targetFilePath)) {
                     $formData['document'] = $targetFilePath; // Save the file path
@@ -48,6 +49,9 @@ class Registerland
             // Validate and insert data
             if ($registerland->validate($formData) && empty($data['errors'])) {
                 $registerland->insert($formData);
+                header("Location: " . URLROOT . "/landowner/registeredland");
+                exit();
+            
             } else {
                 echo "Data insertion failed.";
             }

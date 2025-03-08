@@ -1,5 +1,5 @@
-.sidebar {
-    margin-top: 0; /* Remove margin to align with top */
+/* .sidebar {
+    margin-top: 0; 
     width: 250px;
     background: linear-gradient(11deg, #052610 0%, #0a8911 100%);
     position: fixed;
@@ -10,7 +10,26 @@
     transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 999;
     box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+} */
+.sidebar {
+    margin-top: 0;
+    width: 250px;
+    background: linear-gradient(11deg, #052610 0%, #0a8911 100%);
+    position: fixed;
+    top: 60px;
+    bottom: 0;
+    left: -250px;
+    overflow-y: auto;
+    transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 999;
+    box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
+    /* Adding padding at the bottom to make room for the logout button */
+    padding-bottom: 70px;
+    display: flex;
+    flex-direction: column;
+ /* Adjust this value based on the height of your logout button */
 }
+
 
 
 .sidebar.active {
@@ -62,36 +81,29 @@
 
 
 
-.logout {
+/* .logout {
     position: absolute;
     bottom: 20px;
     width: calc(100% - 30px);
     margin: 0 15px;
     padding: 12px 15px;
     border-radius: 10px;
-    /* background: rgba(255, 255, 255, 0.1); */
     transition: all 0.3s ease;
-}
+} */
 .logout {
-    position: relative;
-    bottom: 20px;
-    margin-top: auto;
-    width: calc(100% - 30px);
-    margin: 0 15px;
-    padding: 12px 15px;
-    border-radius: 10px;
-    /* background: rgba(255, 255, 255, 0.1); */
-    transition: all 0.3s ease;
+    padding: 15px;
     display: flex;
     align-items: center;
-    gap: 10px; /* Ensure spacing between icon and text */
+    justify-content: center;
+    gap: 10px;
+    flex-shrink: 0; /* Prevent shrinking */
+    margin-top: auto; /* Push to bottom */
+    text-decoration: none;
 }
-
 .logout i {
     width: 20px;
     height: 20px;
 }
-
 
 
 
@@ -224,4 +236,7 @@ li a {
 .sidebar.active .close-btn {
     display: block;
 }
+
+
+
 

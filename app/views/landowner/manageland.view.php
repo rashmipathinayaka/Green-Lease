@@ -105,14 +105,16 @@
 								<?php endif; ?>
 							</td>
 							<td>
-								<?= $land->status === 1 ? "  Active" : "Inactive" ?>
+							<?= htmlspecialchars($land->status) ?>
 							</td>
 							<td>
-								<?php if ($land->status === 0): ?>
+								<?php if ($land->status === 'inactive'): ?>
 									<button class="red-btn" onclick="openModal('<?= URLROOT ?>/Landowner/Manageland/deleteland/<?php echo $land->id; ?>')">Remove</button>
-								<?php else: ?>
+								<?php elseif($land->status === 'active' || $land->status === 'completed'): ?>
 									<button class="green-btn">View project</button>
-								<?php endif; ?>
+									<?php else:?>
+										<span class="status-pending">Pending for approval</span>
+										<?php endif; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>

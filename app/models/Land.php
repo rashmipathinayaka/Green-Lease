@@ -49,5 +49,49 @@ class Land
 		return false;
 	}
 
+	public function countLandsByUserId($userId) {
+
+$query = "SELECT COUNT(*) FROM lands WHERE landowner_id = :landowner_id";
+$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
+
+// Call query
+$result = $this->query($query, $data);
+return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+}
+
 	
+
+
+public function countProjectsByUserId($userId) {
+
+	$query = "SELECT COUNT(*) FROM lands WHERE landowner_id = :landowner_id AND status='active'";
+	$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
+	
+	// Call query
+	$result = $this->query($query, $data);
+	return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+	}
+	
+
+	public function countcompletedProjectsByUserId($userId) {
+
+		$query = "SELECT COUNT(*) FROM lands WHERE landowner_id = :landowner_id AND status='completed'";
+		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
+		
+		// Call query
+		$result = $this->query($query, $data);
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+		}
+
+		
+		public function countinactivelandsByUserId($userId) {
+
+			$query = "SELECT COUNT(*) FROM lands WHERE landowner_id = :landowner_id AND status='inactive'";
+			$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
+			
+			// Call query
+			$result = $this->query($query, $data);
+			return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+			}
+
 }
