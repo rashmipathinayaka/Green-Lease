@@ -27,11 +27,14 @@ require ROOT . '/views/components/navbar.php';
                     <div class="metric-card">
                         <h3>Registered Lands</h3>
                         <div class="metric-content">
-                            <span class="metric-value">27</span>
+                            <span class="metric-value">
+                            <?php echo !empty($landCount) ? htmlspecialchars($landCount) :1; ?>
+
+                            </span>
                             <i class="fas fa-seedling"></i>
                         </div>
-                        <button onclick="showSection('manage-lands-section')">View</button>
-                    </div>
+                        <button onclick="window.location.href='<?= URLROOT ?>/admin/manage_land/'">View</button>
+                        </div>
                     <div class="metric-card">
                         <h3>Supervisor Count</h3>
                         <div class="metric-content">
@@ -43,10 +46,13 @@ require ROOT . '/views/components/navbar.php';
                     <div class="metric-card">
                         <h3>Total Bids</h3>
                         <div class="metric-content">
-                            <span class="metric-value">40</span>
+                            <span class="metric-value">
+                            <?php echo !empty($bidCount) ? htmlspecialchars($bidCount) :1; ?>
+
+                            </span>
                             <i class="fas fa-briefcase"></i>
                         </div>
-                        <button onclick="showSection('manage-bids-section')">View</button>
+                        <button onclick="window.location.href='<?= URLROOT ?>/admin/manage_bids/'">View</button>
                     </div>
                     <div class="metric-card">
                         <h3>Buyer Count</h3>

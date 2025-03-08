@@ -94,4 +94,15 @@ public function countProjectsByUserId($userId) {
 			return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
 			}
 
+
+			public function countLands()
+			{
+				$query = "SELECT COUNT(*) AS total FROM lands";  
+				$result = $this->query($query);
+				
+				return $result ? (int) $result[0]->total : 0;  // Access total as an object property
+			}
+			
+
+
 }
