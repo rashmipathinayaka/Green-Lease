@@ -1,0 +1,146 @@
+/* Reset default margin and padding */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Set up the body with a background image */
+body {
+    font-family: 'Arial', sans-serif;
+    background-image: url('../../Images/registeredland.jpg'); /* Replace with your actual image path */
+   
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #333;
+    padding: 20px;
+}
+
+/* Main heading styles */
+h1 {
+    color: #fff;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    margin-bottom: 2rem;
+    text-align: center;
+    font-size: 3rem;
+    line-height: 1.4;
+}
+
+/* Transparent box with blur behind it */
+.box {
+    position: relative;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(181, 177, 177, 0.272);
+    
+    max-width: 80%;
+    width: 600px;
+    margin-bottom: 2rem;
+    border: 1px solid rgba(188, 183, 183, 0.539);
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Create a blurred background behind the box content */
+.box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: inherit;
+    background-image: url('../../Images/registeredland.jpg'); /* Should match the body background */
+    opacity: 0.7;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    filter: blur(8px);
+    z-index: -1;
+}
+
+/* Semi-transparent overlay for the box */
+.box::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255, 255, 255, 0.164);
+    z-index: -1;
+}
+
+/* Box topic/heading */
+.topic {
+    text-align: center;
+    font-size: 1.7rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    color: #39e942; /* Green color matching the button */
+    border-bottom: 2px solid #2e7d32;
+    padding-bottom: 0.5rem;
+    position: relative;
+    z-index: 2;
+}
+
+/* Box content */
+.box-body {
+    text-align: justify;
+    line-height: 1.6;
+    font-size: 1.2rem;
+    position: relative;
+    z-index: 2;
+    color: aliceblue;
+}
+
+/* Green button */
+.green-btn {
+    background-color: #2e7d32; /* Dark green */
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: bold;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.green-btn:hover {
+    background-color: #1b5e20; /* Darker green on hover */
+}
+
+.green-btn:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.3);
+}
+
+/* Make the page responsive */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 1.6rem;
+    }
+    
+    .box {
+        width: 95%;
+        padding: 1.5rem;
+    }
+    
+    .topic {
+        font-size: 1.3rem;
+    }
+    
+    .box-body {
+        font-size: 1rem;
+    }
+}
