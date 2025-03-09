@@ -1,3 +1,5 @@
+<?php require_once '../../core/init.php'; ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +17,7 @@
 <?php
 
 require ROOT . '/views/admin/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 
 ?>
 
