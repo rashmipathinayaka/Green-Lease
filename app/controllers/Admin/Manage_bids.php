@@ -10,7 +10,7 @@ class Manage_bids
 
 	public function __construct() {
         // Initialize the Sitehead model
-        $this->harvest = new Harvest();
+        $this->harvest = new RHarvest();
     }
 
 	public function index()

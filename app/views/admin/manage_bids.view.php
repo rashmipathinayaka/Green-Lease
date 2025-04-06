@@ -14,7 +14,7 @@
     <?php
 
     require ROOT . '/views/admin/sidebar.php';
-    require ROOT . '/views/components/navbar.php';
+    require ROOT . '/views/components/topbar.php';
 
     ?>
 
@@ -30,15 +30,16 @@
                         <img src="<?php echo URLROOT; ?>/assets/images/hero.jpg" alt="Project Image" />
 
                         <!-- Display the site location -->
-                        <p>Site Location: <?php echo htmlspecialchars($item->harvest_id); ?></p>
+                        <p>Site Location: <?php echo htmlspecialchars($item->id); ?></p>
 
                         <!-- Display the crop type -->
-                        <p>Crop Type: <?php echo htmlspecialchars($item->amount); ?></p>
+                        <p>Expected amount(kg): <?php echo htmlspecialchars($item->max_amount); ?></p>
+                        <p>Remaining amount(kg): <?php echo htmlspecialchars($item->rem_amount); ?></p>
 
                         <!-- Display additional harvest details if needed -->
                         <p>Harvest Date: <?php echo htmlspecialchars($item->harvest_date); ?></p>
                         <form action="<?= URLROOT ?>/Admin/Bidding" method="POST">
-                            <input type="hidden" name="harvest_id" value="<?php echo $item->harvest_id; ?>">
+                            <input type="hidden" name="harvest_id" value="<?php echo $item->id; ?>">
                             <button type="submit" class="bidding">View All Biddings</button>
                         </form>
                     </div>

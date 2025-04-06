@@ -3,7 +3,7 @@
 /**
  * User class
  */
-class Land
+class RLand
 {
 
 	use Model;
@@ -20,10 +20,10 @@ class Land
 		'address',
 		'size',
 		'duration',
-		'crop',
+		'crop_type',
 		'document',
 		'status',
-		'district'
+		'zone'
 
 	];
 
@@ -46,6 +46,15 @@ class Land
 		}
 
 		return false;
+	}
+
+
+	//for landowners managelands
+	public function findlandsbyuserid($userId){
+		$query = "select * from land where landowner_id = $userId";
+		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
+
+		return $this->query($query);
 	}
 
 	public function countLandsByUserId($userId)
@@ -77,7 +86,7 @@ class Land
 	{
 
 		$query = "SELECT COUNT(*) FROM land WHERE status='active'";
-		 // Make sure 'userId' is passed correctly
+		// Make sure 'userId' is passed correctly
 
 		// Call query
 		$result = $this->query($query);
@@ -147,35 +156,31 @@ class Land
 	}
 
 	public function findCompletedProjects($userId)
-{
-    $query = "SELECT * FROM land WHERE status = 'completed' AND landowner_id = :landowner_id";
-    
-    $data = [':landowner_id' => $userId];
-    
-    return $this->query($query, $data);
-}
+	{
+		$query = "SELECT * FROM land WHERE status = 'completed' AND landowner_id = :landowner_id";
 
-//bar chart
-public function findRegisteredYear() {
-    $yearLabels = [];
-    $yearData = [];
+		$data = [':landowner_id' => $userId];
 
-    $query = "SELECT YEAR(registered_date) AS year, COUNT(*) AS count FROM land GROUP BY year ORDER BY year";
+		return $this->query($query, $data);
+	}
 
-    $stmt = $this->query($query);
+	//bar chart
+	public function findRegisteredYear()
+	{
+		$yearLabels = [];
+		$yearData = [];
 
-    if ($stmt) {
-        foreach ($stmt as $row) {
-            $yearLabels[] = $row->year;
-            $yearData[] = $row->count;
-        }
-    }
+		$query = "SELECT YEAR(registered_date) AS year, COUNT(*) AS count FROM land GROUP BY year ORDER BY year";
 
-    return ['labels' => $yearLabels, 'data' => $yearData];
-}
+		$stmt = $this->query($query);
 
+		if ($stmt) {
+			foreach ($stmt as $row) {
+				$yearLabels[] = $row->year;
+				$yearData[] = $row->count;
+			}
+		}
 
-
-
-
+		return ['labels' => $yearLabels, 'data' => $yearData];
+	}
 }

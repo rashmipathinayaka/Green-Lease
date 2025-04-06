@@ -586,9 +586,9 @@ padding-left: 20px;
 }
 
 .project-card {
-  background-color: #fff;
+  background-color: #44de7838;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.24);
   padding: 20px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;

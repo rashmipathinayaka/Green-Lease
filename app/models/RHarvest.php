@@ -1,6 +1,6 @@
 <?php
 
-class Harvest
+class RHarvest
 {
     use Model;
 
@@ -9,7 +9,7 @@ class Harvest
     protected $allowedColumns = [
        'id',
        
-       'project-id',
+       'project_id',
        
        'harvest_date',
        'rem_amount',
@@ -27,16 +27,16 @@ public function findAll()
 public function getCapacity($harvest_id)
     {
         // Prepare the SQL query
-        $query = "SELECT capacity FROM harvest WHERE harvest_id = :harvest_id";
+        $query = "SELECT max_amount FROM harvest WHERE id = :id";
 
         // Bind the parameter
-        $data = [':harvest_id' => $harvest_id];
+        $data = [':id' => $harvest_id];
 
         // Execute the query
         $result = $this->query($query, $data);
 
         // Return the capacity if found, otherwise return null
-        return $result ? (int) $result[0]->capacity : null;
+        return $result ? (int) $result[0]->max_amount : null;
     }
 }
 

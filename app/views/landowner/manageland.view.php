@@ -14,7 +14,7 @@
 <body>
 	<?php
 	require ROOT . '/views/landowner/sidebar.php';
-	require ROOT . '/views/components/navbar.php';
+    require ROOT . '/views/components/topbar.php';
 	?>
 
 	<div id="manage-lands-section">
@@ -41,7 +41,7 @@
 							<td><?= htmlspecialchars($land->id) ?></td>
 							<td><?= htmlspecialchars($land->address) ?></td>
 							<td><?= htmlspecialchars($land->size) ?> Sqm</td>
-							<td><?= htmlspecialchars($land->crop) ?></td>
+							<td><?= htmlspecialchars($land->crop_type) ?></td>
 							<td>
 								<?php if (!empty($land->document)): ?>
 									<a href="<?php echo URLROOT . '/' .  $land->document; ?>" target="_blank">

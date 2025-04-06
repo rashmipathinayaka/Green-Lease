@@ -8,7 +8,7 @@ class Registerland
     
     public function index()
     {
-        $registerland = new Land();
+        $registerland = new RLand();
         $data = [
             'errors' => [], // Initialize errors
         ];
@@ -16,10 +16,10 @@ class Registerland
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formData = [
                 'address' => $_POST['address'] ?? null,
-                'district' => $_POST['district'] ?? null,
+                'zone' => $_POST['district'] ?? null,
                 'size' => $_POST['size'] ?? null,
                 'duration'  => $_POST['duration'] ?? null,
-                'crop' => $_POST['crop'] ?? null,
+                'crop_type' => $_POST['crop_type'] ?? null,
                 'document' => null, // Default to null
                 'status'=>'pending',
             ];

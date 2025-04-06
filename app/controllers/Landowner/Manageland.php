@@ -8,12 +8,12 @@ class Manageland {
 
     public function __construct() {
         // Initialize the Land model in the constructor
-        $this->manageland = new Land();
+        $this->manageland = new RLand();
     }
 
     public function index() {
-       
-        $lands = $this->manageland->findAll();
+       $userId=19;
+        $lands = $this->manageland->findlandsbyuserid($userId);
             
         $this->view('landowner/manageland', ['lands' => $lands]);
     }
