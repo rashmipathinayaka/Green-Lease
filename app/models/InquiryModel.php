@@ -4,7 +4,7 @@ class InquiryModel
 {
     use Model; // Use the Model trait to inherit insert functionality
 
-    protected $table = 'inquiries';
+    protected $table = 'inquiry';
 
     protected $allowedColumns = [
         'name',

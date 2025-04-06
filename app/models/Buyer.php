@@ -4,7 +4,7 @@ class Bid
 {
     use Model;
 
-    protected $table = 'bids';
+    protected $table = 'bid';
 
     protected $allowedColumns = [
        'bid-id',

@@ -4,21 +4,22 @@ class Harvest
 {
     use Model;
 
-    protected $table = 'harvests';
+    protected $table = 'harvest';
 
     protected $allowedColumns = [
-       'harvest_id',
-       'buyer-id',
+       'id',
+       
        'project-id',
-       'amount',
+       
        'harvest_date',
-       'capacity',
+       'rem_amount',
+       'max_amount'
        
     ];
 
 public function findAll()
 {
-    $query = "select * from harvests ";
+    $query = "select * from harvest ";
 
 		return $this->query($query);
 }
@@ -26,7 +27,7 @@ public function findAll()
 public function getCapacity($harvest_id)
     {
         // Prepare the SQL query
-        $query = "SELECT capacity FROM harvests WHERE harvest_id = :harvest_id";
+        $query = "SELECT capacity FROM harvest WHERE harvest_id = :harvest_id";
 
         // Bind the parameter
         $data = [':harvest_id' => $harvest_id];

@@ -8,7 +8,7 @@ class Land
 
 	use Model;
 
-	protected $table = 'lands';
+	protected $table = 'land';
 
 	// protected $order_column = 'landID';
 
@@ -51,7 +51,7 @@ class Land
 	public function countLandsByUserId($userId)
 	{
 
-		$query = "SELECT COUNT(*) FROM lands WHERE landowner_id = :landowner_id";
+		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id";
 		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
 
 		// Call query
@@ -65,7 +65,7 @@ class Land
 	public function countProjectsByUserId($userId)
 	{
 
-		$query = "SELECT COUNT(*) FROM lands WHERE landowner_id = :landowner_id AND status='active'";
+		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='active'";
 		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
 
 		// Call query
@@ -76,7 +76,7 @@ class Land
 	public function countOngoingProjects()
 	{
 
-		$query = "SELECT COUNT(*) FROM lands WHERE status='active'";
+		$query = "SELECT COUNT(*) FROM land WHERE status='active'";
 		 // Make sure 'userId' is passed correctly
 
 		// Call query
@@ -87,7 +87,7 @@ class Land
 	public function countcompletedProjectsByUserId($userId)
 	{
 
-		$query = "SELECT COUNT(*) FROM lands WHERE landowner_id = :landowner_id AND status='completed'";
+		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='completed'";
 		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
 
 		// Call query
@@ -98,7 +98,7 @@ class Land
 	public function countcompletedProjects()
 	{
 
-		$query = "SELECT COUNT(*) FROM lands WHERE  status='completed'";
+		$query = "SELECT COUNT(*) FROM land WHERE  status='completed'";
 
 		// Call query
 		$result = $this->query($query);
@@ -108,7 +108,7 @@ class Land
 	public function countinactivelandsByUserId($userId)
 	{
 
-		$query = "SELECT COUNT(*) FROM lands WHERE landowner_id = :landowner_id AND status='inactive'";
+		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='inactive'";
 		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
 
 		// Call query
@@ -120,7 +120,7 @@ class Land
 	public function countinactivelands()
 	{
 
-		$query = "SELECT COUNT(*) FROM lands WHERE  status='inactive'";
+		$query = "SELECT COUNT(*) FROM land WHERE  status='inactive'";
 
 		// Call query
 		$result = $this->query($query);
@@ -130,7 +130,7 @@ class Land
 
 	public function countLands()
 	{
-		$query = "SELECT COUNT(*) AS total FROM lands";
+		$query = "SELECT COUNT(*) AS total FROM land";
 		$result = $this->query($query);
 
 		return $result ? (int) $result[0]->total : 0;  // Access total as an object property
@@ -139,7 +139,7 @@ class Land
 
 	public function findOngoingProjects($userId)
 	{
-		$query = "SELECT * FROM lands WHERE status = 'active' AND landowner_id = :landowner_id";
+		$query = "SELECT * FROM land WHERE status = 'active' AND landowner_id = :landowner_id";
 
 		$data = [':landowner_id' => $userId];
 
@@ -148,7 +148,7 @@ class Land
 
 	public function findCompletedProjects($userId)
 {
-    $query = "SELECT * FROM lands WHERE status = 'completed' AND landowner_id = :landowner_id";
+    $query = "SELECT * FROM land WHERE status = 'completed' AND landowner_id = :landowner_id";
     
     $data = [':landowner_id' => $userId];
     
@@ -160,7 +160,7 @@ public function findRegisteredYear() {
     $yearLabels = [];
     $yearData = [];
 
-    $query = "SELECT YEAR(registered_date) AS year, COUNT(*) AS count FROM lands GROUP BY year ORDER BY year";
+    $query = "SELECT YEAR(registered_date) AS year, COUNT(*) AS count FROM land GROUP BY year ORDER BY year";
 
     $stmt = $this->query($query);
 

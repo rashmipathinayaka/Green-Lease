@@ -3,7 +3,7 @@ class Bid
 {
     use Model;
 
-    protected $table = 'bids';
+    protected $table = 'bid';
 
     protected $allowedColumns = [
         'bid_id',
@@ -21,7 +21,7 @@ class Bid
      */
     public function countbids()
     {
-        $query = "SELECT COUNT(*) AS total FROM bids";
+        $query = "SELECT COUNT(*) AS total FROM bid";
         $result = $this->query($query);
 
         return $result ? (int) $result[0]->total : 0; // Access total as an object property
@@ -38,7 +38,7 @@ class Bid
     public function getBiddingsByHarvestId($harvest_id, $capacity)
     {
         // Fetch all bids for the given harvest_id
-        $query = "SELECT * FROM bids WHERE harvest_id = :harvest_id";
+        $query = "SELECT * FROM bid WHERE harvest_id = :harvest_id";
         $data = [':harvest_id' => $harvest_id];
         $bids = $this->query($query, $data);
 
