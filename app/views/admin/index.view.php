@@ -1,5 +1,3 @@
-<?php require_once '../../core/init.php'; ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,29 +12,29 @@
 </head>
 
 <body>
-<?php
+    <?php
 
-require ROOT . '/views/admin/sidebar.php';
-require ROOT . '/views/components/topbar.php';
+    require ROOT . '/views/admin/sidebar.php';
+    require ROOT . '/views/components/topbar.php';
 
-?>
+    ?>
 
     <div class="admin-container">
-       
+
         <div class="content">
-            <div id="dashboard-section" class="section">
+            <div id="dashboard-section">
                 <div class="metric-grid">
                     <div class="metric-card">
                         <h3>Registered Lands</h3>
                         <div class="metric-content">
                             <span class="metric-value">
-                            <?php echo !empty($landCount) ? htmlspecialchars($landCount) :1; ?>
+                                <?php echo !empty($landCount) ? htmlspecialchars($landCount) : 1; ?>
 
                             </span>
                             <i class="fas fa-seedling"></i>
                         </div>
                         <button onclick="window.location.href='<?= URLROOT ?>/admin/manage_land/'">View</button>
-                        </div>
+                    </div>
                     <div class="metric-card">
                         <h3>Supervisor Count</h3>
                         <div class="metric-content">
@@ -49,7 +47,7 @@ require ROOT . '/views/components/topbar.php';
                         <h3>Total Bids</h3>
                         <div class="metric-content">
                             <span class="metric-value">
-                            <?php echo !empty($bidCount) ? htmlspecialchars($bidCount) :1; ?>
+                                <?php echo !empty($bidCount) ? htmlspecialchars($bidCount) : 1; ?>
 
                             </span>
                             <i class="fas fa-briefcase"></i>
@@ -108,15 +106,96 @@ require ROOT . '/views/components/topbar.php';
                 </table>
             </div>
 
-           
 
-            
+            <div class="charts">
+                <div class="chart-box">
+                    <div class="chart-title">Project Distribution</div>
+                    <canvas id="landPieChart"></canvas>
+                <div class="landPieChart">
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <script>
+                        const ctx = document.getElementById('landPieChart').getContext('2d');
 
-           
+                        const landPieChart = new Chart(ctx, {
+                            type: 'pie',
+                            data: {
+                                labels: ['Ongoing', 'Unused', 'Completed'],
+                                datasets: [{
+                                    label: 'Land count',
+                                    data: [<?= $ongoing ?>, <?= $unused ?>, <?= $completed ?>],
+                                    backgroundColor: ['#ce39ad', '#22c298', '#d62115'],
+                                    borderColor: '#fff',
+                                    borderWidth: 1
+                                }]
+                            },
+                            options: {
+                                responsive: true,
+                                plugins: {
+                                    legend: {
+                                        position: 'bottom',
+                                    },
+                                    title: {
+                                        display: true,
+                                        text: ''
+                                    }
+                                }
+                            }
+                        });
+                    </script>
+                </div>
+                </div>
 
-      
-     
-    </div>
+
+
+                <div class="chart-box">
+                    <div class="chart-title">Lands Registered Per Year</div>
+                    <br><br><br><br><br><br><br>
+                    <canvas id="landBarChart"></canvas>
+                   
+                <div class="landBarChart">
+
+
+                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+                    <br><br>
+                    <script>
+                        const barctx = document.getElementById('landBarChart').getContext('2d');
+
+                        const landBarChart = new Chart(barctx, {
+    type: 'bar',
+    data: {
+        labels: <?= json_encode($yearLabels); ?>,
+        datasets: [{
+            label: 'Lands Registered',
+            data: <?= json_encode($yearData); ?>,
+            backgroundColor: 'rgba(66, 191, 52, 0.6)',
+            borderColor: 'rgba(54, 162, 235, 1)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        animation: {
+            duration: 1500,
+            easing: 'easeOutBounce'
+        },
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: { display: true, text: 'Number of Lands' }
+            },
+            x: {
+                title: { display: true, text: 'Year' }
+            }
+        }
+    }
+});
+
+                    </script>
+                </div>
+            </div></div>
 </body>
 
 </html>
