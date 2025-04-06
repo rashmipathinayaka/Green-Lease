@@ -8,7 +8,7 @@ class Supervisor
 	
 	use Model;
 
-	protected $table = 'supervisors';
+	protected $table = 'supervisor';
 
 
 
