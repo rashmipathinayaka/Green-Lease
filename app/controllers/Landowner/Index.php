@@ -10,7 +10,7 @@ class Index
 
     public function __construct() {
         // Initialize the Land model in the constructor
-        $this->lands = new Land();
+        $this->lands = new RLand();
     }
 
 

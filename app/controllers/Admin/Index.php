@@ -8,8 +8,8 @@ class Index
 	private $bids;
 
 	public function __construct() {
-		$this->lands = new Land();
-		$this->bids = new Bid();
+		$this->lands = new RLand();
+		$this->bids = new RBid();
 	}
 
 	public function index()

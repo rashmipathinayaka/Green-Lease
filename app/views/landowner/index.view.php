@@ -14,7 +14,7 @@
     <?php
 
     require ROOT . '/views/landowner/sidebar.php';
-    require ROOT . '/views/components/navbar.php';
+    require ROOT . '/views/components/topbar.php';
 
     ?>
 
@@ -83,7 +83,7 @@
 
                         <p>Land ID: <?php echo htmlspecialchars($land->id); ?></p>
 
-                        <p>Crop Type: <?php echo htmlspecialchars($land->crop); ?></p>
+                        <p>Crop Type: <?php echo htmlspecialchars($land->crop_type); ?></p>
 
                        <!-- methena redirect wena eka hadanna-->
 
@@ -117,7 +117,7 @@
 
                         <p>Land ID: <?php echo htmlspecialchars($item->id); ?></p>
 
-                        <p>Crop Type: <?php echo htmlspecialchars($item->crop); ?></p>
+                        <p>Crop Type: <?php echo htmlspecialchars($item->crop_type); ?></p>
 
                        <!-- methena redirect wena eka hadanna-->
 
