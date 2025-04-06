@@ -355,7 +355,7 @@ padding: 30px;
   .status-pending {
     display: inline-block;
     background-color: #e4da45; /* Light yellow background */
-    color: #14a23a; /* Amber/gold text color */
+    color: #096020; /* Amber/gold text color */
     border: 1px solid #FFEEBA; /* Light border color */
     border-radius: 14px;
     padding: 6px 12px;

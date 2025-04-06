@@ -32,7 +32,7 @@
                 <button onclick="window.location.href='<?= URLROOT ?>/Landowner/manageland/'">View</button>
             </div>
 
-            
+
             <div class="metric-card">
                 <h2>Ongoing Projects</h2>
                 <div class="metric-content">
@@ -73,47 +73,70 @@
 
 
         <h1>Ongoing Projects</h1><br><br>
-        <div id="ongoing-projects">
-            <div class="projects-grid">
-                <div class="project-card">
-                    <img src="<?php echo URLROOT; ?>/assets/images/hero.jpg" alt="Project Image" />
-                    <p>Site Location</p>
-                    <p>Crop Type</p>
-                </div>
-                <div class="project-card">
-                    <img src="<?php echo URLROOT; ?>/assets/images/hero.jpg" alt="Project Image" />
-                    <p>Site Location</p>
-                    <p>Crop Type</p>
-                </div>
-                <div class="project-card">
-                    <img src="<?php echo URLROOT; ?>/assets/images/hero.jpg" alt="Project Image" />
-                    <p>Site Location</p>
-                    <p>Crop Type</p>
-                </div>
-            </div>
+
+        <div id="completed-projects" >
+        <div class="projects-grid">
+            <?php if (!empty($lands)) : ?>
+                <?php foreach ($lands as $land) : ?>
+                    <div class="project-card">
+                        <img src="<?php echo URLROOT; ?>/assets/images/ongoing2.png" alt="Project Image" />
+
+                        <p>Land ID: <?php echo htmlspecialchars($land->id); ?></p>
+
+                        <p>Crop Type: <?php echo htmlspecialchars($land->crop); ?></p>
+
+                       <!-- methena redirect wena eka hadanna-->
+
+
+                        <form action="<?= URLROOT ?>/Admin/Bidding" method="POST">
+                            <input type="hidden" name="harvest_id" value="<?php echo $land->id; ?>">
+                            <button type="submit" class="bidding">View Project</button>
+                        </form>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>No harvest data found.</p>
+            <?php endif; ?>
         </div>
+    </div>
+
         <br><br> <br>
+
+
+
+
+
         <h1>Completed Projects</h1><br><br>
 
-        <div id="completed-projects">
-            <div class="projects-grid">
-                <div class="project-card">
-                    <img src="<?php echo URLROOT; ?>/assets/images/hero.jpg" alt="Project Image" />
-                    <p>Site Location</p>
-                    <p>Crop Type</p>
-                </div>
-                <div class="project-card">
-                    <img src="<?php echo URLROOT; ?>/assets/images/hero.jpg" alt="Project Image" />
-                    <p>Site Location</p>
-                    <p>Crop Type</p>
-                </div>
-                <div class="project-card">
-                    <img src="<?php echo URLROOT; ?>/assets/images/hero.jpg" alt="Project Image" />
-                    <p>Site Location</p>
-                    <p>Crop Type</p>
-                </div>
-            </div>
+        <div id="completed-projects" class="c" >
+        <div class="projects-grid">
+            <?php if (!empty($landz)) : ?>
+                <?php foreach ($landz as $item) : ?>
+                    <div class="project-card">
+                        <img src="<?php echo URLROOT; ?>/assets/images/tick.png" alt="Project Image" />
+
+                        <p>Land ID: <?php echo htmlspecialchars($item->id); ?></p>
+
+                        <p>Crop Type: <?php echo htmlspecialchars($item->crop); ?></p>
+
+                       <!-- methena redirect wena eka hadanna-->
+
+
+                        <form action="<?= URLROOT ?>/Admin/Bidding" method="POST">
+                            <input type="hidden" name="harvest_id" value="<?php echo $land->id; ?>">
+                            <button type="submit" class="bidding">View Project</button>
+                        </form>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>No harvest data found.</p>
+            <?php endif; ?>
         </div>
+    </div>
+
+        <br><br> <br>
+
+
     </div>
 </body>
 

@@ -11,6 +11,10 @@ body {
   font-size: 16px;
 }
 
+#completed-projects{
+padding-left: 20px;
+
+}
 /* Admin container */
 .admin-container {
   display: flex;
@@ -890,7 +894,7 @@ body {
 
 
 
-
+/* 
 body {
-  padding-top: 70px; /* Same as navbar height */
-}
+  padding-top: 70px; 
+} */
