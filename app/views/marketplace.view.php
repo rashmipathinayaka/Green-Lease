@@ -24,7 +24,7 @@
         </section>
 
         <div class="marketplace-grid" id="marketplaceGrid">
-            <!-- Listing Cards will be generated dynamically -->
+            <!-- JavaScript will populate cards here -->
         </div>
     </div>
 
@@ -55,133 +55,84 @@
     </div>
 
     <script>
-        const listings = <?php echo json_encode([
-            [
-                'title' => "Organic Wheat Harvest",
-                'location' => "Southwest Region",
-                'acreage' => "50 acres",
-                'expectedYield' => "200 tons",
-                'harvestDate' => "September 2024",
-                'minBid' => 45000,
-                'id' => 1
-            ],
-            [
-                'title' => "Organic Barley Harvest",
-                'location' => "Northwest Region",
-                'acreage' => "60 acres",
-                'expectedYield' => "300 tons",
-                'harvestDate' => "October 2024",
-                'minBid' => 50000,
-                'id' => 2
-            ],
-            [
-                'title' => "Organic Rice Harvest",
-                'location' => "East Region",
-                'acreage' => "80 acres",
-                'expectedYield' => "400 tons",
-                'harvestDate' => "November 2024",
-                'minBid' => 60000,
-                'id' => 3
-            ],
-            [
-                'title' => "Organic Corn Harvest",
-                'location' => "Central Plains",
-                'acreage' => "120 acres",
-                'expectedYield' => "600 tons",
-                'harvestDate' => "December 2024",
-                'minBid' => 70000,
-                'id' => 4
-            ],
-            [
-                'title' => "Organic Oats Harvest",
-                'location' => "Northern Highlands",
-                'acreage' => "40 acres",
-                'expectedYield' => "150 tons",
-                'harvestDate' => "January 2025",
-                'minBid' => 35000,
-                'id' => 5
-            ],
-            [
-                'title' => "Organic Soybean Harvest",
-                'location' => "Midwest Region",
-                'acreage' => "75 acres",
-                'expectedYield' => "500 tons",
-                'harvestDate' => "February 2025",
-                'minBid' => 55000,
-                'id' => 6
-            ],
-            [
-                'title' => "Organic Sunflower Harvest",
-                'location' => "Southeast Region",
-                'acreage' => "90 acres",
-                'expectedYield' => "400 tons",
-                'harvestDate' => "March 2025",
-                'minBid' => 65000,
-                'id' => 7
-            ],
-            [
-                'title' => "Organic Cotton Harvest",
-                'location' => "South Region",
-                'acreage' => "100 acres",
-                'expectedYield' => "800 tons",
-                'harvestDate' => "April 2025",
-                'minBid' => 80000,
-                'id' => 8
-            ],
-            [
-                'title' => "Organic Sugar Cane Harvest",
-                'location' => "West Coast Region",
-                'acreage' => "200 acres",
-                'expectedYield' => "1500 tons",
-                'harvestDate' => "May 2025",
-                'minBid' => 100000,
-                'id' => 9
-            ]
-        ]); ?>;
-
-
-
+        const listings = <?= json_encode($harvests) ?>;
         const marketplaceGrid = document.getElementById("marketplaceGrid");
-        // const loginRequiredModal = document.getElementById("loginRequiredModal");
+        const loginRequiredModal = document.getElementById("loginRequiredModal");
+        const confirmationModal = document.getElementById("confirmationModal");
+        const successModal = document.getElementById("successModal");
+        const confirmBidButton = document.getElementById("confirmBid");
+        const cancelBidButton = document.getElementById("cancelBid");
+        const closeSuccessModalButton = document.getElementById("closeSuccessModal");
 
-        function renderListings(filteredListings) {
+        function renderListings(data) {
             marketplaceGrid.innerHTML = "";
-            filteredListings.forEach(listing => {
+
+            if (!data.length) {
+                marketplaceGrid.innerHTML = "<p>No harvests found.</p>";
+                return;
+            }
+
+            data.forEach(harvest => {
                 const card = document.createElement("div");
-                card.classList.add("listing-card");
+                card.className = "listing-card";
                 card.innerHTML = `
                     <div class="listing-image"></div>
                     <div class="listing-content">
-                        <h2 class="listing-title">${listing.title}</h2>
+                        <h2 class="listing-title">${harvest.crop_type} Harvest</h2>
                         <div class="listing-details">
-                            <p><strong>Location:</strong> ${listing.location}</p>
-                            <p><strong>Acreage:</strong> ${listing.acreage}</p>
-                            <p><strong>Expected Yield:</strong> ${listing.expectedYield}</p>
-                            <p><strong>Harvest Date:</strong> ${listing.harvestDate}</p>
+                            <p>Location: ${harvest.address} (Zone ${harvest.zone})</p>
+                            <p>Land Size: ${harvest.size} Acres</p>
+                            <p>Harvest Date: ${harvest.harvest_date}</p>
+                            <p>Remaining: ${harvest.rem_amount} Tons</p>
                         </div>
-                        <div class="current-bid">Minimum Bid: $${listing.minBid}</div>
-                        <form class="bid-form" onsubmit="handleBid(event, ${listing.minBid})">
-                            <input type="number" placeholder="Enter your bid" class="bid-input" min="${listing.minBid}" step="1000">
+                        <div class="current-bid">Minimum Bid: $${harvest.min_bid}</div>
+                        <form class="bid-form">
+                            <input type="number" placeholder="Your bid" class="bid-input" min="${harvest.min_bid}" step="1000">
                             <button type="submit" class="bid-button">Place Bid</button>
                         </form>
                     </div>
                 `;
+                const bidForm = card.querySelector(".bid-form");
+                bidForm.addEventListener("submit", (event) => handleBid(event, harvest.max_amount));
                 marketplaceGrid.appendChild(card);
             });
         }
 
+        function filterAndSortListings() {
+            let filteredListings = [...listings];
+
+            const location = document.getElementById("locationFilter").value.toLowerCase();
+            if (location) {
+                filteredListings = filteredListings.filter(item =>
+                    item.address.toLowerCase().includes(location)
+                );
+            }
+
+            const type = document.getElementById("harvestTypeFilter").value.toLowerCase();
+            if (type) {
+                filteredListings = filteredListings.filter(item =>
+                    item.crop_type.toLowerCase().includes(type)
+                );
+            }
+
+            const sort = document.getElementById("sortBy").value;
+            if (sort === "price-asc") {
+                filteredListings.sort((a, b) => a.max_amount - b.max_amount);
+            } else if (sort === "price-desc") {
+                filteredListings.sort((a, b) => b.max_amount - a.max_amount);
+            } else if (sort === "date") {
+                filteredListings.sort((a, b) => new Date(a.harvest_date) - new Date(b.harvest_date));
+            }
+
+            renderListings(filteredListings);
+        }
+
         function handleBid(event, minBid) {
             event.preventDefault();
-            
-            // if (!isLoggedIn) {
-            //     loginRequiredModal.style.display = "flex";
-            //     return;
-            // }
+            const input = event.target.querySelector(".bid-input");
+            const value = parseInt(input.value, 10);
 
-            const bidInput = event.target.querySelector('.bid-input');
-            const bidValue = parseInt(bidInput.value, 10);
-
-            if (!bidValue || bidValue < minBid) {
+            if (!value || value < minBid) {
                 alert(`Your bid must be at least $${minBid}`);
                 return;
             }
@@ -193,47 +144,10 @@
             loginRequiredModal.style.display = "none";
         }
 
-        // Filter and sort functionality remains the same
-        function filterAndSortListings() {
-            let filteredListings = listings;
-
-            const locationFilter = document.getElementById("locationFilter").value.toLowerCase();
-            if (locationFilter) {
-                filteredListings = filteredListings.filter(listing => 
-                    listing.location.toLowerCase().includes(locationFilter)
-                );
-            }
-
-            const harvestTypeFilter = document.getElementById("harvestTypeFilter").value.toLowerCase();
-            if (harvestTypeFilter) {
-                filteredListings = filteredListings.filter(listing => 
-                    listing.title.toLowerCase().includes(harvestTypeFilter)
-                );
-            }
-
-            const sortBy = document.getElementById("sortBy").value;
-            if (sortBy === "price-asc") {
-                filteredListings.sort((a, b) => a.minBid - b.minBid);
-            } else if (sortBy === "price-desc") {
-                filteredListings.sort((a, b) => b.minBid - a.minBid);
-            } else if (sortBy === "date") {
-                filteredListings.sort((a, b) => new Date(a.harvestDate) - new Date(b.harvestDate));
-            }
-
-            renderListings(filteredListings);
-        }
-
-        // Event listeners
+        // Event Listeners
         document.getElementById("locationFilter").addEventListener("input", filterAndSortListings);
         document.getElementById("harvestTypeFilter").addEventListener("input", filterAndSortListings);
         document.getElementById("sortBy").addEventListener("change", filterAndSortListings);
-
-        // Modal event listeners
-        const confirmationModal = document.getElementById("confirmationModal");
-        const successModal = document.getElementById("successModal");
-        const confirmBidButton = document.getElementById("confirmBid");
-        const cancelBidButton = document.getElementById("cancelBid");
-        const closeSuccessModalButton = document.getElementById("closeSuccessModal");
 
         confirmBidButton.onclick = () => {
             confirmationModal.style.display = "none";
@@ -252,25 +166,15 @@
         };
 
         window.onclick = (event) => {
-            if (event.target === confirmationModal) {
-                confirmationModal.style.display = "none";
-            }
-            if (event.target === successModal) {
-                successModal.style.display = "none";
-            }
-            if (event.target === loginRequiredModal) {
-                loginRequiredModal.style.display = "none";
-            }
+            if (event.target === confirmationModal) confirmationModal.style.display = "none";
+            if (event.target === successModal) successModal.style.display = "none";
+            if (event.target === loginRequiredModal) loginRequiredModal.style.display = "none";
         };
 
-        // Initial render
+        // Initial Load
         renderListings(listings);
-
-        function toggleMenu() {
-            const navbarLinks = document.querySelector(".navbar-links");
-            navbarLinks.classList.toggle("active");
-        }
     </script>
+
     <?php include 'components/footer.php'; ?>
 </body>
 </html>

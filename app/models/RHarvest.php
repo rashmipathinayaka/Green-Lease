@@ -8,9 +8,7 @@ class RHarvest
 
     protected $allowedColumns = [
        'id',
-       
        'project_id',
-       
        'harvest_date',
        'rem_amount',
        'max_amount'
