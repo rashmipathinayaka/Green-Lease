@@ -12,18 +12,19 @@ class ReportIssue
 		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			// Get form data
 			$formData = [
-				'name' => $_POST['name'] ?? null,
+				'sitehead_id' => $_POST['sitehead_id'] ?? null,
 				'complaint_type' => $_POST['complaint-type'] ?? null,
 				'description' => $_POST['description'] ?? null,
 				'attachment' => $_FILES['attachment'] ?? null,
 			];
+			$formData['status'] = 'pending';
 
 			// Validate the data
 			$issueModel = new Issue();
 			if ($issueModel->validate($formData)) {
 				// // Handle file upload
 				if (!empty($formData['attachment']['name'])) {
-					$fileName = time() . '_' . $formData['attachment']['name'];
+					$fileName = time() . '_' . $_POST['sitehead_id'] . '_' . basename($formData['attachment']['name']);
 					$uploadDir = ROOT . '/../uploads/issues/';
 					if (!is_dir($uploadDir)) {
 						mkdir($uploadDir, 0777, true);
@@ -35,9 +36,9 @@ class ReportIssue
 				}
 
 				// Insert into database
-				if ($issueModel->insert($formData)) {
+				if (!($issueModel->insert($formData))) {
 					// Redirect or show success message
-					header('Location: ' . URLROOT . '/Sitehead/issues?status=success');
+					header('Location: ' . URLROOT . '/sitehead/ReportIssue/IssueSuccess');
 					exit;
 				} else {
 					$data['errors'][] = 'Failed to save the issue. Please try again.';
@@ -49,5 +50,11 @@ class ReportIssue
 
 		// Load the view with errors (if any)
 		$this->view('sitehead/issue', $data);
+	}
+
+
+	public function IssueSuccess()
+	{
+		$this->view('sitehead/issue_success');
 	}
 }

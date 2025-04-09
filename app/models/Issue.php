@@ -4,15 +4,14 @@ class Issue
 {
     use Model;
 
-    protected $table = 'issues';
+    protected $table = 'issue';
 
     protected $allowedColumns = [
-        'name',
+        'sitehead_id',
         'complaint_type',
         'description',
         'attachment',
         'status',
-        'created_at',
     ];
 
     public function validate($data)
@@ -20,8 +19,8 @@ class Issue
         $this->errors = [];
 
         // Validate name
-        if (empty($data['name'])) {
-            $this->errors['name'] = 'Name is required.';
+        if (empty($data['sitehead_id'])) {
+            $this->errors['sitehead_id'] = 'Sitehead_ID is required.';
         }
 
         // Validate complaint type

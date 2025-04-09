@@ -969,6 +969,62 @@ body {
   box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
 }
 
+#toastBox {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+}
+
+.toast {
+  background: #4BB543;
+  color: #fff;
+  padding: 16px 24px;
+  margin-bottom: 12px;
+  border-radius: 8px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+  position: relative;
+  overflow: hidden;
+  animation: slideIn 0.5s ease forwards;
+}
+
+.toast.error {
+  background: #D8000C;
+}
+
+.toast::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background: #fff;
+  width: 100%;
+  animation: progress 3s linear forwards;
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+
+
 @media (max-width: 768px) {
   .profile-container {
       padding: 20px;

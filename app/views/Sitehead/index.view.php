@@ -29,22 +29,7 @@
 						</div>
 						<button onclick="showSection('manage-workers-section')">View</button>
 					</div>
-					<div class="metric-card">
-						<h3>Supervisor Count</h3>
-						<div class="metric-content">
-							<span class="metric-value">20</span>
-							<i class="fas fa-user"></i>
-						</div>
-						<button onclick="showSection('manage-supervisors-section')">View</button>
-					</div>
-					<div class="metric-card">
-						<h3>Total Bids</h3>
-						<div class="metric-content">
-							<span class="metric-value">40</span>
-							<i class="fas fa-briefcase"></i>
-						</div>
-						<button onclick="showSection('manage-bids-section')">View</button>
-					</div>
+
 					<div class="metric-card">
 						<h3>Buyer Count</h3>
 						<div class="metric-content">
