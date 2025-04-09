@@ -11,7 +11,7 @@
 <?php
 
 require ROOT . '/views/admin/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 
 ?>
 <h2 font color='green'> The bids are arranged in the order which gives the highest profit </h2>
@@ -33,7 +33,7 @@ require ROOT . '/views/components/navbar.php';
                     <?php if ($bid !== null): ?> <!-- Skip null rows -->
                         <tr data-bid-id="<?= htmlspecialchars($bid->bid_id) ?>">
                             <td><?= htmlspecialchars($bid->buyer_id) ?></td>
-                            <td><?= htmlspecialchars($bid->bid_id) ?></td>
+                            <td><?= htmlspecialchars($bid->id) ?></td>
                             <td><?= htmlspecialchars($bid->amount) ?></td>
                             <td><?= htmlspecialchars($bid->unit_price) ?></td>
                             <td>

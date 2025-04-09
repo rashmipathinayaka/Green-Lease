@@ -9,7 +9,7 @@ class Manage_land
     private $manageland;
     public function __construct()
     {
-       $this-> manageland =new Land();
+       $this-> manageland =new RLand();
     }
 
 	public function index()

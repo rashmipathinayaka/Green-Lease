@@ -8,7 +8,7 @@ class Sitehead
 	
 	use Model;
 
-	protected $table = 'siteheads';
+	protected $table = 'sitehead';
 
 
 

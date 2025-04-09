@@ -4,7 +4,7 @@ class Issue
 {
     use Model;
 
-    protected $table = 'issues';
+    protected $table = 'issue';
 
     protected $allowedColumns = [
         'name',

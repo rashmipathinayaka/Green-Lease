@@ -1,15 +1,15 @@
 <?php
-class Bid
+class RBid
 {
     use Model;
 
-    protected $table = 'bids';
+    protected $table = 'bid';
 
     protected $allowedColumns = [
-        'bid_id',
+        'id',
         'buyer_id',
         'harvest_id',
-        'project_id',
+        'status',
         'amount',
         'unit_price',
     ];
@@ -21,7 +21,7 @@ class Bid
      */
     public function countbids()
     {
-        $query = "SELECT COUNT(*) AS total FROM bids";
+        $query = "SELECT COUNT(*) AS total FROM bid";
         $result = $this->query($query);
 
         return $result ? (int) $result[0]->total : 0; // Access total as an object property
@@ -38,7 +38,7 @@ class Bid
     public function getBiddingsByHarvestId($harvest_id, $capacity)
     {
         // Fetch all bids for the given harvest_id
-        $query = "SELECT * FROM bids WHERE harvest_id = :harvest_id";
+        $query = "SELECT * FROM bid WHERE harvest_id = :harvest_id";
         $data = [':harvest_id' => $harvest_id];
         $bids = $this->query($query, $data);
 
@@ -49,7 +49,7 @@ class Bid
         // Convert bids to the required format (array with 'amount' and 'profit')
         $formatted_bids = array_map(function ($bid) {
             return [
-                'bid_id' => $bid->bid_id,
+                'bid_id' => $bid->id,
                 'amount' => (int) $bid->amount,
                 'profit' => (int) $bid->amount * (float) $bid->unit_price, // Calculate profit
             ];
@@ -65,7 +65,7 @@ class Bid
         $selected = [];
         $non_selected = [];
         foreach ($bids as $bid) {
-            if (in_array($bid->bid_id, $selected_bid_ids)) {
+            if (in_array($bid->id, $selected_bid_ids)) {
                 $selected[] = $bid;
             } else {
                 $non_selected[] = $bid;

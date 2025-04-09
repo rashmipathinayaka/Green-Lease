@@ -9,8 +9,8 @@ class Bidding
     public function __construct()
     {
         // Initialize the Bid and Harvest models in the constructor
-        $this->bidding = new Bid();
-        $this->capacity = new Harvest();
+        $this->bidding = new RBid();
+        $this->capacity = new RHarvest();
     }
 
     public function index()

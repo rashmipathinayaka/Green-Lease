@@ -27,18 +27,18 @@ try {
     echo "<p style='color: green;'>✓ Database connection successful!</p>";
     
     // Test if users table exists
-    $stmt = $pdo->query("SHOW TABLES LIKE 'users'");
+    $stmt = $pdo->query("SHOW TABLES LIKE 'user'");
     if ($stmt->rowCount() > 0) {
         echo "<p style='color: green;'>✓ Users table exists</p>";
         
         // Count total users
-        $stmt = $pdo->query("SELECT COUNT(*) as total FROM users");
+        $stmt = $pdo->query("SELECT COUNT(*) as total FROM user");
         $count = $stmt->fetch();
         echo "<p>Total users in database: " . $count['total'] . "</p>";
         
         // Check table structure
         echo "<h3>Users Table Structure:</h3>";
-        $stmt = $pdo->query("DESCRIBE users");
+        $stmt = $pdo->query("DESCRIBE user");
         echo "<table border='1' cellpadding='5'>";
         echo "<tr><th>Field</th><th>Type</th><th>Null</th><th>Key</th><th>Default</th></tr>";
         while ($row = $stmt->fetch()) {
@@ -54,7 +54,7 @@ try {
         
         // Show a few sample users (without sensitive data)
         echo "<h3>Sample Users (Limited Data):</h3>";
-        $stmt = $pdo->query("SELECT id, email, role_id, full_name FROM users LIMIT 5");
+        $stmt = $pdo->query("SELECT id, email, role_id, full_name FROM user LIMIT 5");
         if ($stmt->rowCount() > 0) {
             echo "<table border='1' cellpadding='5'>";
             echo "<tr><th>ID</th><th>Email</th><th>Role</th><th>Name</th></tr>";

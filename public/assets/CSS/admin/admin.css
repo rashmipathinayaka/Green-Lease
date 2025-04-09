@@ -10,6 +10,46 @@ body {
   color: green;
   font-size: 16px;
 }
+.chart-box {
+  background-color: rgba(201, 234, 201, 0.103); /* Light greenish transparent */
+  padding: 20px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(43, 164, 119, 0.395);
+  margin: 20px 20px;
+  width: 50%;
+  max-width: 800px;
+  height: 590px; /* Set a height for the chart box */
+  display: flex;
+  flex-direction: column; /* Stack the content vertically */
+  justify-content: space-between; /* Space the content between top and bottom */
+}
+
+.chart-title {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #2d6a4f;
+}
+
+.charts {
+  display: flex;
+  justify-content: space-around; /* Space out charts */
+}
+
+.landBarChart {
+  width: 100%; /* Make chart fill the width */
+  height: 70%; /* Ensure the height of the container is utilized */
+  max-width: 100%; /* Ensure the chart doesn't exceed the container width */
+  margin: 0 auto;
+}
+
+
+canvas {
+  width: 100% !important; /* Ensure canvas takes up full width */
+  height: 100% !important; /* Ensure canvas takes up full height */
+}
+
 
 /* Admin container */
 .admin-container {

@@ -12,7 +12,7 @@
 <?php
 
 require ROOT . '/views/admin/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 
 ?>
 
@@ -30,6 +30,8 @@ require ROOT . '/views/components/navbar.php';
                 <th>Address</th>
                 <th>Size</th>
                 <th>Crop type</th>
+
+                <th>Legal Document</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -41,7 +43,18 @@ require ROOT . '/views/components/navbar.php';
                         <td><?= htmlspecialchars($land->id) ?></td>
                         <td><?= htmlspecialchars($land->address) ?></td>
                         <td><?= htmlspecialchars($land->size) ?> Sqm</td>
-                        <td><?= htmlspecialchars($land->crop) ?></td>
+                        <td><?= htmlspecialchars($land->crop_type) ?></td>
+                        <td>
+								<?php if (!empty($land->document)): ?>
+									<a href="<?php echo URLROOT . '/' .  $land->document; ?>" target="_blank">
+										View Document
+									</a>
+
+								<?php else: ?>
+									No Attachment
+								<?php endif; ?>
+							</td>
+
                         <td>
                     <?= $land->status === 0 ? "Pending" : "Approved" ?>
                 </td>                           

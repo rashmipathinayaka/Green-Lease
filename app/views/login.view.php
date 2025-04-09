@@ -50,7 +50,7 @@
             </div>
         </div>
         <div class="main-content">
-            <form class="form-container" method="POST" action="<?= URLROOT ?>/Login/login">
+            <form class="form-container" method="POST" action="<?= URLROOT ?>/login">
                 <div class="login-header">
                     <h2>Log in to your account</h2>
                     <p>Welcome back! Please enter your details</p>

@@ -29,7 +29,7 @@
         }
         ?>
       </li>
-      <li><a href="<?=URLROOT ?>/login/logout">Logout</a></li>
+      <li><a href="<?=URLROOT ?>/logout">Logout</a></li>
     <?php else: ?>
       <!-- Marketplace link is not shown for non-logged-in users -->
       <li><a href="<?=URLROOT ?>/login">Login</a></li>

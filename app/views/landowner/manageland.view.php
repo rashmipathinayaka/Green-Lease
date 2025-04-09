@@ -8,65 +8,13 @@
 
 	<title>Manage Lands</title>
 
-	<style>
-		/* Modal background */
-		.modal {
-			display: none;
-			position: fixed;
-			z-index: 1000;
-			left: 0;
-			top: 0;
-			width: 100%;
-			height: 100%;
-			background-color: rgba(0, 0, 0, 0.5);
-			justify-content: center;
-			align-items: center;
-		}
 
-		/* Modal content box */
-		.modal-content {
-			background-color: white;
-			padding: 20px;
-			border-radius: 8px;
-			text-align: center;
-			width: 300px;
-			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-		}
-
-		/* Buttons */
-		.confirm-btn {
-			background-color: red;
-			color: white;
-			border: none;
-			padding: 10px 15px;
-			cursor: pointer;
-			border-radius: 5px;
-			margin-right: 10px;
-		}
-
-		.cancel-btn {
-			background-color: gray;
-			color: white;
-			border: none;
-			padding: 10px 15px;
-			cursor: pointer;
-			border-radius: 5px;
-		}
-
-		.confirm-btn:hover {
-			background-color: darkred;
-		}
-
-		.cancel-btn:hover {
-			background-color: darkgray;
-		}
-	</style>
 </head>
 
 <body>
 	<?php
 	require ROOT . '/views/landowner/sidebar.php';
-	require ROOT . '/views/components/navbar.php';
+    require ROOT . '/views/components/topbar.php';
 	?>
 
 	<div id="manage-lands-section">
@@ -93,7 +41,7 @@
 							<td><?= htmlspecialchars($land->id) ?></td>
 							<td><?= htmlspecialchars($land->address) ?></td>
 							<td><?= htmlspecialchars($land->size) ?> Sqm</td>
-							<td><?= htmlspecialchars($land->crop) ?></td>
+							<td><?= htmlspecialchars($land->crop_type) ?></td>
 							<td>
 								<?php if (!empty($land->document)): ?>
 									<a href="<?php echo URLROOT . '/' .  $land->document; ?>" target="_blank">
