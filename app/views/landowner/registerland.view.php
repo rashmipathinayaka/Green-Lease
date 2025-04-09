@@ -3,55 +3,67 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/landowner/registerland.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/landowner/registerlands.css">
     <title>Register Land</title>
 </head>
 <body>
 <?php
 
 require ROOT . '/views/landowner/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 
 ?>
 
 <div id="register-lands-section" class="section">
+				<div class="form-container">
+					<h1 class="register-topic">Register Your Land</h1>
+					<br>
+					<form class="form" action="<?= URLROOT ?>/Landowner/registerland" method="POST"
+						enctype="multipart/form-data">
+						<div class="form-group">
+							<label for="address">Address of the Land</label>
+							<input type="text" id="address" name="address" required="">
 
-    <h1 class="register-topic">Register Your Land</h1><br><br>
+							<label for="district">District</label>
+							<select id="district" name="district" required>
+								<option value="" disabled selected>Select District</option>
+								<option value="Matara">Matara</option>
+								<option value="Galle">Galle</option>
+								<option value="Hambanthota">Hambanthota</option>
+								<option value="Colombo">Colombo</option>
+								<option value="Anuradhapura">Anuradhapura</option>
+								<option value="Badulla">Badulla</option>
+								<option value="Gampaha">Gampaha</option>
+								<option value="Sabaragamuwa">Sabaragamuwa</option>
+							</select>
 
-    <div class="form-container">
-        <form enctype="multipart/form-data" method="POST" action="<?php echo URLROOT; ?>/Landowner/registerland">
-            <div class="form-group">
-
-                <div class="form-input-title">Address: </div>
-                <input type="text" name="address" id="address" class="address" required>
-                
-                <div class="form-input-title">Size of the land (in sq meters): </div>
-                <input type="number" name="size" id="size" class="size" required>
-
-                <div class="form-input-title">Duration (in years): </div>
-                <input type="number" name="duration" id="duration" class="duration" required>
-
-                <div class="form-input-title">Preferred Crop Type: </div>
-                <input type="text" name="crop" id="crop" class="crop" required>
-
-                <div class="form-input-title">Upload Legal Document: </div>
-                <input type="file" name="document" id="document" class="document" >
-
-                <h6>You Cannot Change the Details Again</h6>
-                
-                <button class="form-submit-btn" type="submit">Submit</button>
-            </div>  
-        </form>
-
-        <?php if (!empty($data['errors'])): ?>
-        <div class="error-container">
-            <?php foreach ($data['errors'] as $error): ?>
-                <p class="error-message"><?= htmlspecialchars($error) ?></p>
-            <?php endforeach; ?>
-        </div>
-        <?php endif; ?>
-    </div>
-</div>
+							<label for="size">Size of the Land (In Sqm)</label>
+							<input type="number" id="size" name="size" required="">
+							
+							<label for="duration">Time Period for the Lease (In Years)</label>
+							<input type="number" id="duration" name="duration" required="">
+							
+							<label for="crop">Prefered Crop Type</label>
+							<select id="cropType" name="crop_type" required>
+								<option value="" disabled selected>Select a Crop Type</option>
+								<option value="Rice">Rice</option>
+								<option value="Wheat">Wheat</option>
+								<option value="Maize">Maize</option>
+								<option value="Potatoes">Potatoes</option>
+								<option value="Tomatoes">Tomatoes</option>
+								<option value="Onions">Onions</option>
+								<option value="Coffee">Coffee</option>
+								<option value="Sugarcane">Sugarcane</option>
+							</select>
+							<label for="doc">Upload a Legal Document of the Land</label>
+							<input type="file" id="document" name="document" required>
+							<h6>You Cannot Change the Details Again</h6>
+							<button class="form-submit-btn" type="submit">
+								<i class="fas fa-paper-plane"></i>&nbsp;Submit</button>
+						</div>
+					</form>
+				</div>
+			</div>
 
 </body>
 </html>

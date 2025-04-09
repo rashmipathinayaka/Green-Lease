@@ -11,6 +11,10 @@ body {
   font-size: 16px;
 }
 
+#completed-projects{
+padding-left: 20px;
+
+}
 /* Admin container */
 .admin-container {
   display: flex;
@@ -72,64 +76,13 @@ body {
 }
 
 /* Sidebar */
-.sidebar {
-  margin-top: 30px;
-  width: 250px;
-  background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%);
-  background-color: green;
-  color: #fff;
-  position: fixed;
-  top: 60px;
-  bottom: 0;
-  left: -250px;
-  overflow-y: auto;
-  transition: left 0.3s ease;
-  z-index: 999;
-}
 
-.sidebar.active {
-  left: 0;
-}
-
-@media (min-width: 769px) {
-  .sidebar {
-    left: 0;
-    top: 0;
-    padding-top: 60px;
-  }
-
-  body {
-    padding-left: 250px;
-  }
-}
 
 .logo-section {
   padding: 20px;
   text-align: center;
-}
 
-.sidebar ul {
-  list-style-type: none;
-}
 
-.sidebar ul li a {
-  display: block;
-  color: #fff;
-  padding: 15px 20px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s;
-}
-
-.sidebar ul li a:hover {
-  background-color: white;
-  color: green;
-}
-
-.logout {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
 }
 
 /* Main Content Area */
@@ -415,9 +368,7 @@ body {
 }
 
 /* Section visibility */
-.section {
-  display: none;
-}
+
 
 .section.active {
   display: block;
@@ -635,9 +586,9 @@ body {
 }
 
 .project-card {
-  background-color: #fff;
+  background-color: #44de7838;
   border-radius: 10px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.24);
   padding: 20px;
   text-align: center;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -685,6 +636,8 @@ body {
   display: flex;
   flex-direction: column;
   gap: 24px;
+  padding-top: 70px; /* Same as navbar height */
+
 }
 
 .form-container .form {
@@ -762,17 +715,21 @@ body {
   color: green;
   font-size: 28px;
   font-weight: 700;
-  margin-bottom: -45px;
-  text-align: left;
-  text-align: center;
+  text-align: center; /* Centering */
+  margin-top: 20px; /* Adds space from the top */
+  margin-bottom: 20px; /* Adds space before the form */
 }
 
-.form-container h6 {
-  color: #64748b;
-  font-size: 14px;
-  font-weight: normal;
-  margin-top: 8px;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the form */
+  width: 100%;
+  max-width: 500px; /* Adjust as needed */
+  margin: 0 auto; /* Centers the container */
+  padding: 20px;
 }
+
 
 .pdf {
   color: #2c3e50;
@@ -934,3 +891,10 @@ body {
     padding: 12px;
   }
 }
+
+
+
+/* 
+body {
+  padding-top: 70px; 
+} */

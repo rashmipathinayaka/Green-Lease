@@ -54,7 +54,7 @@ class Manage_sitehead
         }
 
         // Render the view with the data
-        $this->view('admin/Manage_sitehead', $data);
+        $this->view('admin/manage_sitehead', $data);
     }
 }
 ?>
