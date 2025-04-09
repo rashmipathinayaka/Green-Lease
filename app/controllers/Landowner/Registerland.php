@@ -13,6 +13,7 @@ class Registerland
             'errors' => [], // Initialize errors
         ];
         
+
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formData = [
                 'address' => $_POST['address'] ?? null,

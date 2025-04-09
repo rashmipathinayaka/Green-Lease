@@ -183,4 +183,15 @@ class RLand
 
 		return ['labels' => $yearLabels, 'data' => $yearData];
 	}
+
+public function getpendinglands(){
+	{
+		$query = "SELECT * FROM land WHERE status = 'pending' ";
+
+
+		return $this->query($query);
+	}
+
+}
+
 }

@@ -15,17 +15,17 @@
       <li>
         <?php
         if ($_SESSION['role_id'] == 1) {
-          echo '<a href="' .URLROOT . '/admin">Dashboard</a>';
+          echo '<a href="' .URLROOT . '/admin/Index">Dashboard</a>';
         } elseif ($_SESSION['role_id'] == 2) {
-          echo '<a href="' .URLROOT . '/supervisor">Dashboard</a>';
+          echo '<a href="' .URLROOT . '/supervisor/Index">Dashboard</a>';
         } elseif ($_SESSION['role_id'] == 3) {
-          echo '<a href="' .URLROOT . '/sitehead">Dashboard</a>';
+          echo '<a href="' .URLROOT . '/sitehead/Index">Dashboard</a>';
         } elseif ($_SESSION['role_id'] == 4) {
-          echo '<a href="' .URLROOT . '/landowner">Dashboard</a>';
+          echo '<a href="' .URLROOT . '/landowner/Index">Dashboard</a>';
         } elseif ($_SESSION['role_id'] == 5) {
-          echo '<a href="' .URLROOT . '/buyer">Dashboard</a>';
+          echo '<a href="' .URLROOT . '/buyer/Index">Dashboard</a>';
         } elseif ($_SESSION['role_id'] == 6) {
-          echo '<a href="' .URLROOT . '/worker">Dashboard</a>';
+          echo '<a href="' .URLROOT . '/worker/Index">Dashboard</a>';
         }
         ?>
       </li>
