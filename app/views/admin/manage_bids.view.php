@@ -17,7 +17,7 @@ require ROOT . '/views/components/navbar.php';
 ?>
 
      <!-- Manage Bids Section -->
-     <div id="manage-bids-section" class="section" ">
+     <div id="manage-bids-section">
                 <center>
                     <h1>Manage Bids</h1>
                 </center>
