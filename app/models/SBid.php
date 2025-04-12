@@ -3,7 +3,7 @@
 class SBid {
     use Model;
     
-    protected $table = 'bids';
+    protected $table = 'bid';
     protected $allowedColumns = [
         'buyer_id',
         'harvest_id',

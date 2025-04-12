@@ -23,68 +23,33 @@ require ROOT . '/views/components/topbar.php';
                 <table class="dashboard-table">
                     <thead>
                         <tr>
-                            <th>Land ID</th>
-                            <th>Crop Type</th>
+                            <!-- <th>Land ID</th> -->
+                            <th>Harvest ID</th>
                             <th>Bidding Amount</th>
-                            <th>Percentage of the Harvest</th>
                             <th>Status</th>
                             <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>101</td>
-                        <td>Tea</td>
-                        <td>$5,000</td>
-                        <td>25%</td>
-                        <td>Approved</td>
+                    <?php if(!empty($bids)): ?>
+                <?php foreach($bids as $bid): ?>
+                    <tr data-id="<?php echo $bid->id; ?>">
+                        <td><?php echo $bid->harvest_id; ?></td>
+                        <td>LKR <?php echo $bid->amount; ?></td>
+                        <td><?php echo ucfirst($bid->status); ?></td>
                         <td>
-                            <button class="blue-btn">View Details</button>
+                            <button class="green-btn" data-id="<?php echo $bid->id; ?>">View Details</button>
+                            <?php if (strtolower($bid->status) === 'pending'): ?>
+                                <button class="red-btn" data-id="<?php echo $bid->id; ?>">Remove Bid</button>
+                            <?php endif; ?>
                         </td>
                     </tr>
-                    <tr>
-                        <td>102</td>
-                        <td>Coffee</td>
-                        <td>$7,500</td>
-                        <td>30%</td>
-                        <td>Pending</td>
-                        <td>
-                            <button class="blue-btn">View Details</button>
-                            <button class="red-btn">Remove Bid</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>103</td>
-                        <td>Maize</td>
-                        <td>$3,200</td>
-                        <td>20%</td>
-                        <td>Approved</td>
-                        <td>
-                            <button class="blue-btn">View Details</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>104</td>
-                        <td>Rice</td>
-                        <td>$4,800</td>
-                        <td>18%</td>
-                        <td>Pending</td>
-                        <td>
-                            <button class="blue-btn">View Details</button>
-                            <button class="red-btn">Remove Bid</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>105</td>
-                        <td>Coconut</td>
-                        <td>$6,000</td>
-                        <td>22%</td>
-                        <td>Rejected</td>
-                        <td>
-                            <button class="blue-btn">View Details</button>
-                            <button class="red-btn">Remove Bid</button>
-                        </td>
-                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr>
+                    <td colspan="4" style="text-align: center;">No Bids Found</td>
+                </tr>
+            <?php endif; ?>
                     </tbody>
                 </table>
             </div>
