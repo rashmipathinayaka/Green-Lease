@@ -61,3 +61,30 @@ function confirmRejectRequest(requestId) {
     window.location.href = `${URLROOT}/Supervisor/Manage_fertilizer/rejectRequest/${requestId}?success=rejected`;
   }
 }
+
+function searchFertilizerById() {
+  const inputId = document.getElementById("fertilizer-search-id").value.trim();
+  const rows = document.querySelectorAll(
+    "#stock-management .dashboard-table tbody tr"
+  );
+
+  rows.forEach((row) => {
+    const restockBtn = row.querySelector("button.blue-btn");
+    if (restockBtn) {
+      const fertilizerId = restockBtn.getAttribute("onclick").match(/\d+/)[0]; // Get ID from function call
+      if (inputId === fertilizerId) {
+        row.style.display = ""; // Show match
+      } else {
+        row.style.display = "none"; // Hide non-match
+      }
+    }
+  });
+}
+
+function clearFertilizerSearch() {
+  document.getElementById("fertilizer-search-id").value = "";
+  const rows = document.querySelectorAll(
+    "#stock-management .dashboard-table tbody tr"
+  );
+  rows.forEach((row) => (row.style.display = "")); // Reset table
+}

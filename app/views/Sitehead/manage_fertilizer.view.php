@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/sitehead.css">
+	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/sitehead.css">
 	<title>Document</title>
 </head>
 
@@ -27,16 +27,16 @@
 						<label for="type">Fertilizer Type</label>
 						<select id="type" name="type" required>
 							<option value="">Select Fertilizer Type</option>
-							<option value="urea">Urea</option>
-							<option value="dap">DAP</option>
-							<option value="npk">NPK</option>
-							<option value="tsp">Triple Super Phosphate(TSP)</option>
-							<option value="AS">Ammonium Sulphate</option>
-							<option value="compost">Compost</option>
-							<option value="nitrogen">Nitrogen</option>
-							<option value="dolomite">Dolomite</option>
-							<option value="cowdung">Dried Cow Dung Manure</option>
-							<option value="goatdung">Dried Goat Dung Manure</option>
+							<option value="1">Urea</option>
+							<option value="2">DAP</option>
+							<option value="3">NPK</option>
+							<option value="4">Triple Super Phosphate(TSP)</option>
+							<option value="5">Ammonium Sulphate</option>
+							<option value="6">Compost</option>
+							<option value="7">Nitrogen</option>
+							<option value="8">Dolomite</option>
+							<option value="9">Dried Cow Dung Manure</option>
+							<option value="10">Dried Goat Dung Manure</option>
 							<option value="other">Other</option>
 						</select>
 						<label for="amount">Amount (in kg)</label>
@@ -46,7 +46,7 @@
 						<textarea id="remarks" name="remarks"
 							placeholder="Special Requirements (If any)"></textarea>
 						<label for="preferred_date">Preferred Delivery Date</label>
-						<input type="date" id="preferred_date" name="preferred_date" required>
+						<input type="date" id="preferred_date" name="preferred_date" min="<?php echo date('Y-m-d'); ?>" required>
 						<button class="form-submit-btn" type="submit">
 							<i class="fas fa-paper-plane"></i>&nbsp; Submit Request
 						</button>

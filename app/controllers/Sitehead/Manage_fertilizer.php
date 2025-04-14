@@ -16,6 +16,7 @@ class Manage_fertilizer
 			$formData = [
 				'amount' => $_POST['amount'] ?? null,
 				'type' => $_POST['type'] ?? null,
+				'fertilizer_id' => $_POST['fertilizer_id'] ?? null,
 				'project_id' => $_POST['project_id'] ?? null,
 				'preferred_date' => $_POST['preferred_date'] ?? null,
 				'sitehead_id' => $_POST['sitehead_id'] ?? null,

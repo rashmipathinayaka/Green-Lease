@@ -24,17 +24,17 @@
 					<div class="metric-card">
 						<h3>Worker Count</h3>
 						<div class="metric-content">
-							<span class="metric-value">15</span>
+							<span class="metric-value">20</span>
 							<i class="fas fa-user"></i>
 						</div>
 						<button onclick="showSection('manage-workers-section')">View</button>
 					</div>
 
 					<div class="metric-card">
-						<h3>Buyer Count</h3>
+						<h3>Upcoming Events Count</h3>
 						<div class="metric-content">
-							<span class="metric-value">240</span>
-							<i class="fas fa-user"></i>
+							<span class="metric-value">10</span>
+
 						</div>
 						<button onclick="showSection('manage-buyers-section')">View</button>
 					</div>

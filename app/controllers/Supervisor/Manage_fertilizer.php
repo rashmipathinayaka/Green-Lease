@@ -8,11 +8,13 @@ class Manage_fertilizer
 	use Controller;
 
 	private $fertilizerRequestModel;
+	private $fertilizerModel;
 
 	public function __construct()
 	{
 		// Initialize the Issue model in the constructor
 		$this->fertilizerRequestModel = new FertilizerRequest();
+		$this->fertilizerModel = new Fertilizer();
 	}
 
 	public function index()
@@ -22,10 +24,16 @@ class Manage_fertilizer
 
 		$solvedrequests = $this->fertilizerRequestModel->where(['status' => 'solved']);
 
+		$fertilizers = $this->fertilizerModel->findAll();
+
+		$totalStock = $this->fertilizerModel->getTotalFertilizerStock();
+
 		// Pass the data to the view
 		$this->view('supervisor/manage_fertilizer', [
 			'pendingrequests' => $pendingrequests,
 			'solvedrequests' => $solvedrequests,
+			'totalStock' => $totalStock,
+			'fertilizers' => $fertilizers
 		]);
 	}
 

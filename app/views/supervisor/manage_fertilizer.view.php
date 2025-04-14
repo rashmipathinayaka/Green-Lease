@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/supervisor.css">
+	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/supervisor.css">
 	<script>
 		const URLROOT = "<?php echo URLROOT; ?>";
 	</script>
@@ -112,7 +112,7 @@
 				<div class="metric-card">
 					<h3>Total Fertilizer Stock</h3>
 					<div class="metric-content">
-						<span class="metric-value">1,250 kg</span>
+						<span class="metric-value"><?php echo number_format($totalStock); ?> kg</span>
 						<i class="fas fa-box-open"></i>
 					</div>
 				</div>
@@ -141,48 +141,43 @@
 			<center>
 				<h1>Fertilizer Inventory</h1>
 			</center>
+
+			<div class="search-bar-container">
+				<input type="text" id="fertilizer-search-id" placeholder="Enter Fertilizer ID">
+				<button onclick="searchFertilizerById()" class="search-btn">Search</button>
+				<button onclick="clearFertilizerSearch()" class="clear-btn">Clear</button>
+			</div>
+
 			<table class="dashboard-table">
 				<thead>
 					<tr>
+						<th>Fertilizer ID</th>
 						<th>Fertilizer Type</th>
 						<th>Current Stock</th>
-						<th>Reorder Level</th>
 						<th>Last Restocked</th>
 						<th>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					<tr>
-						<td>NPK 15-15-15</td>
-						<td>350 kg</td>
-						<td>250 kg</td>
-						<td>2024-03-15</td>
-						<td>
-							<button class="green-btn">Restock</button>
-							<button class="blue-btn">Details</button>
-						</td>
-					</tr>
-					<tr>
-						<td>Urea</td>
-						<td>200 kg</td>
-						<td>150 kg</td>
-						<td>2024-02-28</td>
-						<td>
-							<button class="green-btn">Restock</button>
-							<button class="blue-btn">Details</button>
-						</td>
-					</tr>
-					<tr>
-						<td>Phosphate</td>
-						<td>100 kg</td>
-						<td>75 kg</td>
-						<td>2024-03-10</td>
-						<td>
-							<button class="green-btn">Restock</button>
-							<button class="blue-btn">Details</button>
-						</td>
-					</tr>
+					<?php if (!empty($fertilizers)) : ?>
+						<?php foreach ($fertilizers as $fertilizer) : ?>
+							<tr>
+								<td><?php echo htmlspecialchars($fertilizer->id); ?></td>
+								<td><?php echo htmlspecialchars($fertilizer->name); ?></td>
+								<td><?php echo htmlspecialchars($fertilizer->amount); ?> kg</td>
+								<td><?php echo htmlspecialchars($fertilizer->lastRestocked); ?></td>
+								<td>
+									<button class="blue-btn" onclick="editFertilizerDetails(<?php echo $fertilizer->id; ?>)">Edit Details</button>
+								</td>
+							</tr>
+						<?php endforeach; ?>
+					<?php else : ?>
+						<tr>
+							<td colspan="4">No fertilizer stock found.</td>
+						</tr>
+					<?php endif; ?>
 				</tbody>
+
 			</table>
 		</div>
 	</div>
