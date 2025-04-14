@@ -43,7 +43,7 @@ class RSupervisor
 //drop down in sitevisit
     public function getAllSupervisors() {
         $query = "SELECT id FROM supervisor"; // Adjust columns as needed
-        return $this->query($query); // Or use your DB method to fetch all rows
+        return $this->query($query); 
     }
 
 //to email supervisors
@@ -72,7 +72,7 @@ class RSupervisor
 
     //for admin to filter supervisors
     public function getSupervisorDetails($filters = []) {
-        $user = new RUser;
+       
     
         $query = '
             SELECT s.*, u.full_name, u.email, u.contact_no, u.joined_date, 
@@ -87,7 +87,7 @@ class RSupervisor
     
         if (!empty($filters['full_name'])) {
             $query .= " AND u.full_name LIKE ?";
-            $params[] = "%" . $filters['full_name'] . "%";
+            $params[] =  $filters['full_name'] . "%";
         }
     
         if ($filters['zone'] !== '') {
