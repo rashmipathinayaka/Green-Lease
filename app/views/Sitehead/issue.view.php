@@ -21,8 +21,8 @@
 				<form class="form" method="POST" action="<?php echo URLROOT; ?>/Sitehead/ReportIssue" enctype="multipart/form-data">
 
 					<div class="form-group">
-						<label for="name">Full Name</label>
-						<input type="text" id="name" name="name" required>
+						<label for="name">Sitehead ID</label>
+						<input type="text" id="name" name="sitehead_id" required>
 						<label for="complaint-type">Type of Issue</label>
 						<select id="complaint-type" name="complaint-type" required>
 							<option value="">Select a category</option>
@@ -34,7 +34,7 @@
 							<option value="leave-requests">Denied or Delayed Leave Requests</option>
 							<option value="training-issues">Inadequate Training Provided</option>
 							<option value="workload">Excessive Workload</option>
-							<option value="communication">Poor Communication from Supervisors</option>
+							<option value="Communication">Poor Communication from Supervisors</option>
 							<option value="other">Other</option>
 						</select>
 						<label for="description">Issue Description</label>
