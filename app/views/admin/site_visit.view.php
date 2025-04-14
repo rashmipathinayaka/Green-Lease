@@ -12,7 +12,7 @@
     <?php
 
     require ROOT . '/views/admin/sidebar.php';
-    // require ROOT . '/views/components/topbar.php';
+    require ROOT . '/views/components/topbar.php';
 
     ?>
 

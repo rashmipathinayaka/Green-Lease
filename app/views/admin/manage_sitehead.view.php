@@ -1,186 +1,127 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/manage-supervisor.css">
-    <script src="<?php echo URLROOT; ?>/assets/js/admin.js" defer></script>
-
-    <title>Document</title>
+    <link rel="stylesheet" href="<?= URLROOT; ?>/assets/css/admin/manage-supervisor.css">
+    <title>Manage Supervisors</title>
 </head>
+
 <body>
+    <?php
+    require ROOT . '/views/admin/sidebar.php';
+    require ROOT . '/views/components/topbar.php';
+    ?>
 
-<?php
+    <center><h1>Manage Supervisors</h1></center>
+    <br><br>
 
-require ROOT . '/views/admin/sidebar.php';
-require ROOT . '/views/components/topbar.php';
+    <div class="filter-section">
+    <form method="GET" action="" class="filter-form" style="margin-bottom: 20px; text-align: center;">
+    <label for="name">Name:</label>
+    <input type="text" name="full_name" id="full_name" value="<?= isset($_GET['full_name']) ? htmlspecialchars($_GET['full_name']) : '' ?>">
 
-?>
+    <label for="land_id">land:</label>
+    <select name="land_id" id="land_id">
+        <option value="">All</option>
+        <option value="1" <?= (isset($_GET['land_id']) && $_GET['land_id'] == '1') ? 'selected' : '' ?>>1</option>
+        <option value="2" <?= (isset($_GET['land_id']) && $_GET['land_id'] == '2') ? 'selected' : '' ?>>2</option>
+    </select>
 
-<!-- <div id="manage-site-heads-section" class="section"> -->
-                <center>
-                    <h1>Manage Site Heads</h1>
-                </center>
-                <br><br>
+    <button type="submit">Filter</button>
+</form>
+        <a href="<?= URLROOT ?>/Admin/add_sitehead/">
+            <button class="Addsupervisor" id="Addsupervisor">Add sitehead</button>
+        </a>
+    </div>
 
-                <!-- Search and Filter Section -->
-                <div class="filter-section">
-                    <input type="text" id="search-bar" placeholder="Search supervisors by name or email">
-                    <select id="status-filter">
-                        <option value="">All Status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                    <select id="zone-filter">
-                        <option value="">Zone</option>
-                        <option value="Zone 1">Zone 1</option>
-                        <option value="Zone 2">Zone 2</option>
-                    </select>
-                    <button class="green-btn" id="add-supervisor-btn">Add Site Head</button>
-                </div>
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>land</th>
+                                <th> land address</th>
 
-                <!-- Supervisors Table -->
-                <table class="dashboard-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Zone</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="supervisor-list">
-                        <tr data-id="1">
-                            <td>Yasitha Vas</td>
-                            <td>yvas@gmail.com</td>
-                            <td>0715559997</td>
-                            <td>Zone 1</td>
-                            <td>Active</td>
-                            <td>
-                                <button class="green-btn edit-btn" data-id="1">Edit</button>
-                                <button class="red-btn">Deactivate</button>
-                            </td>
-                        </tr>
-                        <tr data-id="2">
-                            <td>Samantha Perera</td>
-                            <td>samantha@gmail.com</td>
-                            <td>0715551234</td>
-                            <td>Zone 2</td>
-                            <td>Inactive</td>
-                            <td>
-                                <button class="green-btn edit-btn" data-id="2">Edit</button>
-                                <button class="red-btn">Deactivate</button>
-                            </td>
-                        </tr>
-                        <tr data-id="3">
-                            <td>Prabath Jayasinghe</td>
-                            <td>prabathjaya@gmail.com</td>
-                            <td>0776543210</td>
-                            <td>Zone 3</td>
-                            <td>Active</td>
-                            <td>
-                                <button class="green-btn edit-btn" data-id="3">Edit</button>
-                                <button class="red-btn">Deactivate</button>
-                            </td>
-                        </tr>
-                        <tr data-id="4">
-                            <td>Anushka Fernando</td>
-                            <td>anushka.fernando@gmail.com</td>
-                            <td>0789004567</td>
-                            <td>Zone 4</td>
-                            <td>Active</td>
-                            <td>
-                                <button class="green-btn edit-btn" data-id="4">Edit</button>
-                                <button class="red-btn">Deactivate</button>
-                            </td>
-                        </tr>
-                        <tr data-id="5">
-                            <td>Kamini Mapa</td>
-                            <td>kamini.mapa@gmail.com</td>
-                            <td>0712233445</td>
-                            <td>Zone 5</td>
-                            <td>Inactive</td>
-                            <td>
-                                <button class="green-btn edit-btn" data-id="5">Edit</button>
-                                <button class="red-btn">Deactivate</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="supervisor-list">
+            <?php if (!empty($data)): ?>
+                <?php foreach ($data as $sitehead): ?>
+                    <tr>
+                        <td>
+                            <?= htmlspecialchars($sitehead->full_name) ?>
+                            <button class="profile-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_sitehead/getid/<?= $sitehead->id ?>';">
+                                <img src="<?= URLROOT ?>/assets/images/user.png" class="menu-icon">view profile
+                            </button>
+                        </td>
+                        <td><?= htmlspecialchars($sitehead->land_id) ?></td>
+                        <td><?= htmlspecialchars($sitehead->address) ?></td>
+                        <td><?= $sitehead->status == 0 ? "Active" : "Inactive" ?></td>
+                        <td>
+                            <button class="green-btn toggle-edit-btn" data-id="<?= $sitehead->id ?>">Edit</button>
+                            <?php if ($sitehead->status != 0): ?>
+                                <button class="red-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_sitehead/delete_sitehead/<?= $sitehead->id ?>';">Remove</button>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
 
-                <!-- Add New Supervisor Button -->
-                <br>
+                    <!-- Inline Edit Form Row -->
+                    <tr id="edit-row-<?= $sitehead->id ?>" class="edit-row" style="display: none;">
+                        <td colspan="6">
+                            <form class="form-styles inline-edit-form" method="POST" action="<?= URLROOT ?>/Admin/manage_sitehead/update_sitehead">
+                                <input type="hidden" name="id" value="<?= $sitehead->id ?>">
+                                <label>land:
+                                    <select name="land_id" required>
+                                        <?php foreach (['1', "2", "3", "4"] as $land_id): ?>
+                                            <option value="<?= $land_id ?>" <?= $sitehead->land_id == $land_id ? "selected" : "" ?>><?= $land_id ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </label>
+                                <label>Status:
+                                    <select name="status" required>
+                                        <option value="0" <?= $sitehead->status == 0 ? "selected" : "" ?>>Active</option>
+                                        <option value="1" <?= $sitehead->status == 1 ? "selected" : "" ?>>Inactive</option>
+                                    </select>
+                                </label>
+                                <button type="submit">Update</button>
+                            </form>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <tr><td colspan="6">No supervisors available.</td></tr>
+            <?php endif; ?>
+        </tbody>
+    </table>
 
-                <!-- Supervisor Details Modal -->
-                <div id="supervisor-modal" class="modal">
-                    <div class="modal-content">
-                        <span class="close-modal">&times;</span>
-                        <h2>Site Head Details</h2>
-                        <!-- Supervisor details will be populated dynamically -->
-                        <div id="supervisor-details"></div>
-                    </div>
-                </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const editButtons = document.querySelectorAll(".toggle-edit-btn");
 
-                <!-- Add Supervisor Form -->
-                <div id="add-supervisor-form" class="modal">
-                    <div class="modal-content">
-                        <span class="close-form">&times;</span>
-                        <h2>Add New Site Head</h2>
-                        <form id="new-supervisor-form" class="form-styles" method="POST" action="<?php echo URLROOT; ?>/admin/manage_sitehead/addsitehead">>
-                            <label for="name">Full Name:</label>
-                            <input type="text" id="name" name="name" required>
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" required>
-                            <label for="phone">Phone Number:</label>
-                            <input type="tel" id="phone" name="phone" required>
-                            <label for="zone">Zone:</label>
-                            <select id="zone" name="zone" required>
-                                <option value="Zone 1">Zone 1</option>
-                                <option value="Zone 2">Zone 2</option>
-                                <option value="Zone 3">Zone 3</option>
-                                <option value="Zone 4">Zone 4</option>
-                            </select>
-                            <label for="status">Status:</label>
-                            <select id="status" name="status" required>
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                            </select>
-                            <button type="submit">Add Site Head</button>
-                        </form>
-                    </div>
-                </div>
+            editButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const id = this.getAttribute("data-id");
+                    const row = document.getElementById(`edit-row-${id}`);
 
-                <!-- Edit Supervisor Form -->
-                <div id="edit-supervisor-form" class="modal">
-                    <div class="modal-content">
-                        <span class="close-form">&times;</span>
-                        <h2>Edit Site Head</h2>
-                        <form id="edit-supervisor-form" class="form-styles">
-                            <input type="hidden" id="edit-supervisor-id">
-                            <label for="edit-name">Full Name:</label>
-                            <input type="text" id="edit-name" name="name" required>
-                            <label for="edit-email">Email:</label>
-                            <input type="email" id="edit-email" name="email" required>
-                            <label for="edit-phone">Phone Number:</label>
-                            <input type="tel" id="edit-phone" name="phone" required>
-                            <label for="edit-zone">Zone:</label>
-                            <select id="edit-zone" name="zone" required>
-                                <option value="Zone 1">Zone 1</option>
-                                <option value="Zone 2">Zone 2</option>
-                                <option value="Zone 3">Zone 3</option>
-                                <option value="Zone 4">Zone 4</option>
-                            </select>
-                            <label for="edit-status">Status:</label>
-                            <select id="edit-status" name="status" required>
-                                <option value="Active">Active</option>
-                                <option value="Inactive">Inactive</option>
-                            </select>
-                            <button type="submit">Update Site Head</button>
-                        </form>
-                    </div>
-                </div>
-            </div>
+                    // Close other open edit rows
+                    document.querySelectorAll(".edit-row").forEach(r => {
+                        if (r !== row) r.style.display = "none";
+                    });
+
+                    // Toggle current row
+                    if (row.style.display === "none") {
+                        row.style.display = "table-row";
+                        row.scrollIntoView({ behavior: "smooth", block: "center" });
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
+
 </body>
 </html>

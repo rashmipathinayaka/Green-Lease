@@ -23,7 +23,7 @@ class Pending_approval
 
 
     public function getland($id){
-
+echo $id;
      $land_id=$id;
      header("Location: " . URLROOT . "/admin/site_visit/index/{$land_id}");
 
