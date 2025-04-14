@@ -5,12 +5,14 @@ class Profile
     private $user;
     private $supervisor;
     private $sitehead;
+private $worker;
 
     public function __construct()
     {
         $this->user = new RUser;
         $this->supervisor = new RSupervisor;
         $this->sitehead = new RSitehead;
+        $this->worker = new RWorker;
     }
 
     public function index($id = null)
@@ -26,6 +28,11 @@ class Profile
                 $id = $_POST['sitehead_id'];
                 $user = $this->sitehead->getSiteheadbyid($id);
                 $this->view('components/profile', ['user' => $user, 'user_type' => 'sitehead']);
+                return;
+            } elseif (isset($_POST['worker_id'])) {
+                $id = $_POST['worker_id'];
+                $user = $this->worker->getWorkerbyid($id);
+                $this->view('components/profile', ['user' => $user, 'user_type' => 'worker']);
                 return;
             } else {
                 echo "User ID not provided.";
@@ -43,6 +50,11 @@ class Profile
         $user = $this->supervisor->getSupervisorbyid($id);
         if ($user) {
             $this->view('components/profile', ['user' => $user, 'user_type' => 'supervisor']);
+            return;
+        }
+        $user = $this->worker->getWorkerbyid($id);
+        if ($user) {
+            $this->view('components/profile', ['user' => $user, 'user_type' => 'worker']);
             return;
         }
 

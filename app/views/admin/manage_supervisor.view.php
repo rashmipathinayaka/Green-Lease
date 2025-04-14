@@ -25,8 +25,8 @@
     <label for="zone">Zone:</label>
     <select name="zone" id="zone">
         <option value="">All</option>
-        <option value="0" <?= (isset($_GET['zone']) && $_GET['zone'] === '0') ? 'selected' : '' ?>>1</option>
-        <option value="1" <?= (isset($_GET['zone']) && $_GET['zone'] === '1') ? 'selected' : '' ?>>2</option>
+        <option value="1" <?= (isset($_GET['zone']) && $_GET['zone'] === '1') ? 'selected' : '' ?>>1</option>
+        <option value="2" <?= (isset($_GET['zone']) && $_GET['zone'] === '2') ? 'selected' : '' ?>>2</option>
     </select>
 
     <button type="submit">Filter</button>

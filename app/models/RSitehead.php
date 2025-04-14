@@ -34,7 +34,7 @@ class RSitehead
     
         if (!empty($filters['full_name'])) {
             $query .= " AND u.full_name LIKE ?";
-            $params[] = "%" . $filters['full_name'] . "%";
+            $params[] = $filters['full_name'] . "%";
         }
     
         if (isset($filters['land_id']) && $filters['land_id'] !== '') {
