@@ -1,106 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/manage-bids.css">
 
     <title>Document</title>
 </head>
+
 <body>
 
-<?php
+    <?php
 
-require ROOT . '/views/admin/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+    require ROOT . '/views/admin/sidebar.php';
+    require ROOT . '/views/components/topbar.php';
 
-?>
+    ?>
 
-     <!-- Manage Bids Section -->
-     <div id="manage-bids-section" class="section" ">
-                <center>
-                    <h1>Manage Bids</h1>
-                </center>
-                <table class="dashboard-table">
-                    <thead>
-                        <tr>
-                            <th>Land ID</th>
-                            <th>Crop Type</th>
-                            <th>Bidder's Name</th>
-                            <th>Bidding Amount</th>
-                            <th>Percentage of the Harvest</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>L001</td>
-                            <td>Rice</td>
-                            <td>John Doe</td>
-                            <td>LKR 5000</td>
-                            <td>20%</td>
-                            <td>
-                                <button class="green-btn">Accept</button>
-                                <button class="red-btn">Reject</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>L002</td>
-                            <td>Corn</td>
-                            <td>Jane Smith</td>
-                            <td>LKR 4500</td>
-                            <td>25%</td>
-                            <td>
-                                <button class="green-btn">Accept</button>
-                                <button class="red-btn">Reject</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>L003</td>
-                            <td>Wheat</td>
-                            <td>Michael Brown</td>
-                            <td>LKR 6000</td>
-                            <td>30%</td>
-                            <td>
-                                <button class="green-btn">Accept</button>
-                                <button class="red-btn">Reject</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>L004</td>
-                            <td>Barley</td>
-                            <td>Emily Davis</td>
-                            <td>LKR 4000</td>
-                            <td>15%</td>
-                            <td>
-                                <button class="green-btn">Accept</button>
-                                <button class="red-btn">Reject</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>L005</td>
-                            <td>Tomato</td>
-                            <td>Chris Lee</td>
-                            <td>LKR 3500</td>
-                            <td>10%</td>
-                            <td>
-                                <button class="green-btn">Accept</button>
-                                <button class="red-btn">Reject</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>L006</td>
-                            <td>Carrot</td>
-                            <td>Alice White</td>
-                            <td>LKR 5500</td>
-                            <td>18%</td>
-                            <td>
-                                <button class="green-btn">Accept</button>
-                                <button class="red-btn">Reject</button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+    <h1 font face='green'>Upcomming harvests</h1><br><br><br>
+
+
+    <div id="completed-projects">
+        <div class="projects-grid">
+            <?php if (!empty($harvest)) : ?>
+                <?php foreach ($harvest as $item) : ?>
+                    <div class="project-card">
+                        <!-- Display the harvest image -->
+                        <img src="<?php echo URLROOT; ?>/assets/images/hero.jpg" alt="Project Image" />
+
+                        <!-- Display the site location -->
+                        <p>Site Location: <?php echo htmlspecialchars($item->id); ?></p>
+
+                        <!-- Display the crop type -->
+                        <p>Expected amount(kg): <?php echo htmlspecialchars($item->max_amount); ?></p>
+                        <p>Remaining amount(kg): <?php echo htmlspecialchars($item->rem_amount); ?></p>
+
+                        <!-- Display additional harvest details if needed -->
+                        <p>Harvest Date: <?php echo htmlspecialchars($item->harvest_date); ?></p>
+                        <form action="<?= URLROOT ?>/Admin/Bidding" method="POST">
+                            <input type="hidden" name="harvest_id" value="<?php echo $item->id; ?>">
+                            <button type="submit" class="bidding">View All Biddings</button>
+                        </form>
+                    </div>
+                <?php endforeach; ?>
+            <?php else : ?>
+                <p>No harvest data found.</p>
+            <?php endif; ?>
+        </div>
+    </div>
+
 </body>
+
 </html>

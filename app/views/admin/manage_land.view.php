@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/manage-bids.css">
 
     <title>Document</title>
 </head>
@@ -12,7 +12,7 @@
 <?php
 
 require ROOT . '/views/admin/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 
 ?>
 
@@ -23,6 +23,27 @@ require ROOT . '/views/components/navbar.php';
                     <h2>These are all the lands registered in the system. <br>
                 </h2>
                 </center>
+
+                <form method="GET" action="" class="filter-form" style="margin-bottom: 20px; text-align: center;">
+    <label for="crop_type">Crop Type:</label>
+    <input type="text" name="crop_type" id="crop_type" value="<?= isset($_GET['crop_type']) ? htmlspecialchars($_GET['crop_type']) : '' ?>">
+
+    <label for="status">Status:</label>
+    <select name="status" id="status">
+        <option value="">All</option>
+        <option value="0" <?= (isset($_GET['status']) && $_GET['status'] === '0') ? 'selected' : '' ?>>Pending</option>
+        <option value="1" <?= (isset($_GET['status']) && $_GET['status'] === '1') ? 'selected' : '' ?>>Approved</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+
+
+
+
+
+
                 <table class="dashboard-table">
         <thead>
             <tr>
@@ -30,6 +51,8 @@ require ROOT . '/views/components/navbar.php';
                 <th>Address</th>
                 <th>Size</th>
                 <th>Crop type</th>
+
+                <th>Legal Document</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -41,7 +64,18 @@ require ROOT . '/views/components/navbar.php';
                         <td><?= htmlspecialchars($land->id) ?></td>
                         <td><?= htmlspecialchars($land->address) ?></td>
                         <td><?= htmlspecialchars($land->size) ?> Sqm</td>
-                        <td><?= htmlspecialchars($land->crop) ?></td>
+                        <td><?= htmlspecialchars($land->crop_type) ?></td>
+                        <td>
+								<?php if (!empty($land->document)): ?>
+									<a href="<?php echo URLROOT . '/' .  $land->document; ?>" target="_blank">
+										View Document
+									</a>
+
+								<?php else: ?>
+									No Attachment
+								<?php endif; ?>
+							</td>
+
                         <td>
                     <?= $land->status === 0 ? "Pending" : "Approved" ?>
                 </td>                           
@@ -63,4 +97,4 @@ require ROOT . '/views/components/navbar.php';
     </table>
             </div>
 </body>
-</html>
+</html> 
