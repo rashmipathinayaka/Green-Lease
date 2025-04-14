@@ -1,50 +1,38 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <link rel="stylesheet" href="<?= URLROOT ?>/assets/css/components/navbar.css">
-  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/navbar.css">
-
-  <title>Document</title>
-</head>
-
-<body>
-  <div class="top-bar">
-    <div class="logo-section">
-      <img src="http://localhost/gl/public/assets/images/logo.png" width="100px">
-    </div>
-
-    <div class="user-actions">
-      <!-- <button class="notification-btn"><i class="fas fa-bell"></i></button> -->
-      <button class="profile-btn"></button>
-      <div class="user-info">
-        <span class="username">
-          <img src="<?= URLROOT ?>/assets/images/user.png" alt="Green Lease Logo" class="menu-icon"><a href="<?php echo URLROOT; ?>/components/profile"> Profile</a> </span>
-      </div>
-    </div>
+<nav class="navbar">
+  <div class="navbar-logo">
+    <a href="<?=URLROOT ?>"><img src="<?=URLROOT ?>/assets/images/logo.png" alt="Green Lease Logo" /></a>
   </div>
-</body>
+  <div class="hamburger" onclick="toggleMenu()">&#9776;</div>
+  <ul class="navbar-links">
+    <li><a href="<?=URLROOT ?>">Home</a></li>
+    <li><a href="<?=URLROOT ?>/about">About</a></li>
+    <li><a href="<?=URLROOT ?>/contact">Contact</a></li>
 
-</html>
+    <?php if (isset($_SESSION['id'])): ?>
+      <!-- Marketplace link is visible only when logged in -->
+      <li><a href="<?=URLROOT ?>/marketplace">Marketplace</a></li>
 
-
-<script>
-  function toggleMenu() {
-    const navbarLinks = document.querySelector('.navbar-links');
-    navbarLinks.classList.toggle('active');
-  }
-
-  document.addEventListener('click', function(event) {
-    const navbar = document.querySelector('.navbar');
-    const navbarLinks = document.querySelector('.navbar-links');
-    const hamburger = document.querySelector('.hamburger');
-
-    if (!navbar.contains(event.target) && navbarLinks.classList.contains('active')) {
-      navbarLinks.classList.remove('active');
-    }
-  });
-</script>
+      <li>
+        <?php
+        if ($_SESSION['role_id'] == 1) {
+          echo '<a href="' .URLROOT . '/admin/Index">Dashboard</a>';
+        } elseif ($_SESSION['role_id'] == 2) {
+          echo '<a href="' .URLROOT . '/supervisor/Index">Dashboard</a>';
+        } elseif ($_SESSION['role_id'] == 3) {
+          echo '<a href="' .URLROOT . '/sitehead/Index">Dashboard</a>';
+        } elseif ($_SESSION['role_id'] == 4) {
+          echo '<a href="' .URLROOT . '/landowner/Index">Dashboard</a>';
+        } elseif ($_SESSION['role_id'] == 5) {
+          echo '<a href="' .URLROOT . '/buyer/Index">Dashboard</a>';
+        } elseif ($_SESSION['role_id'] == 6) {
+          echo '<a href="' .URLROOT . '/worker/Index">Dashboard</a>';
+        }
+        ?>
+      </li>
+      <li><a href="<?=URLROOT ?>/logout">Logout</a></li>
+    <?php else: ?>
+      <!-- Marketplace link is not shown for non-logged-in users -->
+      <li><a href="<?=URLROOT ?>/login">Login</a></li>
+    <?php endif; ?>
+  </ul>
+</nav>

@@ -5,8 +5,6 @@ class Index {
 
 	public function index()
 	{
-		
-
 		$this->view('worker/index');
 	}
 }

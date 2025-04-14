@@ -17,12 +17,12 @@
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Manage_sitehead">Manage Site Heads</a></li>
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Manage_worker">Manage Workers</a></li>
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Approve_bid">Approve Bids</a></li>
-			<li><a href="<?php echo URLROOT; ?>/Supervisor/ManageIssues">Manage Issues</a></li>
+			<li><a href="<?php echo URLROOT; ?>/Supervisor/Issue">Manage Issues</a></li>
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Event">Event Schedule</a></li>
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Attendance">Attendance</a></li>
 		</ul>
 		<ul class="logout">
-			<li><a href="/gl/logout.php">Log Out</a></li>
+			<li><a href="/Greean-Lease/logout.php">Log Out</a></li>
 		</ul>
 	</div>
 </body>

@@ -11,7 +11,7 @@ class Manage_worker
 	{
 		
 
-		$this->view('admin/Manage_worker');
+		$this->view('admin/manage_worker');
 	}
 
 }

@@ -3,32 +3,34 @@ body {
     background-color: #f4f6f9;
     color: green;
     font-size: 16px;
-    padding-top: 70px; /* Same as navbar height */
-  
-  }
-/* Register Land Section */
-#register-lands-section {
-    flex-grow: 1;  
-    display: flex;
-    justify-content: flex-start;  /* Moves the form slightly to the left */
-    align-items: center;
-    padding: 20px;
-    min-height: 100vh;
-    padding-left: 10%; /* Adjust this value as needed */
+  /* Ensures space for the navbar */
+    overflow: auto; /* Enables scrolling */
 }
 
+/* Register Land Section */
+#register-lands-section {
+    display: flex;
+    justify-content: center;  
+    align-items: center;
+    min-height: 100vh; /* Ensures full height */
+    padding: 20px;
+}
+
+/* Form Container */
 .form-container {
-    background: #ffffff;
+    background: linear-gradient(11deg, rgba(0, 128, 0, 0.486) 0%, #4dcd530d 100%);
     padding: 30px;
-    
+    border: solid #08990d;
+    border-width: 0.8px;
     border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 10px rgba(10, 10, 10, 0.639);
     max-width: 500px;
     width: 100%;
     text-align: center;
-    margin-left: 170px;
-    padding-top: 70px; /* Moves the form a little to the left */
 }
+
+
+
 /* Form Heading */
 .register-topic {
     font-size: 24px;
@@ -81,14 +83,15 @@ input[type="file"] {
 
 /* Small Warning Message */
 h6 {
-    font-size: 14px;
-    color: #ff6347;
+    font-size: 16px;
+    color: #ec6b55;
     margin-top: 10px;
+    text-shadow: #151414;
 }
 
 /* Submit Button */
 .form-submit-btn {
-    background-color: #4CAF50;
+    background-color: #0fa014;
     color: white;
     border: none;
     padding: 12px;
@@ -100,7 +103,7 @@ h6 {
 }
 
 .form-submit-btn:hover {
-    background-color: #45a049;
+    background-color: #054905;
 }
 
 /* Responsive Design */
@@ -114,5 +117,11 @@ h6 {
         width: 90%;
         padding: 20px;
         margin-left: 0; /* Removes left shift on smaller screens */
+    }
+}
+@media (max-height: 700px) {
+    #register-lands-section {
+        min-height: auto;
+        height: auto;
     }
 }

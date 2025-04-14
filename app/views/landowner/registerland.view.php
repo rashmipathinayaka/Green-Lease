@@ -10,7 +10,7 @@
 <?php
 
 require ROOT . '/views/landowner/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 
 ?>
 
@@ -44,7 +44,7 @@ require ROOT . '/views/components/navbar.php';
 							<input type="number" id="duration" name="duration" required="">
 							
 							<label for="crop">Prefered Crop Type</label>
-							<select id="cropType" name="crop" required>
+							<select id="cropType" name="crop_type" required>
 								<option value="" disabled selected>Select a Crop Type</option>
 								<option value="Rice">Rice</option>
 								<option value="Wheat">Wheat</option>
