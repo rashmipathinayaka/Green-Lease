@@ -10,6 +10,7 @@
 </head>
 
 <body>
+
 	<div class="sidebar">
 		<ul>
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Index">Dashboard</a></li>
@@ -25,6 +26,7 @@
 			<li><a href="/gl/logout.php">Log Out</a></li>
 		</ul>
 	</div>
+
 </body>
 
 </html>

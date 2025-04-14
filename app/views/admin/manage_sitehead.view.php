@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/manage-supervisor.css">
     <script src="<?php echo URLROOT; ?>/assets/js/admin.js" defer></script>
 
     <title>Document</title>
@@ -13,7 +13,7 @@
 <?php
 
 require ROOT . '/views/admin/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 
 ?>
 

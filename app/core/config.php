@@ -9,10 +9,10 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	define('DBDRIVER', '');
 
 	define('ROOT', dirname(dirname(__FILE__)));
-	define('URLROOT', 'http://localhost/GREEN-Lease/public');
+	define('URLROOT', 'http://localhost/Green-Lease/public');
 } else {
 	/** database config **/
-	define('DBNAME', 'abc');
+	define('DBNAME', 'green_lease');
 	define('DBHOST', 'localhost');
 	define('DBUSER', 'root');
 	define('DBPASS', '');
