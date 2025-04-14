@@ -12,6 +12,98 @@
   }
 
 
+
+
+
+
+  
+  .action-row td {
+    background-color: #f9f9f9;
+    padding: 10px 15px;
+}
+
+.button-group {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
+}
+
+.button-group button {
+    padding: 6px 12px;
+    font-size: 0.9rem;
+}
+
+  .Addsupervisor {
+    background-color: #000000; /* Black background */
+    color: #ffffff;            /* White text */
+    border: none;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.Addsupervisor:hover {
+    background-color: #333333; /* Slightly lighter on hover */
+    color: #00ffc3;            /* Cool highlight text color */
+    transform: scale(1.05);    /* Zoom-in effect */
+    box-shadow: 0 6px 10px rgba(0, 255, 195, 0.4); /* Glow effect */
+}
+
+
+
+.profile-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: #4CAF50;
+  color: rgb(13, 9, 132);
+  border: none;
+  border-radius: 4px;
+  padding: 8px 12px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.profile-btn:hover {
+  background-color: #45a049;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.profile-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+.profile-btn .menu-icon {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+}
+
+/* For responsive design */
+@media (max-width: 768px) {
+  .profile-btn {
+      padding: 6px 10px;
+      font-size: 13px;
+  }
+  
+  .profile-btn .menu-icon {
+      width: 16px;
+      height: 16px;
+  }
+}
+
+
+
+
 /*SUPERVISOR SECTION*/
 
 .filter-section {
@@ -73,13 +165,13 @@
     cursor: pointer;
   }
   
-  #add-supervisor-form {
+  /* #add-supervisor-form {
     display: none;
-  }
+  } */
   
   /* Modal Styling */
   .modal {
-    display: none;
+    /* display: none; */
     position: fixed;
     z-index: 1;
     left: 0;

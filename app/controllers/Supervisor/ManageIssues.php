@@ -33,7 +33,7 @@ class ManageIssues
     {
         // Update the status of the issue to 'solved'
 
-        if (!$this->issueModel->update($id, ['status' => 'solved'], 'id')) {
+        if ($this->issueModel->update($id, ['status' => 'solved'], 'id')) {
             // Redirect back to the Manage Issues page
             // $this->view('/Supervisor/ManageIssues');
             header('Location: ' . URLROOT . '/Supervisor/ManageIssues');

@@ -74,7 +74,7 @@ class RLand
 	public function countProjectsByUserId($userId)
 	{
 
-		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='active'";
+		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='2'";
 		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
 
 		// Call query
@@ -85,7 +85,7 @@ class RLand
 	public function countOngoingProjects()
 	{
 
-		$query = "SELECT COUNT(*) FROM land WHERE status='active'";
+		$query = "SELECT COUNT(*) FROM land WHERE status='2'";
 		// Make sure 'userId' is passed correctly
 
 		// Call query
@@ -96,7 +96,7 @@ class RLand
 	public function countcompletedProjectsByUserId($userId)
 	{
 
-		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='completed'";
+		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='3'";
 		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
 
 		// Call query
@@ -107,7 +107,7 @@ class RLand
 	public function countcompletedProjects()
 	{
 
-		$query = "SELECT COUNT(*) FROM land WHERE  status='completed'";
+		$query = "SELECT COUNT(*) FROM land WHERE  status='3'";
 
 		// Call query
 		$result = $this->query($query);
@@ -117,7 +117,7 @@ class RLand
 	public function countinactivelandsByUserId($userId)
 	{
 
-		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='inactive'";
+		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='4'";
 		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
 
 		// Call query
@@ -129,7 +129,7 @@ class RLand
 	public function countinactivelands()
 	{
 
-		$query = "SELECT COUNT(*) FROM land WHERE  status='inactive'";
+		$query = "SELECT COUNT(*) FROM land WHERE  status='4'";
 
 		// Call query
 		$result = $this->query($query);
@@ -148,7 +148,7 @@ class RLand
 
 	public function findOngoingProjects($userId)
 	{
-		$query = "SELECT * FROM land WHERE status = 'active' AND landowner_id = :landowner_id";
+		$query = "SELECT * FROM land WHERE status = '2' AND landowner_id = :landowner_id";
 
 		$data = [':landowner_id' => $userId];
 
@@ -157,7 +157,7 @@ class RLand
 
 	public function findCompletedProjects($userId)
 	{
-		$query = "SELECT * FROM land WHERE status = 'completed' AND landowner_id = :landowner_id";
+		$query = "SELECT * FROM land WHERE status = '3' AND landowner_id = :landowner_id";
 
 		$data = [':landowner_id' => $userId];
 
@@ -183,4 +183,34 @@ class RLand
 
 		return ['labels' => $yearLabels, 'data' => $yearData];
 	}
+
+public function getpendinglands(){
+	{
+		$query = "SELECT * FROM land WHERE status = 'pending' ";
+
+
+		return $this->query($query);
+	}
+
+}
+
+
+
+public function getFilteredLands($filters = []) {
+    $query = "SELECT * FROM land WHERE 1=1";
+    $params = [];
+
+    if (!empty($filters['crop_type'])) {
+        $query .= " AND crop_type LIKE ?";
+        $params[] = "%" . $filters['crop_type'] . "%";
+    }
+
+    if ($filters['status'] !== '') {
+        $query .= " AND status = ?";
+        $params[] = $filters['status'];
+    }
+
+    return $this->query($query, $params);
+}
+
 }

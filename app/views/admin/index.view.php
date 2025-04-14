@@ -38,10 +38,11 @@
                     <div class="metric-card">
                         <h3>Supervisor Count</h3>
                         <div class="metric-content">
-                            <span class="metric-value">20</span>
+                            <span class="metric-value"> 
+                                <?php echo !empty($supervisorcount) ? htmlspecialchars($supervisorcount) : 1; ?></span>
                             <i class="fas fa-user"></i>
                         </div>
-                        <button onclick="showSection('manage-supervisors-section')">View</button>
+                        <button onclick="window.location.href='<?= URLROOT ?>/admin/manage_supervisor/'">View</button>
                     </div>
                     <div class="metric-card">
                         <h3>Total Bids</h3>
@@ -64,46 +65,7 @@
                     </div>
                 </div>
 
-                <center>
-                    <h1>Pending Approvals</h1>
-                </center>
-                <table class="dashboard-table">
-                    <thead>
-                        <tr>
-                            <th>Land ID</th>
-                            <th>Location</th>
-                            <th>Crop Type</th>
-                            <th>Lease Duration</th>
-                            <th>Field Visit Date</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>LD1234</td>
-                            <td>Moratuwa</td>
-                            <td>Orchid</td>
-                            <td>1 Year</td>
-                            <td>2024-09-20</td>
-                            <td>
-                                <button class="green-btn">Accept</button>
-                                <button class="red-btn">Reject</button>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>LD1235</td>
-                            <td>Panadura</td>
-                            <td>Anthurium</td>
-                            <td>6 Months</td>
-                            <td>2024-09-23</td>
-                            <td>
-                                <button class="green-btn">Accept</button>
-                                <button class="red-btn">Reject</button>
-                            </td>
-                        </tr>
-
-                    </tbody>
-                </table>
+              
             </div>
 
 

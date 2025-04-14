@@ -35,5 +35,30 @@ class SHarvest
 
         return $this->query($query);
     }
+    // Add this method to your SHarvest model
+// Add these methods to your SHarvest model
+
+public function getHarvestById($id) {
+    $harvests = $this->where(['id' => $id]);
+    return $harvests[0] ?? null;
+}
+
+public function getFilteredHarvests($filters = []) {
+    $query = "SELECT * FROM $this->table WHERE 1=1";
+    $params = [];
+    
+    if (isset($filters['location']) && !empty($filters['location'])) {
+        $query .= " AND address LIKE ?";
+        $params[] = '%' . $filters['location'] . '%';
+    }
+    
+    if (isset($filters['crop_type']) && !empty($filters['crop_type'])) {
+        $query .= " AND crop_type LIKE ?";
+        $params[] = '%' . $filters['crop_type'] . '%';
+    }
+    
+    return $this->query($query, $params);
+}
+    
 }
 

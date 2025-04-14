@@ -23,6 +23,27 @@ require ROOT . '/views/components/topbar.php';
                     <h2>These are all the lands registered in the system. <br>
                 </h2>
                 </center>
+
+                <form method="GET" action="" class="filter-form" style="margin-bottom: 20px; text-align: center;">
+    <label for="crop_type">Crop Type:</label>
+    <input type="text" name="crop_type" id="crop_type" value="<?= isset($_GET['crop_type']) ? htmlspecialchars($_GET['crop_type']) : '' ?>">
+
+    <label for="status">Status:</label>
+    <select name="status" id="status">
+        <option value="">All</option>
+        <option value="0" <?= (isset($_GET['status']) && $_GET['status'] === '0') ? 'selected' : '' ?>>Pending</option>
+        <option value="1" <?= (isset($_GET['status']) && $_GET['status'] === '1') ? 'selected' : '' ?>>Approved</option>
+    </select>
+
+    <button type="submit">Filter</button>
+</form>
+
+
+
+
+
+
+
                 <table class="dashboard-table">
         <thead>
             <tr>
@@ -76,4 +97,4 @@ require ROOT . '/views/components/topbar.php';
     </table>
             </div>
 </body>
-</html>
+</html> 

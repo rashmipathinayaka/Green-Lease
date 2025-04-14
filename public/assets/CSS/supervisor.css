@@ -169,6 +169,7 @@ body {
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   padding: 20px;
+  padding-bottom: 10px;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   width: 100%;
 }
@@ -263,6 +264,8 @@ body {
   transition: all 0.3s ease;
   border-radius: 8px;
   position: relative;
+  height: auto; /* Changed from fixed 70px to auto */
+  min-height: 70px; /* Ensures minimum height */
 }
 
 .dashboard-table tbody tr:hover {
@@ -286,36 +289,97 @@ body {
 
 .dashboard-table td:last-child {
   border-radius: 0 8px 8px 0;
+  white-space: nowrap; /* Prevents button wrapping */
 }
 
+/* Button Styles within Table */
 /* Button Styles within Table */
 .dashboard-table .green-btn,
 .dashboard-table .red-btn,
 .dashboard-table .blue-btn {
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.85rem;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  padding: 0 19px;
   border: none;
+  cursor: pointer;
+  color: white;
+  font-weight: 600;
+  border-radius: 16px;
+  margin: 0 6px;
+  height: 35px;
   min-width: 100px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  font-size: 15px;
+  letter-spacing: 0.5px;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-transform: none; /* Added to override any uppercase transformation */
+  box-sizing: border-box; /* Ensure padding is included in width */
 }
 
+/* Green Button (formerly accept-btn) */
 .dashboard-table .green-btn {
-  background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
-  box-shadow: 0 2px 6px rgba(46, 125, 50, 0.3);
+  background: linear-gradient(135deg, #1a472a 0%, #2d8433 100%);
 }
 
+/* Red Button (formerly reject-btn) */
 .dashboard-table .red-btn {
-  background: linear-gradient(135deg, #e53935 0%, #c62828 100%);
-  box-shadow: 0 2px 6px rgba(198, 40, 40, 0.3);
+  background: linear-gradient(135deg, #c62828 0%, #d32f2f 100%);
 }
 
+/* Blue Button (additional style) */
 .dashboard-table .blue-btn {
   background: linear-gradient(135deg, #1e88e5 0%, #1565c0 100%);
-  box-shadow: 0 2px 6px rgba(21, 101, 192, 0.3);
+}
+
+/* Hover States */
+.dashboard-table .green-btn:hover {
+  background: linear-gradient(135deg, #2d8433 0%, #1a472a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(46, 125, 50, 0.25);
+}
+
+.dashboard-table .red-btn:hover {
+  background: linear-gradient(135deg, #d32f2f 0%, #c62828 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(211, 47, 47, 0.25);
+}
+
+.dashboard-table .blue-btn:hover {
+  background: linear-gradient(135deg, #1565c0 0%, #1e88e5 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(21, 101, 192, 0.25);
+}
+
+/* Active States */
+.dashboard-table .green-btn:active,
+.dashboard-table .red-btn:active,
+.dashboard-table .blue-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Shine Effect */
+.dashboard-table .green-btn::after,
+.dashboard-table .red-btn::after,
+.dashboard-table .blue-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 50px;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(30deg);
+  transition: all 0.4s ease;
+}
+
+.dashboard-table .green-btn:hover::after,
+.dashboard-table .red-btn:hover::after,
+.dashboard-table .blue-btn:hover::after {
+  left: 120%;
 }
 
 /* Responsive Design */
@@ -367,37 +431,6 @@ body {
   border-radius: 8px;
 }
 
-/* Button Styles */
-.green-btn,
-.red-btn,
-.blue-btn {
-  padding: 8px 12px;
-  border: none;
-  cursor: pointer;
-  color: white;
-  font-weight: bold;
-  border-radius: 4px;
-  margin: 5px;
-  display: inline-block;
-  width: calc(50% - 10px);
-}
-
-.green-btn {
-  background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
-  box-shadow: 0 2px 6px rgba(46, 125, 50, 0.3);
-}
-
-.red-btn {
-  background-color: red;
-}
-
-.green-btn:hover {
-  background-color: #218838;
-}
-
-.red-btn:hover {
-  background-color: #c82333;
-}
 
 /* Section visibility */
 
@@ -942,7 +975,7 @@ body {
   border-color: #3498db;
   box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
 }
-
+/* 
 .submit-btn {
   width: 100%;
   padding: 15px;
@@ -967,7 +1000,29 @@ body {
 .error {
   border-color: #e74c3c !important;
   box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.2);
+} */
+
+@keyframes slideIn {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0%);
+    opacity: 1;
+  }
 }
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+  to {
+    width: 0%;
+  }
+}
+
+
 
 @media (max-width: 768px) {
   .profile-container {
@@ -995,3 +1050,82 @@ body {
       padding: 12px;
   }
 }
+
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  margin: 20px 0;
+  height: 45px; /* Slightly taller for better presence */
+}
+
+#fertilizer-search-id {
+  font-family: inherit;
+  font-size: 16px;
+  padding: 12px 20px;
+  width: 240px; /* Wider for better usability */
+  border: 2px solid #e0e0e0;
+  border-radius: 6px;
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 100%;
+  box-sizing: border-box;
+  background: #f8f8f8;
+  color: #333;
+}
+
+#fertilizer-search-id:focus {
+  border-color: #1a472a;
+  box-shadow: 0 2px 8px rgba(26, 71, 42, 0.15);
+  background: #fff;
+}
+
+.search-btn, .clear-btn {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-family: inherit;
+  color: #ffffff;
+  font-weight: 600; /* Slightly bolder */
+  background: linear-gradient(135deg, #1a472a 0%, #2d8433 100%);
+  border: none;
+  padding: 0 28px;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 6px; /* Softer rounded corners */
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  height: 100%;
+  min-width: 120px;
+  letter-spacing: 0.5px; /* Better typography */
+  position: relative;
+  overflow: hidden;
+}
+
+.search-btn:hover, .clear-btn:hover {
+  background: linear-gradient(135deg, #2d8433 0%, #1a472a 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(46, 125, 50, 0.25);
+}
+
+.search-btn:active, .clear-btn:active {
+  transform: translateY(0) scale(0.98);
+}
+
+/* Optional: Add a subtle shine effect to buttons */
+.search-btn::after, .clear-btn::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -60%;
+  width: 50px;
+  height: 200%;
+  background: rgba(255, 255, 255, 0.2);
+  transform: rotate(30deg);
+  transition: all 0.4s ease;
+}
+
+.search-btn:hover::after, .clear-btn:hover::after {
+  left: 120%;
+}
+

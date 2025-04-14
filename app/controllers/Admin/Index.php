@@ -6,10 +6,12 @@ class Index
 
 	private $lands;
 	private $bids;
+private $supervisor;
 
 	public function __construct() {
 		$this->lands = new RLand();
 		$this->bids = new RBid();
+		$this->supervisor = new RSupervisor();
 	}
 
 	public function index()
@@ -26,6 +28,7 @@ class Index
 			'ongoing' => $this->lands->countOngoingProjects(),
 			'unused' => $this->lands->countinactivelands(),
 			'completed' => $this->lands->countcompletedProjects(),
+			'supervisorcount' => $this->supervisor->countsupervisors(),
 		];
 
 

@@ -432,15 +432,6 @@ body {
   min-width: 100px;
 }
 
-/* Section visibility */
-.section {
-  display: none;
-}
-
-.section.active {
-  display: block;
-}
-
 /* Responsive font sizes */
 @media (max-width: 480px) {
   body {

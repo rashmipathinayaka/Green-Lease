@@ -51,14 +51,15 @@
             </li>
 
 
+
             <li>
                 <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
-                <a href="<?php echo URLROOT; ?>/Admin/Site_visit">Site Visits</a>
+                <a href="<?php echo URLROOT; ?>/Admin/Pending_approval">Pending approvals</a>
             </li>
 
             <li>
                 <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
-                <a href="<?php echo URLROOT; ?>/Green-Lease/marketplace">Marketplace</a>
+                <a href="<?php echo URLROOT; ?>/Marketplace">Marketplace</a>
             </li>
         </ul>
 
@@ -66,8 +67,8 @@
         <ul class="logout">
             <li>
                 <img src="<?= URLROOT ?>/assets/images/logout.png" alt="Logout Icon" class="menu-icon">
-                <a href="#">Log Out</a>
-            </li>
+                <a href="<?php echo URLROOT; ?>/logout">Log Out</a>
+                </li>
         </ul>
 
     </div>

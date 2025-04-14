@@ -10,170 +10,83 @@
     <?php include 'components/navbar.php'; ?>
 
     <div class="container">
-        <section class="filter-section">
-            <div class="filter-grid">
-                <input type="text" id="locationFilter" placeholder="Search by location" class="filter-input">
-                <input type="text" id="harvestTypeFilter" placeholder="Harvest type" class="filter-input">
-                <select id="sortBy" class="filter-input">
-                    <option value="">Sort by</option>
-                    <option value="price-asc">Price: Low to High</option>
-                    <option value="price-desc">Price: High to Low</option>
-                    <option value="date">Harvest Date</option>
-                </select>
+        <!-- Display messages if any -->
+        <?php if(isset($_SESSION['message'])): ?>
+            <div class="alert alert-<?= $_SESSION['message_type'] ?>">
+                <?= $_SESSION['message'] ?>
             </div>
+            <?php 
+                // Clear the message after displaying
+                unset($_SESSION['message']);
+                unset($_SESSION['message_type']);
+            ?>
+        <?php endif; ?>
+
+        <section class="filter-section">
+            <form method="GET" action="<?= URLROOT ?>/marketplace" class="filter-form">
+                <div class="filter-grid">
+                    <input type="text" name="location" placeholder="Search by location" 
+                           class="filter-input" value="<?= isset($_GET['location']) ? htmlspecialchars($_GET['location']) : '' ?>">
+                    
+                    <input type="text" name="crop_type" placeholder="Harvest type" 
+                           class="filter-input" value="<?= isset($_GET['crop_type']) ? htmlspecialchars($_GET['crop_type']) : '' ?>">
+                    
+                    <select name="sort" class="filter-input">
+                        <option value="">Sort by</option>
+                        <option value="price-asc" <?= (isset($_GET['sort']) && $_GET['sort'] == 'price-asc') ? 'selected' : '' ?>>
+                            Price: Low to High
+                        </option>
+                        <option value="price-desc" <?= (isset($_GET['sort']) && $_GET['sort'] == 'price-desc') ? 'selected' : '' ?>>
+                            Price: High to Low
+                        </option>
+                        <option value="date" <?= (isset($_GET['sort']) && $_GET['sort'] == 'date') ? 'selected' : '' ?>>
+                            Harvest Date
+                        </option>
+                    </select>
+                    
+                    <button type="submit" class="filter-button">Apply Filters</button>
+                </div>
+            </form>
         </section>
 
-        <div class="marketplace-grid" id="marketplaceGrid">
-            <!-- JavaScript will populate cards here -->
-        </div>
-    </div>
-
-    <!-- Login Required Modal -->
-    <div id="loginRequiredModal" class="modal">
-        <div class="modal-content">
-            <p>Please log in to place a bid.</p>
-            <button onclick="window.location.href='<?= ROOT ?>/login'" class="modal-btn confirm">Go to Login</button>
-            <button onclick="closeLoginModal()" class="modal-btn cancel">Cancel</button>
-        </div>
-    </div>
-
-    <!-- Confirmation Modal -->
-    <div id="confirmationModal" class="modal">
-        <div class="modal-content">
-            <p>Are you sure you want to place this bid?</p>
-            <button id="confirmBid" class="modal-btn confirm">Yes, Place Bid</button>
-            <button id="cancelBid" class="modal-btn cancel">Cancel</button>
-        </div>
-    </div>
-
-    <!-- Success Modal -->
-    <div id="successModal" class="modal">
-        <div class="modal-content">
-            <p>Bid placed successfully! Please wait for confirmation.</p>
-            <button id="closeSuccessModal" class="modal-btn success-close">OK</button>
-        </div>
-    </div>
-
-    <script>
-        const listings = <?= json_encode($harvests) ?>;
-        const marketplaceGrid = document.getElementById("marketplaceGrid");
-        const loginRequiredModal = document.getElementById("loginRequiredModal");
-        const confirmationModal = document.getElementById("confirmationModal");
-        const successModal = document.getElementById("successModal");
-        const confirmBidButton = document.getElementById("confirmBid");
-        const cancelBidButton = document.getElementById("cancelBid");
-        const closeSuccessModalButton = document.getElementById("closeSuccessModal");
-
-        function renderListings(data) {
-            marketplaceGrid.innerHTML = "";
-
-            if (!data.length) {
-                marketplaceGrid.innerHTML = "<p>No harvests found.</p>";
-                return;
-            }
-
-            data.forEach(harvest => {
-                const card = document.createElement("div");
-                card.className = "listing-card";
-                card.innerHTML = `
-                    <div class="listing-image"></div>
-                    <div class="listing-content">
-                        <h2 class="listing-title">${harvest.crop_type} Harvest</h2>
-                        <div class="listing-details">
-                            <p>Location: ${harvest.address} (Zone ${harvest.zone})</p>
-                            <p>Land Size: ${harvest.size} Acres</p>
-                            <p>Harvest Date: ${harvest.harvest_date}</p>
-                            <p>Remaining: ${harvest.rem_amount} Tons</p>
+        <div class="marketplace-grid">
+            <?php if(empty($harvests)): ?>
+                <p>No harvests found.</p>
+            <?php else: ?>
+                <?php foreach($harvests as $harvest): ?>
+                    <div class="listing-card">
+                        <div class="listing-image"></div>
+                        <div class="listing-content">
+                            <h2 class="listing-title"><?= htmlspecialchars($harvest->crop_type) ?> Harvest</h2>
+                            <div class="listing-details">
+                                <p>Location: <?= htmlspecialchars($harvest->address) ?> (Zone <?= htmlspecialchars($harvest->zone) ?>)</p>
+                                <p>Land Size: <?= htmlspecialchars($harvest->size) ?> Acres</p>
+                                <p>Harvest Date: <?= htmlspecialchars($harvest->harvest_date) ?></p>
+                                <p>Remaining: <?= htmlspecialchars($harvest->rem_amount) ?> Tons</p>
+                            </div>
+                            <div class="current-bid">Minimum Bid (1kg): LKR <?= htmlspecialchars($harvest->min_bid) ?></div>
+                            
+                            <!-- PHP Form for bidding -->
+                            <form method="POST" action="<?= URLROOT ?>/marketplace/placeBid" class="bid-form">
+                                <input type="hidden" name="harvest_id" value="<?= $harvest->id ?>">
+                                
+                                <label for="amount_<?= $harvest->id ?>">Amount (kg)</label>
+                                <input type="number" id="amount_<?= $harvest->id ?>" name="amount" 
+                                       class="bid-input" required min="1" 
+                                       max="<?= $harvest->rem_amount * 1000 ?>">
+                                
+                                <label for="unit_price_<?= $harvest->id ?>">Unit Price (LKR per kg)</label>
+                                <input type="number" id="unit_price_<?= $harvest->id ?>" name="unit_price" 
+                                       class="bid-input" required min="<?= $harvest->min_bid ?>">
+                                
+                                <button type="submit" class="bid-button">Place Bid</button>
+                            </form>
                         </div>
-                        <div class="current-bid">Minimum Bid: $${harvest.min_bid}</div>
-                        <form class="bid-form">
-                            <input type="number" placeholder="Your bid" class="bid-input" min="${harvest.min_bid}" step="1000">
-                            <button type="submit" class="bid-button">Place Bid</button>
-                        </form>
                     </div>
-                `;
-                const bidForm = card.querySelector(".bid-form");
-                bidForm.addEventListener("submit", (event) => handleBid(event, harvest.max_amount));
-                marketplaceGrid.appendChild(card);
-            });
-        }
-
-        function filterAndSortListings() {
-            let filteredListings = [...listings];
-
-            const location = document.getElementById("locationFilter").value.toLowerCase();
-            if (location) {
-                filteredListings = filteredListings.filter(item =>
-                    item.address.toLowerCase().includes(location)
-                );
-            }
-
-            const type = document.getElementById("harvestTypeFilter").value.toLowerCase();
-            if (type) {
-                filteredListings = filteredListings.filter(item =>
-                    item.crop_type.toLowerCase().includes(type)
-                );
-            }
-
-            const sort = document.getElementById("sortBy").value;
-            if (sort === "price-asc") {
-                filteredListings.sort((a, b) => a.max_amount - b.max_amount);
-            } else if (sort === "price-desc") {
-                filteredListings.sort((a, b) => b.max_amount - a.max_amount);
-            } else if (sort === "date") {
-                filteredListings.sort((a, b) => new Date(a.harvest_date) - new Date(b.harvest_date));
-            }
-
-            renderListings(filteredListings);
-        }
-
-        function handleBid(event, minBid) {
-            event.preventDefault();
-            const input = event.target.querySelector(".bid-input");
-            const value = parseInt(input.value, 10);
-
-            if (!value || value < minBid) {
-                alert(`Your bid must be at least $${minBid}`);
-                return;
-            }
-
-            confirmationModal.style.display = "flex";
-        }
-
-        function closeLoginModal() {
-            loginRequiredModal.style.display = "none";
-        }
-
-        // Event Listeners
-        document.getElementById("locationFilter").addEventListener("input", filterAndSortListings);
-        document.getElementById("harvestTypeFilter").addEventListener("input", filterAndSortListings);
-        document.getElementById("sortBy").addEventListener("change", filterAndSortListings);
-
-        confirmBidButton.onclick = () => {
-            confirmationModal.style.display = "none";
-            successModal.style.display = "flex";
-            setTimeout(() => {
-                window.location.href = "<?= ROOT ?>/buyer";
-            }, 2000);
-        };
-
-        cancelBidButton.onclick = () => {
-            confirmationModal.style.display = "none";
-        };
-
-        closeSuccessModalButton.onclick = () => {
-            successModal.style.display = "none";
-        };
-
-        window.onclick = (event) => {
-            if (event.target === confirmationModal) confirmationModal.style.display = "none";
-            if (event.target === successModal) successModal.style.display = "none";
-            if (event.target === loginRequiredModal) loginRequiredModal.style.display = "none";
-        };
-
-        // Initial Load
-        renderListings(listings);
-    </script>
+                <?php endforeach; ?>
+            <?php endif; ?>
+        </div>
+    </div>
 
     <?php include 'components/footer.php'; ?>
 </body>
