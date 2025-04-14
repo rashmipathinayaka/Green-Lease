@@ -1,60 +1,89 @@
 <?php
 /**
- * Manage_sitehead class
+ * Manage_supervisor class
  */
 class Manage_sitehead
 {
     use Controller;
 
     private $sitehead;
+    private $user;
+    private $project;
 
     public function __construct() {
-        // Initialize the Sitehead model
-        $this->sitehead = new Sitehead();
+        // Initialize the sitehead model
+        $this->sitehead = new RSitehead();
+        $this->user=new RUser();
+        $this->project=new RProject();
     }
 
     public function index()
     {
-        // Render the view for managing siteheads
-        $this->view('admin/Manage_sitehead');
+
+        $full_name = $_GET['full_name'] ?? '';
+        $land_id = $_GET['land_id'] ?? '';
+    
+        $filters = [
+            'full_name' => $full_name,
+            'land_id' => $land_id
+        ];
+        $data = $this->sitehead->getSiteheadDetails($filters);
+           
+        $this->view('admin/manage_sitehead', ['data' => $data]);
     }
 
-    public function addsitehead()
-    {
-        // Initialize an array to hold errors and form data
-        $data = [
-            'errors' => [], // Initialize errors
-            'formData' => [] // Initialize form data
+  
+
+public function delete_sitehead($id){
+	if ($this->sitehead->delete($id)) {
+              
+		$data = $this->sitehead->getSiteheadDetails();
+				  $this->view('admin/manage_sitehead', ['data' => $data]);
+			   } else {
+				   // If deletion fails, show a 404 page or an error message
+				   $this->view('sorry delete failed');
+			   }
+		   }
+
+	
+
+
+public function update_sitehead()
+{
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+       
+        $id = $_POST['id'];
+
+        // Retrieve other form data
+        $updatedata = [
+			'id' => $_POST['id'],
+            'land_id' => $_POST['land_id'], // sitehead zone
+            'status' => $_POST['status'] // sitehead status
         ];
-        
-        // Check if the request method is POST
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Retrieve form data
-            $formData = [
-                'name' => $_POST['name'] ?? null,
-                'email' => $_POST['email'] ?? null,
-                'number' => $_POST['number'] ?? null,
-                'zone' => $_POST['zone'] ?? null,
-            ];
 
-            // Validate the form data using the model's validation method
-            if ($this->sitehead->validate($formData)) {
-                // If validation passes, insert the data into the database
-                if ($this->sitehead->insert($formData)) {
-                    // Redirect to the manage sitehead page or display success message
-                    header("Location: " . URLROOT . "/admin/Manage_sitehead");
-                    exit;
-                } else {
-                    $data['errors'][] = "Failed to insert data into the database.";
-                }
-            } else {
-                // If validation fails, capture errors
-                $data['errors'] = $this->sitehead->errors;
-            }
-        }
+		//$update_data=['name'=>'name','email'=>'email','number'=>'number','zone'=>'zone','status'=>'status'];
 
-        // Render the view with the data
-        $this->view('admin/manage_sitehead', $data);
+        // Call the update function, passing the ID and updated data
+       if( $this->sitehead->update($id, $updatedata, 'id')){
+		echo "Data updated successfully.";
+	   }
+
+        // Fetch updated data and load the view
+        $newdata = $this->sitehead->getSiteheadDetails();
+        $this->view('admin/manage_sitehead', ['data' => $newdata]);
     }
 }
-?>
+
+public function getid($id){
+    echo $id;
+    header("Location: " . URLROOT . "/Components/profile/index/{$id}");
+}
+
+
+
+
+
+
+
+
+}

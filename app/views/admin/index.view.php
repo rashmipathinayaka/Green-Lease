@@ -38,10 +38,11 @@
                     <div class="metric-card">
                         <h3>Supervisor Count</h3>
                         <div class="metric-content">
-                            <span class="metric-value">20</span>
+                            <span class="metric-value"> 
+                                <?php echo !empty($supervisorcount) ? htmlspecialchars($supervisorcount) : 1; ?></span>
                             <i class="fas fa-user"></i>
                         </div>
-                        <button onclick="showSection('manage-supervisors-section')">View</button>
+                        <button onclick="window.location.href='<?= URLROOT ?>/admin/manage_supervisor/'">View</button>
                     </div>
                     <div class="metric-card">
                         <h3>Total Bids</h3>

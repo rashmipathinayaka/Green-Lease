@@ -51,57 +51,31 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 // Modal handling for adding supervisor
-const addSupervisorBtn = document.getElementById("add-supervisor-btn");
-const addSupervisorForm = document.getElementById("add-supervisor-form");
-const closeFormBtn = document.querySelector(".close-form");
 
-addSupervisorBtn.addEventListener("click", () => {
-  addSupervisorForm.style.display = "block";
-});
+  // Show popup when button is clicked
+  document.getElementById('add-supervisor-btn').addEventListener('click', function () {
+    document.getElementById('add-supervisor-form').style.display = 'block';
+  });
 
-closeFormBtn.addEventListener("click", () => {
-  addSupervisorForm.style.display = "none";
-});
+  // Handle form submission
+  document.getElementById('supervisorForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // prevent page reload
 
-const supervisorForm = document.getElementById("new-supervisor-form");
-supervisorForm.addEventListener("submit", (event) => {
-  event.preventDefault(); // Prevent the default form submission behavior
+    const formData = new FormData(this);
 
-  // Extract form data
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const phone = document.getElementById("phone").value;
-  const zone = document.getElementById("zone").value;
-  const status = document.getElementById("status").value;
+    fetch('/Admin/Manage_supervisor/add_supervisor', {
+      method: 'POST',
+      body: formData
+    })
+    .then(response => response.text()) // or .json() depending on your controller response
+    .then(data => {
+      alert('Supervisor added successfully!');
+      // optionally hide form or refresh data
+      document.getElementById('popupForm').style.display = 'none';
+    })
+    .catch(error => console.error('Error:', error));
+  });
 
-  // Add new supervisor to the list
-  // const supervisorList = document.getElementById("supervisor-list");
-  // const newRow = document.createElement("tr");
-  // newRow.innerHTML = `
-  //     <td>${name}</td>
-  //     <td>${email}</td>
-  //     <td>${phone}</td>
-  //     <td>${zone}</td>
-  //     <td>${status}</td>
-  //     <td>
-  //       <button class="green-btn">Edit</button>
-  //       <button class="red-btn">Deactivate</button>
-  //     </td>
-  //   `;
-  // supervisorList.appendChild(newRow);
-
-  console.log("Name : " + name);
-  console.log("Email : " + email);
-  console.log("Phone : " + phone);
-  console.log("Zone : " + zone);
-  console.log("Status : " + status);
-
-  // Hide the form
-  addSupervisorForm.style.display = "none";
-
-  // Clear the form fields
-  supervisorForm.reset();
-});
 
 document.querySelectorAll(".edit-btn").forEach((button) => {
   button.addEventListener("click", (event) => {
@@ -209,3 +183,13 @@ function switchTab(tabName) {
   document.getElementById(tabName).style.display = 'block';
   event.currentTarget.classList.add('active');
 }
+
+
+
+
+
+
+});
+
+
+

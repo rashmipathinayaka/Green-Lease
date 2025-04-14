@@ -51,10 +51,6 @@
             </li>
 
 
-            <li>
-                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
-                <a href="<?php echo URLROOT; ?>/Admin/Sitevisit">Site Visits</a>
-            </li>
 
             <li>
                 <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">

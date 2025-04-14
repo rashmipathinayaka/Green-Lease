@@ -14,7 +14,7 @@
 <body>
 	<?php
 	require ROOT . '/views/landowner/sidebar.php';
-    require ROOT . '/views/components/topbar.php';
+	require ROOT . '/views/components/topbar.php';
 	?>
 
 	<div id="manage-lands-section">
@@ -52,17 +52,29 @@
 									No Attachment
 								<?php endif; ?>
 							</td>
+							
 							<td>
-							<?= htmlspecialchars($land->status) ?>
+								<?php
+								if ($land->status == '4') {
+									echo 'unused';
+								} elseif ($land->status == '1') {
+									echo 'pending';
+								} elseif ($land->status == '2') {
+									echo 'ongoing project';
+								} else {
+									echo 'project completed';
+								}
+								?>
 							</td>
+							
 							<td>
-								<?php if ($land->status === 'inactive'): ?>
+								<?php if ($land->status == '4'): ?>
 									<button class="red-btn" onclick="openModal('<?= URLROOT ?>/Landowner/Manageland/deleteland/<?php echo $land->id; ?>')">Remove</button>
-								<?php elseif($land->status === 'active' || $land->status === 'completed'): ?>
+								<?php elseif ($land->status == '2' || $land->status == '3'): ?>
 									<button class="green-btn">View project</button>
-									<?php else:?>
-										<span class="status-pending">Pending for approval</span>
-										<?php endif; ?>
+								<?php else: ?>
+									<span class="status-pending">Pending for approval</span>
+								<?php endif; ?>
 							</td>
 						</tr>
 					<?php endforeach; ?>
