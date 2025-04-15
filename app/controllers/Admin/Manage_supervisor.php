@@ -13,7 +13,7 @@ class Manage_supervisor
     public function __construct() {
         // Initialize the supervisor model
         $this->supervisor = new RSupervisor();
-        $this->user=new RUser();
+        // $this->user=new RUser();
         $this->project=new RProject();
     }
 
