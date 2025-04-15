@@ -13,7 +13,7 @@
 <body>
 	<?php
 	require ROOT . '/views/sitehead/sidebar.php';
-	require ROOT . '/views/components/navbar.php';
+	require ROOT . '/components/topbar.php';
 	?>
 	<div class="admin-container">
 
