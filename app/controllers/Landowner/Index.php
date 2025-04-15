@@ -17,8 +17,8 @@ class Index
 	public function index()
 	{
 		
-		//$userId = $_SESSION['user_id'] ?? null; // Change this based on your authentication system
-	$userId=19;
+		$userId = $_SESSION['id'] ?? null; // Change this based on your authentication system
+	
 		if ($userId) {
 			// Get land count for the logged-in user
 			$landCount = $this->lands->countLandsByUserId($userId);

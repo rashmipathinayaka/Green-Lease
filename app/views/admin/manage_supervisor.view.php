@@ -1,154 +1,126 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/manage-supervisor.css">
-    <script src="<?php echo URLROOT; ?>/assets/js/admin.js" defer></script>
-    <title>Document</title>
+    <link rel="stylesheet" href="<?= URLROOT; ?>/assets/css/admin/manage-supervisor.css">
+    <title>Manage Supervisors</title>
 </head>
+
 <body>
+    <?php
+    require ROOT . '/views/admin/sidebar.php';
+    require ROOT . '/views/components/topbar.php';
+    ?>
 
-<?php
-require ROOT . '/views/admin/sidebar.php';
-require ROOT . '/views/components/topbar.php';
-?>
+    <center><h1>Manage Supervisors</h1></center>
+    <br><br>
 
-<!-- <div id="manage-supervisors-section" class="section"> -->
-                <center>
-                    <h1>Manage Supervisors</h1>
-                </center>
-                <br><br>
+    <div class="filter-section">
+    <form method="GET" action="" class="filter-form" style="margin-bottom: 20px; text-align: center;">
+    <label for="name">Name:</label>
+    <input type="text" name="full_name" id="full_name" value="<?= isset($_GET['full_name']) ? htmlspecialchars($_GET['full_name']) : '' ?>">
 
-                <!-- Search and Filter Section -->
-                <div class="filter-section">
-                    <input type="text" id="search-bar" placeholder="Search supervisors by name or email">
-                    <select id="status-filter">
-                        <option value="">All Status</option>
-                        <option value="active">Active</option>
-                        <option value="inactive">Inactive</option>
-                    </select>
-                    <select id="zone-filter">
-                        <option value="">Zone</option>
-                        <option value="Zone 1">Zone 1</option>
-                        <option value="Zone 2">Zone 2</option>
-                    </select>
-                    <button class="green-btn" id="add-supervisor-btn">Add Supervisor</button>
-                </div>
+    <label for="zone">Zone:</label>
+    <select name="zone" id="zone">
+        <option value="">All</option>
+        <option value="1" <?= (isset($_GET['zone']) && $_GET['zone'] === '1') ? 'selected' : '' ?>>1</option>
+        <option value="2" <?= (isset($_GET['zone']) && $_GET['zone'] === '2') ? 'selected' : '' ?>>2</option>
+    </select>
 
-                <!-- Supervisors Table -->
-                <table class="dashboard-table">
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone Number</th>
-                            <th>Zone</th>
-                            <th>Status</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody id="supervisor-list">
+    <button type="submit">Filter</button>
+</form>
+        <a href="<?= URLROOT ?>/Admin/add_supervisor/">
+            <button class="Addsupervisor" id="Addsupervisor">Add supervisor</button>
+        </a>
+    </div>
+
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Zone</th>
+                <th>Status</th>
+                <th>No. of Lands</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody id="supervisor-list">
             <?php if (!empty($data)): ?>
-                <?php foreach ($data as $data): ?>
-                    <tr $data-id="<?= htmlspecialchars($data->id) ?>">
-                        <td><?= htmlspecialchars($data->name) ?></td>
-                        <td><?= htmlspecialchars($data->email) ?></td>
-                        <td><?= htmlspecialchars($data->number) ?> </td>
-                        <td><?= htmlspecialchars($data->zone) ?></td>
+                <?php foreach ($data as $supervisor): ?>
+                    <tr>
                         <td>
-                    <?= $data->status === 0 ? "Active" : "Inactive" ?>
-                </td>                    
+                            <?= htmlspecialchars($supervisor->full_name) ?>
+                            <button class="profile-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_supervisor/getid/<?= $supervisor->id ?>';">
+                                <img src="<?= URLROOT ?>/assets/images/user.png" class="menu-icon">view profile
+                            </button>
+                        </td>
+                        <td><?= htmlspecialchars($supervisor->zone) ?></td>
+                        <td><?= $supervisor->status == 0 ? "Active" : "Inactive" ?></td>
+                        <td><?= htmlspecialchars($supervisor->land_count) ?></td>
                         <td>
-                            <?php if ($data->status === 0): ?>
-                                <button class="green-btn edit-supervisor-btn">Edit</button>    
-                                       <?php else: ?>
-                                        <button class="green-btn"  onclick="window.location.href='<?php echo URLROOT; ?>/Admin/Manage_supervisor/getid/<?php echo $data->id;?>';">Edit</button>
-                                        <button class="red-btn"  onclick="window.location.href='<?php echo URLROOT; ?>/Admin/Manage_supervisor/delete_supervisor/<?php echo $data->id;?>';">Remove</button>
-
+                            <button class="green-btn toggle-edit-btn" data-id="<?= $supervisor->id ?>">Edit</button>
+                            <?php if ($supervisor->status != 0): ?>
+                                <button class="red-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_supervisor/delete_supervisor/<?= $supervisor->id ?>';">Remove</button>
                             <?php endif; ?>
+                        </td>
+                    </tr>
+
+                    <!-- Inline Edit Form Row -->
+                    <tr id="edit-row-<?= $supervisor->id ?>" class="edit-row" style="display: none;">
+                        <td colspan="6">
+                            <form class="form-styles inline-edit-form" method="POST" action="<?= URLROOT ?>/Admin/manage_supervisor/update_supervisor">
+                                <input type="hidden" name="id" value="<?= $supervisor->id ?>">
+                                <label>Zone:
+                                    <select name="zone" required>
+                                        <?php foreach (["1", "2", "3", "4"] as $zone): ?>
+                                            <option value="<?= $zone ?>" <?= $supervisor->zone == $zone ? "selected" : "" ?>><?= $zone ?></option>
+                                        <?php endforeach; ?>
+                                    </select>
+                                </label>
+                                <label>Status:
+                                    <select name="status" required>
+                                        <option value="0" <?= $supervisor->status == 0 ? "selected" : "" ?>>Active</option>
+                                        <option value="1" <?= $supervisor->status == 1 ? "selected" : "" ?>>Inactive</option>
+                                    </select>
+                                </label>
+                                <button type="submit">Update</button>
+                            </form>
                         </td>
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
-                <tr>
-                    <td colspan="5">No lands available.</td>
-                </tr>
+                <tr><td colspan="6">No supervisors available.</td></tr>
             <?php endif; ?>
         </tbody>
-                </table>
-                <!-- Add New Supervisor Button -->
-                <br>
-                
+    </table>
 
-                <!-- Supervisor Details Modal -->
-                <div id="supervisor-modal" class="modal">
-                    <div class="modal-content">
-                        <span class="close-modal">&times;</span>
-                        <h2>Supervisor Details</h2>
-                        <!-- Supervisor details will be populated dynamically -->
-                        <div id="supervisor-details"></div>
-                    </div>
-                </div>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const editButtons = document.querySelectorAll(".toggle-edit-btn");
 
-                <!-- Add Supervisor Form -->
-                <div id="add-supervisor-form" class="modal">
-                    <div class="modal-content">
-                        <span class="close-form">&times;</span>
-                        <h2>Add New Supervisor</h2>
-                        <form id="new-supervisor-form" form enctype="multipart/form-data" class="form-styles" method="POST" action="<?php echo URLROOT; ?>/Admin/manage_supervisor/add_supervisor">
-                            <label for="name">Full Name:</label>
-                            <input type="text" id="name" name="name" required>
-                            <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" required>
-                            <label for="number">Phone Number:</label>
-                            <input type="number" id="number" name="number" required>
-                            <label for="zone">Zone:</label>
-                            <select id="zone" name="zone" required>
-                                <option value="Zone 1">Zone 1</option>
-                                <option value="Zone 2">Zone 2</option>
-                                <option value="Zone 3">Zone 3</option>
-                                <option value="Zone 4">Zone 4</option>
-                            </select>
-                            <label for="status">Status:</label>
-                            <select id="status" name="status" required>
-                                <option value="0">Active</option>
-                                <option value="1">Inactive</option>
-                            </select>
-                            <button type="submit">Add Supervisor</button>
-                        </form>
-                    </div>
-                </div>
+            editButtons.forEach(button => {
+                button.addEventListener("click", function () {
+                    const id = this.getAttribute("data-id");
+                    const row = document.getElementById(`edit-row-${id}`);
 
-                <!-- Edit Supervisor Form -->
-                <div id="edit-supervisor-form" class="modal">
-                    <div class="modal-content">
-                        <span class="close-form">&times;</span>
-                        <h2>Edit Supervisor</h2>
-                        <form id="edit-supervisor-form" class="form-styles" form enctype="multipart/form-data" method="POST" action="<?php echo URLROOT; ?>/Admin/manage_supervisor/update_supervisor">>
-                            <input type="hidden" id="id" name="id" value="<?php $id ?>">
-                            <label for="edit-name">Full Name:</label>
-                            <input type="text" id="edit-name" name="name" required>
-                            <label for="edit-email">Email:</label>
-                            <input type="email" id="edit-email" name="email" required>
-                            <label for="edit-number">Phone Number:</label>
-                            <input type="number" id="edit-number" name="number" required>
-                            <label for="edit-zone">Zone:</label>
-                            <select id="edit-zone" name="zone" required>
-                                <option value="Zone 1">Zone 1</option>
-                                <option value="Zone 2">Zone 2</option>
-                                <option value="Zone 3">Zone 3</option>
-                                <option value="Zone 4">Zone 4</option>
-                            </select>
-                            <label for="edit-status">Status:</label>
-                            <select id="edit-status" name="status" required>
-                                <option value="0">Active</option>
-                                <option value="1">Inactive</option>
-                            </select>
-                            <button type="submit">Update Supervisor</button>
-                        </form>
-                    </div>
-                </div>
-            
-        </div>
-</body></html>
+                    // Close other open edit rows
+                    document.querySelectorAll(".edit-row").forEach(r => {
+                        if (r !== row) r.style.display = "none";
+                    });
+
+                    // Toggle current row
+                    if (row.style.display === "none") {
+                        row.style.display = "table-row";
+                        row.scrollIntoView({ behavior: "smooth", block: "center" });
+                    } else {
+                        row.style.display = "none";
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

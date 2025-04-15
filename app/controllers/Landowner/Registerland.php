@@ -12,17 +12,18 @@ class Registerland
         $data = [
             'errors' => [], // Initialize errors
         ];
-        
+        $userId = $_SESSION['id'];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formData = [
+                'landowner_id' => $userId,
                 'address' => $_POST['address'] ?? null,
                 'zone' => $_POST['district'] ?? null,
                 'size' => $_POST['size'] ?? null,
                 'duration'  => $_POST['duration'] ?? null,
                 'crop_type' => $_POST['crop_type'] ?? null,
                 'document' => null, // Default to null
-                'status'=>'pending',
+                'status'=>'1',
             ];
         
             // Define upload directory

@@ -7,15 +7,27 @@ class Manage_supervisor
     use Controller;
 
     private $supervisor;
+    private $user;
+    private $project;
 
     public function __construct() {
         // Initialize the supervisor model
-        $this->supervisor = new Supervisor();
+        $this->supervisor = new RSupervisor();
+        // $this->user=new RUser();
+        $this->project=new RProject();
     }
 
     public function index()
     {
-        $data = $this->supervisor->findAll();
+
+        $full_name = $_GET['full_name'] ?? '';
+        $zone = $_GET['zone'] ?? '';
+    
+        $filters = [
+            'full_name' => $full_name,
+            'zone' => $zone
+        ];
+        $data = $this->supervisor->getSupervisorDetails($filters);
             
         $this->view('admin/manage_supervisor', ['data' => $data]);
     }
@@ -33,9 +45,9 @@ class Manage_supervisor
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Retrieve form data
             $formData = [
-                'name' => $_POST['name'] ?? null,
+                'full_name' => $_POST['full_name'] ?? null,
                 'email' => $_POST['email'] ?? null,
-                'number' => $_POST['number'] ?? null,
+                'contact_no' => $_POST['contact_no'] ?? null,
                 'zone' => $_POST['zone'] ?? null,
 				'status' => $_POST['status'] ?? null,
             ];
@@ -45,8 +57,8 @@ class Manage_supervisor
 				$this->supervisor->insert($formData);
 				$data = $this->supervisor->findAll();
             
-				$this->view('admin/manage_supervisor', ['data' => $data]);
-					  
+                $this->view('admin/manage_supervisor', ['data' => $data]);
+
 			  }else{
 				  echo "Data insertion failed.";
 			  }  
@@ -57,51 +69,26 @@ class Manage_supervisor
 public function delete_supervisor($id){
 	if ($this->supervisor->delete($id)) {
               
-		$data = $this->supervisor->findAll();
+		$data = $this->supervisor->getSupervisorDetails();
 				  $this->view('admin/manage_supervisor', ['data' => $data]);
 			   } else {
 				   // If deletion fails, show a 404 page or an error message
-				   $this->view('_404');
+				   $this->view('sorry delete failed');
 			   }
 		   }
 
-
-//  public function update_supervisor(){
 	
-	
-	
-//  	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-// //raw id
-// 	$id = $_POST['id']; 
-// 	$updatedata=[
-		
-// 		'name' => $_POST['name'],
-//         'email' => $_POST['email'],
-//         'number' => $_POST['number'],
-//         'zone' => $_POST['zone'],
-//         'status' => $_POST['status']
-// 	];
-
-//       $this->supervisor->update($id,$updatedata,'id');
-
-// 	  $data = $this->supervisor->findAll();
-// 	$this->view('admin/manage_supervisor', ['data' => $data]);
-// }
 
 
 public function update_supervisor()
 {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        // Retrieve the supervisor ID
-       // $id = 23; // Extract the supervisor ID from the form
-echo $_POST['id'];
-$id  = $_POST['id'];
+       
+        $id = $_POST['id'];
+
         // Retrieve other form data
         $updatedata = [
 			'id' => $_POST['id'],
-            'name' => $_POST['name'], // Supervisor name
-            'email' => $_POST['email'], // Supervisor email
-            'number' => $_POST['number'], // Supervisor phone number
             'zone' => $_POST['zone'], // Supervisor zone
             'status' => $_POST['status'] // Supervisor status
         ];
@@ -114,8 +101,26 @@ $id  = $_POST['id'];
 	   }
 
         // Fetch updated data and load the view
-        $newdata = $this->supervisor->findAll();
+        $newdata = $this->supervisor->getSupervisorDetails();
         $this->view('admin/manage_supervisor', ['data' => $newdata]);
     }
 }
+
+public function getid($id){
+    echo $id;
+    header("Location: " . URLROOT . "/Components/profile/index/{$id}");
+}
+
+
+public function getsupid($id) {
+    // Get project count data for the given supervisor ID
+    $data1 = $this->project->projectspersupervisor($id);
+
+    // Load the view and pass the data
+    $this->view('admin/manage_supervisor', ['data1' => $data1]);
+}
+
+
+
+
 }

@@ -7,6 +7,25 @@ body {
     overflow: auto; /* Enables scrolling */
 }
 
+.black-btn {
+    background-color: #000000;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    transition: all 0.3s ease; /* Smooth transition */
+    cursor: pointer;
+    border-radius: 5px; /* Optional: rounded corners */
+}
+
+.black-btn:hover {
+    background-color: #333333; /* Slightly lighter black */
+    color: #00ffcc; /* Change text color on hover (customizable) */
+    transform: scale(1.05); /* Slight zoom effect */
+}
+
+
+
+
 /* Register Land Section */
 #register-lands-section {
     display: flex;
