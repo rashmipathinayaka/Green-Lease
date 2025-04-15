@@ -13,7 +13,7 @@ class Manage_sitehead
     public function __construct() {
         // Initialize the sitehead model
         $this->sitehead = new RSitehead();
-        $this->user=new RUser();
+        // $this->user=new RUser();
         $this->project=new RProject();
     }
 
