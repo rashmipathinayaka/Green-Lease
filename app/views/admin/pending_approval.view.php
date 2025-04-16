@@ -85,8 +85,45 @@
             <center>
                 <h1>Approved Visits</h1>
             </center>
-            <!-- Content for Approved Visits tab would go here -->
-            <p>Approved visits content will appear here.</p>
+           
+
+            <div class="container">
+   <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Visit ID</th>
+                    <th>Land ID</th>
+                    <th>previous date</th>
+                    <th>New Scheduled Date & Time</th>
+                    <th></th>                  
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (!empty($visitdata1)): ?>
+                    <?php foreach ($visitdata1 as $visit1): ?>
+                        <tr data-land-id="<?= htmlspecialchars($visit1->id) ?>">
+                            <td><?= htmlspecialchars($visit1->id) ?></td>
+                            <td><?= htmlspecialchars($visit1->address) ?></td>
+                            <td><?= htmlspecialchars($visit1->date)?></td>
+                            <td><?= htmlspecialchars($visit1->re_date) ?></td>
+                           <td> <a href="<?= URLROOT ?>/Admin/Pending_approval/getland/<?php echo $visit1->id; ?>">
+                                        <button class="red-btn">send email</button>
+                                    </a>
+                           </td>
+                        </tr>
+                    <?php endforeach; ?>
+                <?php endif; ?>
+            </tbody>
+        </table>
+</div></div>
+</div>
+</body>
+
+</html>
+
+
+
+
         </div>
     </div>
 

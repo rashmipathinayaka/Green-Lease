@@ -90,4 +90,13 @@ public function getuserbyid($userId)
     return $this->query($query, $data)[0] ?? null;
 }
 
+public function getEmailById($id) {
+    $query = "SELECT email FROM user WHERE id = :id AND role_id = 4"; 
+    $data = [':id' => $id];
+    $result = $this->query($query, $data);
+    return $result[0]->email ?? null;
+}
+
+
+
 }
