@@ -1,3 +1,50 @@
+document.addEventListener('DOMContentLoaded', function() {
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const tabContents = document.querySelectorAll('.tab-content');
+  
+  // Set first tab as active if none are active
+  if (!document.querySelector('.tab-btn.active')) {
+      tabButtons[0]?.classList.add('active');
+      tabContents[0]?.classList.add('active');
+  }
+  
+  // Add click handlers
+  tabButtons.forEach(button => {
+      button.addEventListener('click', function() {
+          const targetId = this.getAttribute('data-tab-target');
+          
+          // Remove active class from all buttons and contents
+          tabButtons.forEach(btn => btn.classList.remove('active'));
+          tabContents.forEach(content => content.classList.remove('active'));
+          
+          // Add active class to clicked button and target content
+          this.classList.add('active');
+          document.getElementById(targetId).classList.add('active');
+      });
+  });
+});
+
+function switchTabs(clickedBtn, tabId) {
+  // Remove active class from all tab buttons
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+      btn.classList.remove('active');
+  });
+  
+  // Add active class to clicked button
+  clickedBtn.classList.add('active');
+  
+  // Hide all tab contents
+  document.querySelectorAll('.tab-content').forEach(content => {
+      content.classList.remove('active');
+  });
+  
+  // Show the selected tab content
+  document.getElementById(tabId).classList.add('active');
+}
+
+
+
+
 function showSection(sectionId) {
   // Hide all sections
   const sections = document.querySelectorAll(".section");
@@ -189,7 +236,7 @@ function switchTab(tabName) {
 
 
 
-});
+
 
 
 
