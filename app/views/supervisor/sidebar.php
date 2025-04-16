@@ -19,6 +19,8 @@
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Manage_worker">Manage Workers</a></li>
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Approve_bid">Approve Bids</a></li>
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/ManageIssues">Manage Issues</a></li>
+			<li><a href="<?php echo URLROOT; ?>/Supervisor/Site_Visit">site visit</a></li>
+
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Event">Event Schedule</a></li>
 			<li><a href="<?php echo URLROOT; ?>/Supervisor/Attendance">Attendance</a></li>
 		</ul>
