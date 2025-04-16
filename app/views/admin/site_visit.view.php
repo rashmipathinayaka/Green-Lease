@@ -16,7 +16,21 @@
 
     ?>
 
-    <div id="register-lands-section" class="section">
+<div id="full-section">
+    <br>
+<div id="procount-section">
+    <form method="GET"  action="<?= URLROOT ?>/Admin/site_visit/<?= $land_id ?>" class="filter-form" style="margin-bottom: 20px; text-align: center;">
+    <label for="name">  <h4>Enter the maximum number of projects for a supervisor:</h4>
+        </label>
+    <input type="number" name="procount" id="procount" min="1" value="<?= isset($_GET['procount']) ? htmlspecialchars($_GET['procount']) : '5' ?>">
+
+	<button type="submit">Enter</button>
+            </form>
+</div>
+
+    <div id="register-lands-section">
+
+            <br>
         <div class="form-container">
             <h1 class="register-topic">Schedule a site visit</h1>
             <br>
@@ -32,6 +46,7 @@
                             <?php foreach ($supervisors as $supervisor): ?>
                                 <option value="<?= htmlspecialchars($supervisor->id) ?>">
                                     Supervisor <?= htmlspecialchars($supervisor->id) ?>
+                                     ...............  No of projects <?=htmlspecialchars($supervisor->procount)?>
                                 </option>
                             <?php endforeach; ?>
                         <?php else: ?>
@@ -43,20 +58,15 @@
 
 
 
-
-
-
-
-
                     <label for="doc">Date for the visit</label>
-                    <input type="date" id="date" name="date" required>
-                    <button class="form-submit-btn" type="submit">
-                        <i class="fas fa-paper-plane"></i>&nbsp;Submit</button>
-                </div>
-            </form>
+<input type="date" id="date" name="date" required min="<?php echo date('Y-m-d'); ?>">
+<button class="form-submit-btn" type="submit">
+    <i class="fas fa-paper-plane"></i>&nbsp;Submit</button>
+
+                </div></form>
         </div>
     </div>
-
+</div>
 </body>
 
 </html>

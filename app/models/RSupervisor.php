@@ -37,14 +37,44 @@ class RSupervisor
 	}
 
 
+   // getlandzone method
+public function getlandzone($id)
+{
+    $query = 'SELECT zone FROM land WHERE id = :id';
+    $result = $this->query($query, ['id' => $id]);
+
+    // Check if a result was returned and return the zone
+    if ($result && isset($result[0])) {
+        return $result[0]->zone;  // Access the 'zone' property from the result object
+    }
+
+    return false;  // In case no result is found
+}
 
 
 
 //drop down in sitevisit
-    public function getAllSupervisors() {
-        $query = "SELECT id FROM supervisor"; // Adjust columns as needed
-        return $this->query($query); 
-    }
+public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
+    $query = "
+        SELECT s.id AS id, COUNT(p.id) AS procount
+        FROM supervisor s
+        LEFT JOIN project p ON s.id = p.supervisor_id
+        LEFT JOIN land l ON s.zone = l.zone
+        WHERE l.zone = :landzone
+        GROUP BY s.id
+        HAVING COUNT(p.id) < :procount
+    ";
+
+    // Execute the query and bind the parameters
+    return $this->query($query, [
+        ':landzone' => $landzone,
+        ':procount' => $procount
+    ]);
+}
+
+
+
+
 
 //to email supervisors
     public function getEmailById($supervisorId)

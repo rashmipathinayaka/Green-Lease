@@ -5,7 +5,14 @@ class Rsite_visit
     use Model; // Using the Model trait
 
     protected $table = 'site_visit'; // Table name
-    protected $allowedColumns = ['id', 'supervisor_id', 'land_id', 'date']; // Allowed columns for insert/update
+    protected $allowedColumns = [
+        'id', 
+        'supervisor_id', 
+        'land_id', 
+        'date',
+        're_date',
+        'description'
+    ]; // Allowed columns for insert/update
 
     // Method to insert data
     public function insertdata($formdata)
@@ -34,4 +41,16 @@ class Rsite_visit
 
         return empty($this->errors); // Returns true if no errors
     }
+
+    public function getAllSiteVisits() {
+        $query = "SELECT * FROM site_visit";
+        return $this->query($query);  // or $this->run($query) if you're using a different DB wrapper
+    }
+    
+
+
+
+
+
+    
 }

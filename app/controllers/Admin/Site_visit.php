@@ -1,4 +1,5 @@
 <?php
+
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
@@ -25,6 +26,7 @@ class Site_visit
             $sitevisit = new Rsite_visit();
             $sitevisit->insert($formdata);
 
+
             // Get supervisor email
             $supervisorModel = new RSupervisor();
             $email = $supervisorModel->getEmailById($supervisor_id);
@@ -39,18 +41,40 @@ class Site_visit
             exit;
         }
 
-        // Get all supervisors for the form
         $supervisorModel = new RSupervisor();
-        $supervisors = $supervisorModel->getAllSupervisors();
+        // Get all supervisors for the form
+        $landzone = $supervisorModel->getlandzone($land_id);
+        $procount = $_GET['procount'] ?? 5;
 
+        $supervisors = $supervisorModel->getAllSupervisorslessthanmaxcount($procount, $landzone);
         // Pass data to the view
         $data = [
             'supervisors' => $supervisors,
-            'land_id' => $land_id
+            'land_id' => $land_id,
+            'procount'=>$procount
         ];
 
         $this->view('admin/site_visit', $data);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private function sendEmailToSupervisor($email, $land_id, $date)
     {
