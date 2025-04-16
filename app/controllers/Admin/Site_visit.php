@@ -54,15 +54,4 @@ class Site_visit
 
 
 
-
-
-
-
-
-
-
-
-
-
-
 }
