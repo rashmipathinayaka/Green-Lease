@@ -81,7 +81,7 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
     {
         $query = "SELECT user.email 
                   FROM supervisor 
-                  JOIN user ON user.id = supervisor.id 
+                  JOIN user ON user.id = supervisor.user_id 
                   WHERE supervisor.id = :id";
     
         $data = [':id' => $supervisorId];
@@ -155,7 +155,7 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
 
       //to get profiles
     public function getSupervisorbyid($id) {
-        $query = 'SELECT s.*, u.full_name, u.email, u.contact_no,u.joined_date
+        $query = 'SELECT s.*, u.full_name, u.email, u.contact_no,u.joined_date,u.nic
                   FROM supervisor s
                   JOIN user u ON s.user_id = u.id
                   WHERE s.id = :id'; // Use supervisor's id here to get the correct supervisor

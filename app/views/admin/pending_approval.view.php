@@ -85,8 +85,7 @@
             <center>
                 <h1>Approved Visits</h1>
             </center>
-            <!-- Content for Approved Visits tab would go here -->
-            <p>Approved visits content will appear here.</p>
+           
 
             <div class="container">
    <table class="dashboard-table">
