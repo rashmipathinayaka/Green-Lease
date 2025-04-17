@@ -41,7 +41,6 @@ require ROOT . '/views/components/topbar.php';
                         </div>
                         <div class="worker-event-actions">
                             <button class="green-btn">Apply</button>
-                            <button class="red-btn">Remove</button>
                         </div>
                     </div>
                 <?php endforeach; ?>

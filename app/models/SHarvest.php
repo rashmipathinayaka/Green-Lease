@@ -44,21 +44,36 @@ public function getHarvestById($id) {
 }
 
 public function getFilteredHarvests($filters = []) {
-    $query = "SELECT * FROM $this->table WHERE 1=1";
+    $query = "
+        SELECT 
+            h.id,
+            h.harvest_date,
+            h.max_amount,
+            h.min_bid,
+            h.rem_amount,
+            p.crop_type,
+            l.address,
+            l.size,
+            l.zone
+        FROM harvest h
+        JOIN project p ON h.project_id = p.id
+        JOIN land l ON p.land_id = l.id
+        WHERE l.status = 1
+    ";
+    
     $params = [];
     
     if (isset($filters['location']) && !empty($filters['location'])) {
-        $query .= " AND address LIKE ?";
+        $query .= " AND l.address LIKE ?";
         $params[] = '%' . $filters['location'] . '%';
     }
     
     if (isset($filters['crop_type']) && !empty($filters['crop_type'])) {
-        $query .= " AND crop_type LIKE ?";
+        $query .= " AND p.crop_type LIKE ?";
         $params[] = '%' . $filters['crop_type'] . '%';
     }
     
     return $this->query($query, $params);
-}
-    
+} 
 }
 
