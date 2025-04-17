@@ -30,7 +30,7 @@ class File_complaint
             
             // Handle file upload if present
             if(!empty($_FILES['attachment']['name'])) {
-                $upload_dir = "uploads/complaints/";
+                $upload_dir = "uploads/complaints/worker/";
                 
                 // Create directory if it doesn't exist
                 if(!file_exists($upload_dir)) {
