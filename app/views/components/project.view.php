@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Details & Events</title>
-    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/project.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/components/project.css">
 
 </head>
 <body>
