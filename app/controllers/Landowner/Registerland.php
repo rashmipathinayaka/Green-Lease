@@ -12,7 +12,8 @@ class Registerland
         $data = [
             'errors' => [], // Initialize errors
         ];
-        $userId = $_SESSION['id'];
+        // $userId = $_SESSION['id'];
+        $userId=1;
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $formData = [
@@ -22,6 +23,7 @@ class Registerland
                 'size' => $_POST['size'] ?? null,
                 'duration'  => $_POST['duration'] ?? null,
                 'crop_type' => $_POST['crop_type'] ?? null,
+                'date'=>$_POST['date']?? null,
                 'document' => null, // Default to null
                 'status'=>'1',
             ];
@@ -48,9 +50,25 @@ class Registerland
                 $data['errors'][] = "No document uploaded.";
             }
         
+
+            $harvest= new Rsite_visit;
             // Validate and insert data
             if ($registerland->validate($formData) && empty($data['errors'])) {
                 $registerland->insert($formData);
+
+        $land_id=$registerland->takeLandId();
+
+        // Insert into harvest table
+
+$formData1=[
+    'land_id'=>$land_id,
+    'date'=>$formData['date']
+
+];
+
+
+                $harvest->insert($formData1);
+
                 header("Location: " . URLROOT . "/landowner/registeredland");
                 exit();
             

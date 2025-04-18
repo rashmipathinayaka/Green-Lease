@@ -55,6 +55,12 @@ require ROOT . '/views/components/topbar.php';
 								<option value="Coffee">Coffee</option>
 								<option value="Sugarcane">Sugarcane</option>
 							</select>
+
+
+							Give a preffered date for the site visit
+							<label for="date">date for scheduled visit</label>
+							<input type="date" id="date" name="date" required min="<?php echo date('Y-m-d'); ?>">
+							
 							<label for="doc">Upload a Legal Document of the Land</label>
 							<input type="file" id="document" name="document" required>
 							<h6>You Cannot Change the Details Again</h6>

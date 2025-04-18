@@ -36,6 +36,14 @@ $visitdata1 = $this->sitevisit->getallapprovedvisits();
 		
 	}
 
+    public function opensitevisit($land_id){
+        header("Location: " . URLROOT . "Admin/Site_visit/" . $land_id);
+        exit();
+    }
+    
+
+
+
 
 
 

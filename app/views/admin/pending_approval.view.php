@@ -66,7 +66,7 @@
                                     <?php endif; ?>
                                 </td>
                                 <td>
-                                    <a href="<?= URLROOT ?>/Admin/Pending_approval/getland/<?php echo $land->id; ?>">
+                                    <a href="<?= URLROOT ?>/Admin/Pending_approval/opensitevisit/<?php echo $land->id; ?>">
                                         <button class="red-btn">site visit</button>
                                     </a>
                                 </td>

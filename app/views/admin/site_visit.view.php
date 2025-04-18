@@ -30,6 +30,7 @@
 
     <div id="register-lands-section">
 
+    <h3>landowner of this lands already gave given a preffered date for the site visit:<h3><?= $prefdate?>
             <br>
         <div class="form-container">
             <h1 class="register-topic">Schedule a site visit</h1>
