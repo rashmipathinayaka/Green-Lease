@@ -36,6 +36,16 @@ $visitdata1 = $this->sitevisit->getallapprovedvisits();
 		
 	}
 
+    
+    public function opensitevisit($id){
+        echo $id;
+             $land_id=$id;
+             header("Location: " . URLROOT . "/admin/site_visit/index/{$land_id}");
+        
+            }
+          
+
+
 
 
 
@@ -106,7 +116,8 @@ private function sendEmail($email, $land_id, $date,$role)
                 You have been assigned a new site visit.<br><br>
                 <strong>Land ID:</strong> $land_id<br>
                 <strong>Visit Date:</strong> $date<br><br>
-                Please log in to your dashboard for more details.<br><br>
+                
+                <br><br>
                 Regards,<br>
                 Green Lease Team
             "; // Email body content (HTML)

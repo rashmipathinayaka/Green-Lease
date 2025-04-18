@@ -159,5 +159,12 @@ public function emailupdate($id) {
 }
 
 
+public function getprefdate($land_id){
+    $query = "SELECT date FROM site_visit WHERE land_id = :land_id ";
+    $data = [':land_id' => $land_id];
+    return $this->query($query, $data)[0]->date ?? null;
+
+
+}
     
 }
