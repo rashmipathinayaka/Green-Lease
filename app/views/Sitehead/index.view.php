@@ -6,14 +6,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Site Head Dashboard</title>
 	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/sitehead.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> -->
 	<script src="sitehead.js" defer></script>
 </head>
 
 <body>
 	<?php
 	require ROOT . '/views/sitehead/sidebar.php';
-	require ROOT . '/views/components/navbar.php';
+	require ROOT . '/views/components/topbar.php';
 	?>
 	<div class="admin-container">
 
@@ -45,54 +45,34 @@
 						<span class="current-date"><?= date("F j, Y") ?></span>
 					</div>
 					<div class="events-list">
-						<div class="event-card high-priority">
-							<div class="event-icon">
-								<i class="fas fa-map-marker-alt"></i>
-							</div>
-							<div class="event-details">
-								<div class="event-header">
-									<h3>Soil Inspection</h3>
-									<span class="priority-badge">High Priority</span>
+						<?php if (!empty($todaysEvents)) : ?>
+							<?php foreach ($todaysEvents as $event) : ?>
+								<div class="event-card <?= $event->status == 1 ? 'high-priority' : 'medium-priority' ?>"
+									onclick="window.location.href='<?= URLROOT ?>/sitehead/Event/details/<?= $event->id ?>'">
+									<div class="event-icon">
+										<i class="fas fa-calendar-day"></i>
+									</div>
+									<div class="event-details">
+										<div class="event-header">
+											<h3><?= htmlspecialchars($event->event_name) ?></h3>
+											<span class="priority-badge">
+												<?= $event->status == 1 ? 'High Priority' : 'Medium Priority' ?>
+											</span>
+										</div>
+										<div class="event-info">
+											<span><i class="fas fa-clock"></i> <?= date('h:i A', strtotime($event->date)) ?></span>
+											<span><i class="fas fa-leaf"></i> <?= htmlspecialchars($event->crop_type) ?></span>
+											<span><i class="fas fa-align-left"></i> <?= htmlspecialchars(substr($event->description, 0, 200)) ?>...</span>
+										</div>
+									</div>
 								</div>
-								<div class="event-info">
-									<span><i class="fas fa-clock"></i> 09:00 AM</span>
-									<span><i class="fas fa-map-pin"></i> Rice Field Block A</span>
-									<span><i class="fas fa-user"></i> Yasitha Vas</span>
-								</div>
+							<?php endforeach; ?>
+						<?php else : ?>
+							<div class="no-events">
+								<i class="fas fa-calendar-times"></i>
+								<p>No events scheduled for today</p>
 							</div>
-						</div>
-						<div class="event-card medium-priority">
-							<div class="event-icon">
-								<i class="fas fa-truck"></i>
-							</div>
-							<div class="event-details">
-								<div class="event-header">
-									<h3>Fertilizer Delivery</h3>
-									<span class="priority-badge">Medium Priority</span>
-								</div>
-								<div class="event-info">
-									<span><i class="fas fa-clock"></i> 10:30 AM</span>
-									<span><i class="fas fa-map-pin"></i> Warehouse 2</span>
-									<span><i class="fas fa-user"></i> Samantha Perera</span>
-								</div>
-							</div>
-						</div>
-						<div class="event-card high-priority">
-							<div class="event-icon">
-								<i class="fas fa-users"></i>
-							</div>
-							<div class="event-details">
-								<div class="event-header">
-									<h3>Buyer Meeting</h3>
-									<span class="priority-badge">High Priority</span>
-								</div>
-								<div class="event-info">
-									<span><i class="fas fa-clock"></i> 02:00 PM</span>
-									<span><i class="fas fa-map-pin"></i> Conference Room</span>
-									<span><i class="fas fa-user"></i> Prabath Jayasinghe</span>
-								</div>
-							</div>
-						</div>
+						<?php endif; ?>
 					</div>
 				</div>
 			</div>

@@ -7,9 +7,10 @@ class Fertilizer
     protected $table = 'fertilizer';
 
     protected $allowedColumns = [
+        'id',
         'name',
         'amount',
-        'lastRestocked',
+        'last_restocked',
     ];
 
     public function validate($data)
@@ -29,10 +30,10 @@ class Fertilizer
         }
 
         // Validate lastRestocked
-        if (empty($data['lastRestocked'])) {
-            $this->errors['lastRestocked'] = 'Last restocked date is required.';
-        } elseif (!strtotime($data['lastRestocked'])) {
-            $this->errors['lastRestocked'] = 'Invalid date format.';
+        if (empty($data['last_restocked'])) {
+            $this->errors['last_restocked'] = 'Last restocked date is required.';
+        } elseif (!strtotime($data['last_restocked'])) {
+            $this->errors['last_restocked'] = 'Invalid date format.';
         }
 
         return empty($this->errors);
