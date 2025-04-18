@@ -23,7 +23,7 @@
       <button class="profile-btn"></button>
       <div class="user-info">
         <span class="username">
-          <img src="<?= URLROOT ?>/assets/images/user.png" alt="Green Lease Logo" class="menu-icon"><a href="<?php echo URLROOT; ?>/components/profile"> Profile</a> </span>
+          <img src="<?= URLROOT ?>/assets/images/user.png" alt="Green Lease Logo" class="menu-icon"><a href="<?php echo URLROOT; ?>/components/profile2/profilenavigation"> Profile</a> </span>
       </div>
     </div>
   </div>
