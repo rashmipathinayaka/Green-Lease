@@ -23,4 +23,14 @@ class SBid {
     public function getBidsByHarvest($harvest_id) {
         return $this->where(['harvest_id' => $harvest_id]);
     }
+
+    public function delete($id)
+{
+    // Prepare the SQL query to delete the bid
+    $sql = "DELETE FROM bid WHERE id = :id";
+    $stmt = $this->db->prepare($sql);
+    $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+    return $stmt->execute();
+}
+
 }
