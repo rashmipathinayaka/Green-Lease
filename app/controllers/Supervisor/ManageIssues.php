@@ -4,28 +4,54 @@ class ManageIssues
 {
     use Controller;
 
-    // Declare a class property for the Issue model
     private $issueModel;
+    private $userModel;
+    private $siteheadModel;
 
     public function __construct()
     {
-        // Initialize the Issue model in the constructor
         $this->issueModel = new Issue();
+        $this->userModel = new User();
+        $this->siteheadModel = new Sitehead();
     }
 
     public function index()
     {
-        // Fetch all pending issues from the database
-        $pendingIssues = $this->issueModel->where(['status' => 'pending']);
+        // Fetch all pending issues with user details
+        $pendingIssues = $this->getIssuesWithUserDetails('pending');
 
-        // Fetch all solved issues from the database
-        $solvedIssues = $this->issueModel->where(['status' => 'solved']);
+        // Fetch all solved issues with user details
+        $solvedIssues = $this->getIssuesWithUserDetails('solved');
 
-        // Pass the data to the view
         $this->view('supervisor/issue', [
             'pendingIssues' => $pendingIssues,
             'solvedIssues' => $solvedIssues,
         ]);
+    }
+
+    private function getIssuesWithUserDetails($status)
+    {
+        $issues = $this->issueModel->where(['status' => $status]);
+
+        if (!empty($issues)) {
+            foreach ($issues as $issue) {
+                // Get sitehead record
+                $sitehead = $this->siteheadModel->first(['id' => $issue->sitehead_id]);
+
+                if ($sitehead) {
+                    // Get user details
+                    $user = $this->userModel->first(['id' => $sitehead->user_id]);
+
+                    if ($user) {
+                        // Add user details to the issue object
+                        $issue->user_name = $user->full_name;
+                        $issue->contact_no = $user->contact_no;
+                    }
+                }
+            }
+        }
+
+        return $issues;
     }
 
 
