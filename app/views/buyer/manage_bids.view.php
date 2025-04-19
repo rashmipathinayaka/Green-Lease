@@ -40,7 +40,7 @@ require ROOT . '/views/components/topbar.php';
                         <td>
                             <button class="green-btn" data-id="<?php echo $bid->id; ?>">View Details</button>
                             <?php if (strtolower($bid->status) === 'pending'): ?>
-                                <button class="red-btn" data-id="<?php echo $bid->id; ?>">Remove Bid</button>
+                                <button class="red-btn" onclick="openModal('<?= URLROOT ?>/Worker/Manage_bids/removeBid/<?php echo $bid->id; ?>')">Remove Bid</button>
                             <?php endif; ?>
                         </td>
                     </tr>
@@ -54,4 +54,34 @@ require ROOT . '/views/components/topbar.php';
                 </table>
             </div>
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll('.red-btn').forEach(button => {
+        button.addEventListener('click', function () {
+            const bidId = this.getAttribute('data-id');
+            console.log("Attempting to remove bid with ID:", bidId);
+
+            if (confirm('Are you sure you want to remove this bid?')) {
+                fetch('<?php echo URLROOT; ?>/manage_bids/remove/' + bidId, {
+                    method: 'POST'
+                })
+                .then(res => {
+                    if (res.ok) {
+                        alert('Bid removed successfully!');
+                        location.reload(); // refresh after deletion
+                    } else {
+                        alert('Failed to remove bid.');
+                    }
+                })
+                .catch(err => {
+                    console.error("Fetch error:", err);
+                    alert('Error occurred while removing the bid.');
+                });
+            }
+        });
+    });
+});
+</script>
+
+
 </html>

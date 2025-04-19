@@ -13,7 +13,8 @@ class Manageland {
 
     public function index() {
     //    $userId=19;
-    $userId = $_SESSION['id'];
+    // $userId = $_SESSION['id'];
+    $userId=1;
         $lands = $this->manageland->findlandsbyuserid($userId);
             
         $this->view('landowner/manageland', ['lands' => $lands]);

@@ -12,6 +12,7 @@ class Issue
         'description',
         'attachment',
         'status',
+        'feedback'
     ];
 
     public function validate($data)

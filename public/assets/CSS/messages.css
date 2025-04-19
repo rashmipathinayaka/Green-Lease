@@ -1,0 +1,256 @@
+/* Messages Container */
+.message-container {
+    display: flex;
+    height: 80vh;
+    max-height: 800px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+    margin: 20px 0;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* Sidebar with conversation list */
+.message-sidebar {
+    width: 30%;
+    border-right: 1px solid #e0e0e0;
+    display: flex;
+    flex-direction: column;
+    background-color: #f9f9f9;
+}
+
+.message-header {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #f0f0f0;
+}
+
+.message-header h2 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #333;
+}
+
+.message-count {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 20px;
+    padding: 2px 8px;
+    font-size: 0.8rem;
+}
+
+.message-conversations {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.conversation-item {
+    display: block;
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #333;
+    text-decoration: none;
+    transition: background-color 0.2s;
+}
+
+.conversation-item:hover {
+    background-color: #f0f0f0;
+}
+
+.conversation-item.active {
+    background-color: #e0f2f1;
+}
+
+.conversation-item.unread {
+    background-color: #f1f8e9;
+}
+
+.conversation-user {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.conversation-preview {
+    color: #666;
+    font-size: 0.9rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.conversation-time {
+    font-size: 0.8rem;
+    color: #999;
+    margin-top: 5px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.unread-badge {
+    background-color: #4CAF50;
+    color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+}
+
+/* Message Content Area */
+.message-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.message-content.empty {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.message-placeholder {
+    text-align: center;
+    color: #999;
+    padding: 20px;
+}
+
+.placeholder-icon {
+    font-size: 4rem;
+    margin-bottom: 10px;
+}
+
+.conversation-header {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+    background-color: #f0f0f0;
+}
+
+.conversation-header h3 {
+    margin: 0;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.back-to-inbox {
+    font-size: 0.9rem;
+    color: #2196F3;
+    text-decoration: none;
+}
+
+.conversation-messages {
+    flex: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.no-messages {
+    text-align: center;
+    color: #999;
+    margin: auto;
+}
+
+.message {
+    margin-bottom: 15px;
+    max-width: 70%;
+    display: flex;
+}
+
+.message.incoming {
+    align-self: flex-start;
+}
+
+.message.outgoing {
+    align-self: flex-end;
+}
+
+.message-bubble {
+    padding: 10px 15px;
+    border-radius: 18px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+}
+
+.message.incoming .message-bubble {
+    background-color: #f1f0f0;
+}
+
+.message.outgoing .message-bubble {
+    background-color: #e3f2fd;
+}
+
+.message-text {
+    word-wrap: break-word;
+}
+
+.message-time {
+    font-size: 0.7rem;
+    color: #999;
+    text-align: right;
+    margin-top: 5px;
+}
+
+/* Message Compose Area */
+.message-compose {
+    padding: 15px;
+    border-top: 1px solid #e0e0e0;
+    background-color: #f9f9f9;
+}
+
+.message-compose form {
+    display: flex;
+    gap: 10px;
+}
+
+.message-compose textarea {
+    flex: 1;
+    padding: 10px 15px;
+    border: 1px solid #e0e0e0;
+    border-radius: 25px;
+    resize: none;
+    min-height: 40px;
+    max-height: 150px;
+    outline: none;
+    font-family: inherit;
+    font-size: 0.9rem;
+}
+
+.message-compose button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    padding: 0 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.message-compose button:hover {
+    background-color: #43a047;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .message-container {
+        flex-direction: column;
+        height: 90vh;
+    }
+    
+    .message-sidebar {
+        width: 100%;
+        height: 30%;
+        border-right: none;
+        border-bottom: 1px solid #e0e0e0;
+    }
+    
+    .message {
+        max-width: 85%;
+    }
+}

@@ -32,37 +32,26 @@ require ROOT . '/views/components/topbar.php';
 						<thead>
 							<tr>
 								<th>Land Location</th>
-								<th>Hours Worked</th>
+								<th>Event Name</th>
 								<th>Date</th>
 							</tr>
 						</thead>
 						<tbody id="supervisor-list">
-							<tr>
-								<td>Green Valley Farm</td>
-								<td>8</td>
-								<td>2024-11-21</td>
-							</tr>
-							<tr>
-								<td>Sunny Acres</td>
-								<td>6</td>
-								<td>2024-11-20</td>
-							</tr>
-							<tr>
-								<td>Hillside Plantation</td>
-								<td>7</td>
-								<td>2024-11-19</td>
-							</tr>
-							<tr>
-								<td>Riverside Orchards</td>
-								<td>5</td>
-								<td>2024-11-18</td>
-							</tr>
-							<tr>
-								<td>Golden Fields</td>
-								<td>9</td>
-								<td>2024-11-17</td>
-							</tr>
-						</tbody>
+    <?php if (!empty($history)) : ?>
+        <?php foreach ($history as $work): ?>
+            <tr>
+                <td><?= htmlspecialchars($work->land_location) ?></td>
+                <td><?= htmlspecialchars($work->event_name) ?></td>
+                <td><?= htmlspecialchars($work->date) ?></td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else : ?>
+        <tr>
+            <td colspan="3">No work history available.</td>
+        </tr>
+    <?php endif; ?>
+</tbody>
+
 					</table>
 				</div>
 	</body>
