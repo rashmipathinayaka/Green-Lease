@@ -58,7 +58,7 @@ public function getland($visit_id)
         $land_id = $visit->land_id;
         $supervisor_id = $visit->supervisor_id;
         $landowner_id = $visit->landowner_id;
-        $date = $visit->date;
+        $re_date = $visit->re_date;
 
         // Get supervisor email
         $supervisorModel = new RSupervisor();
@@ -70,12 +70,12 @@ public function getland($visit_id)
 
         // Send email to supervisor
         if ($supervisor_email) {
-            $this->sendEmail($supervisor_email, $land_id, $date, 'Supervisor');
+            $this->sendEmail($supervisor_email, $land_id, $re_date, 'Supervisor');
         }
 
         // Send email to landowner
         if ($landowner_email) {
-            $this->sendEmail($landowner_email, $land_id, $date, 'Landowner');
+            $this->sendEmail($landowner_email, $land_id, $re_date, 'Landowner');
         }
 
         echo "Emails sent successfully!";
@@ -89,7 +89,7 @@ public function getland($visit_id)
 
 
 
-private function sendEmail($email, $land_id, $date,$role)
+private function sendEmail($email, $land_id, $re_date,$role)
     {
         // Create PHPMailer instance
         $mail = new PHPMailer(true);
@@ -115,7 +115,7 @@ private function sendEmail($email, $land_id, $date,$role)
                 Hello $role,<br><br>
                 You have been assigned a new site visit.<br><br>
                 <strong>Land ID:</strong> $land_id<br>
-                <strong>Visit Date:</strong> $date<br><br>
+                <strong>Visit Date:</strong> $re_date<br><br>
                 
                 <br><br>
                 Regards,<br>

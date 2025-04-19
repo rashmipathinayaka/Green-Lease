@@ -39,7 +39,9 @@ require ROOT . '/views/components/topbar.php';
                 <tr>
                     <th>Visit ID</th>
                     <th>Land ID</th>
-                    <th>Scheduled Date & Time</th>
+                    <th>Scheduled Date from</th>
+                    <th>Scheduled Date to</th>
+
                     <th>Action</th>
                     <th>Status</th>
                 </tr>
@@ -50,12 +52,14 @@ require ROOT . '/views/components/topbar.php';
                         <tr data-land-id="<?= htmlspecialchars($visit->id) ?>">
                             <td><?= htmlspecialchars($visit->id) ?></td>
                             <td><?= htmlspecialchars($visit->address) ?></td>
-                            <td><?= htmlspecialchars($visit->date) ?></td>
+                            <td><?= htmlspecialchars($visit->from_date) ?></td>
+                            <td><?= htmlspecialchars($visit->to_date) ?></td>
+
                             <td>
                             
                                 <button class="btn btn-reschedule"
                                     onclick="showRescheduleForm('<?= htmlspecialchars($visit->id) ?>', '<?= htmlspecialchars($visit->address) ?>')">
-                                    Reschedule
+                                    Schedule
                                 </button>
 
                             </td>
