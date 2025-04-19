@@ -11,7 +11,7 @@
 <body>
 	<?php
 	require ROOT . '/views/sitehead/sidebar.php';
-	require ROOT . '/views/components/navbar.php';
+	require ROOT . '/views/components/topbar.php';
 	?>
 	<div id="request-fertilizers-section" class="section">
 		<div class="complaint-section">
@@ -20,12 +20,18 @@
 				<form class="form" method="POST" action="<?php echo URLROOT; ?>/Sitehead/Manage_fertilizer">
 
 					<div class="form-group">
-						<label for="sitehead_id">Sitehead ID</label>
-						<input type="text" id="sitehead_id" name="sitehead_id" required>
-						<label for="project_id">Project ID</label>
-						<input type="text" id="project_id" name="project_id" required>
-						<label for="type">Fertilizer Type</label>
-						<select id="type" name="type" required>
+						<label for="project_id">Select Project</label>
+						<select id="project_id" name="project_id" required>
+							<option value="">Select a Project</option>
+							<?php foreach ($projects as $project): ?>
+								<option value="<?= htmlspecialchars($project->id) ?>">
+									Project #<?= htmlspecialchars($project->id) ?> -
+									<?= htmlspecialchars($project->crop_type) ?> (Land: <?= htmlspecialchars($project->land_id) ?>)
+								</option>
+							<?php endforeach; ?>
+						</select>
+						<label for="fertilizer_id">Fertilizer Type</label>
+						<select id="fertilizer_id" name="fertilizer_id" required>
 							<option value="">Select Fertilizer Type</option>
 							<option value="1">Urea</option>
 							<option value="2">DAP</option>

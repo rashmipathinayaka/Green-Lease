@@ -31,7 +31,8 @@
 			<table class="dashboard-table">
 				<thead>
 					<tr>
-						<th>Sitehead ID</th>
+						<th>Sitehead Name</th>
+						<th>Contact No.</th>
 						<th>Complaint Type</th>
 						<th>Description</th>
 						<th>Attachment</th>
@@ -43,7 +44,8 @@
 					<?php if (!empty($pendingIssues)) : ?>
 						<?php foreach ($pendingIssues as $issue) : ?>
 							<tr>
-								<td><?php echo htmlspecialchars($issue->sitehead_id); ?></td>
+								<td><?php echo htmlspecialchars($issue->user_name ?? 'Unknown'); ?></td>
+								<td><?php echo htmlspecialchars($issue->contact_no ?? 'N/A'); ?></td>
 								<td><?php echo htmlspecialchars($issue->complaint_type); ?></td>
 								<td><?php echo htmlspecialchars($issue->description); ?></td>
 								<td>
@@ -56,7 +58,7 @@
 								<td>
 
 									<button class="green-btn" onclick="confirmMarkAsSolved(<?php echo $issue->id; ?>)">Mark as Solved</button>
-									<button class="red-btn" onclick="confirmRemoveIssue(<?php echo $issue->id; ?>)">Remove</button>
+									<!-- <button class="red-btn" onclick="confirmRemoveIssue(<?php echo $issue->id; ?>)">Remove</button> -->
 								</td>
 							</tr>
 						<?php endforeach; ?>
@@ -74,7 +76,8 @@
 			<table class="dashboard-table">
 				<thead>
 					<tr>
-						<th>Sitehead ID</th>
+						<th>Sitehead Name</th>
+						<th>Contact No.</th>
 						<th>Complaint Type</th>
 						<th>Description</th>
 						<th>Attachment</th>
@@ -86,7 +89,8 @@
 					<?php if (!empty($solvedIssues)) : ?>
 						<?php foreach ($solvedIssues as $issue) : ?>
 							<tr>
-								<td><?php echo htmlspecialchars($issue->sitehead_id); ?></td>
+								<td><?php echo htmlspecialchars($issue->user_name ?? 'Unknown'); ?></td>
+								<td><?php echo htmlspecialchars($issue->contact_no ?? 'N/A'); ?></td>
 								<td><?php echo htmlspecialchars($issue->complaint_type); ?></td>
 								<td><?php echo htmlspecialchars($issue->description); ?></td>
 								<td>

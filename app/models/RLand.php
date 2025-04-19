@@ -186,7 +186,7 @@ class RLand
 
 public function getpendinglands(){
 	{
-		$query = "SELECT * FROM land WHERE status = 'pending' ";
+		$query = "SELECT * FROM land WHERE status = '1' ";
 
 
 		return $this->query($query);
@@ -212,5 +212,16 @@ public function getFilteredLands($filters = []) {
 
     return $this->query($query, $params);
 }
+
+public function takeLandId() {
+    $query = 'SELECT id FROM land ORDER BY id DESC LIMIT 1';
+    $result = $this->query($query); // returns an array of stdClass objects
+    if ($result && isset($result[0]->id)) {
+        return $result[0]->id;
+    }
+    return null;
+}
+
+
 
 }

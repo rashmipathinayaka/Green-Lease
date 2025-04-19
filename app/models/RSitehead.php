@@ -55,7 +55,7 @@ class RSitehead
 
          //to get profiles
          public function getSiteheadbyid($id) {
-            $query = 'SELECT s.*, u.full_name, u.email, u.contact_no,u.joined_date
+            $query = 'SELECT s.*, u.full_name, u.email, u.contact_no,u.joined_date,u.nic
                       FROM sitehead s
                       JOIN user u ON s.user_id = u.id
                       WHERE s.id = :id'; 
@@ -67,5 +67,7 @@ class RSitehead
             // Return the first result or null if not found
             return $result ? $result[0] : null;
         }
+        
+
         
 }

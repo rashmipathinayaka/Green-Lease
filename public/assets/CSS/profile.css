@@ -75,7 +75,7 @@ h1 {
 
 /* Profile information styles */
 .profile-card p {
-    color: #7f8c8d;
+    color: #5096d3;
     font-size: 1.1rem;
     margin-bottom: 12px;
     padding: 8px 0;
@@ -101,7 +101,7 @@ h1 {
 }
 
 .btn:hover {
-    background-color: #2980b9;
+    background-color: #29a3b9;
     transform: translateY(-2px);
     box-shadow: 0 6px 8px rgba(52, 152, 219, 0.4);
 }
