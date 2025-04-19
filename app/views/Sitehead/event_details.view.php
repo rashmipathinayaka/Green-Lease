@@ -57,7 +57,7 @@
                                 <?php foreach ($event->image_list as $image) :
                                     if (!empty($image)) : ?>
                                         <div class="gallery-item">
-                                            <img src="<?= URLROOT ?>/uploads/event_images/<?= htmlspecialchars($image) ?>"
+                                            <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($image) ?>"
                                                 alt="Event image">
                                             <a class="delete-image-btn"
                                                 href="<?= URLROOT ?>/sitehead/Event/delete_image/<?= $event->id ?>/<?= urlencode($image) ?>"
@@ -82,20 +82,17 @@
                                     <option value="in_progress" <?= $event->completion_status == 'in_progress' ? 'selected' : '' ?>>In Progress</option>
                                     <option value="completed" <?= $event->completion_status == 'completed' ? 'selected' : '' ?>>Completed</option>
                                 </select>
-                            </div>
 
-                            <div class="form-group">
                                 <label for="progress_notes">Progress Notes</label>
                                 <textarea name="progress_notes" id="progress_notes" rows="5"><?= htmlspecialchars($event->progress_notes ?? '') ?></textarea>
-                            </div>
 
-                            <div class="form-group">
                                 <label for="completion_images">Upload Images</label>
                                 <input type="file" name="completion_images[]" id="completion_images" multiple accept="image/*">
                                 <small>You can select multiple images</small>
+
+                                <button class="form-submit-btn" type="submit">Update Event</button>
                             </div>
 
-                            <button class="form-submit-btn" type="submit" class="submit-btn">Update Event</button>
                         </form>
                     </div>
                 </div>

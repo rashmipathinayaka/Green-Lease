@@ -19,6 +19,7 @@ class Index
 		// Only proceed if user is logged in
 		if (isset($_SESSION['id'])) {
 			$userId = $_SESSION['id'];
+			$userName = $_SESSION['name'];
 
 			// Get sitehead's data
 			$siteheadModel = new Sitehead();
@@ -43,8 +44,7 @@ class Index
 				}
 			}
 
-			// // Get worker count (implement your logic)
-			// $data['workerCount'] = $this->getWorkerCount($userId);
+			$data['sname'] = $userName;
 
 			// // Get upcoming events count (implement your logic)
 			// $data['upcomingEventsCount'] = $this->getUpcomingEventsCount($userId);

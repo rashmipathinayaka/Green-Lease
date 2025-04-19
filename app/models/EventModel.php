@@ -11,7 +11,6 @@ class EventModel
         'event_name',
         'project_id',
         'date',
-        'image',
         'status',
         'description',
         'progress_notes',

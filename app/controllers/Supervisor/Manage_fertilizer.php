@@ -96,4 +96,72 @@ class Manage_fertilizer
 			$this->view('_404');
 		}
 	}
+
+	// Add these methods to your Manage_fertilizer class
+
+	public function approveRequest($id)
+	{
+		// Get the request details with user info
+		$request = $this->fertilizerRequestModel->first(['id' => $id]);
+
+		if (!$request) {
+			header('Location: ' . URLROOT . '/Supervisor/Manage_fertilizer');
+			exit();
+		}
+
+		// Get additional details
+		$sitehead = $this->siteheadModel->first(['id' => $request->sitehead_id]);
+		$fertilizer = $this->fertilizerModel->first(['id' => $request->fertilizer_id]);
+		$project = $this->projectModel->first(['id' => $request->project_id]);
+		$user = $this->userModel->first(['id' => $sitehead->user_id]);
+
+		// Add details to request object
+		$request->user_name = $user->full_name ?? 'Unknown';
+		$request->fertilizer_type = $fertilizer->name;
+		$request->crop_type = $project->crop_type;
+
+		// Load the approval view
+		$this->view('supervisor/fertilizer_approval', [
+			'request' => $request,
+			'fertilizer' => $fertilizer
+		]);
+	}
+
+	public function processApproval($id)
+	{
+		if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+			// Get the request and fertilizer details
+			$request = $this->fertilizerRequestModel->first(['id' => $id]);
+			$fertilizer = $this->fertilizerModel->first(['id' => $request->fertilizer_id]);
+
+			$actualAmount = (float)$_POST['actual_amount'];
+			$deliveryDate = $_POST['delivery_date'];
+
+			// Verify stock is sufficient
+			if ($fertilizer->amount >= $actualAmount) {
+				// Update fertilizer stock
+				$newAmount = $fertilizer->amount - $actualAmount;
+				$this->fertilizerModel->update($fertilizer->id, ['amount' => $newAmount]);
+
+				// Update request status
+				$this->fertilizerRequestModel->update($id, [
+					'status' => 'Approved',
+					'approved_amount' => $actualAmount,
+					'actual_delivery_date' => $deliveryDate,
+					'processed_at' => date('Y-m-d H:i:s')
+				]);
+
+				// Redirect with success message
+				header('Location: ' . URLROOT . '/Supervisor/Manage_fertilizer?success=approved');
+			} else {
+				// Redirect with error message
+				header('Location: ' . URLROOT . '/Supervisor/Manage_fertilizer?error=insufficient_stock');
+			}
+			exit();
+		}
+
+		// If not POST, redirect back
+		header('Location: ' . URLROOT . '/Supervisor/manage_fertilizer');
+		exit();
+	}
 }
