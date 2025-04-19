@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/supervisor.css">
-    <script src="<?php echo URLROOT; ?>/assets/js/supervisor.js" defer></script>
+	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/supervisor.css">
+    <script src="<?php echo URLROOT; ?>/assets/JS/supervisor.js" defer></script>
 
     <title>Document</title>
 </head>
 <body>
 <?php
 require ROOT . '/views/supervisor/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 ?>
 <div id="manage-site-heads-section" class="section">
 					<center>
 						<h1>Manage Site Heads</h1>
 					</center>
-					<br><br>
+					
 					<!-- Search and Filter Section -->
 					
 						<button class="green-btn" id="add-sitehead-btn">Add Site Head</button>
