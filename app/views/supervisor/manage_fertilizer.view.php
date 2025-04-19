@@ -16,7 +16,7 @@
 <body>
 	<?php
 	require ROOT . '/views/supervisor/sidebar.php';
-	require ROOT . '/views/components/navbar.php';
+	require ROOT . '/views/components/topbar.php';
 	?>
 	<div id="toastBox"></div>
 
@@ -38,7 +38,7 @@
 					<tr>
 						<th>Project ID</th>
 						<th>Sitehead ID</th>
-						<th>Type</th>
+						<th>Fertilizer ID</th>
 						<th>Amount(kg)</th>
 						<th>Prefferrred Delivery Date</th>
 						<th>Remarks</th>
@@ -51,7 +51,7 @@
 							<tr>
 								<td><?php echo htmlspecialchars($request->project_id); ?></td>
 								<td><?php echo htmlspecialchars($request->sitehead_id); ?></td>
-								<td><?php echo htmlspecialchars($request->type); ?></td>
+								<td><?php echo htmlspecialchars($request->fertilizer_id); ?></td>
 								<td><?php echo htmlspecialchars($request->amount); ?></td>
 								<td><?php echo htmlspecialchars($request->preferred_date); ?></td>
 								<td><?php echo htmlspecialchars($request->remarks); ?></td>
@@ -81,7 +81,7 @@
 					<tr>
 						<th>Project ID</th>
 						<th>Sitehead ID</th>
-						<th>Type</th>
+						<th>Fertilizer ID</th>
 						<th>Amount</th>
 						<th>Prefferrred Delivery Date</th>
 					</tr>
@@ -92,7 +92,7 @@
 							<tr>
 								<td><?php echo htmlspecialchars($request->project_id); ?></td>
 								<td><?php echo htmlspecialchars($request->sitehead_id); ?></td>
-								<td><?php echo htmlspecialchars($request->type); ?></td>
+								<td><?php echo htmlspecialchars($request->fertilizer_id); ?></td>
 								<td><?php echo htmlspecialchars($request->amount); ?></td>
 								<td><?php echo htmlspecialchars($request->preferred_date); ?></td>
 							</tr>
@@ -152,7 +152,7 @@
 				<thead>
 					<tr>
 						<th>Fertilizer ID</th>
-						<th>Fertilizer Type</th>
+						<th>FertilizerID</th>
 						<th>Current Stock</th>
 						<th>Last Restocked</th>
 						<th>Actions</th>

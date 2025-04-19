@@ -1,0 +1,1 @@
+$router->post('/events/addEvent', 'EventsController@addEvent');

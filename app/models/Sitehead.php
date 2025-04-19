@@ -15,10 +15,8 @@ class Sitehead
 	protected $allowedColumns = [
 
 		'id',
-		'name',
-		'email',
-		'number',
-		'zone',
+		'user_id',
+		'land_id',
 		'status'
 		
 		

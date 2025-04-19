@@ -11,7 +11,7 @@
 	<body>
 	<?php
 require ROOT . '/views/supervisor/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 ?>
 
 		<div class="admin-container">
@@ -43,17 +43,18 @@ require ROOT . '/views/components/navbar.php';
 					<br>
 					<div class="projects-grid">
 						<div class="project-card">
-							<img src="hero.jpg" alt="Project Image" />
+						<img src="<?php echo URLROOT; ?>/assets/Images/hero.jpg" alt="Project Image" />
+
 							<p>Site Location</p>
 							<p>Crop Type</p>
 						</div>
 						<div class="project-card">
-							<img src="hero.jpg" alt="Project Image" />
+						<img src="<?php echo URLROOT; ?>/assets/Images/hero.jpg" alt="Project Image" />
 							<p>Site Location</p>
 							<p>Crop Type</p>
 						</div>
 						<div class="project-card">
-							<img src="hero.jpg" alt="Project Image" />
+						<img src="<?php echo URLROOT; ?>/assets/Images/hero.jpg" alt="Project Image" />
 							<p>Site Location</p>
 							<p>Crop Type</p>
 						</div>

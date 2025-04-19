@@ -1,90 +1,80 @@
-/// Select tab buttons and tab content sections
-const solvedIssuesTabBtn = document.getElementById("solved-issues-btn"); // Button for switching to Solved Issues tab
-const solvedIssuesTabContent = document.getElementById("solved-issues"); // Solved Issues tab content
-const RequestHistoryTabBtn = document.getElementById("request-history-btn"); // Button for switching to request history tab
-const RequestHistoryTabContent = document.getElementById("request-history");
-const stockManagementBtn = document.getElementById("stock-management-btn"); // Button for switching to stock management tab
-const stockManagementTabContent = document.getElementById("stock-management");
-// Function to switch between Pending and Solved tabs
+document.addEventListener("DOMContentLoaded", () => {
+  // ---------- Sitehead Modals ----------
+  const addSiteheadBtn = document.getElementById("add-sitehead-btn");
+  const addSiteheadModal = document.getElementById("add-sitehead-form");
+  const editSiteheadModal = document.getElementById("edit-sitehead-form");
 
-function switchTabs(clickedBtn, tabId) {
-  // Remove 'active' class from all tab buttons
-  document
-    .querySelectorAll(".tab-btn")
-    .forEach((btn) => btn.classList.remove("active"));
-
-  // Hide all tab contents
-  document
-    .querySelectorAll(".tab-content")
-    .forEach((tab) => (tab.style.display = "none"));
-
-  // Show the selected tab
-  const selectedTab = document.getElementById(tabId);
-  if (selectedTab) selectedTab.style.display = "block";
-
-  // Add 'active' class to clicked button
-  clickedBtn.classList.add("active");
-}
-
-function confirmMarkAsSolved(issueId) {
-  const confirmation = confirm(
-    "Are you sure you want to mark this issue as solved?"
-  );
-  if (confirmation) {
-    window.location.href = `${URLROOT}/Supervisor/ManageIssues/markAsSolved/${issueId}`;
+  if (addSiteheadBtn) {
+    addSiteheadBtn.addEventListener("click", () => {
+      addSiteheadModal.style.display = "block";
+    });
   }
-}
 
-function confirmRemoveIssue(issueId) {
-  const confirmation = confirm(
-    "Are you sure you want to permanently remove this issue?"
-  );
-  if (confirmation) {
-    window.location.href = `${URLROOT}/Supervisor/ManageIssues/deleteIssue/${issueId}`;
+  document.querySelectorAll(".edit-sitehead-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const row = e.target.closest("tr");
+      const id = row.dataset.id;
+      const user_id = row.dataset.user_id;
+      const land_id = row.dataset.land_id;
+      const status = row.dataset.status;
+
+      document.getElementById("edit-id").value = id;
+      document.getElementById("edit-user_id").value = user_id;
+      document.getElementById("edit-land_id").value = land_id;
+      document.getElementById("edit-status").value = status;
+
+      editSiteheadModal.style.display = "block";
+    });
+  });
+
+  // ---------- Event Modals ----------
+  const addEventBtn = document.getElementById("add-event-btn");
+  const addEventModal = document.getElementById("add-event-form");
+  const editEventModal = document.getElementById("edit-event-form");
+
+  if (addEventBtn) {
+    addEventBtn.addEventListener("click", () => {
+      addEventModal.style.display = "block";
+    });
   }
-}
 
-function confirmAcceptRequest(requestId) {
-  const confirmation = confirm(
-    "Are you sure you want to accept this fertilizer request?"
-  );
-  if (confirmation) {
-    window.location.href = `${URLROOT}/Supervisor/Manage_fertilizer/markAsAccept/${requestId}?success=accepted`;
-  }
-}
+  document.querySelectorAll(".edit-event-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const row = e.target.closest("tr");
+      const id = row.dataset.id;
+      const event_name = row.dataset.event_name;
+      const project_id = row.dataset.project_id;
+      const date = row.dataset.date;
+      const time = row.dataset.time;
+      const description = row.dataset.description;
+      const worker = row.dataset.worker;
+      const status = row.dataset.status;
+      const location = row.dataset.location;
 
-function confirmRejectRequest(requestId) {
-  const confirmation = confirm(
-    "Are you sure you want to reject this fertilizer request?"
-  );
-  if (confirmation) {
-    window.location.href = `${URLROOT}/Supervisor/Manage_fertilizer/rejectRequest/${requestId}?success=rejected`;
-  }
-}
+      document.getElementById("edit-event-id").value = id;
+      document.getElementById("edit-event_name").value = event_name;
+      document.getElementById("edit-project_id").value = project_id;
+      document.getElementById("edit-date").value = date;
+      document.getElementById("edit-time").value = time;
+      document.getElementById("edit-description").value = description;
+      document.getElementById("edit-worker").value = worker;
+      document.getElementById("edit-status").value = status;
+      document.getElementById("edit-location").value = location;
 
-function searchFertilizerById() {
-  const inputId = document.getElementById("fertilizer-search-id").value.trim();
-  const rows = document.querySelectorAll(
-    "#stock-management .dashboard-table tbody tr"
-  );
+      editEventModal.style.display = "block";
+    });
+  });
 
-  rows.forEach((row) => {
-    const restockBtn = row.querySelector("button.blue-btn");
-    if (restockBtn) {
-      const fertilizerId = restockBtn.getAttribute("onclick").match(/\d+/)[0]; // Get ID from function call
-      if (inputId === fertilizerId) {
-        row.style.display = ""; // Show match
-      } else {
-        row.style.display = "none"; // Hide non-match
-      }
+  // ---------- Close Modals ----------
+  document.querySelectorAll(".close-form").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btn.closest(".modal").style.display = "none";
+    });
+  });
+
+  window.addEventListener("click", (e) => {
+    if (e.target.classList.contains("modal")) {
+      e.target.style.display = "none";
     }
   });
-}
-
-function clearFertilizerSearch() {
-  document.getElementById("fertilizer-search-id").value = "";
-  const rows = document.querySelectorAll(
-    "#stock-management .dashboard-table tbody tr"
-  );
-  rows.forEach((row) => (row.style.display = "")); // Reset table
-}
+});

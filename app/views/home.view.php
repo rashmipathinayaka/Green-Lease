@@ -24,42 +24,42 @@
     <div class="projects-grid">
       <a href="<?= URLROOT ?>/land" style="text-decoration:none;">
         <div class="project-card">
-          <img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
+          <img src="<?= URLROOT ?>/assets/Images/hero.jpg" alt="Project Image" />
           <p>King Street - Panadura</p>
           <p>Tomato</p>
         </div>
       </a>
       <a href="<?= URLROOT ?>/land" style="text-decoration:none;">
         <div class="project-card">
-          <img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
+          <img src="<?= URLROOT ?>/assets/Images/hero.jpg" alt="Project Image" />
           <p>Uyana Road - Moratuwa</p>
           <p>Potato</p>
         </div>
       </a>
       <a href="<?= URLROOT ?>/land" style="text-decoration:none;">
         <div class="project-card">
-          <img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
+          <img src="<?= URLROOT ?>/assets/Images/hero.jpg" alt="Project Image" />
           <p>Hill Avenue - New York</p>
           <p>Maize</p>
         </div>
       </a>
       <a href="<?= URLROOT ?>/land" style="text-decoration:none;">
         <div class="project-card">
-          <img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
+          <img src="<?= URLROOT ?>/assets/Images/hero.jpg" alt="Project Image" />
           <p>Reid Avenue - Colombo</p>
           <p>Rice</p>
         </div>
       </a>
       <a href="<?= URLROOT ?>/land" style="text-decoration:none;">
         <div class="project-card">
-          <img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
+          <img src="<?= URLROOT ?>/assets/Images/hero.jpg" alt="Project Image" />
           <p>Mendis Lane - Moratuwa</p>
           <p>Sugarcane</p>
         </div>
       </a>
       <a href="<?= URLROOT ?>/land" style="text-decoration:none;">
         <div class="project-card">
-          <img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
+          <img src="<?= URLROOT ?>/assets/Images/hero.jpg" alt="Project Image" />
           <p>Hill Street - Dehiwala</p>
           <p>Tomato</p>
         </div>

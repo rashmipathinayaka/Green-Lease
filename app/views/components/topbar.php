@@ -15,7 +15,7 @@
 <body>
   <div class="top-bar">
     <div class="logo-section">
-      <img src="http://localhost/gl/public/assets/images/logo.png" width="100px">
+      <img src="http://localhost/green-lease/public/assets/images/logo.png" width="100px">
     </div>
 
     <div class="user-actions">

@@ -10,7 +10,7 @@
 <body>
 <?php
 require ROOT . '/views/supervisor/sidebar.php';
-require ROOT . '/views/components/navbar.php';
+require ROOT . '/views/components/topbar.php';
 ?>
 <div id="manage-issues-section" class="section">
 					<!-- Tab Navigation -->
