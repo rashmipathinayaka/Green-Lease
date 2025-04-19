@@ -7,13 +7,13 @@ class FertilizerRequest
     protected $table = 'fertilizer_request';
 
     protected $allowedColumns = [
+        'id',
         'amount',
-        //'fertilizer_id',
+        'fertilizer_id',
         'project_id',
         'preferred_date',
         'status',
         'sitehead_id',
-        'type',
         'remarks',
     ];
 
@@ -25,8 +25,8 @@ class FertilizerRequest
             $this->errors['amount'] = 'Valid amount is required.';
         }
 
-        if (empty($data['type'])) {
-            $this->errors['type'] = 'Fertilizer type is required.';
+        if (empty($data['fertilizer_id'])) {
+            $this->errors['fertilizer_id'] = 'Fertilizer type is required.';
         }
 
         if (empty($data['project_id'])) {

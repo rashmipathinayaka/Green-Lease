@@ -27,6 +27,7 @@ class Manage_supervisor
             'full_name' => $full_name,
             'zone' => $zone
         ];
+        
         $data = $this->supervisor->getSupervisorDetails($filters);
             
         $this->view('admin/manage_supervisor', ['data' => $data]);
