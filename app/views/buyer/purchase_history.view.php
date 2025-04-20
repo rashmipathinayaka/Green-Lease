@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/buyer.css">
     <title>Purchase History</title>
 </head>
-<body>
+<body style="margin-top: 100px; margin-left: 20px; margin-right: 20px;">
 <?php
 require ROOT . '/views/buyer/sidebar.php';
 require ROOT . '/views/components/topbar.php';

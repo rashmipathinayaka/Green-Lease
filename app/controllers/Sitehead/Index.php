@@ -9,8 +9,6 @@ class Index
 
 	public function index()
 	{
-		
-
 		$this->view('sitehead/index');
 	}
 

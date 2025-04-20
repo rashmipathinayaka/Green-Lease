@@ -14,7 +14,7 @@
                 <li><a href="<?= URLROOT; ?>/Worker/File_complaint">File a Complaint</a></li>
             </ul>
             <ul class="logout">
-                <li><a href="/gl/logout.php">Log Out</a></li>
+                <li><a href="<?= URLROOT; ?>/logout">Log Out</a></li>
             </ul>
         </div>
 
