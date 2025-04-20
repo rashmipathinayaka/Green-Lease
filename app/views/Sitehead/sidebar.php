@@ -26,10 +26,10 @@
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
 				<a href="<?php echo URLROOT; ?>/Sitehead/Manage_fertilizer">Request Fertilizers</a>
 			</li>
-			<li>
+			<!-- <li>
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
 				<a href="<?php echo URLROOT; ?>/Sitehead/Attendance">Mark Attendance</a>
-			</li>
+			</li> -->
 			<li>
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
 				<a href="<?php echo URLROOT; ?>/Sitehead/ReportIssue">Report an Issue</a>
@@ -40,7 +40,7 @@
 		<ul class="logout">
 			<li>
 				<img src="<?= URLROOT ?>/assets/images/logout.png" alt="Logout Icon" class="menu-icon">
-				<a href="#">Log Out</a>
+				<a href="<?php echo URLROOT; ?>/logout">Log Out</a>
 			</li>
 		</ul>
 

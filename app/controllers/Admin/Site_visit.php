@@ -17,6 +17,9 @@ class Site_visit
                 'date' => $date
             ];
 
+
+
+
             // Insert site visit into database
             $sitevisit = new Rsite_visit();
             $sitevisit->insert($formdata);
@@ -36,11 +39,17 @@ class Site_visit
         $procount = $_GET['procount'] ?? 5;
 
         $supervisors = $supervisorModel->getAllSupervisorslessthanmaxcount($procount, $landzone);
+
+        $sitevisit= new Rsite_visit();
+$prefdate=$sitevisit->getprefdate($land_id);
+
+
         // Pass data to the view
         $data = [
             'supervisors' => $supervisors,
             'land_id' => $land_id,
-            'procount'=>$procount
+            'procount'=>$procount,
+            'prefdate'=>$prefdate,
         ];
 
         $this->view('admin/site_visit', $data);

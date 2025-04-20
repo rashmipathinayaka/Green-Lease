@@ -10,6 +10,7 @@
 <body>
     <?php
     require ROOT . '/views/sitehead/sidebar.php';
+    require ROOT . '/views/components/topbar.php';
     ?>
     <div class="confirmation-message-container">
         <h1 class="success-title">Fertilizer Request Submitted Successfully</h1>

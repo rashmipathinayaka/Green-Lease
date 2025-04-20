@@ -27,10 +27,11 @@
 	<button type="submit">Enter</button>
             </form>
 </div>
+<h3>landowner of this lands already gave given a preffered date for the site visit:<h3><?= $prefdate?>
 
     <div id="register-lands-section">
 
-            <br>
+            <br><br>
         <div class="form-container">
             <h1 class="register-topic">Schedule a site visit</h1>
             <br>
