@@ -11,4 +11,5 @@ require 'functions.php';
 require 'Database.php';
 require 'Model.php';
 require 'Controller.php';
+require 'Router.php';
 require 'App.php';

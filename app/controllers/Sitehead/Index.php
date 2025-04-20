@@ -9,6 +9,9 @@ class Index
 
 	public function index()
 	{
+<<<<<<< HEAD
+		$this->view('sitehead/index');
+=======
 		// Initialize with empty array to prevent foreach errors
 		$data = [
 			'todaysEvents' => []
@@ -51,5 +54,6 @@ class Index
 		}
 
 		$this->view('sitehead/index', $data);
+>>>>>>> a923e9dd28412b54947459d4c98715fd57023139
 	}
 }

@@ -11,8 +11,10 @@ class SHarvest
        'project_id',
        'harvest_date',
        'rem_amount',
-       'max_amount'
-       
+       'max_amount',
+       'min_bid',
+       'bidding_start',
+       'bidding_end'
     ];
 
     public function getAllHarvests() {
@@ -23,6 +25,8 @@ class SHarvest
                 h.max_amount,
                 h.min_bid,
                 h.rem_amount,
+                h.bidding_start,
+                h.bidding_end,
                 p.crop_type,
                 l.address,
                 l.size,
@@ -31,49 +35,51 @@ class SHarvest
             JOIN project p ON h.project_id = p.id
             JOIN land l ON p.land_id = l.id
             WHERE l.status = 1
+            AND NOW() BETWEEN h.bidding_start AND h.bidding_end
         ";
 
         return $this->query($query);
     }
-    // Add this method to your SHarvest model
-// Add these methods to your SHarvest model
 
-public function getHarvestById($id) {
-    $harvests = $this->where(['id' => $id]);
-    return $harvests[0] ?? null;
-}
+    public function getHarvestById($id) {
+        $harvests = $this->where(['id' => $id]);
+        return $harvests[0] ?? null;
+    }
 
-public function getFilteredHarvests($filters = []) {
-    $query = "
-        SELECT 
-            h.id,
-            h.harvest_date,
-            h.max_amount,
-            h.min_bid,
-            h.rem_amount,
-            p.crop_type,
-            l.address,
-            l.size,
-            l.zone
-        FROM harvest h
-        JOIN project p ON h.project_id = p.id
-        JOIN land l ON p.land_id = l.id
-        WHERE l.status = 1
-    ";
-    
-    $params = [];
-    
-    if (isset($filters['location']) && !empty($filters['location'])) {
-        $query .= " AND l.address LIKE ?";
-        $params[] = '%' . $filters['location'] . '%';
+    public function getFilteredHarvests($filters = []) {
+        $query = "
+            SELECT 
+                h.id,
+                h.harvest_date,
+                h.max_amount,
+                h.min_bid,
+                h.rem_amount,
+                h.bidding_start,
+                h.bidding_end,
+                p.crop_type,
+                l.address,
+                l.size,
+                l.zone
+            FROM harvest h
+            JOIN project p ON h.project_id = p.id
+            JOIN land l ON p.land_id = l.id
+            WHERE l.status = 1
+            AND NOW() BETWEEN h.bidding_start AND h.bidding_end
+        ";
+        
+        $params = [];
+        
+        if (isset($filters['location']) && !empty($filters['location'])) {
+            $query .= " AND l.address LIKE ?";
+            $params[] = '%' . $filters['location'] . '%';
+        }
+        
+        if (isset($filters['crop_type']) && !empty($filters['crop_type'])) {
+            $query .= " AND p.crop_type LIKE ?";
+            $params[] = '%' . $filters['crop_type'] . '%';
+        }
+        
+        return $this->query($query, $params);
     }
-    
-    if (isset($filters['crop_type']) && !empty($filters['crop_type'])) {
-        $query .= " AND p.crop_type LIKE ?";
-        $params[] = '%' . $filters['crop_type'] . '%';
-    }
-    
-    return $this->query($query, $params);
-} 
 }
 
