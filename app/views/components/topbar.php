@@ -14,7 +14,11 @@
 <body>
   <div class="top-bar">
     <div class="logo-section">
+<<<<<<< HEAD
       <img src="http://localhost/green-lease/public/assets/images/logo.png" width="100px">
+=======
+      <img src="http://localhost/Green-lease/public/assets/images/logo.png" width="100px">
+>>>>>>> Dev
     </div>
 
     <div class="user-actions">

@@ -657,6 +657,7 @@ body {
 /* Styles for Tabs */
 .tab-navigation {
   display: flex;
+  margin-top:70px;
   margin-bottom: 20px;
   background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
   border-radius: 8px;
@@ -1098,4 +1099,3 @@ body {
 .search-btn:hover::after, .clear-btn:hover::after {
   left: 120%;
 }
-

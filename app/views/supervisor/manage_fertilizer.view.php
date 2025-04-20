@@ -17,6 +17,7 @@
 	<?php
 	require ROOT . '/views/supervisor/sidebar.php';
 	require ROOT . '/views/components/topbar.php';
+	require ROOT . '/views/components/topbar.php';
 	?>
 	<div id="toastBox"></div>
 
@@ -150,10 +151,11 @@
 			</center>
 
 			<div class="search-bar-container">
-				<input type="text" id="fertilizer-search-id" placeholder="Enter Fertilizer ID">
-				<button onclick="searchFertilizerById()" class="search-btn">Search</button>
+				<input type="text" id="fertilizer-search-id" placeholder="Enter Fertilizer Name">
+				<button onclick="searchFertilizerByName()" class="search-btn">Search</button>
 				<button onclick="clearFertilizerSearch()" class="clear-btn">Clear</button>
 			</div>
+
 
 			<table class="dashboard-table">
 				<thead>
@@ -169,7 +171,6 @@
 					<?php if (!empty($fertilizers)) : ?>
 						<?php foreach ($fertilizers as $fertilizer) : ?>
 							<tr>
-								<td><?php echo htmlspecialchars($fertilizer->id); ?></td>
 								<td><?php echo htmlspecialchars($fertilizer->name); ?></td>
 								<td><?php echo htmlspecialchars($fertilizer->amount); ?> kg</td>
 								<td><?php echo htmlspecialchars($fertilizer->last_restocked); ?></td>
@@ -180,12 +181,17 @@
 						<?php endforeach; ?>
 					<?php else : ?>
 						<tr>
-							<td colspan="4">No fertilizer stock found.</td>
+							<td colspan="3">No fertilizer stock found.</td>
 						</tr>
 					<?php endif; ?>
 				</tbody>
 
 			</table>
+			<p id="no-results-msg" style="display:none; color: red; text-align: center;font-weight:bold;font-size: 21px; margin-top: 8px;">
+				No matching fertilizer found.
+			</p>
+
+
 		</div>
 	</div>
 

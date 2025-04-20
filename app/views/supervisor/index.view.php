@@ -1,18 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Supervisor Dashboard</title>
-		<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/supervisor.css">
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-		<script src="supervisor.js" defer></script>
-	</head>
-	<body>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Supervisor Dashboard</title>
+	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/supervisor.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+	<script src="supervisor.js" defer></script>
+</head>
+
+<body>
 	<?php
-require ROOT . '/views/supervisor/sidebar.php';
-require ROOT . '/views/components/topbar.php';
-?>
+	require ROOT . '/views/supervisor/sidebar.php';
+	require ROOT . '/views/components/topbar.php';
+	?>
 
 		<div class="admin-container">
 			
@@ -69,10 +71,11 @@ require ROOT . '/views/components/topbar.php';
 				
 				
 
-				
-				
-				
-			</div>
+
+
+
 		</div>
-	</body>
+	</div>
+</body>
+
 </html>
