@@ -15,6 +15,7 @@ class RUser
         'full_name',
         'id',
         'joined_date',
+        'propic'
     ];
 
     public function validate($data)
@@ -122,6 +123,24 @@ public function updateprofile($data, $id){
     ];
     return $this->query($query, $data);
 }
+
+
+
+
+//send profile picture to database
+public function updateProfilePicture($userId, $filename)
+{
+    $imagePath = 'propics/' . $filename;
+
+    $query = "UPDATE user SET propic = :pic WHERE id = :id";
+    $data = ['pic' => $imagePath, 'id' => $userId];
+
+    return $this->query($query, $data);
+}
+
+
+
+
 
 
 

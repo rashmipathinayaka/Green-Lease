@@ -15,7 +15,20 @@
         <div class="top-green-bar"></div>
         <div class="profile-content">
             <div class="profile-sidebar">
-            <img src="<?= URLROOT ?>/assets/Images/supervisor.jpg" alt="Profile Picture" class="profile-photo">
+                <div class=".profile-photo ">
+                    <?php if ($user->propic): ?>
+                        <img src="<?= URLROOT ?>/assets/Images/<?= htmlspecialchars($user->propic) ?>" alt="Profile Picture" class="profile-photo">
+                    <?php else: ?>
+                        <img src="<?= URLROOT ?>/assets/Images/supervisor.jpg" alt="Default Profile Picture" class="profile-photo">
+                    <?php endif; ?>
+
+
+                    <form action="<?= URLROOT ?>/Components/profile2/updatepropic" method="POST" enctype="multipart/form-data">
+                        <h4>select new profile photo</h4>
+                        <input type="file" name="profile_pic" accept="image/*" required>
+                        <button type="submit" class="update-btn" name="submit_pic">Update profile picture</button>
+                    </form>
+                </div>
 
                 <div class="profile-name">
                     <h2><?php echo htmlspecialchars($user->full_name); ?></h2>
