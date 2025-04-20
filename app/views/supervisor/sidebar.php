@@ -30,14 +30,15 @@
                 <img src="<?= URLROOT ?>/assets/Images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
                 <a href="<?php echo URLROOT; ?>/Supervisor/ManageIssues">Manage Issues</a>
             </li>
-			<li>
+		
+            <li>
                 <img src="<?= URLROOT ?>/assets/Images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
-                <a href="<?php echo URLROOT; ?>/Supervisor/Attendance">Attendance</a></li>
+                <a href="<?php echo URLROOT; ?>/Supervisor/Event">Event Schedule</a>
 
             </li>
             <li>
                 <img src="<?= URLROOT ?>/assets/Images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
-                <a href="<?php echo URLROOT; ?>/Supervisor/Event">Event Schedule</a>
+                <a href="<?php echo URLROOT; ?>/Supervisor/site_visit">Site Visit</a>
 
             </li>
 			
