@@ -45,17 +45,17 @@
 				<br>
 				<div class="projects-grid">
 					<div class="project-card">
-						<img src="hero.jpg" alt="Project Image" />
+						<img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
 						<p>Site Location</p>
 						<p>Crop Type</p>
 					</div>
 					<div class="project-card">
-						<img src="hero.jpg" alt="Project Image" />
+						<img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
 						<p>Site Location</p>
 						<p>Crop Type</p>
 					</div>
 					<div class="project-card">
-						<img src="hero.jpg" alt="Project Image" />
+						<img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
 						<p>Site Location</p>
 						<p>Crop Type</p>
 					</div>
