@@ -26,7 +26,6 @@ $projects = [
         'date' => '2025-04-25',
         'time' => '09:00 AM',
         'location' => 'Green Valley Road',
-        'supervisor' => 'Ruwan Fernando',
         'workers' => 10,
         'payment' => 'Rs. 1000'
       ],
@@ -35,7 +34,6 @@ $projects = [
         'date' => '2025-04-28',
         'time' => '01:00 PM',
         'location' => 'Green Valley Road',
-        'supervisor' => 'Priyanka Silva',
         'workers' => 5,
         'payment' => 'Rs. 1200'
       ],
@@ -57,7 +55,6 @@ $projects = [
         'date' => '2025-04-20',
         'time' => '10:30 AM',
         'location' => 'Hilltop Garden',
-        'supervisor' => 'Nimal Perera',
         'workers' => 8,
         'payment' => 'Rs. 900'
       ]
@@ -125,9 +122,8 @@ usort($projects, function($a, $b) {
               <h3><?= $event['name'] ?> <span class="event-date"><?= $event['date'] ?></span></h3>
               <p><i class="fas fa-clock"></i><?= $event['time'] ?></p>
               <p><i class="fas fa-map-pin"></i><?= $event['location'] ?></p>
-              <p><i class="fas fa-user"></i><?= $event['supervisor'] ?></p>
-              <p><i class="fas fa-users"></i> Workers: <?= $event['workers'] ?></p>
-              <p><i class="fas fa-money-bill-wave"></i> Payment/Worker: <?= $event['payment'] ?></p>
+              <p><i class="fas fa-users"></i> No of Workers : <?= $event['workers'] ?></p>
+              <p><i class="fas fa-money-bill-wave"></i> Payment Per Worker : <?= $event['payment'] ?></p>
             </div>
           <?php endforeach; ?>
         <?php else: ?>
@@ -148,7 +144,6 @@ usort($projects, function($a, $b) {
       <input type="date" id="event-date" required>
       <input type="text" id="event-time" placeholder="Time (e.g., 10:00 AM)" required>
       <input type="text" id="event-location" placeholder="Location" required>
-      <input type="text" id="event-supervisor" placeholder="Supervisor Name" required>
       <input type="number" id="event-workers" placeholder="No. of Workers" required>
       <input type="text" id="event-payment" placeholder="Payment per Worker" required>
       <button type="submit">Add Event</button>
@@ -184,7 +179,6 @@ usort($projects, function($a, $b) {
     const date = document.getElementById('event-date').value;
     const time = document.getElementById('event-time').value;
     const location = document.getElementById('event-location').value;
-    const supervisor = document.getElementById('event-supervisor').value;
     const workers = document.getElementById('event-workers').value;
     const payment = document.getElementById('event-payment').value;
 
@@ -194,7 +188,6 @@ usort($projects, function($a, $b) {
       <h3>${name} <span class="event-date">${date}</span></h3>
       <p><i class="fas fa-clock"></i>${time}</p>
       <p><i class="fas fa-map-pin"></i>${location}</p>
-      <p><i class="fas fa-user"></i>${supervisor}</p>
       <p><i class="fas fa-users"></i> Workers: ${workers}</p>
       <p><i class="fas fa-money-bill-wave"></i> Payment/Worker: ${payment}</p>
     `;
