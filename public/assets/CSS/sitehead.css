@@ -24,7 +24,7 @@ body {
   }
 }
 
-/* Top Bar */
+/* Top Bar
 .top-bar {
   position: fixed;
   top: 0;
@@ -38,7 +38,7 @@ body {
   align-items: center;
   padding: 0 20px;
   z-index: 1000;
-}
+} */
 
 .menu-toggle {
   display: block;
@@ -323,7 +323,7 @@ body {
 }
 
 /* Button Styles */
-.green-btn,
+/* .green-btn,
 .red-btn {
   padding: 8px 12px;
   border: none;
@@ -351,7 +351,7 @@ body {
 
 .red-btn:hover {
   background-color: #c82333;
-}
+} */
 
 /* Section visibility */
 
@@ -714,8 +714,9 @@ body {
 }
 
 .form-container {
+  margin-top: 65px; /* Add this line */
   width: 100%;
-  max-width: 800px;
+  max-width: 850px;
   background: #ffffff;
   border: 1px solid #e0e0e0;
   padding: 40px;
@@ -830,19 +831,6 @@ body {
   }
 }
 
-/* Admin container */
-.admin-container {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-}
-
-@media (min-width: 769px) {
-  .admin-container {
-    flex-direction: row;
-  }
-}
-
 .header {
   background-color: #43b02173;
   padding: 20px;
@@ -906,4 +894,52 @@ body {
 .date-picker:focus {
   border-color: #04710c;
   box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.1);
+}
+
+/* Green-themed welcome header */
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+}
+
+.welcome-header {
+  text-align: center;
+  padding: 1.7rem 2rem;
+  border-radius: 10px;
+   /* background: linear-gradient(135deg, #f3f5f3 0%, #15d115 100%);  */
+   background: linear-gradient(135deg, #359a3c 0%, #1a472a 100%);
+  /* background: linear-gradient(11deg,  #9ff7e6 0%,#67e981 100%); */
+  box-shadow: 0 4px 12px rgba(0, 100, 0, 0.1);
+  width: 95%;
+  max-width: 1800px;
+}
+
+.welcome-header h1 {
+  font-size: 2.5rem;
+  color:white;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.welcome-header .username {
+  color:white; /* Slightly lighter green */
+  text-transform: capitalize;
+}
+
+.welcome-message {
+  font-size: 1.2rem;
+  color:white; /* Medium green */
+  margin: 0.9rem;
+  font-weight: 500;
+}
+.welcome-header h1:hover .username {
+  display: inline-block;
+  animation: wave 0.5s ease;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
 }

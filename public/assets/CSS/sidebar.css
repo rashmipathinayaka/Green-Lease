@@ -12,7 +12,7 @@
     box-shadow: 5px 0 15px rgba(0, 0, 0, 0.1);
 } */
 .sidebar {
-    margin-top: 80px;
+    margin-top: 30px;
     width: 250px;
     background: linear-gradient(11deg, #052610 0%, #0a8911 100%);
     position: fixed;

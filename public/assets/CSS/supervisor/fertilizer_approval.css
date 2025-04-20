@@ -1,0 +1,219 @@
+/* fertilizer_approval.css */
+
+/* Main Container Styling */
+.approval-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 2.5rem;
+    background: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 100, 0, 0.1);
+    border: 1px solid #e0f0e0;
+}
+
+.approval-container h1 {
+    color: #2e7d32;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 2.2rem;
+    position: relative;
+    padding-bottom: 1rem;
+}
+
+.approval-container h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 3px;
+    background: linear-gradient(90deg, #4caf50, #8bc34a);
+    border-radius: 3px;
+}
+
+/* Details Sections Styling */
+.request-details, .stock-details {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background: #f8fbf8;
+    border-radius: 10px;
+    border-left: 4px solid #4caf50;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.request-details h2, .stock-details h2 {
+    color: #388e3c;
+    margin-bottom: 1rem;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.request-details h2::before, .stock-details h2::before {
+    content: '📋';
+    font-size: 1.2rem;
+}
+
+.stock-details h2::before {
+    content: '📊';
+}
+
+.request-details p, .stock-details p {
+    margin: 0.8rem 0;
+    color: #455a64;
+    font-size: 1rem;
+    display: flex;
+    gap: 0.5rem;
+}
+
+.request-details p strong, .stock-details p strong {
+    color: #2e7d32;
+    min-width: 150px;
+    display: inline-block;
+}
+
+/* Form Styling */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #2e7d32;
+    font-weight: 500;
+    font-size: 1rem;
+}
+
+.form-group input[type="number"],
+.form-group input[type="date"],
+.form-group textarea {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid #c8e6c9;
+    border-radius: 8px;
+    background: #f8fbf8;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+}
+
+.form-group input[type="number"]:focus,
+.form-group input[type="date"]:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #4caf50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.form-group textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+/* Button Styling */
+.form-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.green-btn, .red-btn, .blue-btn {
+    flex: 1;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+
+.green-btn {
+    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    color: white;
+}
+
+.green-btn:hover {
+    background: linear-gradient(135deg, #2e7d32, #4caf50);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.3);
+}
+
+.red-btn {
+    background: linear-gradient(135deg, #f44336, #d32f2f);
+    color: white;
+}
+
+.red-btn:hover {
+    background: linear-gradient(135deg, #d32f2f, #f44336);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(211, 47, 47, 0.3);
+}
+
+.blue-btn {
+    background: linear-gradient(135deg, #2196f3, #1976d2);
+    color: white;
+}
+
+.blue-btn:hover {
+    background: linear-gradient(135deg, #1976d2, #2196f3);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(25, 118, 210, 0.3);
+}
+
+/* Insufficient Stock Styling */
+.insufficient-stock {
+    text-align: center;
+    padding: 2rem;
+    background: #fff5f5;
+    border-radius: 10px;
+    border-left: 4px solid #f44336;
+    margin-top: 1.5rem;
+}
+
+.insufficient-stock i {
+    font-size: 3rem;
+    color: #f44336;
+    margin-bottom: 1rem;
+}
+
+.insufficient-stock h3 {
+    color: #d32f2f;
+    margin-bottom: 0.5rem;
+    font-size: 1.5rem;
+}
+
+.insufficient-stock p {
+    color: #5f2120;
+    margin-bottom: 1.5rem;
+    line-height: 1.5;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .approval-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+    
+    .form-actions {
+        flex-direction: column;
+    }
+    
+    .request-details p, .stock-details p {
+        flex-direction: column;
+        gap: 0.2rem;
+    }
+    
+    .request-details p strong, .stock-details p strong {
+        min-width: unset;
+    }
+}

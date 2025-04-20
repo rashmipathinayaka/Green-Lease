@@ -16,7 +16,7 @@
 <body>
 	<?php
 	require ROOT . '/views/supervisor/sidebar.php';
-	require ROOT . '/views/components/navbar.php';
+	require ROOT . '/views/components/topbar.php';
 	?>
 	<div id="toastBox"></div>
 
@@ -36,11 +36,12 @@
 			<table class="dashboard-table">
 				<thead>
 					<tr>
-						<th>Project ID</th>
-						<th>Sitehead ID</th>
-						<th>Type</th>
+						<th>Sitehead <br> Name</th>
+						<th>Contact No.</th>
+						<th>Crop type</th>
+						<th>Requested <br> Fertilizer Type</th>
 						<th>Amount(kg)</th>
-						<th>Prefferrred Delivery Date</th>
+						<th>Prefferrred <br> Delivery Date</th>
 						<th>Remarks</th>
 						<th>actions</th>
 					</tr>
@@ -49,22 +50,23 @@
 					<?php if (!empty($pendingrequests)) : ?>
 						<?php foreach ($pendingrequests as $request) : ?>
 							<tr>
-								<td><?php echo htmlspecialchars($request->project_id); ?></td>
-								<td><?php echo htmlspecialchars($request->sitehead_id); ?></td>
-								<td><?php echo htmlspecialchars($request->type); ?></td>
+								<td><?php echo htmlspecialchars($request->user_name); ?></td>
+								<td><?php echo htmlspecialchars($request->contact_no); ?></td>
+								<td><?php echo htmlspecialchars($request->crop_type); ?></td>
+								<td><?php echo htmlspecialchars($request->fertilizer_type); ?></td>
 								<td><?php echo htmlspecialchars($request->amount); ?></td>
 								<td><?php echo htmlspecialchars($request->preferred_date); ?></td>
 								<td><?php echo htmlspecialchars($request->remarks); ?></td>
 								<td>
-									<button class="green-btn" onclick="confirmAcceptRequest(<?php echo $request->id; ?>)">Accept</button>
-									<button class="red-btn" onclick="confirmRejectRequest(<?php echo $request->id; ?>)">Reject</button>
+									<button class="green-btn" onclick="confirmApproveRequest(<?php echo $request->id; ?>)">Approve</button>
+									<!-- <button class="red-btn" onclick="confirmRejectRequest(<?php echo $request->id; ?>)">Reject</button> -->
 
 								</td>
 							</tr>
 						<?php endforeach; ?>
 					<?php else : ?>
 						<tr>
-							<td colspan="5">No fertilizer requests found.</td>
+							<td colspan="8">No fertilizer requests found.</td>
 						</tr>
 					<?php endif; ?>
 				</tbody>
@@ -79,27 +81,32 @@
 			<table class="dashboard-table">
 				<thead>
 					<tr>
-						<th>Project ID</th>
-						<th>Sitehead ID</th>
-						<th>Type</th>
-						<th>Amount</th>
-						<th>Prefferrred Delivery Date</th>
+						<th>Sitehead <br> Name</th>
+						<th>Contact No.</th>
+						<th>Crop type</th>
+						<th>Requested <br> Fertilizer Type</th>
+						<th>Amount(kg)</th>
+						<th>Prefferrred <br> Delivery Date</th>
+						<th>Remarks</th>
+						<th>actions</th>
 					</tr>
 				</thead>
 				<tbody>
-					<?php if (!empty($solvedrequests)) : ?>
-						<?php foreach ($solvedrequests as $request) : ?>
+					<?php if (!empty($Approvedrequests)) : ?>
+						<?php foreach ($Approvedrequests as $request) : ?>
 							<tr>
-								<td><?php echo htmlspecialchars($request->project_id); ?></td>
-								<td><?php echo htmlspecialchars($request->sitehead_id); ?></td>
-								<td><?php echo htmlspecialchars($request->type); ?></td>
+								<td><?php echo htmlspecialchars($request->user_name); ?></td>
+								<td><?php echo htmlspecialchars($request->contact_no); ?></td>
+								<td><?php echo htmlspecialchars($request->crop_type); ?></td>
+								<td><?php echo htmlspecialchars($request->fertilizer_type); ?></td>
 								<td><?php echo htmlspecialchars($request->amount); ?></td>
 								<td><?php echo htmlspecialchars($request->preferred_date); ?></td>
+								<td><?php echo htmlspecialchars($request->remarks); ?></td>
 							</tr>
 						<?php endforeach; ?>
 					<?php else : ?>
 						<tr>
-							<td colspan="5">No handled requests found.</td>
+							<td colspan="8">No handled requests found.</td>
 						</tr>
 					<?php endif; ?>
 				</tbody>
@@ -143,15 +150,15 @@
 			</center>
 
 			<div class="search-bar-container">
-				<input type="text" id="fertilizer-search-id" placeholder="Enter Fertilizer ID">
-				<button onclick="searchFertilizerById()" class="search-btn">Search</button>
+				<input type="text" id="fertilizer-search-id" placeholder="Enter Fertilizer Name">
+				<button onclick="searchFertilizerByName()" class="search-btn">Search</button>
 				<button onclick="clearFertilizerSearch()" class="clear-btn">Clear</button>
 			</div>
+
 
 			<table class="dashboard-table">
 				<thead>
 					<tr>
-						<th>Fertilizer ID</th>
 						<th>Fertilizer Type</th>
 						<th>Current Stock</th>
 						<th>Last Restocked</th>
@@ -162,10 +169,9 @@
 					<?php if (!empty($fertilizers)) : ?>
 						<?php foreach ($fertilizers as $fertilizer) : ?>
 							<tr>
-								<td><?php echo htmlspecialchars($fertilizer->id); ?></td>
 								<td><?php echo htmlspecialchars($fertilizer->name); ?></td>
 								<td><?php echo htmlspecialchars($fertilizer->amount); ?> kg</td>
-								<td><?php echo htmlspecialchars($fertilizer->lastRestocked); ?></td>
+								<td><?php echo htmlspecialchars($fertilizer->last_restocked); ?></td>
 								<td>
 									<button class="blue-btn" onclick="editFertilizerDetails(<?php echo $fertilizer->id; ?>)">Edit Details</button>
 								</td>
@@ -173,12 +179,17 @@
 						<?php endforeach; ?>
 					<?php else : ?>
 						<tr>
-							<td colspan="4">No fertilizer stock found.</td>
+							<td colspan="3">No fertilizer stock found.</td>
 						</tr>
 					<?php endif; ?>
 				</tbody>
 
 			</table>
+			<p id="no-results-msg" style="display:none; color: red; text-align: center;font-weight:bold;font-size: 21px; margin-top: 8px;">
+				No matching fertilizer found.
+			</p>
+
+
 		</div>
 	</div>
 
