@@ -8,7 +8,7 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 		<!-- <script src="worker.js" defer></script> -->
 	</head>
-	<body>
+	<body style="margin-top: 100px; margin-left: 20px; margin-right: 20px;">
 
 	<?php
 require ROOT . '/views/worker/sidebar.php';
