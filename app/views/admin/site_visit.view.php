@@ -27,7 +27,8 @@
 	<button type="submit">Enter</button>
             </form>
 </div>
-<h3>landowner of this lands already gave given a preffered date for the site visit:<h3><?= $prefdate?>
+<h3>Landowner of this land has already given a preferred date range for the site visit:</h3>
+<p><?= $from_date . ' to ' . $to_date; ?></p>
 
     <div id="register-lands-section">
 
@@ -59,8 +60,10 @@
 
 
 
-                    <label for="doc">Date for the visit</label>
-<input type="date" id="date" name="date" required min="<?php echo date('Y-m-d'); ?>">
+                    <label for="doc">Date-range for the visit</label>
+<input type="text" id="from_date" name="from_date" disabled  value="<?php echo $from_date ?>">
+<input type="text" id="to_date" name="to_date" disabled value="<?php echo $to_date ?>"">
+
 <button class="form-submit-btn" type="submit">
     <i class="fas fa-paper-plane"></i>&nbsp;Submit</button>
 

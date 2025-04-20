@@ -23,7 +23,8 @@ class Registerland
                 'size' => $_POST['size'] ?? null,
                 'duration'  => $_POST['duration'] ?? null,
                 'crop_type' => $_POST['crop_type'] ?? null,
-                'date'=>$_POST['date']?? null,
+                'from_date'=>$_POST['from_date']?? null,
+                'to_date'=>$_POST['to_date']?? null,
                 'document' => null, // Default to null
                 'status'=>'1',
             ];
@@ -62,7 +63,9 @@ class Registerland
 
 $formData1=[
     'land_id'=>$land_id,
-    'date'=>$formData['date']
+    'from_date'=>$formData['from_date'],
+    'to_date'=>$formData['to_date']
+
 
 ];
 

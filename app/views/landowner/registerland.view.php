@@ -60,9 +60,19 @@
 
 
 
-					Give a preffered date for the site visit
-					<label for="date">date for scheduled visit</label>
-					<input type="date" id="date" name="date" required min="<?php echo date('Y-m-d'); ?>">
+				<div class="text">	Give a preffered date range for the site visit</div>
+					<label for="from_date">from:</label>
+					<input type="date" id="from_date" name="from_date" required min="<?php echo date('Y-m-d'); ?>">
+					
+					<label for="to_date">to:</label>
+					<input 
+    type="date" 
+    id="to_date" 
+    name="to_date" 
+    required  
+    min="<?php echo date('Y-m-d'); ?>"  
+    max="<?php echo date('Y-m-d', strtotime('+21 days')); ?>">
+
 
 					<label for="doc">Upload a Legal Document of the Land</label>
 					<input type="file" id="document" name="document" required>

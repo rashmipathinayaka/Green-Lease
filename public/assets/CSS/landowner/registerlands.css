@@ -1,13 +1,19 @@
 body {
     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f4f6f9;
-    color: green;
+    color: rgb(23, 183, 23);
     font-size: 16px;
   /* Ensures space for the navbar */
     overflow: auto; /* Enables scrolling */
 }
 
-
+.text{
+    color: #1f618a; /* Custom text color */
+    font-size: 18px; /* Custom font size */
+    font-weight: bold; /* Custom font weight */
+    text-align: center; /* Centered text */
+    margin-top: 20px; /* Space above the text */
+}
 .black-btn {
     background-color: #000000;
     color: #ffffff;

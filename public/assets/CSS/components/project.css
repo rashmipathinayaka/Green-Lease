@@ -13,6 +13,56 @@
             background-color: #f5f7fa;
         }
         
+
+
+
+/* Styling for the feedback input */
+.feedback-input {
+    width: 100%;  /* Full width of the container */
+    height: 40px;  /* Height of the input field */
+    padding: 10px 15px;  /* Padding for comfortable text input */
+    font-size: 16px;  /* Font size for readability */
+    border: 2px solid #ccc;  /* Light border */
+    border-radius: 5px;  /* Rounded corners */
+    box-sizing: border-box;  /* Includes padding and border in the width */
+    outline: none;  /* Remove outline on focus */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;  /* Smooth transition for focus effect */
+}
+
+/* Focus state of the input field */
+.feedback-input:focus {
+    border-color: #4CAF50;  /* Green border on focus */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);  /* Green glow effect */
+}
+
+/* Styling for the feedback button */
+.feedback-button {
+    padding: 10px 20px;  /* Padding around the button text */
+    font-size: 16px;  /* Font size for the button text */
+    background-color: #4CAF50;  /* Green background */
+    color: white;  /* White text color */
+    border: none;  /* Remove default border */
+    border-radius: 5px;  /* Rounded corners */
+    cursor: pointer;  /* Pointer cursor on hover */
+    transition: background-color 0.3s ease, transform 0.2s ease;  /* Smooth transitions */
+}
+
+/* Hover effect for the button */
+.feedback-button:hover {
+    background-color: #45a049;  /* Darker green on hover */
+    transform: scale(1.05);  /* Slight scale effect */
+}
+
+/* Optional: Focus effect for the button */
+.feedback-button:focus {
+    outline: none;  /* Remove outline on focus */
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);  /* Green glow effect */
+}
+
+
+
+
+
         /* Container */
         .container {
             width: 100%;
@@ -64,7 +114,7 @@
         /* Project Details Section */
         .project-details {
             display: grid;
-            grid-template-columns: 1fr 2fr;
+            grid-template-rows: auto auto; /* or something like 1fr 1fr */
             gap: 30px;
             margin-bottom: 40px;
             background-color: #fff;
@@ -73,7 +123,8 @@
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
         }
         
-        .project-image {
+        
+        /* .project-image {
             width: 100%;
             height: 100%;
             min-height: 300px;
@@ -88,7 +139,138 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
+        } */
+        
+/* Container for project images */
+.project-image {
+    margin: 0px 0;
+    display: flex; /* Enable flexbox */
+    justify-content: flex-start; /* Align items in a row */
+    flex-wrap: wrap; /* Allow wrapping to the next line if needed */
+    background-color: #43e85c1f;
+}
+
+/* Event gallery styling */
+.event-gallery {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Style for the image thumbnail container */
+.event-image-container {
+    position: relative;
+    display: inline-block;
+    margin: 10px;
+    flex: 0 1 250px; /* Makes images responsive and align them in rows */
+}
+
+/* Thumbnail Image */
+.event-image-thumbnail {
+    width: 250px;  /* Thumbnail size */
+    height: auto;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Hover effect on thumbnail image */
+.event-image-thumbnail:hover {
+    transform: scale(1.1);  /* Slight zoom-in effect */
+    opacity: 0.8;  /* Add slight transparency */
+}
+
+/* Event name on hover */
+.event-image-container::after {
+    content: attr(data-event-name); /* Display the event name */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 20px;
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);  /* Semi-transparent black background */
+    padding: 10px;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Show the event name when hovering */
+.event-image-container:hover::after {
+    opacity: 1;
+}
+
+/* Modal styling */
+.image-modal {
+    display: none;  /* Initially hidden */
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);  /* Dark background */
+    overflow: auto;
+    padding-top: 60px;
+}
+
+/* Modal content */
+.modal-content {
+    background-color: #fff;
+    margin: 5% auto;
+    padding: 20px;
+    border-radius: 10px;
+    width: 80%;
+}
+
+/* Close button */
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Styling for images in modal */
+.modal-images {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.modal-images img {
+    width: 250px;  /* Larger images in modal */
+    margin: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Optional: Style modal images when hovered */
+.modal-images img:hover {
+    transform: scale(1.05);
+}
+
+/* Flexbox for displaying images horizontally */
+.event-gallery {
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap; /* Allows wrapping of images to the next row if necessary */
+}
+
+.event-gallery .event-image-container {
+    flex: 0 1 250px;  /* Make the images responsive */
+    margin: 10px;
+}
+
+
+
         
         .project-info {
             padding: 30px;
@@ -96,16 +278,29 @@
         
         .project-title {
             font-size: 28px;
-            color: #2c3e50;
+            color: #18952d;
             margin-bottom: 15px;
         }
         
         .project-meta {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-bottom: 20px;
+            position: relative;
         }
+        
+        /* Add green vertical divider */
+        .project-meta::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 1px;
+            background-color: green;
+        }
+        
+        
         
         .meta-item {
             margin-bottom: 15px;
@@ -141,7 +336,7 @@
         
         .section-title {
             font-size: 24px;
-            color: #2c3e50;
+            color: #098c19;
             margin-bottom: 20px;
             padding-bottom: 10px;
             border-bottom: 2px solid #3498db;
@@ -262,26 +457,28 @@
             width: 20px;
             height: 20px;
             border-radius: 50%;
-            background-color: #3498db;
+            background-color: hwb(120 0% 100%);
             border: 4px solid #fff;
-            box-shadow: 0 0 0 2px #3498db;
+            box-shadow: 0 0 0 2px #000000;
         }
         
         .timeline-date {
-            font-weight: 600;
-            color: #3498db;
-            margin-bottom: 5px;
+            font-weight: 650;
+            color: hwb(142 4% 41%);    
         }
         
         .timeline-title {
             font-size: 18px;
-            color: #2c3e50;
-            margin-bottom: 5px;
+            color: hwb(142 4% 41%);    
+        }
+        .timeline-title1{
+            font-size: 18px;
+            color: hwb(208 11% 38%);            margin-bottom: 5px;
         }
         
         .timeline-description {
-            color: #7f8c8d;
-        }
+            color: hwb(142 4% 41%);    
+            }
         
         /* Team Section */
         .team-section {
@@ -342,7 +539,7 @@
         /* Stats Section */
         .stats-section {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(2, 1fr);
             gap: 20px;
             margin-bottom: 40px;
         }
@@ -369,7 +566,7 @@
         
         /* Footer */
         footer {
-            background-color: #2c3e50;
+            background-color: #2c502c;
             color: #ecf0f1;
             padding: 40px 0 20px;
         }
@@ -381,10 +578,10 @@
             margin-bottom: 30px;
         }
         
-        .footer-section h3 {
-            font-size: 18px;
+        .footer-section h2 {
+            font-size: 29px;
             margin-bottom: 15px;
-            color: #3498db;
+            color: #3fb55e;
         }
         
         .footer-section ul {

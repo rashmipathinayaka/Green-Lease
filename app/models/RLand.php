@@ -184,15 +184,22 @@ class RLand
 		return ['labels' => $yearLabels, 'data' => $yearData];
 	}
 
-public function getpendinglands(){
-	{
-		$query = "SELECT * FROM land WHERE status = '1' ";
-
-
+	public function getpendinglands() {
+		$query = "SELECT * 
+			FROM land 
+			WHERE status = '1' 
+			AND id IN (
+				SELECT land_id 
+				FROM site_visit 
+				WHERE supervisor_id = '0'
+			)
+		";
+	
 		return $this->query($query);
 	}
+	
+	
 
-}
 
 
 
