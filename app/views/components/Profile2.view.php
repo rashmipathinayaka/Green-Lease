@@ -15,20 +15,29 @@
         <div class="top-green-bar"></div>
         <div class="profile-content">
             <div class="profile-sidebar">
-                <div class=".profile-photo ">
+                <div class="profile-photo">
                     <?php if ($user->propic): ?>
                         <img src="<?= URLROOT ?>/assets/Images/<?= htmlspecialchars($user->propic) ?>" alt="Profile Picture" class="profile-photo">
                     <?php else: ?>
                         <img src="<?= URLROOT ?>/assets/Images/supervisor.jpg" alt="Default Profile Picture" class="profile-photo">
                     <?php endif; ?>
 
+                    <!-- Toggle button -->
+                    <button onclick="toggleForm()" class="update-btn">Update Profile Picture</button>
 
-                    <form action="<?= URLROOT ?>/Components/profile2/updatepropic" method="POST" enctype="multipart/form-data">
-                        <h4>select new profile photo</h4>
+                    <!-- Hidden form -->
+                     <div class="updateForm">
+                    <form id="updateForm" class="updateForm" action="<?= URLROOT ?>/Components/profile2/updatepropic" method="POST" enctype="multipart/form-data" style="display: none;">
+                        <!-- <h4>Select new profile photo</h4> -->
                         <input type="file" name="profile_pic" accept="image/*" required>
-                        <button type="submit" class="update-btn" name="submit_pic">Update profile picture</button>
-                    </form>
+                        <button type="submit" class="update-btn" name="submit_pic">Submit</button>
+                    </form></div>
                 </div>
+
+                <!-- JavaScript to toggle form visibility -->
+
+
+                <br><br><br> <br><br><br>
 
                 <div class="profile-name">
                     <h2><?php echo htmlspecialchars($user->full_name); ?></h2>
@@ -144,8 +153,18 @@
         document.getElementById('saveButton').style.display = 'inline-block';
         document.getElementById('editButton').style.display = 'none';
     });
-</script>
 
+    function toggleForm() {
+        const form = document.getElementById('updateForm');
+        if (form.style.display === 'none' || form.style.display === '') {
+            form.style.display = 'flex'; // using flex to match CSS
+        } else {
+            form.style.display = 'none';
+        }
+    }
+
+
+</script>
 
 
 </html>
