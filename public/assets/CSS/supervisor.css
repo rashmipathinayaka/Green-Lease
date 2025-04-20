@@ -697,107 +697,82 @@ body {
 }
 
 /* Events */
-.worker-events-container {
-  background: white;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  margin: 20px 0;
-  padding: 20px;
+#project-events-section {
+	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	gap: 30px;
 }
 
-.worker-events-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid #f0f0f0;
+.project-card {
+	background-color: #f5fef5;
+	border: 1px solid #cdeac0;
+	border-radius: 16px;
+	padding: 20px;
+	box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
-.worker-events-header h2 {
-  color: #333;
-  font-size: 1.5rem;
-  margin: 0;
+.project-header {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 15px;
 }
 
-.worker-events-header h2 i {
-  color: #4CAF50;
-  margin-right: 10px;
+.project-header h2 {
+	margin: 0;
+	color: #2e7d32;
 }
 
-.worker-events-list {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+.project-header p {
+	margin: 2px 0;
+	font-size: 14px;
+	color: #4b4b4b;
 }
 
-.worker-event-card {
-  display: flex;
-  justify-content: space-between;
-  gap: 15px;
-  padding: 15px;
-  border-radius: 8px;
-  background: white;
-  border: 1px solid #e0e0e0;
-  transition: transform 0.2s, box-shadow 0.2s;
+.add-event-btn {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	padding: 10px 16px;
+	border-radius: 8px;
+	cursor: pointer;
+	transition: background-color 0.3s;
 }
 
-.worker-event-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.add-event-btn:hover {
+	background-color: #388e3c;
 }
 
-.worker-event-icon {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: #f5f5f5;
+.project-events {
+	display: flex;
+	flex-direction: column;
+	gap: 15px;
 }
 
-.worker-event-icon i {
-  font-size: 1.4rem;
-  color: #4CAF50;
+.event-card {
+	background-color: #ffffff;
+	border-left: 4px solid #66bb6a;
+	padding: 15px;
+	border-radius: 10px;
+	box-shadow: 0 1px 5px rgba(0,0,0,0.05);
 }
 
-.worker-event-details {
-  flex: 1;
+.event-card h3 {
+	margin: 0 0 10px 0;
+	color: #2e7d32;
 }
 
-.worker-event-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
+.event-card p {
+	margin: 3px 0;
+	font-size: 14px;
 }
 
-.worker-event-header h3 {
-  margin: 0;
-  color: #333;
-  font-size: 1.2rem;
+.no-events {
+	font-style: italic;
+	color: #999;
 }
 
-.worker-event-info {
-  display: flex;
-  gap: 10px;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.worker-event-info span {
-  display: flex;
-  align-items: center;
-  gap: 5px;
-}
-
-.worker-event-actions {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-end;
-}
 
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap');
 

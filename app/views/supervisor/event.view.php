@@ -1,135 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/supervisor.css">
-
-	<title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Events</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/supervisor/event.css">
 </head>
 
 <body>
-	<?php
-	require ROOT . '/views/supervisor/sidebar.php';
-	require ROOT . '/views/components/topbar.php';
-	?>
-	<div id="event-schedule-section" class="section">
-		<div class="worker-events-container">
-			<div class="worker-events-header">
-				<h2><i class="fas fa-calendar-check"></i> Today's Events</h2>
-				<span class="current-date"><?= date("F j, Y") ?></span>
-			</div>
-			<div class="worker-events-list">
-				<!-- Event Cards -->
-				<div class="worker-event-card">
-					<div class="worker-event-icon">
-						<i class="fas fa-leaf"></i>
-					</div>
-					<div class="worker-event-details">
-						<div class="worker-event-header">
-							<h3>Land Clearing</h3>
-						</div>
-						<div class="worker-event-info">
-							<span><i class="fas fa-clock"></i> 09:00 AM</span>
-							<span><i class="fas fa-map-pin"></i> Field A, No. 12, Green Valley Road</span>
-							<span><i class="fas fa-user"></i> Ruwan Fernando</span>
-						</div>
-					</div>
-				</div>
-				<div class="worker-event-card">
-					<div class="worker-event-icon">
-						<i class="fas fa-vial"></i>
-					</div>
-					<div class="worker-event-details">
-						<div class="worker-event-header">
-							<h3>Soil Testing</h3>
-						</div>
-						<div class="worker-event-info">
-							<span><i class="fas fa-clock"></i> 11:00 AM</span>
-							<span><i class="fas fa-map-pin"></i> Lab 1, No. 45, Orchard Street</span>
-							<span><i class="fas fa-user"></i> Priyanka Silva</span>
-						</div>
-					</div>
-				</div>
-				<div class="worker-event-card">
-					<div class="worker-event-icon">
-						<i class="fas fa-seedling"></i>
-					</div>
-					<div class="worker-event-details">
-						<div class="worker-event-header">
-							<h3>Fertilizing</h3>
-						</div>
-						<div class="worker-event-info">
-							<span><i class="fas fa-clock"></i> 01:00 PM</span>
-							<span><i class="fas fa-map-pin"></i> Field B, No. 89, Sunset Avenue</span>
-							<span><i class="fas fa-user"></i> Saman Kumara</span>
-						</div>
-					</div>
-				</div>
-				<div class="worker-event-card">
-					<div class="worker-event-icon">
-						<i class="fas fa-seedling"></i>
-					</div>
-					<div class="worker-event-details">
-						<div class="worker-event-header">
-							<h3>Seed Sowing</h3>
-						</div>
-						<div class="worker-event-info">
-							<span><i class="fas fa-clock"></i> 03:00 PM</span>
-							<span><i class="fas fa-map-pin"></i> Field C, No. 7, Maple Lane</span>
-							<span><i class="fas fa-user"></i> Nuwan Perera</span>
-						</div>
-					</div>
-				</div>
-				<div class="worker-event-card">
-					<div class="worker-event-icon">
-						<i class="fas fa-tractor"></i>
-					</div>
-					<div class="worker-event-details">
-						<div class="worker-event-header">
-							<h3>Harvesting</h3>
-						</div>
-						<div class="worker-event-info">
-							<span><i class="fas fa-clock"></i> 05:00 PM</span>
-							<span><i class="fas fa-map-pin"></i> Field D, No. 23, Sunshine Road</span>
-							<span><i class="fas fa-user"></i> Chaminda Karunaratne</span>
-						</div>
-					</div>
-				</div>
-				<div class="worker-event-card">
-					<div class="worker-event-icon">
-						<i class="fas fa-box"></i>
-					</div>
-					<div class="worker-event-details">
-						<div class="worker-event-header">
-							<h3>Processing the Harvest</h3>
-						</div>
-						<div class="worker-event-info">
-							<span><i class="fas fa-clock"></i> 07:00 PM</span>
-							<span><i class="fas fa-map-pin"></i> Processing Unit, No. 5, Industrial Park</span>
-							<span><i class="fas fa-user"></i> Kusal Jayawardena</span>
-						</div>
-					</div>
-				</div>
-				<div class="worker-event-card">
-					<div class="worker-event-icon">
-						<i class="fas fa-broom"></i>
-					</div>
-					<div class="worker-event-details">
-						<div class="worker-event-header">
-							<h3>Weeding</h3>
-						</div>
-						<div class="worker-event-info">
-							<span><i class="fas fa-clock"></i> 08:00 AM</span>
-							<span><i class="fas fa-map-pin"></i> Field E, No. 37, Evergreen Lane</span>
-							<span><i class="fas fa-user"></i> Ashoka Rathnayake</span>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</body>
+  <?php
+  require ROOT . '/views/supervisor/sidebar.php';
+  require ROOT . '/views/components/topbar.php';
 
-</html>
+  
+// Sample data
+$projects = [
+  [
+    'id' => 'P001',
+    'crop' => 'Tomatoes',
+    'address' => 'Green Valley Road',
+    'events' => [
+      [
+        'name' => 'Land Preparation',
+        'date' => '2025-04-25',
+        'time' => '09:00 AM',
+        'location' => 'Green Valley Road',
+        'supervisor' => 'Ruwan Fernando',
+        'workers' => 10,
+        'payment' => 'Rs. 1000'
+      ],
+      [
+        'name' => 'Irrigation Setup',
+        'date' => '2025-04-28',
+        'time' => '01:00 PM',
+        'location' => 'Green Valley Road',
+        'supervisor' => 'Priyanka Silva',
+        'workers' => 5,
+        'payment' => 'Rs. 1200'
+      ],
+    ]
+  ],
+  [
+    'id' => 'P002',
+    'crop' => 'Carrots',
+    'address' => 'Sunset Avenue',
+    'events' => []
+  ],
+  [
+    'id' => 'P003',
+    'crop' => 'Lettuce',
+    'address' => 'Hilltop Garden',
+    'events' => [
+      [
+        'name' => 'Weeding',
+        'date' => '2025-04-20',
+        'time' => '10:30 AM',
+        'location' => 'Hilltop Garden',
+        'supervisor' => 'Nimal Perera',
+        'workers' => 8,
+        'payment' => 'Rs. 900'
+      ]
+    ]
+  ]
+];
+?>
+
+<div class="section" id="project-events-section">
+  <center><h1>Project Events</h1></center><br><br>
+
+  <?php
+// Sort projects based on earliest event date (empty ones go to the end)
+usort($projects, function($a, $b) {
+  $aDate = '';
+  $bDate = '';
+
+  if (!empty($a['events'])) {
+    $aDates = array_column($a['events'], 'date');
+    $aDate = min($aDates);
+  }
+
+  if (!empty($b['events'])) {
+    $bDates = array_column($b['events'], 'date');
+    $bDate = min($bDates);
+  }
+
+  if ($aDate && $bDate) {
+    return strtotime($aDate) - strtotime($bDate);
+  } elseif ($aDate) {
+    return -1;
+  } elseif ($bDate) {
+    return 1;
+  } else {
+    return 0;
+  }
+});
+?>
+
+<?php foreach ($projects as $index => $project): 
+ 
+    // Find earliest date
+    $earliestDate = '';
+    if (count($project['events']) > 0) {
+      $dates = array_column($project['events'], 'date');
+      $earliestDate = min($dates);
+    }
+	
+  ?>
+    <div class="project-card" data-project-index="<?= $index ?>">
+      <div class="project-header" onclick="toggleEvents('events-<?= $index ?>', <?= $index ?>)">
+        <div>
+          <h2><?= $project['id'] ?> <?= $earliestDate ? "<span class='date-pill'>{$earliestDate}</span>" : "" ?></h2>
+          <p>Crop Type : <?= $project['crop'] ?></p>
+          <p><?= $project['address'] ?></p>
+        </div>
+        <button class="add-event-btn" onclick="openModal(event, <?= $index ?>)">+ Add Event</button>
+        <i class="fas fa-chevron-down toggle-icon" id="icon-<?= $index ?>"></i>
+      </div>
+
+      <div class="project-events" id="events-<?= $index ?>">
+        <?php if (count($project['events']) > 0): ?>
+          <?php foreach ($project['events'] as $event): ?>
+            <div class="event-card">
+              <h3><?= $event['name'] ?> <span class="event-date"><?= $event['date'] ?></span></h3>
+              <p><i class="fas fa-clock"></i><?= $event['time'] ?></p>
+              <p><i class="fas fa-map-pin"></i><?= $event['location'] ?></p>
+              <p><i class="fas fa-user"></i><?= $event['supervisor'] ?></p>
+              <p><i class="fas fa-users"></i> Workers: <?= $event['workers'] ?></p>
+              <p><i class="fas fa-money-bill-wave"></i> Payment/Worker: <?= $event['payment'] ?></p>
+            </div>
+          <?php endforeach; ?>
+        <?php else: ?>
+          <p class="no-events">No events scheduled yet.</p>
+        <?php endif; ?>
+      </div>
+    </div>
+  <?php endforeach; ?>
+</div>
+
+<!-- Modal -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal">
+    <div class="modal-close" onclick="closeModal()">×</div>
+    <h3>Add New Event</h3>
+    <form id="event-form">
+      <input type="text" id="event-name" placeholder="Event Name" required>
+      <input type="date" id="event-date" required>
+      <input type="text" id="event-time" placeholder="Time (e.g., 10:00 AM)" required>
+      <input type="text" id="event-location" placeholder="Location" required>
+      <input type="text" id="event-supervisor" placeholder="Supervisor Name" required>
+      <input type="number" id="event-workers" placeholder="No. of Workers" required>
+      <input type="text" id="event-payment" placeholder="Payment per Worker" required>
+      <button type="submit">Add Event</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  let selectedProjectIndex = null;
+
+  function toggleEvents(id, index) {
+    const section = document.getElementById(id);
+    const icon = document.getElementById('icon-' + index);
+    section.classList.toggle('active');
+    icon.classList.toggle('rotate');
+  }
+
+  function openModal(e, index) {
+    e.stopPropagation();
+    selectedProjectIndex = index;
+    document.getElementById('modal-overlay').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('modal-overlay').style.display = 'none';
+    document.getElementById('event-form').reset();
+  }
+
+  document.getElementById('event-form').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const name = document.getElementById('event-name').value;
+    const date = document.getElementById('event-date').value;
+    const time = document.getElementById('event-time').value;
+    const location = document.getElementById('event-location').value;
+    const supervisor = document.getElementById('event-supervisor').value;
+    const workers = document.getElementById('event-workers').value;
+    const payment = document.getElementById('event-payment').value;
+
+    const eventCard = document.createElement('div');
+    eventCard.className = 'event-card';
+    eventCard.innerHTML = `
+      <h3>${name} <span class="event-date">${date}</span></h3>
+      <p><i class="fas fa-clock"></i>${time}</p>
+      <p><i class="fas fa-map-pin"></i>${location}</p>
+      <p><i class="fas fa-user"></i>${supervisor}</p>
+      <p><i class="fas fa-users"></i> Workers: ${workers}</p>
+      <p><i class="fas fa-money-bill-wave"></i> Payment/Worker: ${payment}</p>
+    `;
+
+    const projectEvents = document.getElementById('events-' + selectedProjectIndex);
+    const noEventsMsg = projectEvents.querySelector('.no-events');
+    if (noEventsMsg) noEventsMsg.remove();
+    projectEvents.appendChild(eventCard);
+
+    closeModal();
+  });
+</script>
