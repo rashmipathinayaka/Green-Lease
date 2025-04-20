@@ -216,4 +216,42 @@ body {
     margin-left: 6px;
     color: #1b5e20;
   }
+  .past-event {
+    opacity: 0.6;
+    filter: grayscale(100%);
+    pointer-events: none;
+    user-select: none;
+    transition: opacity 0.3s ease;
+    position: relative;
+  }
+  
+  .past-event::after {
+    content: "PAST EVENT";
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    background-color: #721c24;
+    color: white;
+    font-size: 12px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-weight: bold;
+    opacity: 0.8;
+  }
+  .flatpickr-calendar {
+    font-size: 12px !important;
+    width: 180px !important;
+  }
+  
+  .flatpickr-time {
+    height: 36px !important;
+  }
+  
+  .flatpickr-time input,
+  .flatpickr-time .flatpickr-time-separator,
+  .flatpickr-time .flatpickr-am-pm {
+    font-size: 12px !important;
+  }
+  
+  
   
