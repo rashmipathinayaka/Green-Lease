@@ -691,9 +691,10 @@ body {
 }
 
 .project-card p {
-  font-size: 18px;
+  font-size: 20px;
   margin: 5px 0;
   color: black;
+  font-family:'Times New Roman', Times, serif;
 }
 
 /* Events */

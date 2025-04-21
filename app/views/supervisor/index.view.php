@@ -48,19 +48,19 @@
 				<br>
 				<div class="projects-grid">
 					<div class="project-card">
-						<img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
-						<p>Site Location</p>
-						<p>Crop Type</p>
+						<img src="<?= URLROOT ?>/assets/images/crop1.jpg" alt="Project Image" />
+						<p><b><i>Galle</i></b></p>
+						<p>Cocoa</p>
 					</div>
 					<div class="project-card">
-						<img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
-						<p>Site Location</p>
-						<p>Crop Type</p>
+						<img src="<?= URLROOT ?>/assets/images/crop2.jpg" alt="Project Image" />
+						<p><b><i>Matara</i></b></p>
+						<p>Paddy</p>
 					</div>
 					<div class="project-card">
-						<img src="<?= URLROOT ?>/assets/images/hero.jpg" alt="Project Image" />
-						<p>Site Location</p>
-						<p>Crop Type</p>
+						<img src="<?= URLROOT ?>/assets/images/crop3.jpg" alt="Project Image" />
+						<p><b><i>Kalutara</i></b></p>
+						<p>Rubber</p>
 					</div>
 				</div>
 			</div>
