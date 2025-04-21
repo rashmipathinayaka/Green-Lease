@@ -19,7 +19,7 @@
                     <?php if ($user->propic): ?>
                         <img src="<?= URLROOT ?>/assets/Images/<?= htmlspecialchars($user->propic) ?>" alt="Profile Picture" class="profile-photo">
                     <?php else: ?>
-                        <img src="<?= URLROOT ?>/assets/Images/supervisor.jpg" alt="Default Profile Picture" class="profile-photo">
+                        <img src="<?= URLROOT ?>/assets/images/user.png" alt="Default Profile Picture" class="profile-photo">
                     <?php endif; ?>
 
                     <!-- Toggle button -->
