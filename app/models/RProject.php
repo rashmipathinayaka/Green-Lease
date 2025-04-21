@@ -13,6 +13,8 @@ class RProject
        'duration',
        'status',
        'end_date',
+       'start_date',
+         'crop_type',
     ];
 
     // Method to count the number of projects for a given supervisor
@@ -88,6 +90,41 @@ $data=[
 $this->query($query,$data);
 
 }
+
+//admin initilaize project
+
+public function initializeproject($formdata){
+    $query="INSERT INTO project (land_id,crop_type,duration,status,start_date,supervisor_id) VALUES (:land_id,:crop_type,:duration,:status,:start_date,:supervisor_id)";
+   
+    
+    
+   return  $this->query($query,$formdata);
+}
+
+
+public function getforminfo($land_id){
+    $query="SELECT * FROM land WHERE id=:land_id";
+    $data=[
+        'land_id'=>$land_id
+    ];
+    $result=$this->query($query,$data);
+    return $result ? $result[0] : null;  // return single land details
+
+}
+
+
+
+public function getsupinfo($land_id){
+    $query="SELECT * FROM site_visit WHERE id=:land_id";
+    $data=[
+        'land_id'=>$land_id
+    ];
+    $result=$this->query($query,$data);
+    return $result ? $result[0] : null;  // return single land details
+
+}
+
+
 
 
 }
