@@ -11,6 +11,8 @@ class Rsite_visit
         'land_id', 
         'date',
         're_date',
+        'from_date',
+        'to_date',
         'description',
         'email_flag',
     ]; // Allowed columns for insert/update
@@ -109,7 +111,7 @@ class Rsite_visit
         FROM site_visit sv
         JOIN land l ON sv.land_id = l.id 
         WHERE sv.status='1' AND sv.supervisor_id = :id
-        AND sv.date >= CURDATE()
+        AND sv.re_date >= CURDATE()
         ORDER BY sv.date ASC
     ";
     
@@ -118,22 +120,25 @@ class Rsite_visit
         
     }
     
-    //to get all approvedd sievisits to admin to send emails
-public function getallapprovedvisits(){
+// To get all approved site visits for the admin to send emails
+public function getallapprovedvisits() {
     $query = "
-    SELECT sv.*, l.address AS address
-    FROM site_visit sv
-    JOIN land l ON sv.land_id = l.id 
-    WHERE sv.status='1' 
-    AND sv.date >= CURDATE() AND email_flag = '0'
-    ORDER BY sv.date ASC
-";
+        SELECT sv.*, l.address AS address
+        FROM site_visit sv
+        JOIN land l ON sv.land_id = l.id 
+        WHERE sv.status = '1' 
+        AND sv.re_date >= CURDATE() 
+        AND sv.email_flag = '0'
+        ORDER BY sv.date ASC
+    ";
+
+    return $this->query($query);
+}
+
 
     
-    return $this->query($query);
     
-    
-}
+
 
 
 
@@ -159,12 +164,42 @@ public function emailupdate($id) {
 }
 
 
-public function getprefdate($land_id){
-    $query = "SELECT date FROM site_visit WHERE land_id = :land_id ";
+public function getdaterange($land_id){
+    $query = "SELECT from_date, to_date FROM site_visit WHERE land_id = :land_id";
     $data = [':land_id' => $land_id];
-    return $this->query($query, $data)[0]->date ?? null;
+    $result = $this->query($query, $data);
+
+    if (!empty($result)) {
+        return [
+            'from_date' => $result[0]->from_date,
+            'to_date' => $result[0]->to_date
+        ];
+    }
+
+    return null;
+
+}
+
+
+
+
+
+public function insertsupervisor($formdata) {
+    $query = "UPDATE site_visit 
+        SET supervisor_id = :supervisor_id 
+        WHERE land_id = :land_id
+    ";
+
+    $data = [
+        'supervisor_id' => $formdata['supervisor_id'],
+        'land_id' => $formdata['land_id']
+    ];
+
+    return $this->query($query, $data);
 
 
 }
+
+
     
 }

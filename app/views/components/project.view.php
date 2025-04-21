@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,14 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/components/project.css">
 
 </head>
+
 <body>
     <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
-                <div class="logo">AgriProject Manager</div>
-                <nav>
-                    <ul>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">Reports</a></li>
-                    </ul>
-                </nav>
+                <div class="logo">Project ID: <?php echo $projectdetails->id; ?></div>
+              
             </div>
         </div>
     </header>
@@ -29,26 +24,92 @@
         <!-- Project Details -->
         <section class="project-details">
             <div class="project-image">
-                <img src="/api/placeholder/600/400" alt="North Field Agriculture Project">
+                <?php foreach ($eventdetails as $event): ?>
+                    <?php
+                    // Decode the JSON if it's not already an array
+                    $images = json_decode($event->completion_images);
+                    ?>
+                    <?php if (!empty($images)): ?>
+                        <div class="event-gallery">
+
+                            <!-- Display only the first image initially -->
+                            <div class="event-image-container" data-event-name="<?= htmlspecialchars($event->event_name) ?>" onclick="openImageModal(<?= $event->id ?>)">
+                                <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($images[0]) ?>" alt="Event Image" class="event-image-thumbnail">
+                            </div>
+
+                            <!-- Hidden Modal that will display all images when clicked -->
+                            <div id="modal-<?= $event->id ?>" class="image-modal" style="display: none;">
+                                <div class="modal-content">
+                                    <span class="close" onclick="closeImageModal(<?= $event->id ?>)">&times;</span>
+                                    <h3>Event: <?= htmlspecialchars($event->event_name) ?></h3>
+                                    <div class="modal-images">
+                                        <?php foreach ($images as $img): ?>
+                                            <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($img) ?>" alt="Event Image">
+                                        <?php endforeach; ?>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
+
+
+
             <div class="project-info">
-                <h2 class="project-title">North Field Agriculture Project</h2>
+                <h2 class="project-title">Details about the land</h2>
+
+                <!-- First Meta Section -->
                 <div class="project-meta">
                     <div class="meta-item">
-                        <h4>Location</h4>
-                        <p>123 Farmland Road, Green Valley</p>
+                        <h4>Land ID</h4>
+                        <p><?php echo htmlspecialchars($landdetails->id) ?></p>
+                    </div>
+
+
+                    <div class="meta-item">
+                        <h4>Address</h4>
+                        <p><?php echo htmlspecialchars($landdetails->address) ?></p>
                     </div>
                     <div class="meta-item">
-                        <h4>Project ID</h4>
-                        <p>AGP-2025-042</p>
+                        <h4>District</h4>
+                        <p><?php echo htmlspecialchars($landdetails->zone) ?></p>
+                    </div>
+
+                    <div class="meta-item">
+                        <h4>Size of the land</h4>
+                        <p><?php echo htmlspecialchars($landdetails->size) ?></p>
                     </div>
                     <div class="meta-item">
-                        <h4>Supervisor</h4>
-                        <p>John Anderson</p>
+                        <h4>leased time period</h4>
+                        <p><?php echo htmlspecialchars($landdetails->duration) ?> years</p>
                     </div>
                     <div class="meta-item">
-                        <h4>Site Head</h4>
-                        <p>Maria Rodriguez</p>
+                        <h4>Registered Date</h4>
+                        <p><?php echo htmlspecialchars($landdetails->registered_date) ?></p>
+                    </div>
+
+                </div>
+                <br><br>
+                <!-- Second Meta Section -->
+                <h2 class="project-title">Details abut the project</h2>
+
+                <div class="project-meta">
+                    <div class="meta-item">
+                        <h4>project ID</h4>
+                        <p><?php echo htmlspecialchars($projectdetails->id) ?></p>
+                    </div>
+                    <div class="meta-item">
+                        <h4>Expected end date</h4>
+                        <p><?php echo htmlspecialchars($projectdetails->end_date) ?></p>
+                    </div>
+                    <div class="meta-item">
+                        <h4>Preffered crop</h4>
+                        <p><?php echo htmlspecialchars($landdetails->crop_type) ?></p>
+                    </div>
+                    <div class="meta-item">
+                        <h4>Selected crop</h4>
+                        <p><?php echo htmlspecialchars($projectdetails->crop_type) ?></p>
                     </div>
                     <div class="meta-item">
                         <h4>Start Date</h4>
@@ -59,11 +120,8 @@
                         <p>September 30, 2025</p>
                     </div>
                 </div>
-                <div class="project-description">
-                    <h3>Project Overview</h3>
-                    <p>This large-scale agricultural project focuses on sustainable wheat and corn cultivation using advanced irrigation systems and organic farming practices. The 50-acre site is divided into 5 sectors with varied crop rotation schedules to maximize yield while minimizing environmental impact.</p>
-                </div>
             </div>
+
         </section>
 
         <!-- Stats Section -->
@@ -87,7 +145,7 @@
         </section>
 
         <!-- Upcoming Events -->
-        <section class="events-section">
+        <!-- <section class="events-section">
             <h2 class="section-title">Upcoming Events</h2>
             <div class="events-grid">
                 <div class="event-card">
@@ -124,33 +182,45 @@
                     </div>
                 </div>
             </div>
-        </section>
+        </section> -->
 
         <!-- Harvest Timeline -->
         <section class="harvest-timeline">
             <h2 class="section-title">Expected Harvesting Schedule</h2>
             <div class="timeline">
                 <div class="timeline-item">
-                    <div class="timeline-date">July 15, 2025</div>
-                    <h3 class="timeline-title">Early Wheat Harvest - Sector 1</h3>
-                    <p class="timeline-description">First wheat harvest from the early planting in Sector 1 (15 acres)</p>
+
+
+                    <?php if (!empty($eventdetails)): ?>
+                        <?php foreach ($eventdetails as $event): ?>
+                            <div class="timeline-item">
+                                <h3 class="timeline-title1">
+                                    <?php
+                                    if ($event->id == '1') {
+                                        echo "Done";
+                                    } else {
+                                        echo "Upcomming";
+                                    }
+                                    ?>
+                                </h3>
+                            
+                            
+                                <h3 class="timeline-title"><?php echo htmlspecialchars($event->id); ?></h3>
+
+                                <div class="timeline-date"><?php echo htmlspecialchars($event->date); ?></div>
+                                <h3 class="timeline-title"><?php echo htmlspecialchars($event->event_name); ?></h3>
+                                <p class="timeline-description">
+                                    <?php echo htmlspecialchars($event->description ?? 'No description provided.'); ?>
+                                </p>
+                            </div>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <p>No events found for this project.</p>
+                    <?php endif; ?>
+
+
+
                 </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">August 10, 2025</div>
-                    <h3 class="timeline-title">Corn Harvest - Sector 2</h3>
-                    <p class="timeline-description">Sweet corn harvest from Sector 2 (10 acres)</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">August 25, 2025</div>
-                    <h3 class="timeline-title">Main Wheat Harvest - Sectors 3 & 4</h3>
-                    <p class="timeline-description">Primary wheat harvest from Sectors 3 and 4 (20 acres total)</p>
-                </div>
-                <div class="timeline-item">
-                    <div class="timeline-date">September 15, 2025</div>
-                    <h3 class="timeline-title">Final Corn Harvest - Sector 5</h3>
-                    <p class="timeline-description">Late season corn harvest from Sector 5 (5 acres)</p>
-                </div>
-            </div>
         </section>
 
         <!-- Team Section -->
@@ -159,40 +229,30 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="/api/placeholder/100/100" alt="John Anderson">
+                        <!-- Displaying the profile picture -->
+                        <img src="<?php echo URLROOT . '/assets/Images/' . htmlspecialchars($sitehead->propic); ?>" alt="Site Head Avatar" />
                     </div>
                     <div class="member-info">
-                        <h4>John Anderson</h4>
-                        <p>Project Supervisor</p>
+                        <h4><?php echo htmlspecialchars($sitehead->full_name); ?></h4>
+                        <p>Sitehead of the land</p>
                     </div>
                 </div>
+
+
+
                 <div class="team-member">
                     <div class="member-avatar">
-                        <img src="/api/placeholder/100/100" alt="Maria Rodriguez">
+                        <img src="<?php echo URLROOT . '/assets/Images/' . htmlspecialchars($supervisor->propic); ?>" alt="Site Head Avatar" />
                     </div>
                     <div class="member-info">
-                        <h4>Maria Rodriguez</h4>
-                        <p>Site Head</p>
+                        <h4><?php echo htmlspecialchars($supervisor->full_name) ?></h4>
+                        <p>Supervisor for the zone
+                            Agronomist
+                        </p>
                     </div>
                 </div>
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="/api/placeholder/100/100" alt="David Chen">
-                    </div>
-                    <div class="member-info">
-                        <h4>David Chen</h4>
-                        <p>Irrigation Specialist</p>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <div class="member-avatar">
-                        <img src="/api/placeholder/100/100" alt="Sarah Williams">
-                    </div>
-                    <div class="member-info">
-                        <h4>Sarah Williams</h4>
-                        <p>Agronomist</p>
-                    </div>
-                </div>
+
+
             </div>
         </section>
     </div>
@@ -202,31 +262,45 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>AgriProject Manager</h3>
-                    <p>Your complete solution for agricultural project management and tracking.</p>
+
+                    <h2>Give you feedbacks about the project here.</h2>
+                    <h3> Your sitehead,supervisor would see
+                        your feedbacks and will make sure to improve the project.</h3>
+                    <form action="<?= URLROOT ?>/components/project/getfeedback/<?php echo $projectdetails->id; ?>" method="POST">
+                        <input type="text" name="feedback" placeholder="Enter your feedback here..." class="feedback-input">
+                        <button type="submit" class="feedback-button">Submit</button>
+                    </form>
+
+
+
+
+
                 </div>
-                <div class="footer-section">
-                    <h3>Quick Links</h3>
-                    <ul>
-                        <li><a href="#">Dashboard</a></li>
-                        <li><a href="#">Projects</a></li>
-                        <li><a href="#">Events</a></li>
-                        <li><a href="#">Reports</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <ul>
-                        <li>Email: info@agriproject.com</li>
-                        <li>Phone: (555) 123-4567</li>
-                        <li>Address: 456 Farm Tech Drive, Agriculture Valley</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 AgriProject Manager. All rights reserved.</p>
-            </div>
-        </div>
     </footer>
 </body>
+<script>
+    // Function to open the modal and display all images
+    function openImageModal(eventId) {
+        var modal = document.getElementById("modal-" + eventId);
+        modal.style.display = "block";
+    }
+
+    // Function to close the modal
+    function closeImageModal(eventId) {
+        var modal = document.getElementById("modal-" + eventId);
+        modal.style.display = "none";
+    }
+
+    // Close the modal if the user clicks anywhere outside of the modal
+    window.onclick = function(event) {
+        var modal;
+        for (let eventId of <?= json_encode(array_column($eventdetails, 'id')) ?>) {
+            modal = document.getElementById("modal-" + eventId);
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        }
+    }
+</script>
+
 </html>

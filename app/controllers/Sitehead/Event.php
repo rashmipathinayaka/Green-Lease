@@ -22,7 +22,7 @@ class Event
         if (empty($eventId)) {
             $this->view('_404');
             return;
-        }
+        } 
 
         // Load required models
         $eventModel = new EventModel();

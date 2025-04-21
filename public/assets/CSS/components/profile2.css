@@ -15,6 +15,131 @@ body {
     padding: 20px;
 }
 
+.profile-photo {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px; /* Add spacing between photo/form and name */
+}
+
+.updateForm {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.updateForm form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Style for the update form container */
+.updateForm {
+    margin-top: 10px;
+    padding: 10px;
+    border: 2px dashed #4CAF50;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+/* Style for the file input */
+.updateForm input[type="file"] {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+/* Style for the submit button inside form */
+.updateForm .update-btn {
+    background-color: #0b840f;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.updateForm .update-btn:hover {
+    background-color: #0f6313;
+}
+
+/* Style for the initial "Update Profile Picture" toggle button */
+button.update-btn {
+    background-color: #09942c;
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+button.update-btn:hover {
+    background-color: #066913;
+}
+
+
+.profile-photo form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .profile-photo input[type="file"] {
+    background-color: #f0f0f0;
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    cursor: pointer;
+    margin-bottom: 10px;
+    width: 200px;
+    text-align: center;
+  }
+  
+  .profile-photo input[type="file"]::-webkit-file-upload-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+  }
+  
+  .profile-photo input[type="file"]::-webkit-file-upload-button:hover {
+    background-color: #388e3c;
+  }
+  
+  .update-btn {
+    padding: 8px 16px;
+    background-color: #2196f3;
+    border: none;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 14px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .update-btn:hover {
+    background-color: #1976d2;
+  }
+  
+
 .info-input {
     border: none;
     background: transparent;
@@ -60,7 +185,7 @@ body {
     flex: 1;
     min-width: 250px;
     padding: 40px 20px;
-    background-color: #f5f5f5;
+    background-color: #f0eded;
     display: flex;
     flex-direction: column;
     align-items: center;
