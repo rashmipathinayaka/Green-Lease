@@ -27,7 +27,7 @@ private $sitehead;
     
         $sitehead = $this->project->getsiteheadbyproid($projectdetails->id);
         $supervisor = $this->project->getsupervisorbyproid($projectdetails->id);
-    
+   
         $data = [
             'landdetails' => $landdetails,
             'proimage' => $proimage,

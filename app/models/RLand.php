@@ -23,7 +23,9 @@ class RLand
 		'crop_type',
 		'document',
 		'status',
-		'zone'
+		'zone',
+		'longitude',
+		'latitude',
 
 	];
 
