@@ -10,9 +10,11 @@ class Sitehead
 	protected $table = 'sitehead';
 
 	protected $allowedColumns = [
-		'id',
+		
 		'user_id',
+		'name',
 		'land_id',
+		'address',
 		'status'
 	];
 
