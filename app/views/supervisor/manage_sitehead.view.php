@@ -7,40 +7,7 @@
   <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/supervisor.css" />
   <script src="<?php echo URLROOT; ?>/assets/JS/supervisor.js" defer></script>
   <title>Manage Site Heads</title>
-  <style>
-  #add-sitehead-btn {
-    padding: 8px 16px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-size: 16px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
-    margin-bottom: 20px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-left:1120px;
-  }
-
-  #add-sitehead-btn:hover {
-    background-color: #3e8e41;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
-  }
   
-  h1 {
-    display: block !important;
-    color:green!important;
-    text-align: center !important;
-    font-size: 32px !important;
-    margin-top: 80px !important;
-    z-index: 999 !important;
-    position: relative !important;
-  }
-</style>
-
-</style>
 
 </head>
 
@@ -61,49 +28,43 @@ require ROOT . '/views/components/topbar.php';
 </button>
 
   
-  <table class="dashboard-table">
-    <thead>
-      <tr>
-        <th>Project ID</th>
-        <th>User ID</th>
-        <th>Land ID</th>
-        <th>Status</th>
-        <th>Actions</th>
+<table class="dashboard-table">
+  <thead>
+    <tr>
+      <th>Project ID</th>
+      <th>User ID</th>
+      <th>Land ID</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody id="sitehead-list">
+    <?php if (!empty($data)): ?>
+      <?php foreach ($data as $row): ?>
+      <tr 
+        data-id="<?= $row->id ?>"
+        data-land_id="<?= $row->land_id?>"
+        data-user_id="<?= $row->user_id ?>"
+        data-status="<?= $row->status ?>"
+      >
+        <td><?= $row->id ?></td>
+        <td><?= $row->user_id ?></td>
+        <td><?= $row->land_id ?></td>
+        <td><?= $row->status == 0 ? 'Active' : 'Inactive' ?></td>
       </tr>
-    </thead>
-    <tbody id="sitehead-list">
-      <?php if (!empty($data)): ?>
-        <?php foreach ($data as $row): ?>
-        <tr 
-          data-id="<?= $row->id ?>"
-          data-land_id="<?= $row->land_id?>"
-          data-user_id="<?= $row->user_id ?>"
-          data-status="<?= $row->status ?>"
-        >
-          <td><?= $row->id ?></td>
-          <td><?= $row->user_id ?></td>
-          <td><?= $row->land_id ?></td>
-          <td><?= $row->status == 0 ? 'Active' : 'Inactive' ?></td>
-          <td>
-            <button class="green-btn edit-sitehead-btn">Edit</button>
-            <?php if ($row->status != 0): ?>
-            <button class="red-btn" onclick="window.location.href='<?php echo URLROOT; ?>/Supervisor/Manage_sitehead/delete_sitehead/<?php echo $row->id; ?>';">Remove</button>
-            <?php endif; ?>
-          </td>
-        </tr>
-        <?php endforeach; ?>
-      <?php else: ?>
-        <tr><td colspan="7">No siteheads available.</td></tr>
-      <?php endif; ?>
-    </tbody>
-  </table>
+      <?php endforeach; ?>
+    <?php else: ?>
+      <tr><td colspan="4">No siteheads available.</td></tr>
+    <?php endif; ?>
+  </tbody>
+</table>
+
 
   
 
   <!-- Add Sitehead Modal -->
 <div id="add-sitehead-form" class="modal">
   <div class="modal-content">
-    <span class="close-form">&times;</span>
+  <span class="close" onclick="closeModal()">&times;</span>
     <h2>Add New Site Head</h2>
     <form method="POST" action="<?php echo URLROOT; ?>/Supervisor/manage_sitehead/add_sitehead" class="form-styles">
       <label>User ID:</label>

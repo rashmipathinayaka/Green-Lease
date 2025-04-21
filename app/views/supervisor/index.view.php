@@ -6,8 +6,11 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>Supervisor Dashboard</title>
 	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/supervisor.css">
+	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/supervisor/view.css">
+
+
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-	<script src="supervisor.js" defer></script>
+	<script src="<?php echo URLROOT; ?>/assets/JS/view.js" defer></script>
 </head>
 
 <body>
@@ -61,9 +64,15 @@
 					</div>
 				</div>
 			</div>
-			<!-- Manage Fertilizer Section -->
-
-			<!-- </div> -->
+			<!-- Modal Structure -->
+<div id="modal-overlay" class="modal-overlay">
+	<div class="modal-content">
+		<span class="close-button" onclick="closeModal()">&times;</span>
+		<div id="modal-body">
+			<!-- Dynamic content goes here -->
+		</div>
+	</div>
+</div>
 
 
 
