@@ -24,7 +24,7 @@
 				enctype="multipart/form-data">
 				<div class="form-group">
 					<label for="address">Address of the Land</label>
-					<input type="text" id="address" name="address" required="">
+					<input type="text" id="address" name="address" required pattern=".*,.*" title="Address must contain at least one comma" placeholder="Enter the address (must contain at least one comma)">
 
 					<label for="district">District</label>
 					<select id="district" name="district" required>
@@ -44,34 +44,30 @@
 
 					<label for="duration">Time Period for the Lease (In Years)</label>
 					<input type="number" id="duration" name="duration" required="">
-					<label for="crop">Preferred Crop Type</label>
-					<input list="cropType" name="crop_type" id="crop" required placeholder="Select or type a crop">
 
+					<label for="crop">Preferred Crop Type</label>
+					<div class="note"> Crop types used in the system are shown below. You can select one of them or type a new crop name.</div>
+					<input list="cropType" name="crop_type" id="crop" required placeholder="Select or type a crop" autocomplete="off">
 					<datalist id="cropType">
-						<option value="Rice">
-						<option value="Wheat">
-						<option value="Maize">
-						<option value="Potatoes">
-						<option value="Tomatoes">
-						<option value="Onions">
-						<option value="Coffee">
-						<option value="Sugarcane">
+						<?php foreach ($crop_types as $crop): ?>
+							<option value="<?= htmlspecialchars($crop->crop_type) ?>">
+							<?php endforeach; ?>
 					</datalist>
 
 
 
-				<div class="text">	Give a preffered date range for the site visit</div>
-					<label for="from_date">from:</label>
+					<div class="text"> Give a preffered date range for the site visit</div>
+					<label for="from_date">From:</label>
 					<input type="date" id="from_date" name="from_date" required min="<?php echo date('Y-m-d'); ?>">
-					
-					<label for="to_date">to:</label>
-					<input 
-    type="date" 
-    id="to_date" 
-    name="to_date" 
-    required  
-    min="<?php echo date('Y-m-d'); ?>"  
-    max="<?php echo date('Y-m-d', strtotime('+21 days')); ?>">
+					<br>
+					<label for="to_date">To:</label>
+					<input
+						type="date"
+						id="to_date"
+						name="to_date"
+						required
+						min="<?php echo date('Y-m-d'); ?>"
+						max="<?php echo date('Y-m-d', strtotime('+21 days')); ?>">
 
 
 					<label for="doc">Upload a Legal Document of the Land</label>
