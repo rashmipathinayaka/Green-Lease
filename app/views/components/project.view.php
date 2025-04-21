@@ -16,8 +16,11 @@
             <div class="header-content">
                 <div class="logo">Project ID: <?php echo $projectdetails->id; ?></div>
               
-            </div>
-        </div>
+            
+            <div class="nav">
+             
+                <?php echo $projectdetails->status; ?>
+                </div></div>
     </header>
 
     <div class="container">

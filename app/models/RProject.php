@@ -11,6 +11,8 @@ class RProject
        'supervisor_id',
        'land_id',  // Ensure correct column naming
        'duration',
+       'status',
+       'end_date',
     ];
 
     // Method to count the number of projects for a given supervisor
