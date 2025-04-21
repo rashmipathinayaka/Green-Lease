@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Project Details & Events</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/components/project.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
 </head>
 
@@ -15,12 +17,13 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo">Project ID: <?php echo $projectdetails->id; ?></div>
-              
-            
-            <div class="nav">
-             
-                <?php echo $projectdetails->status; ?>
-                </div></div>
+
+
+                <div class="nav">
+
+                    <?php echo $projectdetails->status; ?>
+                </div>
+            </div>
     </header>
 
     <div class="container">
@@ -58,6 +61,8 @@
             </div>
 
 
+            <div id="map" style="height: 500px; width: 100%;"></div>
+
 
             <div class="project-info">
                 <h2 class="project-title">Details about the land</h2>
@@ -91,6 +96,9 @@
                         <h4>Registered Date</h4>
                         <p><?php echo htmlspecialchars($landdetails->registered_date) ?></p>
                     </div>
+
+
+
 
                 </div>
                 <br><br>
@@ -206,8 +214,8 @@
                                     }
                                     ?>
                                 </h3>
-                            
-                            
+
+
                                 <h3 class="timeline-title"><?php echo htmlspecialchars($event->id); ?></h3>
 
                                 <div class="timeline-date"><?php echo htmlspecialchars($event->date); ?></div>
@@ -308,6 +316,31 @@
             }
         }
     }
+
 </script>
+<script>
+
+
+
+    
+    // Ensure landdetails contains latitude and longitude properties
+    var latitude = <?php echo $landdetails->latitude; ?>;
+    var longitude = <?php echo $landdetails->longitude; ?>;
+
+    // Initialize the map centered on the given latitude and longitude
+    var map = L.map('map').setView([latitude, longitude], 13); // Zoom level 13 can be adjusted
+
+    // Add OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    // Add a marker at the specified latitude and longitude
+    L.marker([latitude, longitude]).addTo(map)
+        .bindPopup("Project Location")
+        .openPopup();
+</script>
+
+
 
 </html>

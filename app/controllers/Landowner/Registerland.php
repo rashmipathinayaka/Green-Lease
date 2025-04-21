@@ -37,6 +37,8 @@ class Registerland
                 'to_date'=>$_POST['to_date'] ?? null,
                 'document' => null,
                 'status'=>'1',
+                'latitude'=>$_POST['latitude'],
+                'longitude'=>$_POST['longitude'],
             ];
     
             // File upload logic
