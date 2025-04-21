@@ -237,6 +237,8 @@
                     </div>
                     <div class="member-info">
                         <h4><?php echo htmlspecialchars($sitehead->full_name); ?></h4>
+                        <h4>Tel:<?php echo htmlspecialchars($sitehead->contact_no) ?></h4>
+
                         <p>Sitehead of the land</p>
                     </div>
                 </div>
@@ -249,6 +251,8 @@
                     </div>
                     <div class="member-info">
                         <h4><?php echo htmlspecialchars($supervisor->full_name) ?></h4>
+                        <h4>Tel:<?php echo htmlspecialchars($supervisor->contact_no) ?></h4>
+
                         <p>Supervisor for the zone
                             Agronomist
                         </p>
