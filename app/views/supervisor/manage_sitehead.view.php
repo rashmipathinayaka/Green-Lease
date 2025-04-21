@@ -20,7 +20,7 @@
     transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.2s ease;
     margin-bottom: 20px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    margin-left:1120px;
+    margin-left:1110px;
   }
 
   #add-sitehead-btn:hover {
