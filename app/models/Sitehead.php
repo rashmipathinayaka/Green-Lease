@@ -17,7 +17,24 @@ class Sitehead
 		'address',
 		'status'
 	];
-
+	public function getInactiveUsers()
+	{
+		// Modify this query to fetch data from the 'users' table and ensure you are getting inactive users.
+		$query = "SELECT user_id, name FROM sitehead WHERE status = 1"; // Assuming 'status' column indicates inactive users
+		
+		// Execute the query and return the results
+		return $this->query($query);
+		
+		
+	}
+	public function getAllSiteheads()
+	{
+		// Query to get all sitehead records
+		$query = "SELECT * FROM sitehead";
+		
+		// Return the result of the query
+		return $this->query($query);
+	}
 	public function validate($data)
 	{
 		$this->errors = [];
@@ -42,6 +59,8 @@ class Sitehead
 
 		return empty($this->errors);
 	}
+	
+
 
 	// Additional useful methods
 	public function getByUserId($user_id)

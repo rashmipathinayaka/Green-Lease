@@ -130,20 +130,34 @@ require ROOT . '/views/components/topbar.php';
   <div class="modal-content">
     <span class="close-form">&times;</span>
     <h2>Add New Site Head</h2>
-    <form method="POST" action="<?php echo URLROOT; ?>/Supervisor/manage_sitehead/add_sitehead" class="form-styles">
-      <label>User ID:</label>
-      <input type="number" name="user_id" required>
+    <form method="POST" action="<?php echo URLROOT; ?>/supervisor/manage_sitehead/add_sitehead" class="form-styles">
+      <label for="user_id">User ID & Name:</label>
+      <select name="user_id" required>
+  <option value="">-- Select Inactive Sitehead --</option>
+  <?php if (!empty($data['inactiveUsers'])): ?>
+      <?php foreach ($data['inactiveUsers'] as $user): ?>
+          <option value="<?= $user->user_id ?>"><?= $user->user_id ?> - <?= $user->name ?></option>
+      <?php endforeach; ?>
+  <?php else: ?>
+      <option value="">No inactive siteheads available</option>
+  <?php endif; ?>
+</select>
+
+
+      
       <label>Land ID:</label>
       <input type="number" name="land_id" required>
+
       <label>Status:</label>
-      <select name="status">
-        <option value="0">Active</option>
-        <option value="1">Inactive</option>
+      <select name="status" disabled>
+        <option value="1" selected>Inactive</option>
       </select>
+
       <button type="submit">Add</button>
     </form>
   </div>
 </div>
+
 
 <!-- Edit Sitehead Modal -->
 <div id="edit-sitehead-form" class="modal">
