@@ -148,7 +148,11 @@ class RLand
 
 	public function findOngoingProjects($userId)
 	{
-		$query = "SELECT * FROM land WHERE status = '2' AND landowner_id = :landowner_id";
+		$query = "SELECT project.*
+FROM project
+JOIN land ON project.land_id = land.id
+WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
+";
 
 		$data = [':landowner_id' => $userId];
 
@@ -157,8 +161,11 @@ class RLand
 
 	public function findCompletedProjects($userId)
 	{
-		$query = "SELECT * FROM land WHERE status = '3' AND landowner_id = :landowner_id";
-
+		$query = "SELECT project.*
+		FROM project
+		JOIN land ON project.land_id = land.id
+		WHERE project.status = 'completed' AND land.landowner_id = :landowner_id
+		";
 		$data = [':landowner_id' => $userId];
 
 		return $this->query($query, $data);

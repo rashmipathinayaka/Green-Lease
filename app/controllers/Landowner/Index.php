@@ -7,10 +7,12 @@ class Index
 {
 	use Controller;
 	private $lands;
+	private $landowner;
 
     public function __construct() {
         // Initialize the Land model in the constructor
         $this->lands = new RLand();
+$this->landowner = new RUser();
     }
 
 
@@ -60,10 +62,10 @@ class Index
 
 		$lands = $this->lands->findOngoingprojects($userId);
 		$landz = $this->lands->findCompletedprojects($userId);
-
+		$user=$this->landowner->getuserinfobyid($userId);
 	
 		$this->view('landowner/index', ['landCount' => $landCount, 'proCount' => $proCount, 'completedproCount'=>$completedproCount,    'inactivelandsCount'=>$inactivelandsCount,
-					'lands'=> $lands, 'landz'=>$landz]);
+					'lands'=> $lands, 'landz'=>$landz, 'user'=>$user]);
 
 	
 	}
