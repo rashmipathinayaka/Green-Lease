@@ -143,7 +143,7 @@ public function getuserinfobyid($userId)
     $query = "SELECT * FROM user WHERE id = :id LIMIT 1";
     $data = [':id' => $userId];
     return $this->query($query, $data)[0] ?? null;
-
+ 
 
 
 
