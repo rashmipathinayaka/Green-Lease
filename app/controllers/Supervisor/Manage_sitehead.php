@@ -12,6 +12,7 @@ class Manage_sitehead
 
     public function index()
     {
+    
         // Fetch paginated siteheads (limit 10 per page, starting from page 0)
         $data = $this->sitehead->getAllSiteheads('1');  
         $inactiveUsers = $this->sitehead->getInactiveUsers(); // Get inactive users from users table

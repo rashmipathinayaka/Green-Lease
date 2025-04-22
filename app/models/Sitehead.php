@@ -12,26 +12,23 @@ class Sitehead
 	protected $allowedColumns = [
 		
 		'user_id',
-		'name',
-		'land_id',
-		'address',
 		'status',
 		'zone'
 	];
 	public function getInactiveUsers()
-	{
-		// Modify this query to fetch data from the 'users' table and ensure you are getting inactive users.
-		$query = "SELECT user_id, name FROM sitehead WHERE status = 1"; // Assuming 'status' column indicates inactive users
-		
-		// Execute the query and return the results
-		return $this->query($query);
-		
-		
-	}
+{
+    $query = "SELECT s.user_id, u.full_name
+        FROM sitehead s
+        INNER JOIN user u ON s.user_id = u.id
+        WHERE s.status = 1
+    ";
+
+    return $this->query($query);
+}
+
 	public function getAllSiteheads($supervisorUserId)
 {
-    $query =
-	 " SELECT u.*
+    $query = " SELECT u.*, s.status
         FROM sitehead s
         INNER JOIN user u ON s.user_id = u.id
         WHERE s.zone = (
@@ -43,6 +40,9 @@ class Sitehead
         'supervisorUserId' => $supervisorUserId
     ]);
 }
+
+    
+
 
 	public function validate($data)
 	{

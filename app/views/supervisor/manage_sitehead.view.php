@@ -86,8 +86,7 @@ require ROOT . '/views/components/topbar.php';
     <tr>
       <th>User ID</th>
       <th>Name</th>
-      <th>Land ID</th>
-      <th>Address</th>
+      <th>Contact Number</th>
       <th>Status</th>
     </tr>
   </thead>
@@ -95,19 +94,17 @@ require ROOT . '/views/components/topbar.php';
     <?php if (!empty($data)): ?>
       <?php foreach ($data as $row): ?>
       <tr 
-        data-user_id="<?= $row->user_id ?>"
+        data-id="<?= $row->id ?>"
         data-name="<?= $row->full_name ?>"
         data-address="<?= $row->address?>"
-        data-status="<?= $row->status ?>"
+         data-status="<?= $row->status?>"
+       
       >
-        <td><?= $row->user_id ?></td>
+        <td><?= $row->id ?></td>
         <td><?= $row->full_name ?></td>
-        <td><?= $row->address?></td>
-        <td>
-  <span class="status-btn <?= $row->status == 0 ? 'active' : 'inactive' ?>">
-    <?= $row->status == 0 ? 'Active' : 'Inactive' ?>
-  </span>
-</td>
+        <td><?= $row->contact_no?></td>
+        <td><?= $row->status?></td>
+        
 
       </tr>
       <?php endforeach; ?>
@@ -134,7 +131,7 @@ require ROOT . '/views/components/topbar.php';
   <option value="">-- Select Inactive Sitehead --</option>
   <?php if (!empty($inactiveUsers)): ?>
       <?php foreach ($inactiveUsers as $user): ?>
-          <option value="<?= $user->user_id ?>"><?= $user->user_id ?> - <?= $user->name ?></option>
+          <option value="<?= $user->user_id ?>"><?= $user->user_id ?> - <?= $user->full_name ?></option>
       <?php endforeach; ?>
   <?php else: ?>
       <option value="">No inactive siteheads available</option>
