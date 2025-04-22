@@ -15,7 +15,8 @@ class Sitehead
 		'name',
 		'land_id',
 		'address',
-		'status'
+		'status',
+		'zone'
 	];
 	public function getInactiveUsers()
 	{
@@ -27,14 +28,22 @@ class Sitehead
 		
 		
 	}
-	public function getAllSiteheads()
-	{
-		// Query to get all sitehead records
-		$query = "SELECT * FROM sitehead";
-		
-		// Return the result of the query
-		return $this->query($query);
-	}
+	public function getAllSiteheads($supervisorUserId)
+{
+    $query =
+	 " SELECT u.*
+        FROM sitehead s
+        INNER JOIN user u ON s.user_id = u.id
+        WHERE s.zone = (
+            SELECT zone FROM supervisor WHERE user_id = :supervisorUserId
+        )
+    ";
+
+    return $this->query($query, [
+        'supervisorUserId' => $supervisorUserId
+    ]);
+}
+
 	public function validate($data)
 	{
 		$this->errors = [];

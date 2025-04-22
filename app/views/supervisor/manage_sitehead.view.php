@@ -96,14 +96,12 @@ require ROOT . '/views/components/topbar.php';
       <?php foreach ($data as $row): ?>
       <tr 
         data-user_id="<?= $row->user_id ?>"
-        data-name="<?= $row->name ?>"
-        data-land_id="<?= $row->land_id?>"
+        data-name="<?= $row->full_name ?>"
         data-address="<?= $row->address?>"
         data-status="<?= $row->status ?>"
       >
         <td><?= $row->user_id ?></td>
-        <td><?= $row->name ?></td>
-        <td><?= $row->land_id ?></td>
+        <td><?= $row->full_name ?></td>
         <td><?= $row->address?></td>
         <td>
   <span class="status-btn <?= $row->status == 0 ? 'active' : 'inactive' ?>">
@@ -134,8 +132,8 @@ require ROOT . '/views/components/topbar.php';
       <label for="user_id">User ID & Name:</label>
       <select name="user_id" required>
   <option value="">-- Select Inactive Sitehead --</option>
-  <?php if (!empty($data['inactiveUsers'])): ?>
-      <?php foreach ($data['inactiveUsers'] as $user): ?>
+  <?php if (!empty($inactiveUsers)): ?>
+      <?php foreach ($inactiveUsers as $user): ?>
           <option value="<?= $user->user_id ?>"><?= $user->user_id ?> - <?= $user->name ?></option>
       <?php endforeach; ?>
   <?php else: ?>
