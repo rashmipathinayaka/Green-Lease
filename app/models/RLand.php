@@ -240,4 +240,41 @@ public function takeLandId() {
 
 
 
+public function getRegisteredLandsCount()
+{
+$query="SELECT COUNT(*) as count FROM land";
+    
+    return (int) $this->query($query)[0]->count; // Access count as an object property
+}
+
+public function getSupervisorsCount()
+{
+    $query="SELECT COUNT(*) as count FROM user WHERE role_id = '2'";
+    return (int) $this->query($query)[0]->count; // Access count as an object property
+}
+
+// public function getBidsCount()
+// {
+//     $stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM bids");
+//     $stmt->execute();
+//     $result = $stmt->get_result()->fetch_assoc();
+//     return $result['count'];
+// }
+
+// public function getBuyersCount()
+// {
+//     $stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM buyers");
+//     $stmt->execute();
+//     $result = $stmt->get_result()->fetch_assoc();
+//     return $result['count'];
+// }
+
+
+
+
+
+
+
+
+
 }

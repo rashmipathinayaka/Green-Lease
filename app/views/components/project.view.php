@@ -136,24 +136,7 @@
         </section>
 
         <!-- Stats Section -->
-        <section class="stats-section">
-            <div class="stat-card">
-                <div class="stat-value">50</div>
-                <div class="stat-label">Acres</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">5</div>
-                <div class="stat-label">Crop Varieties</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">12</div>
-                <div class="stat-label">Team Members</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-value">85%</div>
-                <div class="stat-label">Progress</div>
-            </div>
-        </section>
+     
 
         <!-- Upcoming Events -->
         <!-- <section class="events-section">
@@ -197,7 +180,7 @@
 
         <!-- Harvest Timeline -->
         <section class="harvest-timeline">
-            <h2 class="section-title">Expected Harvesting Schedule</h2>
+            <h2 class="section-title">Event Schedule</h2>
             <div class="timeline">
                 <div class="timeline-item">
 
