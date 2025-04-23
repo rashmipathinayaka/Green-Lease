@@ -73,7 +73,7 @@ require ROOT . '/views/components/topbar.php';
   
 
   <button class="green-btn" id="add-sitehead-btn">
-  &#43; Add Site Head
+  &#43; Assign Site Head
 </button>
 
 <div class="search-container">
@@ -103,7 +103,10 @@ require ROOT . '/views/components/topbar.php';
         <td><?= $row->id ?></td>
         <td><?= $row->full_name ?></td>
         <td><?= $row->contact_no?></td>
-        <td><?= $row->status?></td>
+        <td class="<?= $row->status == 0 ? 'active-status' : 'inactive-status' ?>">
+  <?= $row->status == 0 ? 'Active' : 'Inactive' ?>
+</td>
+
         
 
       </tr>
@@ -128,7 +131,7 @@ require ROOT . '/views/components/topbar.php';
     <form method="POST" action="<?php echo URLROOT; ?>/supervisor/manage_sitehead/add_sitehead" class="form-styles">
       <label for="user_id">User ID & Name:</label>
       <select name="user_id" required>
-  <option value="">-- Select Inactive Sitehead --</option>
+      <option value="" style="display: none;">-- Select Inactive Sitehead --</option>
   <?php if (!empty($inactiveUsers)): ?>
       <?php foreach ($inactiveUsers as $user): ?>
           <option value="<?= $user->user_id ?>"><?= $user->user_id ?> - <?= $user->full_name ?></option>
