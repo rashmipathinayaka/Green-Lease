@@ -13,24 +13,31 @@
     require ROOT . '/views/admin/sidebar.php';
     require ROOT . '/views/components/topbar.php';
     ?>
-
-    <center><h1>Manage Supervisors</h1></center>
+<div class="content">
+    <center>
+        <h1>Manage siteheads</h1>
+    </center>
     <br><br>
 
     <div class="filter-section">
-    <form method="GET" action="" class="filter-form" style="margin-bottom: 20px; text-align: center;">
-    <label for="name">Name:</label>
-    <input type="text" name="full_name" id="full_name" value="<?= isset($_GET['full_name']) ? htmlspecialchars($_GET['full_name']) : '' ?>">
+        <form method="GET" action="" class="filter-form" style="margin-bottom: 20px; text-align: center;">
+            <label for="name">Name:</label>
+            <input type="text" name="full_name" id="full_name" value="<?= isset($_GET['full_name']) ? htmlspecialchars($_GET['full_name']) : '' ?>">
 
-    <label for="land_id">land:</label>
-    <select name="land_id" id="land_id">
-        <option value="">All</option>
-        <option value="1" <?= (isset($_GET['land_id']) && $_GET['land_id'] == '1') ? 'selected' : '' ?>>1</option>
-        <option value="2" <?= (isset($_GET['land_id']) && $_GET['land_id'] == '2') ? 'selected' : '' ?>>2</option>
-    </select>
+          
+            <label for="zone">Land ID:</label>
+                <select name="zone" id="zone">
+                    <option value="">All</option>
+                    <?php foreach ($data as $land): ?>
+                        <option value="<?= htmlspecialchars($land->land_id) ?>"
+                            <?= (isset($_GET['zone']) && $_GET['zone'] == $land->land_id) ? 'selected' : '' ?>>
+                            <?= htmlspecialchars($land->land_id) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
 
-    <button type="submit">Filter</button>
-</form>
+            <button type="submit">Filter</button>
+        </form>
         <a href="<?= URLROOT ?>/Admin/add_sitehead/">
             <button class="Addsupervisor" id="Addsupervisor">Add sitehead</button>
         </a>
@@ -41,7 +48,7 @@
             <tr>
                 <th>Name</th>
                 <th>land</th>
-                                <th> land address</th>
+                <th> land address</th>
 
                 <th>Status</th>
                 <th>Actions</th>
@@ -52,10 +59,12 @@
                 <?php foreach ($data as $sitehead): ?>
                     <tr>
                         <td>
-                            <?= htmlspecialchars($sitehead->full_name) ?>
-                            <button class="profile-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_sitehead/getid/<?= $sitehead->id ?>';">
-                                <img src="<?= URLROOT ?>/assets/images/user.png" class="menu-icon">view profile
-                            </button>
+                        <div class="supervisor-info">
+                                    <button class="rprofile-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_supervisor/getid/<?= $sitehead->id ?>';">
+                                        <img src="<?= !empty($sitehead->propic) ? htmlspecialchars($sitehead->propic) : URLROOT . '/assets/images/supervisor.jpg' ?>" class="rmenu-icon">
+                                    </button>
+                                    <span class="supervisor-name"><?= htmlspecialchars($sitehead->full_name) ?></span>
+                                </div>
                         </td>
                         <td><?= htmlspecialchars($sitehead->land_id) ?></td>
                         <td><?= htmlspecialchars($sitehead->address) ?></td>
@@ -92,17 +101,44 @@
                     </tr>
                 <?php endforeach; ?>
             <?php else: ?>
-                <tr><td colspan="6">No supervisors available.</td></tr>
+                <tr>
+                    <td colspan="6">No supervisors available.</td>
+                </tr>
             <?php endif; ?>
         </tbody>
     </table>
 
+
+
+
+
+
+
+
+
+
+
+
+    
+            </div>
+
+
+
+
+
+
+
+
+
+
+
+
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
+        document.addEventListener("DOMContentLoaded", function() {
             const editButtons = document.querySelectorAll(".toggle-edit-btn");
 
             editButtons.forEach(button => {
-                button.addEventListener("click", function () {
+                button.addEventListener("click", function() {
                     const id = this.getAttribute("data-id");
                     const row = document.getElementById(`edit-row-${id}`);
 
@@ -114,7 +150,10 @@
                     // Toggle current row
                     if (row.style.display === "none") {
                         row.style.display = "table-row";
-                        row.scrollIntoView({ behavior: "smooth", block: "center" });
+                        row.scrollIntoView({
+                            behavior: "smooth",
+                            block: "center"
+                        });
                     } else {
                         row.style.display = "none";
                     }
@@ -124,4 +163,5 @@
     </script>
 
 </body>
+
 </html>
