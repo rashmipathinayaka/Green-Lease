@@ -55,7 +55,13 @@ class Manage_sitehead
             }
         }
 
-        
+        // Reload the data and view after insertion
+        $data = $this->sitehead->getAllSiteheads(10, 0);  // Fetch with pagination
+        $inactiveUsers = $this->sitehead->getInactiveUsers();
+        $this->view('Supervisor/Manage_sitehead', [
+            'data' => $data,
+            'inactiveUsers' => $inactiveUsers
+        ]);
     }
 
     public function delete_sitehead($id)

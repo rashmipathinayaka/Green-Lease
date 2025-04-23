@@ -17,7 +17,7 @@ class Sitehead
 	];
 	public function getInactiveUsers()
 {
-    $query = "SELECT s.user_id, u.full_name
+    $query = "SELECT DISTINCT s.user_id, u.full_name
         FROM sitehead s
         INNER JOIN user u ON s.user_id = u.id
         WHERE s.status = 1
