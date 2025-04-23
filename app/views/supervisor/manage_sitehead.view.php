@@ -40,7 +40,7 @@
   }
  /* Increase specificity for status colors */
 .dashboard-table .active-status {
-  color: green;
+  color: darkgreen;
   font-weight: bold;
 }
 
