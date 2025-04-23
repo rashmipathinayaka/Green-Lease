@@ -13,7 +13,8 @@ class Sitehead
 		
 		'user_id',
 		'status',
-		'zone'
+		'zone',
+		'land_id'
 	];
 	public function getInactiveUsers()
 {
@@ -72,20 +73,32 @@ class Sitehead
 
 
 	// Additional useful methods
-	public function getByUserId($user_id)
-	{
-		return $this->first(['user_id' => $user_id]);
-	}
+	public function getUserById($user_id)
+{
+    $query = "SELECT * FROM user WHERE id = :id";
+    return $this->query($query, ['id' => $user_id]);
+}
 
-	public function getByLandId($land_id)
-	{
-		return $this->first(['land_id' => $land_id]);
-	}
 
 	// In your Sitehead model
-	public function getAssignedLands($userId)
-	{
-		$query = "SELECT land_id FROM sitehead WHERE user_id = :user_id";
-		return $this->query($query, ['user_id' => $userId]);
-	}
+	public function assignLandToSitehead($land_id, $user_id)
+{
+    $query = "INSERT INTO sitehead (land_id, user_id) VALUES (:land_id, :user_id)";
+    return $this->query($query, [
+        'land_id' => $land_id,
+        'user_id' => $user_id
+    ]);
+}
+public function updateUser($user_id, $data)
+{
+    $columns = array_keys($data);
+    $setClause = implode(', ', array_map(fn($col) => "$col = :$col", $columns));
+
+    $query = "UPDATE user SET  WHERE id = :user_id";
+    $data['user_id'] = $user_id;
+
+    return $this->query($query, $data);
+}
+
+
 }

@@ -140,8 +140,6 @@ require ROOT . '/views/components/topbar.php';
       <option value="">No inactive siteheads available</option>
   <?php endif; ?>
 </select>
-
-
       
       <label>Land ID:</label>
       <input type="number" name="land_id" required>
@@ -152,6 +150,8 @@ require ROOT . '/views/components/topbar.php';
       </select>
 
       <button type="submit">Add</button>
+     
+
     </form>
   </div>
 </div>

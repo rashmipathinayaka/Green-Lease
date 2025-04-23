@@ -22,47 +22,50 @@ class Manage_sitehead
             'inactiveUsers' => $inactiveUsers
         ]);
     }
-
-    public function manage_sitehead()
-    {
-        // Fetch inactive users
-        $inactiveUsers = $this->sitehead->getInactiveUsers(); 
-
-        $data = [
-            'inactiveUsers' => $inactiveUsers
-        ];
-
-        // Pass the data to the view
-        $this->view('supervisor/manage_sitehead', $data);
-    }
-
     public function add_sitehead()
-   {
-	
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $user_id = $_POST['user_id'] ?? null;
+            $land_id = $_POST['land_id'] ?? null;
+            $full_name = $_POST['full_name'] ?? null;
+    
+            // Step 1: Validate input
             $formData = [
-                'user_id' => $_POST['user_id'] ?? null,
-                'land_id' => $_POST['land_id'] ?? null,
-                'status' => 1 // Force status to Inactive
+                'user_id' => $user_id,
+                'land_id' => $land_id,
+                'full_name' =>$full_name,
+                'status' => 0 // Now setting status to Active
             ];
-
-            // Validate the input data
+    
             if ($this->sitehead->validate($formData)) {
-                $this->sitehead->insert($formData);
+                // Step 2: Update user table
+                
+    
+                // Step 3: Update sitehead record with land_id and set status to active
+                $this->sitehead->update($user_id, [
+                    'land_id' => $land_id,
+                    'status' => 0,
+                ], 'user_id'); // assuming user_id is the key for updating
+                
+
+                // Step 4: Optionally assign land to a project for this sitehead
+                $supervisor_id = 1; // hardcoded or get it dynamically from session
+                $this->sitehead->assignLandToSitehead($land_id, $supervisor_id);
+    
+                // Step 5: Reload view with updated data
+                $data = $this->sitehead->getAllSiteheads('1');
+                $inactiveUsers = $this->sitehead->getInactiveUsers();
+    
+                $this->view('Supervisor/Manage_sitehead', [
+                    'data' => $data,
+                    'inactiveUsers' => $inactiveUsers
+                ]);
             } else {
                 echo "Validation failed.";
-                return;
             }
         }
-
-        // Reload the data and view after insertion
-        $data = $this->sitehead->getAllSiteheads(10, 0);  // Fetch with pagination
-        $inactiveUsers = $this->sitehead->getInactiveUsers();
-        $this->view('Supervisor/Manage_sitehead', [
-            'data' => $data,
-            'inactiveUsers' => $inactiveUsers
-        ]);
     }
+    
 
     public function delete_sitehead($id)
     {
@@ -83,16 +86,14 @@ class Manage_sitehead
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
             $updatedata = [
-                'name' => $_POST['name'],
-                'email' => $_POST['email'],
-                'number' => $_POST['number'],
-                'landID' => $_POST['landID'],
+                'user_id' => $_POST['user_id'],
+                'land_id' => $_POST['land_id'],
                 'status' => $_POST['status']
             ];
 
             $this->sitehead->update($id, $updatedata, 'id');
 
-            $newdata = $this->sitehead->getAllSiteheads(10, 0);  // Fetch with pagination
+            $newdata = $this->sitehead->getAllSiteheads(1);  // Fetch with pagination
             $inactiveUsers = $this->sitehead->getInactiveUsers();
             $this->view('supervisor/manage_sitehead', [
                 'data' => $newdata,
