@@ -6,7 +6,7 @@ class Index
 
 	private $lands;
 	private $bids;
-private $supervisor;
+	private $supervisor;
 
 	public function __construct() {
 		$this->lands = new RLand();
@@ -31,13 +31,29 @@ private $supervisor;
 			'supervisorcount' => $this->supervisor->countsupervisors(),
 		];
 
+		$landStats = $this->lands->findRegisteredYear();
+		$data1['yearLabels'] = $landStats['labels'];
+		$data1['yearData'] = $landStats['data'];
+
+		$this->view('admin/Index', array_merge($data, $data1));
+	}
+
+	public function generateReport()
+	{
+		$landCount = $this->lands->countLands();
+		$bidCount = $this->bids->countbids();
+		$supervisorcount = $this->supervisor->countsupervisors();
 
 		$landStats = $this->lands->findRegisteredYear();
-$data1['yearLabels'] = $landStats['labels'];
-$data1['yearData'] = $landStats['data'];
 
-$this->view('admin/Index', array_merge($data, $data1));
+		$data = [
+			'landCount' => $landCount,
+			'bidCount' => $bidCount,
+			'supervisorcount' => $supervisorcount,
+			'yearLabels' => $landStats['labels'],
+			'yearData' => $landStats['data'],
+		];
 
-
+		$this->view('admin/report', $data);
 	}
 }

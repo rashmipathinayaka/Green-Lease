@@ -1,5 +1,5 @@
 <?php
-class Initialize_project {
+class Approve_land {
     use Controller;
     private $project;
     
@@ -37,7 +37,7 @@ class Initialize_project {
             }
         }
     
-        $this->view('admin/initialize_project', [
+        $this->view('Supervisor/Approve_land', [
             'showBigForm' => $showBigForm,
             'landInfo' => $landInfo,
             'supinfo' => $supinfo,

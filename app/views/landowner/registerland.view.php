@@ -66,7 +66,7 @@
 					</datalist>
 
 					<!-- Date Range -->
-					<div class="text">Give a preferred date range for the site visit</div>
+					<div class="crop">Give a preferred date range for the site visit</div>
 					<label for="from_date">From:</label>
 					<input type="date" id="from_date" name="from_date" required min="<?php echo date('Y-m-d'); ?>">
 

@@ -68,6 +68,43 @@
               
             </div>
 
+<style>
+            .report-button {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.report-button:hover {
+    background-color: #c62828;
+}
+</style>
+
+            <!-- Add this anywhere in the dashboard section -->
+<div style="text-align: right; margin: 20px;"><button>
+<a href="<?= URLROOT ?>/Admin/report/" class="report-button">Generate Report</a>
+</button>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             <div class="charts">
                 <div class="chart-box">
@@ -119,6 +156,9 @@
 
                     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
                     <br><br>
+
+
+
                     <script>
                         const barctx = document.getElementById('landBarChart').getContext('2d');
 
