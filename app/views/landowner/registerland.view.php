@@ -66,7 +66,7 @@
 					</datalist>
 
 					<!-- Date Range -->
-					<div class="crop">Give a preferred date range for the site visit</div>
+					<div class="date">Give a preferred date range for the site visit</div>
 					<label for="from_date">From:</label>
 					<input type="date" id="from_date" name="from_date" required min="<?php echo date('Y-m-d'); ?>">
 
@@ -111,6 +111,33 @@
 
 			marker.bindPopup(`Selected Location:<br>Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`).openPopup();
 		});
+
+
+
+		
+document.addEventListener('DOMContentLoaded', function() {
+    const fromDateInput = document.getElementById('from_date');
+    const toDateInput = document.getElementById('to_date');
+
+    // Update min date for "to_date" when "from_date" changes
+    fromDateInput.addEventListener('change', function() {
+        toDateInput.min = this.value; // Ensures "to_date" cannot be before "from_date"
+        
+        // If current "to_date" is invalid, reset it
+        if (toDateInput.value && new Date(toDateInput.value) < new Date(this.value)) {
+            toDateInput.value = '';
+        }
+    });
+
+    // Optional: Validate on form submission
+    document.querySelector('form').addEventListener('submit', function(e) {
+        if (new Date(toDateInput.value) <= new Date(fromDateInput.value)) {
+            e.preventDefault(); // Prevent form submission
+            alert('"To Date" must be after "From Date"!');
+        }
+    });
+});
+
 	</script>
 
 </body>
