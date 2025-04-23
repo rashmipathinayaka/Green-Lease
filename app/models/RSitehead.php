@@ -23,6 +23,7 @@ class RSitehead
             u.email, 
             u.contact_no, 
             u.joined_date,
+            l.id AS land_id,
             l.address
         FROM sitehead s 
         JOIN user u ON s.user_id = u.id

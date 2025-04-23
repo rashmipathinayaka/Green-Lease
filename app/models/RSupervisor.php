@@ -102,14 +102,13 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
 
     //for admin to filter supervisors
     public function getSupervisorDetails($filters = []) {
-       
-    
         $query = '
-            SELECT s.*, u.full_name, u.email, u.contact_no, u.joined_date, 
-                   COUNT(p.id) AS land_count
+            SELECT s.*, u.full_name, u.email, u.contact_no,u.propic, u.joined_date, 
+                   COUNT(p.id) AS land_count, z.zone_name
             FROM supervisor s 
             JOIN user u ON s.user_id = u.id
             LEFT JOIN project p ON s.id = p.supervisor_id
+            LEFT JOIN zone z ON s.zone = z.id
             WHERE 1=1
         ';
         
@@ -117,10 +116,10 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
     
         if (!empty($filters['full_name'])) {
             $query .= " AND u.full_name LIKE ?";
-            $params[] =  $filters['full_name'] . "%";
+            $params[] = "%" . $filters['full_name'] . "%";
         }
     
-        if ($filters['zone'] !== '') {
+        if (!empty($filters['zone'])) {
             $query .= " AND s.zone = ?";
             $params[] = $filters['zone'];
         }
@@ -129,6 +128,7 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
     
         return $this->query($query, $params);
     }
+    
     
 
     public function countsupervisors()

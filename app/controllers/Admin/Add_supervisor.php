@@ -9,11 +9,13 @@ class Add_supervisor
     use Controller;
     private $supervisor;
     private $userModel;
+    private $zoneModel;
 
     public function __construct()
     {
         $this->supervisor = new RSupervisor;
         $this->userModel = new RUser;
+        $this->zoneModel = new RZone;
     }
 
     public function index()
@@ -23,7 +25,7 @@ class Add_supervisor
             $zone = $_POST['zone'] ?? null;
             $email = $_POST['email'] ?? null;
             $contact_no = $_POST['contact_no'] ?? null;
-            $status = $_POST['status'] ?? null;
+            $status = 'inactive';
             $nic = $_POST['nic'] ?? null;
             
             // Generate a random plain password for the supervisor
@@ -45,22 +47,25 @@ class Add_supervisor
             $user = $this->userModel->getUserIdByNic($nic);
 
             if ($user) {
-                // Data for supervisor table
+                
                 $formData2 = [
                     'zone' => $zone,
                     'status' => $status,
-                    'user_id' => $user, // foreign key
+                    'user_id' => $user, 
                 ];
 
-                // Insert into supervisor table
-                $this->supervisor->insert($formData2);
+               //supervisor table ekta data insert karanna
+               $this->supervisor->insert($formData2);
+
+            
+       
 
                 // Send an email with the plain password to the supervisor
                 $this->sendEmailToSupervisor($email, $full_name, $password);
             }
         }
-
-        $this->view('admin/add_supervisor');
+$zones = $this->zoneModel->getAllZones(); // Fetch all zones for the dropdown
+        $this->view('admin/add_supervisor', ['zones' => $zones]);
     }
 
     // Function to generate a random password
