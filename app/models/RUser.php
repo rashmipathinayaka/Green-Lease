@@ -46,11 +46,14 @@ class RUser
     }
     
 
-	public function insertsupervisor($data)
-{
-    $data['role_id'] = 2; // assuming 2 is the role ID for supervisor
-    $this->insert($data); 
-}
+    public function insertsupervisor($data)
+    {
+        $data['role_id'] = 2; // assuming 2 is the role ID for supervisor
+        $result = $this->insert($data);  // Call the insert method (assuming it returns true or false)
+    
+        return $result;  // Return the result (true or false)
+    }
+    
 //for adminto t add siteheads
 public function insertsitehead($data)
 {

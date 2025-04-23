@@ -16,6 +16,12 @@
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
 				<a href="<?php echo URLROOT; ?>/Supervisor/Index">Dashboard</a>
 			</li>
+			
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/supervisor/approve_land">Approve land</a>
+            </li>
+
 			<li>
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
 				<a href="<?php echo URLROOT; ?>/Supervisor/Manage_fertilizer">Manage Fertilizer</a>

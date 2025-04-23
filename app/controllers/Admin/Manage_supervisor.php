@@ -9,12 +9,13 @@ class Manage_supervisor
     private $supervisor;
     private $user;
     private $project;
+    private $zone;
 
     public function __construct() {
-        // Initialize the supervisor model
         $this->supervisor = new RSupervisor();
         // $this->user=new RUser();
         $this->project=new RProject();
+        $this->zone=new RZone();
     }
 
     public function index()
@@ -27,11 +28,18 @@ class Manage_supervisor
             'full_name' => $full_name,
             'zone' => $zone
         ];
+
+       $zones=$this->zone->getAllZones();
         
         $data = $this->supervisor->getSupervisorDetails($filters);
             
-        $this->view('admin/manage_supervisor', ['data' => $data]);
+        $this->view('admin/manage_supervisor', ['data' => $data,'zones' => $zones]);
     }
+
+
+
+
+
 
     public function add_supervisor()
     {
