@@ -50,10 +50,6 @@
                 <a href="<?php echo URLROOT; ?>/Admin/Manage_land">Manage Lands</a>
             </li>
 
-            <li>
-                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
-                <a href="<?php echo URLROOT; ?>/Admin/Initialize_project">Initialize project</a>
-            </li>
 
             <li>
                 <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
