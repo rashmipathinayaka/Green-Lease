@@ -89,7 +89,7 @@
                     <?php foreach ($lands as $land) : ?>
                         <div class="project-card">
                             <img src="<?php echo URLROOT; ?>/assets/images/ongoing2.png" alt="Project Image"  class="img"/>
-
+ 
                             <p>Project ID: <?php echo htmlspecialchars($land->id); ?></p>
 
                             <p>Crop Type: <?php echo htmlspecialchars($land->crop_type); ?></p>
@@ -130,7 +130,7 @@
                             <!-- methena redirect wena eka hadanna-->
 
 
-                            <a href="<?= URLROOT ?>/Components/Project/index/<?php echo $land->id; ?>"
+                            <a href="<?= URLROOT ?>/Components/Project/index/<?php echo $item->id; ?>"
                             class="view">View Project</a>
                         </div>
                     <?php endforeach; ?>

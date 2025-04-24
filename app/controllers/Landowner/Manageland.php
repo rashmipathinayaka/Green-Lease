@@ -5,10 +5,12 @@ class Manageland {
 
     // Declare a class property for the Land model
     private $manageland;
+    private $project;
 
     public function __construct() {
         // Initialize the Land model in the constructor
         $this->manageland = new RLand();
+        $this->project = new RProject();
     }
 
     public function index() {
@@ -16,6 +18,13 @@ class Manageland {
     // $userId = $_SESSION['id'];
     $userId=1;
         $lands = $this->manageland->findlandsbyuserid($userId);
+
+
+
+
+
+
+
             
         $this->view('landowner/manageland', ['lands' => $lands]);
     }

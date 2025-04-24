@@ -28,7 +28,8 @@
 					<th>Land ID</th>
 					<th>Address</th>
 					<th>Size</th>
-					<th>Crop Type</th>
+					<th>Preffered crop Type</th>
+					<th>Seleted crop type</th>
 					<th>Document</th>
 					<th>Status</th>
 					<th>Action</th>
@@ -42,6 +43,9 @@
 							<td><?= htmlspecialchars($land->address) ?></td>
 							<td><?= htmlspecialchars($land->size) ?> Sqm</td>
 							<td><?= htmlspecialchars($land->crop_type) ?></td>
+							<td><?= htmlspecialchars($land->selected_crop_type) ?></td>
+
+
 							<td>
 								<?php if (!empty($land->document)): ?>
 									<a href="<?php echo URLROOT . '/' .  $land->document; ?>" target="_blank">
@@ -52,7 +56,7 @@
 									No Attachment
 								<?php endif; ?>
 							</td>
-							
+
 							<td>
 								<?php
 								if ($land->status == '4') {
@@ -66,13 +70,13 @@
 								}
 								?>
 							</td>
-							
+
 							<td>
 								<?php if ($land->status == '4'): ?>
 									<button class="red-btn" onclick="openModal('<?= URLROOT ?>/Landowner/Manageland/deleteland/<?php echo $land->id; ?>')">Remove</button>
 								<?php elseif ($land->status == '2' || $land->status == '3'): ?>
-									<button class="green-btn">View project</button>
-								<?php else: ?>
+									<button class="green-btn" onclick="window.location.href='<?= URLROOT ?>/components/project/index/<?= $land->id ?>';">View project</button>
+									<?php else: ?>
 									<span class="status-pending">Pending for approval</span>
 								<?php endif; ?>
 							</td>
