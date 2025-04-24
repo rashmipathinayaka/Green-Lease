@@ -26,53 +26,92 @@
 
 		<div class="content">
 			<div id="dashboard-section" class="section">
+
 			<div class="metric-grid">
-    <div class="metric-card">
-        <h3>Ongoing Projects</h3>
-        <div class="metric-content">
-            <span class="metric-value"><?= $ongoingCount?></span>
-            <i class="fas fa-hourglass-start"></i>
-        </div>
-    </div>
-    <div class="metric-card">
-        <h3>Completed Projects</h3>
-        <div class="metric-content">
-            <span class="metric-value"><?= $completedCount ?></span>
-            <i class="fas fa-check-circle"></i>
-        </div>
-    </div>
+            <div class="metric-card">
+                <h2>Ongoing Projects</h2>
+                <div class="metric-content">
+                    <span class="metric-value">
+                        <?php echo !empty($proCount) ? htmlspecialchars($proCount) : 5; ?>
+                    </span>
+                    <i class="fas fa-user"></i>
+                </div>
+                <a href="#ongoing-projects" style="text-decoration: none;">
+                    <button>View</button></a>
+            </div>
+
+            <div class="metric-card">
+                <h2>Completed Projects</h2>
+                <div class="metric-content">
+                    <span class="metric-value">
+                        <?php echo !empty($completedproCount) ? htmlspecialchars($completedproCount) : 5; ?>
+                    </span>
+                    <i class="fas fa-user"></i>
+                </div>
+                <a href="#completed-projects" style="text-decoration: none;">
+                    <button>View</button></a>
+            </div>
+
 </div>
 
 <!-- Ongoing Projects -->
-<h2>Ongoing Projects</h2>
-<?php if (!empty($projects)): ?>
-    <?php foreach ($projects as $project): ?>
-        <?php if ($project->status == 1): ?> <!-- CORRECTED -->
-            <div class="project-card">
-                <p><strong>Project ID:</strong> <?= $project->id ?></p>
-                <p><strong>Crop Type:</strong> <?= $project->crop_type ?></p>
-            </div>
+<h1>Ongoing Projects</h1><br><br>
+
+<div id="completed-projects">
+    <div class="projects-grid">
+        <?php if (!empty($projects)) : ?>
+            <?php foreach ($projects as $project) : ?>
+                <div class="project-card">
+                    <img src="<?php echo URLROOT; ?>/assets/images/ongoing2.png" alt="Project Image"  class="img"/>
+
+                    <p>Project ID: <?php echo htmlspecialchars($project->id); ?></p>
+
+                    <p>Crop Type: <?php echo htmlspecialchars($project->crop_type); ?></p>
+
+                 
+                    <a href="<?= URLROOT ?>/Components/Project/index/<?php echo $project->id; ?>"
+                    class="view">View Project</a>
+                </div>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <p>No Ongoing Projects found.</p>
         <?php endif; ?>
-    <?php endforeach; ?>
-<?php else: ?>
-    <p>No ongoing projects found.</p>
-<?php endif; ?>
+    </div>
+</div>
+
+<br><br> <br>
 
 
 
-<h2>Completed Projects</h2>
-<?php if (!empty($projects)): ?>
-    <?php foreach ($projects as $project): ?>
-        <?php if ($project->status == 0): ?> <!-- CORRECTED -->
-            <div class="project-card">
-                <p><strong>Project ID:</strong> <?= $project->id ?></p>
-                <p><strong>Crop Type:</strong> <?= $project->crop_type ?></p>
-            </div>
+<h1>Completed Projects</h1><br><br>
+
+<div id="completed-projects" class="c">
+    <div class="projects-grid">
+        <?php if (!empty($projectz)) : ?>
+            <?php foreach ($projectz as $item) : ?>
+                <div class="project-card">
+                    <img src="<?php echo URLROOT; ?>/assets/images/tick.png" alt="Project Image" />
+
+                    <p>Project ID: <?php echo htmlspecialchars($item->id); ?></p>
+
+                    <p>Crop Type: <?php echo htmlspecialchars($item->crop_type); ?></p>
+
+                   
+
+                    <a href="<?= URLROOT ?>/Components/Project/index/<?php echo $item->id; ?>"
+                    class="view">View Project</a>
+                </div>
+            <?php endforeach; ?>
+        <?php else : ?>
+            <p>No Completed projects found.</p>
         <?php endif; ?>
-    <?php endforeach; ?>
-<?php else: ?>
-    <p>No completed projects found.</p>
-<?php endif; ?>
+    </div>
+</div>
+
+<br><br> <br>
+
+
+</div>
 
 
 

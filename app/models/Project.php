@@ -75,26 +75,72 @@ class Project
     return $this->query($query, ['supervisor_id' => $supervisorId]);
 }
 
+public function findOngoingProjects($userId)
+	{
+		$query = "SELECT project.*
+FROM project
+JOIN land ON project.land_id = land.id
+WHERE project.status = 'ongoing' AND project.supervisor_id = :supervisor_id
+";
 
-    public function countProjectsByStatus($supervisorId, $status)
-    {
-        $query = "SELECT COUNT(*) as count FROM project WHERE supervisor_id = :supervisor_id AND status = :status";
-        return $this->query($query, ['supervisor_id' => $supervisorId, 'status' => $status])[0]->count ?? 0;
+		$data = [':landowner_id' => $userId];
 
-    }
-    public function countOngoingProjects($supervisorId)
-    {
-        $query = "SELECT COUNT(*) AS total FROM project WHERE status = 1 AND supervisor_id = :supervisor_id";
-        $result = $this->query($query, ['supervisor_id' => $supervisorId]);
-        return $result ? (int) $result[0]->total : 0;
-    }
-    
-    public function countCompletedProjects($supervisorId)
-    {
-        $query = "SELECT COUNT(*) AS total FROM project WHERE status = 0 AND supervisor_id = :supervisor_id";
-        return $this->query($query, ['supervisor_id' => $supervisorId]);
-        
-    }
+		return $this->query($query, $data);
+	}
+
+	public function findCompletedProjects($supervisorId)
+	{
+		$query = "SELECT project.*
+		FROM project
+		JOIN land ON project.land_id = land.id
+		WHERE project.supervisor_id = :supervisor_id
+		";
+		$data = [':supervisor_id' => $supervisorId];
+
+		return $this->query($query, $data);
+	}
+public function countOngoingProjectsByUserId($supervisorId)
+{
+
+    $query = "SELECT COUNT(*) FROM project WHERE landowner_id = :supervisor_id AND status='ongoing'";
+    $data = [':supervisor_id' => $supervisorId]; // Make sure 'userId' is passed correctly
+
+    // Call query
+    $result = $this->query($query, $data);
+    return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+}
+
+public function countOngoingProjects()
+{
+
+    $query = "SELECT COUNT(*) FROM project WHERE status='ongoing'";
+    // Make sure 'userId' is passed correctly
+
+    // Call query
+    $result = $this->query($query);
+    return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+}
+
+public function countcompletedProjectsByUserId($supervisorId)
+{
+
+    $query = "SELECT COUNT(*) FROM project WHERE supervisor_id = :supervisorr_id AND status='completed'";
+    $data = [':supervisor_id' => $supervisorId]; // Make sure 'userId' is passed correctly
+
+    // Call query
+    $result = $this->query($query, $data);
+    return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+}
+
+public function countcompletedProjects()
+{
+
+    $query = "SELECT COUNT(*) FROM project WHERE  status='completed'";
+
+    // Call query
+    $result = $this->query($query);
+    return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+}
     
     
 }
