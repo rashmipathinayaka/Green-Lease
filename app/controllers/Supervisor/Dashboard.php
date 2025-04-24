@@ -1,80 +1,35 @@
 <?php
 
-class Dashboard  
+class Dashboard
 {
     use Controller;
     private $projects;
-    
+
     public function index()
-{
-    
-    $this->projects = new Project();
-    $supervisorId = 1; // Example supervisor ID, replace with actual session or dynamic value
+    {
+        $this->projects = new Project();
+        $supervisorId = 1; // Replace this with actual session ID in production
 
-    // Get data from the model
-    $ongoingCount = $this->projects->countOngoingProjects($supervisorId);
-    $completedCount =$this->projects->countcompletedProjects($supervisorId);
-    $projects = $this->projects->getProjectsBySupervisor($supervisorId);
+        // Initialize variables
+        $proCount = 0;
+        $completedproCount = 0;
+        $projects = [];
+        $projectz = [];
 
-   
-        $this->view('Supervisor/Dashboard', [
-            'ongoingCount' => $ongoingCount,
-        'completedCount' => $completedCount,
-        'projects' => $projects
+        // If supervisor ID exists, fetch data
+        if ($supervisorId) {
+            $proCount = $this->projects->countOngoingProjectsBySupervisorId($supervisorId);
+            $completedproCount = $this->projects->countCompletedProjectsBySupervisorId($supervisorId);
+            $projects = $this->projects->findOngoingProjects($supervisorId);
+            $projectz = $this->projects->findCompletedProjects($supervisorId);
+        }
+
+        // Send all data to the view
+        $this->view('supervisor/index', [
+            'proCount' => $proCount,
+            'completedproCount' => $completedproCount,
+            'projects' => $projects,
+            'projectz' => $projectz
         ]);
-
-    // Pass data to the view
-    $data = [
-        'ongoingCount' => $ongoingCount,
-        'completedCount' => $completedCount,
-        'projects' => $projects
-    ];
-
-    if ($supervisorId) {
-        // Get land count for the logged-in user
-        $proCount = $this->projects->countOngoingProjectsByUserId($supervisorId);
-    } else {
-        $proCount = 0; // Default value if user is not logged in
     }
-
-
-    if ($supervisorId) {
-        // Get land count for the logged-in user
-        $proCount = $this->projects->countOngoingProjectsByUserId($supervisorId);
-    } else {
-        $proCount = 0; // Default value if user is not logged in
-    }
-
-    if ($supervisorId) {
-        // Get land count for the logged-in user
-        $completedproCount = $this->projects->countcompletedProjectsByUserId($supervisorId);
-    } else {
-        $completedproCount = 0; // Default value if user is not logged in
-    }
-
-
-
-    if ($supervisorId) {
-        // Get land count for the logged-in user
-        $completedproCount = $this->projects->countcompletedProjectsByUserId($supervisorId);
-    } else {
-        $completedproCount = 0; // Default value if user is not logged in
-    }
-
-    
-
-
-    $projects = $this->projects->findOngoingprojects($supervisorId);
-    $projectz = $this->projects->findCompletedprojects($supervisorId);
-    
-
-
-    $this->view('Supervisor/index', [ 'proCount' => $proCount, 'completedproCount'=>$completedproCount,
-    
-               'projects'=> $projects, 'projectz'=>$projectz, ]);
-
-
-    
-}
-
 }

@@ -16,131 +16,48 @@ class Project
     ];
 
     /**
-     * Get projects by land ID(s)
-     * @param int|array $landIds Single land ID or array of land IDs
-     * @return array Array of project objects
+     * Count ongoing projects by supervisor ID
+     * @param int $supervisorId Supervisor ID
+     * @return int The count of ongoing projects
      */
-    public function getByLand($landIds)
+    public function countOngoingProjectsBySupervisorId($supervisorId)
     {
-        if (is_array($landIds)) {
-            if (empty($landIds)) {
-                return [];
-            }
-            $placeholders = implode(',', array_fill(0, count($landIds), '?'));
-            $query = "SELECT * FROM {$this->table} WHERE land_id IN ($placeholders)";
-            return $this->query($query, $landIds);
-        } else {
-            return $this->where(['land_id' => $landIds]);
-        }
+        $result = $this->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE supervisor_id = :supervisor_id AND status = 'ongoing'", ['supervisor_id' => $supervisorId]);
+        return $result[0]->count ?? 0;
     }
 
     /**
-     * Get project with land details
-     * @param int $projectId Project ID
-     * @return object|null Project data with land information
+     * Count completed projects by supervisor ID
+     * @param int $supervisorId Supervisor ID
+     * @return int The count of completed projects
      */
-    public function getWithLand($projectId)
+    public function countCompletedProjectsBySupervisorId($supervisorId)
     {
-        $query = "SELECT p.*, l.name as land_name 
-                 FROM {$this->table} p
-                 JOIN land l ON p.land_id = l.id
-                 WHERE p.id = :id";
-
-        $result = $this->query($query, ['id' => $projectId]);
-        return $result[0] ?? null;
+        $result = $this->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE supervisor_id = :supervisor_id AND status = 'completed'", ['supervisor_id' => $supervisorId]);
+        return $result[0]->count ?? 0;
     }
 
     /**
-     * Get all active projects
-     * @return array Array of active projects
+     * Get ongoing projects by supervisor ID
+     * @param int $supervisorId Supervisor ID
+     * @return array Array of ongoing projects
      */
-    public function getActiveProjects()
+    public function findOngoingProjects($supervisorId)
     {
-        return $this->where(['status' => 1]); // Assuming 1 means active
+        $query = "SELECT * FROM {$this->table} WHERE status = 'ongoing' AND supervisor_id = :supervisor_id";  // Status 'ongoing'
+        $data = [':supervisor_id' => $supervisorId];
+        return $this->query($query, $data);
     }
 
     /**
-     * Get projects by crop type
-     * @param string $cropType Type of crop
-     * @return array Array of matching projects
+     * Get completed projects by supervisor ID
+     * @param int $supervisorId Supervisor ID
+     * @return array Array of completed projects
      */
-    public function getByCropType($cropType)
+    public function findCompletedProjects($supervisorId)
     {
-        return $this->where(['crop_type' => $cropType]);
+        $query = "SELECT * FROM {$this->table} WHERE status = 'completed' AND supervisor_id = :supervisor_id";  // Status 'completed'
+        $data = [':supervisor_id' => $supervisorId];
+        return $this->query($query, $data);
     }
-    public function getProjectsBySupervisor($supervisorId)
-{
-   
-    $query = "SELECT * FROM project WHERE supervisor_id = :supervisor_id";
-    return $this->query($query, ['supervisor_id' => $supervisorId]);
-}
-
-public function findOngoingProjects($userId)
-	{
-		$query = "SELECT project.*
-FROM project
-JOIN land ON project.land_id = land.id
-WHERE project.status = 'ongoing' AND project.supervisor_id = :supervisor_id
-";
-
-		$data = [':landowner_id' => $userId];
-
-		return $this->query($query, $data);
-	}
-
-	public function findCompletedProjects($supervisorId)
-	{
-		$query = "SELECT project.*
-		FROM project
-		JOIN land ON project.land_id = land.id
-		WHERE project.supervisor_id = :supervisor_id
-		";
-		$data = [':supervisor_id' => $supervisorId];
-
-		return $this->query($query, $data);
-	}
-public function countOngoingProjectsByUserId($supervisorId)
-{
-
-    $query = "SELECT COUNT(*) FROM project WHERE landowner_id = :supervisor_id AND status='ongoing'";
-    $data = [':supervisor_id' => $supervisorId]; // Make sure 'userId' is passed correctly
-
-    // Call query
-    $result = $this->query($query, $data);
-    return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
-}
-
-public function countOngoingProjects()
-{
-
-    $query = "SELECT COUNT(*) FROM project WHERE status='ongoing'";
-    // Make sure 'userId' is passed correctly
-
-    // Call query
-    $result = $this->query($query);
-    return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
-}
-
-public function countcompletedProjectsByUserId($supervisorId)
-{
-
-    $query = "SELECT COUNT(*) FROM project WHERE supervisor_id = :supervisorr_id AND status='completed'";
-    $data = [':supervisor_id' => $supervisorId]; // Make sure 'userId' is passed correctly
-
-    // Call query
-    $result = $this->query($query, $data);
-    return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
-}
-
-public function countcompletedProjects()
-{
-
-    $query = "SELECT COUNT(*) FROM project WHERE  status='completed'";
-
-    // Call query
-    $result = $this->query($query);
-    return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
-}
-    
-    
 }
