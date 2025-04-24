@@ -6,10 +6,12 @@ class Registerland
 {
     use Controller;
     private $crop_types;
+    private $zonemodel;
 
     public function __construct()
     {
         $this->crop_types = new RCrop();
+        $this->zonemodel = new RZone();
     }
 
     public function index() 
@@ -25,11 +27,11 @@ class Registerland
             if (!empty($crop_type) && !$this->crop_types->cropExists($crop_type)) {
                 $this->crop_types->insertNewCrop($crop_type);
             }
-    
+
             $formData = [
                 'landowner_id' => $userId,
                 'address' => $_POST['address'] ?? null,
-                'zone' => $_POST['district'] ?? null,
+                'zone' => $_POST['zone_id'] ?? null,
                 'size' => $_POST['size'] ?? null,
                 'duration'  => $_POST['duration'] ?? null,
                 'crop_type' => $crop_type,
@@ -76,9 +78,12 @@ class Registerland
     
         // This always runs for GET requests
         $crops = $this->crop_types->getAllCrops();
+$zones=$this->zonemodel->getAllZones();
+
         $data = [
             'errors' => [],
             'crop_types' => $crops,
+            'zones'=>$zones
         ];
     
         $this->view('landowner/registerland', $data);

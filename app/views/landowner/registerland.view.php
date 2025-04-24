@@ -31,21 +31,16 @@
 					<input type="number" id="latitude" name="latitude" step="any" readonly placeholder="Latitude">
 
 					<label for="longitude">Longitude</label>
-					<input type="number" id="longitude" name="longitude"step="any" readonly placeholder="Longitude">
+					<input type="number" id="longitude" name="longitude" step="any" readonly placeholder="Longitude">
 
-					<!-- District -->
 					<label for="district">District</label>
-					<select id="district" name="district" required>
-						<option value="" disabled selected>Select District</option>
-						<option value="Matara">Matara</option>
-						<option value="Galle">Galle</option>
-						<option value="Hambanthota">Hambanthota</option>
-						<option value="Colombo">Colombo</option>
-						<option value="Anuradhapura">Anuradhapura</option>
-						<option value="Badulla">Badulla</option>
-						<option value="Gampaha">Gampaha</option>
-						<option value="Sabaragamuwa">Sabaragamuwa</option>
+					<select name="zone_id" id="district" required>
+						<option value="" disabled selected>Select a district</option>
+						<?php foreach ($zones as $zone): ?>
+							<option value="<?= $zone->zone_id ?>"><?= htmlspecialchars($zone->zone_name) ?></option>
+						<?php endforeach; ?>
 					</select>
+
 
 					<!-- Size -->
 					<label for="size">Size of the Land (In Sqm)</label>
@@ -57,12 +52,12 @@
 
 					<!-- Crop -->
 					<label for="crop">Preferred Crop Type</label>
-					<div class="note">Crop types used in the system are shown below. You can select one of them or type a new crop name.</div>
+					<div class="district">Crop types used in the system are shown below. You can select one of them or type a new crop name.</div>
 					<input list="cropType" name="crop_type" id="crop" required placeholder="Select or type a crop" autocomplete="off">
 					<datalist id="cropType">
 						<?php foreach ($crop_types as $crop): ?>
 							<option value="<?= htmlspecialchars($crop->crop_type) ?>">
-						<?php endforeach; ?>
+							<?php endforeach; ?>
 					</datalist>
 
 					<!-- Date Range -->
@@ -97,8 +92,11 @@
 
 		let marker;
 
-		map.on('click', function (e) {
-			const { lat, lng } = e.latlng;
+		map.on('click', function(e) {
+			const {
+				lat,
+				lng
+			} = e.latlng;
 			document.getElementById('latitude').value = lat;
 			document.getElementById('longitude').value = lng;
 
@@ -113,4 +111,5 @@
 	</script>
 
 </body>
+
 </html>
