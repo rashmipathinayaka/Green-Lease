@@ -8,15 +8,15 @@
     <title>registered land</title>
 </head>
 <body>
-    <h1>Land registration successfull.<br>
-Thank you for trusting Green-Lease </h1>
+    <h1>Land registration successful.<br>
+Thank you for trusting Green-Lease. </h1>
 
 <div class="box">
     <div class="topic">
         our process
     </div> 
     <div class="box-body">
-     we will send an approving team to your land. 
+     We will send an approving team to your land. 
     You will be informed in advance about the visit date and time via an email. 
     If your land gets approved, we will provide you with a legal document within two weeks for signing.
      This document will include details such as the selected crop type, estimated outcome,

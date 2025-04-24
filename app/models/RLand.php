@@ -53,11 +53,15 @@ class RLand
 
 	//for landowners managelands
 	public function findlandsbyuserid($userId){
-		$query = "select * from land where landowner_id = $userId";
-		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
-
-		return $this->query($query);
+		$query = "SELECT land.*, project.crop_type  AS selected_crop_type
+				  FROM land
+				  LEFT JOIN project ON project.land_id = land.id
+				  WHERE land.landowner_id = :landowner_id";
+		$data = [':landowner_id' => $userId];
+	
+		return $this->query($query, $data);
 	}
+	
 
 	public function countLandsByUserId($userId)
 	{
@@ -166,7 +170,7 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 		$query = "SELECT project.*
 		FROM project
 		JOIN land ON project.land_id = land.id
-		WHERE project.status = 'completed' AND land.landowner_id = :landowner_id
+		WHERE land.landowner_id = :landowner_id
 		";
 		$data = [':landowner_id' => $userId];
 
@@ -213,7 +217,7 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 
 
 public function getFilteredLands($filters = []) {
-    $query = "SELECT * FROM land WHERE 1=1";
+    $query = "SELECT * FROM land WHERE 1=1 ORDER BY registered_date DESC";
     $params = [];
 
     if (!empty($filters['crop_type'])) {

@@ -5,7 +5,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
   <link rel="stylesheet" href="<?= URLROOT ?>/assets/css/components/topbar.css">
 
   <title>Document</title>
@@ -18,7 +17,6 @@
     </div>
 
     <div class="user-actions">
-      <!-- <button class="notification-btn"><i class="fas fa-bell"></i></button> -->
       <button class="profile-btn"></button>
       <div class="user-info">
         <span class="username">
@@ -29,7 +27,6 @@
 </body>
 
 </html>
-
 
 <script>
   function toggleMenu() {

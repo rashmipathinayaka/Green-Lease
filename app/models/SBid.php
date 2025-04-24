@@ -9,7 +9,8 @@ class SBid {
         'harvest_id',
         'amount',
         'unit_price',
-        'status'
+        'status',
+        'bidding_date'
     ];
 
     public function createBid($data) {

@@ -280,7 +280,7 @@ padding: 30px;
   border-radius: 4px;
   margin: 5px;
   display: inline-block;
-  width: calc(80% - 70px);
+  width: calc(80% - 7px);
 }
 
 .red-btn {
