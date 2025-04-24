@@ -213,7 +213,7 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 
 
 public function getFilteredLands($filters = []) {
-    $query = "SELECT * FROM land WHERE 1=1";
+    $query = "SELECT * FROM land WHERE 1=1 ORDER BY registered_date DESC";
     $params = [];
 
     if (!empty($filters['crop_type'])) {
