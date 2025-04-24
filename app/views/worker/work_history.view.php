@@ -19,21 +19,13 @@ require ROOT . '/views/components/topbar.php';
 					<center>
 						<h1>Work History</h1>
 					</center>
-					<!-- Search and Filter Section
-						<div class="filter-section">
-						    <select id="status-filter">
-						        <option value="">All Status</option>
-						        <option value="active">Active</option>
-						        <option value="inactive">Inactive</option>
-						    </select>
-						</div> -->
-					<!-- Supervisors Table -->
 					<table class="dashboard-table">
 						<thead>
 							<tr>
 								<th>Land Location</th>
 								<th>Event Name</th>
 								<th>Date</th>
+								<th>Salary</th>
 							</tr>
 						</thead>
 						<tbody id="supervisor-list">
@@ -43,6 +35,7 @@ require ROOT . '/views/components/topbar.php';
                 <td><?= htmlspecialchars($work->land_location) ?></td>
                 <td><?= htmlspecialchars($work->event_name) ?></td>
                 <td><?= htmlspecialchars($work->date) ?></td>
+				<td><?= htmlspecialchars($work->salary) ?></td>
             </tr>
         <?php endforeach; ?>
     <?php else : ?>

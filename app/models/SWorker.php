@@ -14,7 +14,8 @@ class SWorker
         $query = "SELECT 
                     l.address AS land_location,
                     e.event_name,
-                    e.date
+                    e.date,
+                    e.salary
                   FROM 
                     worker_event we
                   JOIN 
