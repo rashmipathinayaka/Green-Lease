@@ -28,6 +28,8 @@ class Registerland
                 $this->crop_types->insertNewCrop($crop_type);
             }
 
+
+          
             $formData = [
                 'landowner_id' => $userId,
                 'address' => $_POST['address'] ?? null,
@@ -43,6 +45,7 @@ class Registerland
                 'longitude'=>$_POST['longitude'],
             ];
     
+            
             // File upload logic
             $uploadDir = "uploads/";
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
