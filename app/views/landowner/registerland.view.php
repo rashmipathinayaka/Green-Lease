@@ -52,22 +52,22 @@
 
 					<!-- Crop -->
 					<label for="crop">Preferred Crop Type</label>
-<div class="district">Crop types used in the system are shown below. You can select one of them or type a new crop name.</div>
-<input list="cropType" name="crop_type" id="crop" required placeholder="Select or type a crop" autocomplete="off">
-<datalist id="cropType">
-    <?php foreach ($crop_types as $crop): ?>
-        <option value="<?= htmlspecialchars($crop->crop_type) ?>">
-            <?php
-                // Display crop name and status text (don't repeat the crop name)
-                if ($crop->is_new == 1) {
-                    echo ' - Recently Added';
-                } else {
-                    echo ' - System Saved';
-                }
-            ?>
-        </option>
-    <?php endforeach; ?>
-</datalist>
+					<div class="district">Crop types used in the system are shown below. You can select one of them or type a new crop name.</div>
+					<input list="cropType" name="crop_type" id="crop" required placeholder="Select or type a crop" autocomplete="off">
+					<datalist id="cropType">
+						<?php foreach ($crop_types as $crop): ?>
+							<option value="<?= htmlspecialchars($crop->crop_type) ?>">
+								<?php
+								// Display crop name and status text (don't repeat the crop name)
+								if ($crop->is_new == 1) {
+									echo ' - Recently Added';
+								} else {
+									echo ' - System Saved';
+								}
+								?>
+							</option>
+						<?php endforeach; ?>
+					</datalist>
 
 
 					<!-- Date Range -->

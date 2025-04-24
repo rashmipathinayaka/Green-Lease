@@ -23,7 +23,7 @@
   box-shadow: 0 2px 6px rgba(198, 40, 40, 0.3);">Go Back</a>
     </div>
     <div class="error-footer">
-      <p>If you need assistance, <a href="/contact">Contact Us</a>!</p>
+      <p>If you need assistance, <a href="<?= URLROOT ?>/contact">Contact Us</a>!</p>
     </div>
   </div>
 
