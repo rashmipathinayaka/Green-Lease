@@ -31,21 +31,16 @@
 					<input type="number" id="latitude" name="latitude" step="any" readonly placeholder="Latitude">
 
 					<label for="longitude">Longitude</label>
-					<input type="number" id="longitude" name="longitude"step="any" readonly placeholder="Longitude">
+					<input type="number" id="longitude" name="longitude" step="any" readonly placeholder="Longitude">
 
-					<!-- District -->
 					<label for="district">District</label>
-					<select id="district" name="district" required>
-						<option value="" disabled selected>Select District</option>
-						<option value="Matara">Matara</option>
-						<option value="Galle">Galle</option>
-						<option value="Hambanthota">Hambanthota</option>
-						<option value="Colombo">Colombo</option>
-						<option value="Anuradhapura">Anuradhapura</option>
-						<option value="Badulla">Badulla</option>
-						<option value="Gampaha">Gampaha</option>
-						<option value="Sabaragamuwa">Sabaragamuwa</option>
+					<select name="zone_id" id="district" required>
+						<option value="" disabled selected>Select a district</option>
+						<?php foreach ($zones as $zone): ?>
+							<option value="<?= $zone->id ?>"><?= htmlspecialchars($zone->zone_name) ?></option>
+						<?php endforeach; ?>
 					</select>
+
 
 					<!-- Size -->
 					<label for="size">Size of the Land (In Sqm)</label>
@@ -57,13 +52,23 @@
 
 					<!-- Crop -->
 					<label for="crop">Preferred Crop Type</label>
-					<div class="note">Crop types used in the system are shown below. You can select one of them or type a new crop name.</div>
-					<input list="cropType" name="crop_type" id="crop" required placeholder="Select or type a crop" autocomplete="off">
-					<datalist id="cropType">
-						<?php foreach ($crop_types as $crop): ?>
-							<option value="<?= htmlspecialchars($crop->crop_type) ?>">
-						<?php endforeach; ?>
-					</datalist>
+<div class="district">Crop types used in the system are shown below. You can select one of them or type a new crop name.</div>
+<input list="cropType" name="crop_type" id="crop" required placeholder="Select or type a crop" autocomplete="off">
+<datalist id="cropType">
+    <?php foreach ($crop_types as $crop): ?>
+        <option value="<?= htmlspecialchars($crop->crop_type) ?>">
+            <?php
+                // Display crop name and status text (don't repeat the crop name)
+                if ($crop->is_new == 1) {
+                    echo ' - Recently Added';
+                } else {
+                    echo ' - System Saved';
+                }
+            ?>
+        </option>
+    <?php endforeach; ?>
+</datalist>
+
 
 					<!-- Date Range -->
 					<div class="date">Give a preferred date range for the site visit</div>
@@ -98,8 +103,11 @@
 
 		let marker;
 
-		map.on('click', function (e) {
-			const { lat, lng } = e.latlng;
+		map.on('click', function(e) {
+			const {
+				lat,
+				lng
+			} = e.latlng;
 			document.getElementById('latitude').value = lat;
 			document.getElementById('longitude').value = lng;
 
@@ -114,31 +122,31 @@
 
 
 
-		
-document.addEventListener('DOMContentLoaded', function() {
-    const fromDateInput = document.getElementById('from_date');
-    const toDateInput = document.getElementById('to_date');
 
-    // Update min date for "to_date" when "from_date" changes
-    fromDateInput.addEventListener('change', function() {
-        toDateInput.min = this.value; // Ensures "to_date" cannot be before "from_date"
-        
-        // If current "to_date" is invalid, reset it
-        if (toDateInput.value && new Date(toDateInput.value) < new Date(this.value)) {
-            toDateInput.value = '';
-        }
-    });
+		document.addEventListener('DOMContentLoaded', function() {
+			const fromDateInput = document.getElementById('from_date');
+			const toDateInput = document.getElementById('to_date');
 
-    // Optional: Validate on form submission
-    document.querySelector('form').addEventListener('submit', function(e) {
-        if (new Date(toDateInput.value) <= new Date(fromDateInput.value)) {
-            e.preventDefault(); // Prevent form submission
-            alert('"To Date" must be after "From Date"!');
-        }
-    });
-});
+			// Update min date for "to_date" when "from_date" changes
+			fromDateInput.addEventListener('change', function() {
+				toDateInput.min = this.value; // Ensures "to_date" cannot be before "from_date"
 
+				// If current "to_date" is invalid, reset it
+				if (toDateInput.value && new Date(toDateInput.value) < new Date(this.value)) {
+					toDateInput.value = '';
+				}
+			});
+
+			// Optional: Validate on form submission
+			document.querySelector('form').addEventListener('submit', function(e) {
+				if (new Date(toDateInput.value) <= new Date(fromDateInput.value)) {
+					e.preventDefault(); // Prevent form submission
+					alert('"To Date" must be after "From Date"!');
+				}
+			});
+		});
 	</script>
 
 </body>
+
 </html>
