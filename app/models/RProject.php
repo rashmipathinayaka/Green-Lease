@@ -15,6 +15,9 @@ class RProject
        'end_date',
        'start_date',
          'crop_type',
+         'sitehead_id',
+         'profit',  
+            'description',
     ];
 
     // Method to count the number of projects for a given supervisor
@@ -94,12 +97,26 @@ $this->query($query,$data);
 //admin initilaize project
 
 public function initializeproject($formdata){
-    $query="INSERT INTO project (land_id,crop_type,duration,status,start_date,supervisor_id) VALUES (:land_id,:crop_type,:duration,:status,:start_date,:supervisor_id)";
+    $query="INSERT INTO project (land_id,crop_type,duration,profit,sitehead_id,status,supervisor_id,description) 
+                        VALUES (:land_id,:crop_type,:duration,:profit,:sitehead_id,:status,:supervisor_id,:description)";
    
     
     
    return  $this->query($query,$formdata);
 }
+
+//enter karana land ekat kalin project ekk tyeda blnwa. tye nm aye project ekk dann be.
+public function checkLandIdExists($land_id)
+{
+    $query = "SELECT COUNT(*) AS count FROM project WHERE land_id = :land_id";
+    
+    // Assuming query() returns an array of objects (stdClass)
+    $result = $this->query($query, ['land_id' => $land_id]);
+
+    // Since result is an array of objects, access the property using '->'
+    return $result[0]->count > 0;  // Return true if count > 0, false otherwise
+}
+
 
 
 public function getforminfo($land_id){
