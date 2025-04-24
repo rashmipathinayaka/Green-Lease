@@ -9,6 +9,8 @@ class Project
     protected $allowedColumns = [
         'id',
         'land_id',
+        'supervisor_id',
+        'status',
         'duration',
         'crop_type'
     ];
@@ -66,4 +68,33 @@ class Project
     {
         return $this->where(['crop_type' => $cropType]);
     }
+    public function getProjectsBySupervisor($supervisorId)
+{
+   
+    $query = "SELECT * FROM project WHERE supervisor_id = :supervisor_id";
+    return $this->query($query, ['supervisor_id' => $supervisorId]);
+}
+
+
+    public function countProjectsByStatus($supervisorId, $status)
+    {
+        $query = "SELECT COUNT(*) as count FROM project WHERE supervisor_id = :supervisor_id AND status = :status";
+        return $this->query($query, ['supervisor_id' => $supervisorId, 'status' => $status])[0]->count ?? 0;
+
+    }
+    public function countOngoingProjects($supervisorId)
+    {
+        $query = "SELECT COUNT(*) AS total FROM project WHERE status = 1 AND supervisor_id = :supervisor_id";
+        $result = $this->query($query, ['supervisor_id' => $supervisorId]);
+        return $result ? (int) $result[0]->total : 0;
+    }
+    
+    public function countCompletedProjects($supervisorId)
+    {
+        $query = "SELECT COUNT(*) AS total FROM project WHERE status = 0 AND supervisor_id = :supervisor_id";
+        return $this->query($query, ['supervisor_id' => $supervisorId]);
+        
+    }
+    
+    
 }

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -24,46 +26,57 @@
 
 		<div class="content">
 			<div id="dashboard-section" class="section">
-				<div class="metric-grid">
-					<div class="metric-card">
-						<h3>Lands in the Zone</h3>
-						<div class="metric-content">
-							<span class="metric-value">15</span>
-							<i class="fas fa-seedling"></i>
-						</div>
-						<button onclick="showSection('manage-lands-section')">View</button>
-					</div>
-					<div class="metric-card">
-						<h3>Workers in the Zone</h3>
-						<div class="metric-content">
-							<span class="metric-value">30</span>
-							<i class="fas fa-user"></i>
-						</div>
-						<button onclick="showSection('manage-supervisors-section')">View</button>
-					</div>
-				</div>
-				<center>
-					<h1>Ongoing Projects</h1>
-				</center>
-				<br>
-				<div class="projects-grid">
-					<div class="project-card">
-						<img src="<?= URLROOT ?>/assets/images/crop1.jpg" alt="Project Image" />
-						<p><b><i>Galle</i></b></p>
-						<p>Cocoa</p>
-					</div>
-					<div class="project-card">
-						<img src="<?= URLROOT ?>/assets/images/crop2.jpg" alt="Project Image" />
-						<p><b><i>Matara</i></b></p>
-						<p>Paddy</p>
-					</div>
-					<div class="project-card">
-						<img src="<?= URLROOT ?>/assets/images/crop3.jpg" alt="Project Image" />
-						<p><b><i>Kalutara</i></b></p>
-						<p>Rubber</p>
-					</div>
-				</div>
-			</div>
+			<div class="metric-grid">
+    <div class="metric-card">
+        <h3>Ongoing Projects</h3>
+        <div class="metric-content">
+            <span class="metric-value"><?= $ongoingCount?></span>
+            <i class="fas fa-hourglass-start"></i>
+        </div>
+    </div>
+    <div class="metric-card">
+        <h3>Completed Projects</h3>
+        <div class="metric-content">
+            <span class="metric-value"><?= $completedCount ?></span>
+            <i class="fas fa-check-circle"></i>
+        </div>
+    </div>
+</div>
+
+<!-- Ongoing Projects -->
+<h2>Ongoing Projects</h2>
+<?php if (!empty($projects)): ?>
+    <?php foreach ($projects as $project): ?>
+        <?php if ($project->status == 1): ?> <!-- CORRECTED -->
+            <div class="project-card">
+                <p><strong>Project ID:</strong> <?= $project->id ?></p>
+                <p><strong>Crop Type:</strong> <?= $project->crop_type ?></p>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>No ongoing projects found.</p>
+<?php endif; ?>
+
+
+
+<h2>Completed Projects</h2>
+<?php if (!empty($projects)): ?>
+    <?php foreach ($projects as $project): ?>
+        <?php if ($project->status == 0): ?> <!-- CORRECTED -->
+            <div class="project-card">
+                <p><strong>Project ID:</strong> <?= $project->id ?></p>
+                <p><strong>Crop Type:</strong> <?= $project->crop_type ?></p>
+            </div>
+        <?php endif; ?>
+    <?php endforeach; ?>
+<?php else: ?>
+    <p>No completed projects found.</p>
+<?php endif; ?>
+
+
+
+
 			<!-- Modal Structure -->
 <div id="modal-overlay" class="modal-overlay">
 	<div class="modal-content">
