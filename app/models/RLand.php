@@ -23,7 +23,9 @@ class RLand
 		'crop_type',
 		'document',
 		'status',
-		'zone'
+		'zone',
+		'longitude',
+		'latitude',
 
 	];
 
@@ -148,7 +150,11 @@ class RLand
 
 	public function findOngoingProjects($userId)
 	{
-		$query = "SELECT * FROM land WHERE status = '2' AND landowner_id = :landowner_id";
+		$query = "SELECT project.*
+FROM project
+JOIN land ON project.land_id = land.id
+WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
+";
 
 		$data = [':landowner_id' => $userId];
 
@@ -157,8 +163,11 @@ class RLand
 
 	public function findCompletedProjects($userId)
 	{
-		$query = "SELECT * FROM land WHERE status = '3' AND landowner_id = :landowner_id";
-
+		$query = "SELECT project.*
+		FROM project
+		JOIN land ON project.land_id = land.id
+		WHERE project.status = 'completed' AND land.landowner_id = :landowner_id
+		";
 		$data = [':landowner_id' => $userId];
 
 		return $this->query($query, $data);
@@ -184,20 +193,27 @@ class RLand
 		return ['labels' => $yearLabels, 'data' => $yearData];
 	}
 
-public function getpendinglands(){
-	{
-		$query = "SELECT * FROM land WHERE status = 'pending' ";
-
-
+	public function getpendinglands() {
+		$query = "SELECT * 
+			FROM land 
+			WHERE status = '1' 
+			AND id IN (
+				SELECT land_id 
+				FROM site_visit 
+				WHERE supervisor_id = '0'
+			)
+		";
+	
 		return $this->query($query);
 	}
+	
+	
 
-}
 
 
 
 public function getFilteredLands($filters = []) {
-    $query = "SELECT * FROM land WHERE 1=1";
+    $query = "SELECT * FROM land WHERE 1=1 ORDER BY registered_date DESC";
     $params = [];
 
     if (!empty($filters['crop_type'])) {
@@ -212,5 +228,53 @@ public function getFilteredLands($filters = []) {
 
     return $this->query($query, $params);
 }
+
+public function takeLandId() {
+    $query = 'SELECT id FROM land ORDER BY id DESC LIMIT 1';
+    $result = $this->query($query); // returns an array of stdClass objects
+    if ($result && isset($result[0]->id)) {
+        return $result[0]->id;
+    }
+    return null;
+}
+
+
+
+public function getRegisteredLandsCount()
+{
+$query="SELECT COUNT(*) as count FROM land";
+    
+    return (int) $this->query($query)[0]->count; // Access count as an object property
+}
+
+public function getSupervisorsCount()
+{
+    $query="SELECT COUNT(*) as count FROM user WHERE role_id = '2'";
+    return (int) $this->query($query)[0]->count; // Access count as an object property
+}
+
+// public function getBidsCount()
+// {
+//     $stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM bids");
+//     $stmt->execute();
+//     $result = $stmt->get_result()->fetch_assoc();
+//     return $result['count'];
+// }
+
+// public function getBuyersCount()
+// {
+//     $stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM buyers");
+//     $stmt->execute();
+//     $result = $stmt->get_result()->fetch_assoc();
+//     return $result['count'];
+// }
+
+
+
+
+
+
+
+
 
 }

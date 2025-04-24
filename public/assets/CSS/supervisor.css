@@ -35,22 +35,6 @@ body {
   }
 }
 
-/* Top Bar */
-.top-bar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 60px;
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 0 20px;
-  z-index: 1000;
-}
-
 .menu-toggle {
   display: block;
   background: none;
@@ -80,67 +64,6 @@ body {
   cursor: pointer;
   padding: 5px;
   margin-left: 15px;
-}
-
-/* Sidebar */
-.sidebar {
-  margin-top: 30px;
-  width: 250px;
-  background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%);
-  background-color: green;
-  color: #fff;
-  position: fixed;
-  top: 60px;
-  bottom: 0;
-  left: -250px;
-  overflow-y: auto;
-  transition: left 0.3s ease;
-  z-index: 999;
-}
-
-.sidebar.active {
-  left: 0;
-}
-
-@media (min-width: 769px) {
-  .sidebar {
-    left: 0;
-    top: 0;
-    padding-top: 60px;
-  }
-
-  body {
-    padding-left: 250px;
-  }
-}
-
-.logo-section {
-  padding: 20px;
-  text-align: center;
-}
-
-.sidebar ul {
-  list-style-type: none;
-}
-
-.sidebar ul li a {
-  display: block;
-  color: #fff;
-  padding: 15px 20px;
-  text-decoration: none;
-  font-weight: 500;
-  transition: background-color 0.3s;
-}
-
-.sidebar ul li a:hover {
-  background-color: white;
-  color: green;
-}
-
-.logout {
-  position: absolute;
-  bottom: 20px;
-  width: 100%;
 }
 
 /* Main Content Area */
@@ -687,6 +610,7 @@ body {
 /* Styles for Tabs */
 .tab-navigation {
   display: flex;
+  margin-top:70px;
   margin-bottom: 20px;
   background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
   border-radius: 8px;
@@ -1128,4 +1052,3 @@ body {
 .search-btn:hover::after, .clear-btn:hover::after {
   left: 120%;
 }
-

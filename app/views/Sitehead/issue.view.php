@@ -12,7 +12,7 @@
 <body>
 	<?php
 	require ROOT . '/views/sitehead/sidebar.php';
-	require ROOT . '/views/components/navbar.php';
+	require ROOT . '/views/components/topbar.php';
 	?>
 	<div id="report-issues-section" class="section">
 		<div class="complaint-section">
@@ -21,8 +21,6 @@
 				<form class="form" method="POST" action="<?php echo URLROOT; ?>/Sitehead/ReportIssue" enctype="multipart/form-data">
 
 					<div class="form-group">
-						<label for="name">Sitehead ID</label>
-						<input type="text" id="name" name="sitehead_id" required>
 						<label for="complaint-type">Type of Issue</label>
 						<select id="complaint-type" name="complaint-type" required>
 							<option value="">Select a category</option>

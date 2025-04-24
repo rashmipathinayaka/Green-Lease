@@ -5,7 +5,17 @@ class Rsite_visit
     use Model; // Using the Model trait
 
     protected $table = 'site_visit'; // Table name
-    protected $allowedColumns = ['id', 'supervisor_id', 'land_id', 'date']; // Allowed columns for insert/update
+    protected $allowedColumns = [
+        'id', 
+        'supervisor_id', 
+        'land_id', 
+        'date',
+        're_date',
+        'from_date',
+        'to_date',
+        'description',
+        'email_flag',
+    ]; // Allowed columns for insert/update
 
     // Method to insert data
     public function insertdata($formdata)
@@ -34,4 +44,162 @@ class Rsite_visit
 
         return empty($this->errors); // Returns true if no errors
     }
+
+    //get sitevisit which are not rescheduled or not approved(status=0)
+    public function getAllSiteVisits($id) {
+        $query = "
+            SELECT sv.*, l.address AS address
+            FROM site_visit sv
+            JOIN land l ON sv.land_id = l.id 
+            WHERE sv.status='0' AND sv.supervisor_id = :id  ORDER BY sv.date ASC
+        ";
+        $data = [':id' => $id];
+        return $this->query($query,$data);
+        
+    }
+    
+
+
+
+
+
+
+    public function updateVisitSchedule($visitId, $datetime)
+    {
+        // Corrected query
+        $query = "UPDATE site_visit SET re_date = :datetime, status = '1' WHERE id = :visitId";
+        
+        return $this->query($query, [
+            ':datetime' => $datetime,
+            ':visitId' => $visitId
+        ]);
+    }
+    
+
+
+//supervisor direct approve the schedule visit
+    public function insertApproval($id) {
+        // First, we fetch the current date from the site_visit table based on the visit ID.
+        $query = "SELECT `date` FROM site_visit WHERE id = :id";
+        $result = $this->query($query, ['id' => $id]);
+    
+        // Check if the result is not empty
+        if (!empty($result)) {
+            $date = $result[0]->date; // Assuming result is an array of objects
+    
+            // Now, we perform the update query to set the status to 1 and insert the date into redate
+            $queryUpdate = "UPDATE site_visit 
+                            SET status = 1, re_date = :date 
+                            WHERE id = :id";
+    
+            return $this->query($queryUpdate, [
+                ':date' => $date,
+                ':id' => $id
+            ]);
+        } else {
+            // Handle case where no visit is found with the given ID
+            return false;
+        }
+    }
+    
+
+    //to get approved site-visits
+
+    public function getAllapprovedSiteVisits($id) {
+        $query = "
+        SELECT sv.*, l.address AS address
+        FROM site_visit sv
+        JOIN land l ON sv.land_id = l.id 
+        WHERE sv.status='1' AND sv.supervisor_id = :id
+        AND sv.re_date >= CURDATE()
+        ORDER BY sv.date ASC
+    ";
+    
+        $data = [':id' => $id];
+        return $this->query($query,$data);
+        
+    }
+    
+// To get all approved site visits for the admin to send emails
+public function getallapprovedvisits() {
+    $query = "
+        SELECT sv.*, l.address AS address
+        FROM site_visit sv
+        JOIN land l ON sv.land_id = l.id 
+        WHERE sv.status = '1' 
+        AND sv.re_date >= CURDATE() 
+        AND sv.email_flag = '0'
+        ORDER BY sv.date ASC
+    ";
+
+    return $this->query($query);
+}
+
+
+    
+    
+
+
+
+
+//for email
+public function getVisitById($visit_id) {
+    $query = "
+        SELECT 
+            sv.*, 
+            l.landowner_id 
+        FROM site_visit sv 
+        JOIN land l ON sv.land_id = l.id 
+        WHERE sv.id = :id
+    ";
+
+    $data = [':id' => $visit_id];
+    return $this->query($query, $data)[0] ?? null;
+}
+
+public function emailupdate($id) {
+    $query = "UPDATE site_visit SET email_flag = '1' WHERE id = :id";
+    $data = [':id' => $id];
+    return $this->query($query, $data);
+}
+
+
+public function getdaterange($land_id){
+    $query = "SELECT from_date, to_date FROM site_visit WHERE land_id = :land_id";
+    $data = [':land_id' => $land_id];
+    $result = $this->query($query, $data);
+
+    if (!empty($result)) {
+        return [
+            'from_date' => $result[0]->from_date,
+            'to_date' => $result[0]->to_date
+        ];
+    }
+
+    return null;
+
+}
+
+
+
+
+
+public function insertsupervisor($formdata) {
+    $query = "UPDATE site_visit 
+        SET supervisor_id = :supervisor_id 
+        WHERE land_id = :land_id
+    ";
+
+    $data = [
+        'supervisor_id' => $formdata['supervisor_id'],
+        'land_id' => $formdata['land_id']
+    ];
+
+    return $this->query($query, $data);
+
+
+}
+
+
+    
 }

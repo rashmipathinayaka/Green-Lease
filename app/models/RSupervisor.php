@@ -37,21 +37,51 @@ class RSupervisor
 	}
 
 
+   // getlandzone method
+public function getlandzone($id)
+{
+    $query = 'SELECT zone FROM land WHERE id = :id';
+    $result = $this->query($query, ['id' => $id]);
+
+    // Check if a result was returned and return the zone
+    if ($result && isset($result[0])) {
+        return $result[0]->zone;  // Access the 'zone' property from the result object
+    }
+
+    return false;  // In case no result is found
+}
 
 
 
 //drop down in sitevisit
-    public function getAllSupervisors() {
-        $query = "SELECT id FROM supervisor"; // Adjust columns as needed
-        return $this->query($query); 
-    }
+public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
+    $query = "
+        SELECT s.id AS id, COUNT(p.id) AS procount
+        FROM supervisor s
+        LEFT JOIN project p ON s.id = p.supervisor_id
+        LEFT JOIN land l ON s.zone = l.zone
+        WHERE l.zone = :landzone
+        GROUP BY s.id
+        HAVING COUNT(p.id) < :procount
+    ";
+
+    // Execute the query and bind the parameters
+    return $this->query($query, [
+        ':landzone' => $landzone,
+        ':procount' => $procount
+    ]);
+}
+
+
+
+
 
 //to email supervisors
     public function getEmailById($supervisorId)
     {
         $query = "SELECT user.email 
                   FROM supervisor 
-                  JOIN user ON user.id = supervisor.id 
+                  JOIN user ON user.id = supervisor.user_id 
                   WHERE supervisor.id = :id";
     
         $data = [':id' => $supervisorId];
@@ -72,14 +102,13 @@ class RSupervisor
 
     //for admin to filter supervisors
     public function getSupervisorDetails($filters = []) {
-       
-    
         $query = '
-            SELECT s.*, u.full_name, u.email, u.contact_no, u.joined_date, 
-                   COUNT(p.id) AS land_count
+            SELECT s.*, u.full_name, u.email, u.contact_no,u.propic, u.joined_date, 
+                   COUNT(p.id) AS land_count, z.zone_name
             FROM supervisor s 
             JOIN user u ON s.user_id = u.id
             LEFT JOIN project p ON s.id = p.supervisor_id
+            LEFT JOIN zone z ON s.zone = z.id
             WHERE 1=1
         ';
         
@@ -87,10 +116,10 @@ class RSupervisor
     
         if (!empty($filters['full_name'])) {
             $query .= " AND u.full_name LIKE ?";
-            $params[] =  $filters['full_name'] . "%";
+            $params[] = "%" . $filters['full_name'] . "%";
         }
     
-        if ($filters['zone'] !== '') {
+        if (!empty($filters['zone'])) {
             $query .= " AND s.zone = ?";
             $params[] = $filters['zone'];
         }
@@ -99,6 +128,7 @@ class RSupervisor
     
         return $this->query($query, $params);
     }
+    
     
 
     public function countsupervisors()
@@ -125,7 +155,7 @@ class RSupervisor
 
       //to get profiles
     public function getSupervisorbyid($id) {
-        $query = 'SELECT s.*, u.full_name, u.email, u.contact_no,u.joined_date
+        $query = 'SELECT s.*, u.full_name, u.email, u.contact_no,u.joined_date,u.nic
                   FROM supervisor s
                   JOIN user u ON s.user_id = u.id
                   WHERE s.id = :id'; // Use supervisor's id here to get the correct supervisor
@@ -139,5 +169,8 @@ class RSupervisor
     }
     
     
+ 
+
+
 
 }

@@ -51,7 +51,6 @@
             </li>
 
 
-
             <li>
                 <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
                 <a href="<?php echo URLROOT; ?>/Admin/Pending_approval">Pending approvals</a>

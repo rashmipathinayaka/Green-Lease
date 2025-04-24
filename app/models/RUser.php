@@ -15,40 +15,45 @@ class RUser
         'full_name',
         'id',
         'joined_date',
+        'propic'
     ];
 
-
     public function validate($data)
-	{
-		$this->errors = [];
-
-		if (empty($data['full_name'])) {
-			$this->errors['full_name'] = " full name is required";
-		}
-
-		if (empty($data['email'])) {
-			$this->errors['email'] = "email is required";
-		}
+    {
+        $this->errors = [];
+    
+        if (empty($data['full_name'])) {
+            $this->errors['full_name'] = "Full name is required";
+        }
+    
+        if (empty($data['email'])) {
+            $this->errors['email'] = "Email is required";
+        }
+    
         if (empty($data['nic'])) {
-			$this->errors['nic'] = "NIC is required";
-		}
-
+            $this->errors['nic'] = "NIC is required";
+        }
+    
         if (empty($data['contact_no'])) {
             $this->errors['contact_no'] = "Contact No is required";
+        }
+    
+        if (empty($this->errors)) {
+            return true;
+        }
+    
+        return false;
+    }
+    
 
-		if (empty($this->errors)) {
-			return true;
-		}
-
-		return false;
-	}
-	}
-
-	public function insertsupervisor($data)
-{
-    $data['role_id'] = 2; // assuming 2 is the role ID for supervisor
-    $this->insert($data); 
-}
+    public function insertsupervisor($data)
+    {
+        $data['role_id'] = 2; // assuming 2 is the role ID for supervisor
+        $result = $this->insert($data);  // Call the insert method (assuming it returns true or false)
+    
+        return $result;  // Return the result (true or false)
+    }
+    
 //for adminto t add siteheads
 public function insertsitehead($data)
 {
@@ -90,4 +95,61 @@ public function getuserbyid($userId)
     return $this->query($query, $data)[0] ?? null;
 }
 
+public function getEmailById($id) {
+    $query = "SELECT email FROM user WHERE id = :id AND role_id = 4"; 
+    $data = [':id' => $id];
+    $result = $this->query($query, $data);
+    return $result[0]->email ?? null;
+}
+
+
+public function getprofilebyid($userId)
+{
+    $query = "SELECT * FROM user WHERE id = :id LIMIT 1";
+    $data = [':id' => $userId];
+    return $this->query($query, $data)[0] ?? null;
+
+
+}
+
+
+
+public function updateprofile($data, $id){
+    $query = "UPDATE user SET full_name = :full_name, email = :email, 
+    contact_no = :contact_no, nic = :nic WHERE id = :id";
+    $data = [
+        ':full_name' => $data['full_name'],
+        ':email' => $data['email'],
+        ':contact_no' => $data['contact_no'],
+        ':nic' => $data['nic'],
+        ':id' => $id
+    ];
+    return $this->query($query, $data);
+}
+
+
+
+
+//send profile picture to database
+public function updateProfilePicture($userId, $filename)
+{
+    $imagePath = 'propics/' . $filename;
+
+    $query = "UPDATE user SET propic = :pic WHERE id = :id";
+    $data = ['pic' => $imagePath, 'id' => $userId];
+
+    return $this->query($query, $data);
+}
+
+public function getuserinfobyid($userId)
+{
+    $query = "SELECT * FROM user WHERE id = :id LIMIT 1";
+    $data = [':id' => $userId];
+    return $this->query($query, $data)[0] ?? null;
+
+
+
+
+
+}
 }
