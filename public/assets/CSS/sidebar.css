@@ -16,7 +16,7 @@
     width: 250px;
     background: linear-gradient(11deg, #052610 0%, #0a8911 100%);
     position: fixed;
-    top: 60px;
+    top: 0px;
     bottom: 0;
     left: -250px;
     overflow-y: auto;
@@ -191,6 +191,7 @@ li a {
     .menu-btn {
         font-size: 25px;
         position: absolute;
+        padding-top: 30px;
         display: none; 
         left: 15px;
         background: transparent;

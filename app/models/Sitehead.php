@@ -58,4 +58,24 @@ class Sitehead
 		$query = "SELECT land_id FROM sitehead WHERE user_id = :user_id";
 		return $this->query($query, ['user_id' => $userId]);
 	}
+
+
+	public function getAllSiteheads($supervisorUserId)
+{
+    $query = " SELECT u.*, s.status,s.id as sitehead_id
+        FROM sitehead s
+        INNER JOIN user u ON s.user_id = u.id
+        WHERE s.zone = (
+            SELECT zone FROM supervisor WHERE user_id = :supervisorUserId
+        )
+    ";
+
+    return $this->query($query, [
+        'supervisorUserId' => $supervisorUserId
+    ]);
+}
+
+
+
+
 }

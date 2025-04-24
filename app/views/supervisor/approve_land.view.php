@@ -11,18 +11,28 @@
 </head>
 
 <body>
+    <style>
+        /* Custom alert style */
+        .alert-custom {
+            color: white;
+            background-color: #f44336;
+            padding: 10px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+    </style>
+
     <?php $showBigForm = $data['showBigForm'] ?? false; ?>
 
     <div class="form-container">
         <div class="info">
-            Kindly complete all fields below using the specific details contained in the crop_type
-            from the Zone Supervisor. Upon verification and submission of this form, a new project will be
-            initialized in our project management system for further action.</div>
-
+            Kindly complete all fields below using the specific details gathered during the site visit. The information you provide will be used to initialize the project in our system. Please ensure that all details are accurate and complete.
+            Upon verification and submission of this form, the system will initialize the project.
+        </div>
 
         <?php if (isset($_SESSION['success_message'])): ?>
-            <div class="message success-message"><?php echo $_SESSION['success_message'];
-                                                    unset($_SESSION['success_message']); ?></div>
+            <div class="message success-message"><?php echo $_SESSION['success_message']; unset($_SESSION['success_message']); ?></div>
         <?php endif; ?>
 
         <?php if (!empty($data['message'])): ?>
@@ -31,7 +41,15 @@
 
         <h2></h2>
 
-        <?php if (!$showBigForm): ?>
+        <!-- Display alert message -->
+        <?php if (!empty($alertMessage)): ?>
+            <div class="alert-custom">
+                <?php echo $alertMessage; ?>
+            </div>
+        <?php endif; ?>
+
+        <!-- Only show small form if no alert message is set -->
+        <?php if (empty($alertMessage) && !$showBigForm): ?>
             <form action="<?= URLROOT ?>/Supervisor/Approve_land/" method="POST">
                 <div class="lil-form">
                     <div class="form-group">
@@ -43,32 +61,43 @@
             </form>
         <?php endif; ?>
 
-
-        <?php if ($showBigForm): ?>
+        <!-- Only show big form if there is no alert message and the form is set to be shown -->
+        <?php if (empty($alertMessage) && $showBigForm): ?>
             <div class="big-form">
                 <form action="<?= URLROOT ?>/Supervisor/Approve_land/" method="POST">
                     <div class="form-group">
-                        <label for="crop_type">Crop type</label>
-                        <div class="note">preferred crop of the landowner: <?php echo htmlspecialchars($landInfo->crop_type); ?>
-                        </div>
+                        <label for="crop_type">Selected Crop type</label>
+                        <div class="note">preferred crop of the landowner: <?php echo htmlspecialchars($landInfo->crop_type); ?></div>
                         <input type="text" id="crop_type" name="crop_type" required>
                     </div>
+
+                    <input type="number" id="land_id" name="land_id" hidden value="<?php echo htmlspecialchars($landInfo->id); ?>">
 
                     <div class="form-group">
                         <label for="duration">Duration of the project</label>
                         <input type="number" id="duration" name="duration" required>
                     </div>
 
-                    <!-- <div class="form-group">
-                        <label for="supervisor_id">Supervisor id</label>
-                        <div class="note">Supervisor assigned for the site visit: <?php echo htmlspecialchars($supinfo->supervisor_id); ?>
-
-                        <input type="number" id="supervisor_id" name="supervisor_id" required>
-                    </div> -->
+                    <div class="form-group">
+                        <label for="sitehead">Select Site Head</label>
+                        <select id="sitehead" name="sitehead" required>
+                            <option value="">-- Select Site Head --</option>
+                            <?php foreach ($sitehead as $sh): ?>
+                                <option value="<?= htmlspecialchars($sh->id) ?>">
+                                    <?= htmlspecialchars($sh->full_name) ?> ---------- <?= htmlspecialchars($sh->status) ?>
+                                </option>
+                            <?php endforeach; ?>
+                        </select>
+                    </div>
 
                     <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" name="message" rows="4"></textarea>
+                        <label for="profit">Profit percentage of the project</label>
+                        <input type="number" id="profit" name="profit" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="description">Any special notes:</label>
+                        <input type="text" id="description" name="description" required>
                     </div>
 
                     <button type="submit">Submit</button>
@@ -77,10 +106,9 @@
         <?php endif; ?>
 
         <div class="form-footer">
-            Thank you for reaching out to us. We'll respond within 24 hours.
+            
         </div>
     </div>
-
 
 </body>
 
