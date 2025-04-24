@@ -459,7 +459,7 @@
     border-radius: 4px;
     margin: 5px;
     display: inline-block;
-    width: calc(50% - 10px);
+    width: calc(90% - 50px);
   }
   
   .red-btn {
