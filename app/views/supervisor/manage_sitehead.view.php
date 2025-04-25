@@ -146,7 +146,7 @@ require ROOT . '/views/components/topbar.php';
 
       <label>Status:</label>
       <select name="status" disabled>
-        <option value="1" selected>Inactive</option>
+        <option value="Inactive" selected>Inactive</option>
       </select>
 
       <button type="submit">Add</button>
@@ -170,8 +170,8 @@ require ROOT . '/views/components/topbar.php';
       <input type="number" name="land_id" id="edit-land_id" required>
       <label>Status:</label>
       <select name="status" id="edit-status">
-        <option value="0">Active</option>
-        <option value="1">Inactive</option>
+        <option value="Active">Active</option>
+        <option value="Inactive">Inactive</option>
       </select>
       <button type="submit">Update</button>
     </form>

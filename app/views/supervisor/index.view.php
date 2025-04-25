@@ -29,7 +29,7 @@
                             <span class="metric-value">
                                 <?= isset($proCount) ? htmlspecialchars($proCount) : '0' ?>
                             </span>
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-spinner"></i>
                         </div>
                         <a href="#ongoing-projects" style="text-decoration: none;">
                             <button>View</button>
@@ -42,7 +42,7 @@
                             <span class="metric-value">
                                 <?= isset($completedproCount) ? htmlspecialchars($completedproCount) : '0' ?>
                             </span>
-                            <i class="fas fa-user"></i>
+                            <i class="fas fa-check-circle"></i>
                         </div>
                         <a href="#completed-projects" style="text-decoration: none;">
                             <button>View</button>

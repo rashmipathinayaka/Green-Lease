@@ -61,11 +61,7 @@ class Sitehead
 			$this->errors['land_id'] = "Land ID must be a number";
 		}
 
-		if (!isset($data['status'])) {
-			$this->errors['status'] = "Status is required";
-		} elseif (!is_numeric($data['status'])) {
-			$this->errors['status'] = "Status must be a number";
-		}
+		
 
 		return empty($this->errors);
 	}
