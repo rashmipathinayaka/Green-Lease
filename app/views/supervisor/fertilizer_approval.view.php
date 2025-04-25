@@ -47,8 +47,8 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="delivery_date">Actual Delivery Date</label>
-                        <input type="date" name="delivery_date" id="delivery_date"
+                        <label for="planned_date">Actual Delivery Date</label>
+                        <input type="date" name="planned_date" id="planned_date"
                             value="<?= date('Y-m-d') ?>" min="<?= date('Y-m-d') ?>">
                     </div>
 

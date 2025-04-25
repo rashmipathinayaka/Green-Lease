@@ -92,6 +92,12 @@
 
                                 <button class="form-submit-btn" type="submit">Update Event</button>
                             </div>
+                            <div class="postpone-link">
+                                <a href="<?= URLROOT ?>/sitehead/Event/postpone_event/<?= $event->id ?>"
+                                    onclick="return confirm('Are you sure you want to cancel and postpone the event?')">
+                                    Cancel and postpone this event
+                                </a>
+                            </div>
 
                         </form>
                     </div>

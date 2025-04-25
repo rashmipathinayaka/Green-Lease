@@ -73,29 +73,29 @@ class Manage_fertilizer
 	}
 
 
-	public function markAsAccept($id)
-	{
-		// Update the fertilizer request status to 'Approved'
-		if ($this->fertilizerRequestModel->update($id, ['status' => 'Approved'], 'id')) {
-			// Redirect back to the fertilizer management page with success message
-			header('Location: ' . URLROOT . '/Supervisor/Manage_fertilizer?success=accepted');
-		} else {
-			// Show an error page if the update fails
-			$this->view('_404');
-		}
-	}
+	// public function markAsAccept($id)
+	// {
+	// 	// Update the fertilizer request status to 'Approved'
+	// 	if ($this->fertilizerRequestModel->update($id, ['status' => 'Approved'], 'id')) {
+	// 		// Redirect back to the fertilizer management page with success message
+	// 		header('Location: ' . URLROOT . '/Supervisor/Manage_fertilizer?success=accepted');
+	// 	} else {
+	// 		// Show an error page if the update fails
+	// 		$this->view('_404');
+	// 	}
+	// }
 
-	public function rejectRequest($id)
-	{
-		// Delete the fertilizer request
-		if ($this->fertilizerRequestModel->delete($id)) {
-			// Redirect with a success message
-			header('Location: ' . URLROOT . '/Supervisor/Manage_fertilizer?success=rejected');
-		} else {
-			// Show an error page if deletion fails
-			$this->view('_404');
-		}
-	}
+	// public function rejectRequest($id)
+	// {
+	// 	// Delete the fertilizer request
+	// 	if ($this->fertilizerRequestModel->delete($id)) {
+	// 		// Redirect with a success message
+	// 		header('Location: ' . URLROOT . '/Supervisor/Manage_fertilizer?success=rejected');
+	// 	} else {
+	// 		// Show an error page if deletion fails
+	// 		$this->view('_404');
+	// 	}
+	// }
 
 	// Add these methods to your Manage_fertilizer class
 
@@ -135,7 +135,8 @@ class Manage_fertilizer
 			$fertilizer = $this->fertilizerModel->first(['id' => $request->fertilizer_id]);
 
 			$actualAmount = (float)$_POST['actual_amount'];
-			$deliveryDate = $_POST['delivery_date'];
+			$planned_Date = $_POST['planned_date'];
+			$Notes = $_POST['notes'];
 
 			// Verify stock is sufficient
 			if ($fertilizer->amount >= $actualAmount) {
@@ -146,10 +147,18 @@ class Manage_fertilizer
 				// Update request status
 				$this->fertilizerRequestModel->update($id, [
 					'status' => 'Approved',
-					'approved_amount' => $actualAmount,
-					'actual_delivery_date' => $deliveryDate,
-					'processed_at' => date('Y-m-d H:i:s')
+					'approvedAmount' => $actualAmount,
+					'plannedDate' => $planned_Date,
+					'AdditionalNotes' => $Notes
 				]);
+
+				// $formData = [
+				// 	'actualAmount' => $_POST['actual_amount'] ?? null,
+				// 	'plannedDate' => $_POST['delivery_date'] ?? null
+				// ];
+
+				// $requestModel = new FertilizerRequest();
+				// $requestModel->insert($formData);
 
 				// Redirect with success message
 				header('Location: ' . URLROOT . '/Supervisor/Manage_fertilizer?success=approved');

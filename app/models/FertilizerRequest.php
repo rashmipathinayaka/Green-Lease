@@ -15,6 +15,9 @@ class FertilizerRequest
         'status',
         'sitehead_id',
         'remarks',
+        'approvedAmount',
+        'plannedDate',
+        'AdditionalNotes'
     ];
 
     public function validate($data)
