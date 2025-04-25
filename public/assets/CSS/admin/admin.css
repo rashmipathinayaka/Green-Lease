@@ -3,7 +3,20 @@
   padding: 0;
   box-sizing: border-box;
 }
+.report-button {
+  background-color: #f44336;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
 
+.report-button:hover {
+  background-color: #c62828;
+}
 body {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f4f6f9;
@@ -17,7 +30,7 @@ body {
   box-shadow: 0 4px 8px rgba(43, 164, 119, 0.395);
   margin: 20px 20px;
   width: 50%;
-  max-width: 800px;
+  max-width: 700px;
   height: 590px; /* Set a height for the chart box */
   display: flex;
   flex-direction: column; /* Stack the content vertically */

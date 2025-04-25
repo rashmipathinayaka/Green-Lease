@@ -1,4 +1,23 @@
 
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+.note{
+  font-size: 19px;
+  color: #32b350;
+  margin-top: 10px;
+}
+
+
+
+
+
 /* Progress bar styles */
 .progress-container {
     margin: 20px 0;
@@ -7,6 +26,7 @@
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
+
 
 .progress-info {
     display: flex;

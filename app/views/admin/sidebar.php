@@ -60,6 +60,12 @@
                 <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
                 <a href="<?php echo URLROOT; ?>/Marketplace">Marketplace</a>
             </li>
+
+            <li>
+                <img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+                <a href="<?php echo URLROOT; ?>/Admin/manage_inquiry">Manage Inquiries</a>
+            </li>
+
         </ul>
 
         <!-- Logout Section -->

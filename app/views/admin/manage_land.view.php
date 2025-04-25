@@ -96,7 +96,7 @@
                             </td>
                             <td>
                                 <?php if ($land->status === 0): ?>
-                                    <button class="red-btn" onclick="window.location.href='<?php echo URLROOT; ?>/admin/Manage_land/updateland/<?php echo $land->id; ?>';">Approve</button>
+                                    <!-- <button class="red-btn" onclick="window.location.href='<?php echo URLROOT; ?>/admin/Manage_land/updateland/<?php echo $land->id; ?>';">Approve</button> -->
                                 <?php else: ?>
                                     <button class="green-btn" onclick="window.location.href='<?php echo URLROOT; ?>/components/project/index/<?php echo $land->project_id; ?>';">View project</button>
                                 <?php endif; ?>

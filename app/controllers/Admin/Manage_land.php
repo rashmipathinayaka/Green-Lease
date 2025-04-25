@@ -42,11 +42,11 @@ $zones=$this->zonemodel->getAllZones();
 	}
  
 
-public function updateland($id){
-    $data=['status'=>1];
-    $this->manageland->update($id,$data,'id');
+// public function updateland($id){
+//     $data=['status'=>1];
+//     $this->manageland->update($id,$data,'id');
 
-    $lands = $this->manageland->findAll();
-    $this->view('admin/manage_land',['lands'=> $lands]);
-}
+//     $lands = $this->manageland->findAll();
+//     $this->view('admin/manage_land',['lands'=> $lands]);
+// }
 }
