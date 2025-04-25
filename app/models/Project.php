@@ -20,7 +20,7 @@ class Project {
      */
     public function countOngoingProjectsBySupervisorId($supervisorId)
     {
-        $result = $this->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE supervisor_id = :supervisor_id AND status = 'ongoing'", ['supervisor_id' => $supervisorId]);
+        $result = $this->query("SELECT COUNT(*) AS count FROM project WHERE supervisor_id = :supervisor_id AND status = 'Ongoing'", ['supervisor_id' => $supervisorId]);
         return $result[0]->count ?? 0;
     }
     
@@ -31,7 +31,7 @@ class Project {
      */
     public function countCompletedProjectsBySupervisorId($supervisorId)
     {
-        $result = $this->query("SELECT COUNT(*) AS count FROM {$this->table} WHERE supervisor_id = :supervisor_id AND status = 'completed'", ['supervisor_id' => $supervisorId]);
+        $result = $this->query("SELECT COUNT(*) AS count FROM project WHERE supervisor_id = :supervisor_id AND status = 'Completed'", ['supervisor_id' => $supervisorId]);
         return $result[0]->count ?? 0;
     }
     
@@ -42,7 +42,7 @@ class Project {
      */
     public function findOngoingProjects($supervisorId)
     {
-        $query = "SELECT * FROM project WHERE status = 'ongoing' AND supervisor_id = :supervisor_id";  // Status 'ongoing'
+        $query = "SELECT * FROM project WHERE status = 'Ongoing' AND supervisor_id = :supervisor_id";  // Status 'ongoing'
         $data = [':supervisor_id' => $supervisorId];
         return $this->query($query, $data);
     }
@@ -54,7 +54,7 @@ class Project {
      */
     public function findCompletedProjects($supervisorId)
     {
-        $query = "SELECT * FROM project WHERE status = 'completed' AND supervisor_id = :supervisor_id";  // Status 'completed'
+        $query = "SELECT * FROM project WHERE status = 'Completed' AND supervisor_id = :supervisor_id";  // Status 'completed'
         $data = [':supervisor_id' => $supervisorId];
         return $this->query($query, $data);
     }
@@ -94,8 +94,8 @@ class Project {
         $project = $this->getProjectById($projectId);
         
         if ($project) {
-            $eventModel = new Event();
-            $project->events = $eventModel->getEventsByProject($projectId);
+            $EventModel = new EventModel();
+            $project->EventModel = $EventModel->getEventsByProject($projectId);
         }
         
         return $project;
@@ -109,10 +109,10 @@ class Project {
     public function getProjectsWithEvents($supervisorId)
     {
         $projects = $this->getProjectsBySupervisor($supervisorId);
-        $eventModel = new Event();
+        $EventModel = new EventModel();
         
         foreach ($projects as $key => $project) {
-            $projects[$key]->events = $eventModel->getEventsByProject($project->id);
+            $projects[$key]->event = $EventModel->getEventsByProject($project->id);
         }
         
         return $projects;

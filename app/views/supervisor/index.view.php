@@ -27,7 +27,8 @@
                         <h2>Ongoing Projects</h2>
                         <div class="metric-content">
                             <span class="metric-value">
-                                <?= isset($proCount) ? htmlspecialchars($proCount) : '0' ?>
+                            <?= isset($proCount) ? htmlspecialchars($proCount) : '0' ?>
+
                             </span>
                             <i class="fas fa-spinner"></i>
                         </div>

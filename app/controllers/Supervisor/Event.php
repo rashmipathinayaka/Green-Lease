@@ -1,28 +1,31 @@
 <?php
-class Event {
-    private $db;
-    private $projectModel;
-    private $eventModel;
 
-    public function __construct() {
-        
-        // Initialize Project model
-        $this->eventModel = new Event();      // Initialize Event model
+class Event
+{
+    protected $EventModel;
+    protected $Project;
+
+    public function __construct()
+    {
+        $this->EventModel = new EventModel();      // Handles event-related DB operations
+        $this->Project = new Project();  // Handles project-related DB operations
     }
 
-    // Display events page
-    public function events() {
+    // Display event view page
+    public function events()
+    {
         $data = [];
         $this->view('supervisor/event', $data);
     }
 
-    // Add a new event
-    public function addEvent() {
+    // Add new event to the database
+    public function addEvent()
+    {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Sanitize POST data
+
+            // Sanitize inputs
             $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            
-            // Create data array
+
             $data = [
                 'project_id' => trim($_POST['project_id']),
                 'event_name' => trim($_POST['event_name']),
@@ -34,46 +37,38 @@ class Event {
                 'duration_years' => intval($_POST['duration_years']),
                 'duration_months' => intval($_POST['duration_months']),
                 'duration_days' => intval($_POST['duration_days']),
-                'duration_hours' => intval($_POST['duration_hours'])
+                'duration_hours' => intval($_POST['duration_hours']),
             ];
-            
-            // Calculate end date based on duration
-            $endDate = new DateTime($data['date']);
-            $endDate->modify("+{$data['duration_years']} years");
-            $endDate->modify("+{$data['duration_months']} months");
-            $endDate->modify("+{$data['duration_days']} days");
-            $endDate->modify("+{$data['duration_hours']} hours");
-            $data['end_date'] = $endDate->format('Y-m-d');
-            
-            // Verify the project belongs to the logged-in supervisor
-            $project = $this->projectModel->getProjectById($data['project_id']);
-            if ($project && $project->supervisor_id == $_SESSION['user_id']) {
-                // Add event to database
-                if ($this->eventModel->addEvent($data)) {
-                    // Store the success message in session
+
+           
+
+            // Check project ownership
+            $project = $this->Project->getProjectById($data['project_id']);
+            if ($project && $project->supervisor_id == 1) {  //if ($project && $project->supervisor_id == $_SESSION['id']) {
+
+                if ($this->EventModel->addEvent($data)) {
                     $_SESSION['event_message'] = [
                         'message' => 'Event added successfully',
-                        'class'   => 'alert alert-success'
+                        'class' => 'alert alert-success'
                     ];
                     redirect('supervisors/event');
                 } else {
-                    // Store the error message in session
                     $_SESSION['event_message'] = [
-                        'message' => 'Something went wrong',
-                        'class'   => 'alert alert-danger'
+                        'message' => 'Failed to add event',
+                        'class' => 'alert alert-danger'
                     ];
                     $this->view('supervisor/event', $data);
                 }
+
             } else {
-                // Unauthorized access
                 $_SESSION['event_message'] = [
-                    'message' => 'Unauthorized access',
-                    'class'   => 'alert alert-danger'
+                    'message' => 'Unauthorized to add event to this project',
+                    'class' => 'alert alert-danger'
                 ];
                 redirect('supervisors/event');
             }
+
         } else {
-            // Redirect if not POST request
             redirect('supervisors/event');
         }
     }

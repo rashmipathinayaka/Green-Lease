@@ -3,12 +3,12 @@
 class Dashboard
 {
     use Controller;
-    private $projects;
+    private $project;
 
     public function index()
     {
-        $this->projects = new Project();
-        $supervisorId = 1; // Replace this with actual session ID in production
+        $this->project = new Project();
+        $supervisorId = 1; // supervisor_id = $_SESSION['id']) 
 
         // Initialize variables
         $proCount = 0;
@@ -18,10 +18,10 @@ class Dashboard
 
         // If supervisor ID exists, fetch data
         if ($supervisorId) {
-            $proCount = $this->projects->countOngoingProjectsBySupervisorId($supervisorId);
-            $completedproCount = $this->projects->countCompletedProjectsBySupervisorId($supervisorId);
-            $projects = $this->projects->findOngoingProjects($supervisorId);
-            $projectz = $this->projects->findCompletedProjects($supervisorId);
+            $proCount = $this->project->countOngoingProjectsBySupervisorId($supervisorId);
+            $completedproCount = $this->project->countCompletedProjectsBySupervisorId($supervisorId);
+            $projects = $this->project->findOngoingProjects($supervisorId);
+            $projectz = $this->project->findCompletedProjects($supervisorId);
         }
 
         // Send all data to the view

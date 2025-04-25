@@ -49,6 +49,7 @@ class Manage_sitehead
                 
 
                 // Step 4: Optionally assign land to a project for this sitehead
+                //$supervisorId = $_SESSION['id'];
                 $supervisor_id = 1; // hardcoded or get it dynamically from session
                 $this->sitehead->assignLandToSitehead($land_id, $supervisor_id);
     

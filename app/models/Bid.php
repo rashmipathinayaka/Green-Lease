@@ -1,6 +1,7 @@
 <?php
-class Bid extends Model
+class Bid 
 {
+    use Model;
     protected $table = 'bids';
     protected $allowedColumns = [
         'id',

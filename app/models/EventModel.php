@@ -8,9 +8,13 @@ class EventModel
 
     protected $allowedColumns = [
         'id',
-        'event_name',
         'project_id',
+        'event_name',
         'date',
+        'time',
+        'location',
+        'workers_required',
+        'payment_per_worker',
         'status',
         'description',
         'progress_notes',
@@ -18,36 +22,39 @@ class EventModel
         'completion_images'
     ];
 
-    /**
-     * Get today's events for specific projects
-     * @param array $projectIds Array of project IDs
-     * @return array Array of event objects
-     */
+    // Get all events for a specific project
+    public function getEventsByProject($projectId)
+    {
+        $query = "SELECT * FROM event WHERE project_id = :project_id ORDER BY date ASC, time ASC";
+        return $this->query($query, ['project_id' => $projectId]);
+    }
+
+    // Add a new event
+    public function addEvent($data)
+    {
+        return $this->insert($data);
+    }
+
+    // Get today's events for a list of project IDs
     public function getTodaysEvents($projectIds)
     {
-        if (empty($projectIds)) {
-            return [];
-        }
+        if (empty($projectIds)) return [];
 
-        // Prepare placeholders for the IN clause
         $placeholders = implode(',', array_fill(0, count($projectIds), '?'));
-
-        // Get today's date
         $today = date('Y-m-d');
 
         $query = "SELECT e.*, p.crop_type 
-                 FROM {$this->table} e
-                 JOIN project p ON e.project_id = p.id
-                 WHERE e.project_id IN ($placeholders)
-                 AND DATE(e.date) = ?
-                 ORDER BY e.date ASC";
+                  FROM event e
+                  JOIN project p ON e.project_id = p.id
+                  WHERE e.project_id IN ($placeholders)
+                  AND DATE(e.date) = ?
+                  ORDER BY e.date ASC";
 
-        // Combine project IDs and today's date for binding
         $params = array_merge($projectIds, [$today]);
-
         return $this->query($query, $params);
     }
 
+    // Get a single event along with image list
     public function getEventWithImages($eventId)
     {
         $event = $this->first(['id' => $eventId]);
@@ -58,5 +65,17 @@ class EventModel
             }
         }
         return $event;
+    }
+
+    // Update an existing event
+    public function updateEvent($id, $data)
+    {
+        return $this->update($id, $data);
+    }
+
+    // Delete an event
+    public function deleteEvent($id)
+    {
+        return $this->delete($id);
     }
 }
