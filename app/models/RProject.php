@@ -143,6 +143,38 @@ public function getsupinfo($land_id){
 
 
 
+//get pending projects for admin
+public function getpendingprojects()
+{
+    $query="SELECT  p.*, 
+    sv.id AS visit_id, 
+    l.zone, 
+    z.zone_name, 
+    l.crop_type, 
+    p.crop_type AS selected_crop
+FROM 
+    project p
+JOIN 
+    site_visit sv ON p.land_id = sv.land_id
+JOIN 
+    land l ON p.land_id = l.id
+JOIN 
+    zone z ON l.zone = z.id
+WHERE 
+    p.status = 'pending'";
+    $result = $this->query($query);
+    return $result;  // returns all pending projects
+
+}
+
+
+
+public function approveproject($id){
+    $query="UPDATE project SET status='ongoing' WHERE id=:id";
+    $data=[
+        'id'=>$id
+    ];
+    $this->query($query,$data);
 
 }
 
@@ -150,6 +182,7 @@ public function getsupinfo($land_id){
 
 
 
+}
 
 
 

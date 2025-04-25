@@ -57,3 +57,4 @@ class Index
 		$this->view('admin/report', $data);
 	}
 }
+ 
