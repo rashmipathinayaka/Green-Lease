@@ -2,7 +2,6 @@
 class Bid {
 
 
-{
     use Model;
     
     
