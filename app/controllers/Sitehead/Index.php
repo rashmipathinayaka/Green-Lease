@@ -19,22 +19,26 @@ class Index
 		// Only proceed if user is logged in
 		if (isset($_SESSION['id'])) {
 			$userId = $_SESSION['id'];
-			$userName = $_SESSION['name'];
+			// $userName = $_SESSION['name'];
+			$userModel = new User();
+			$userData = $userModel->first(['id' => $userId]);
 
 			// Get sitehead's data
 			$siteheadModel = new Sitehead();
-			$siteheadData = $siteheadModel->where(['user_id' => $userId]);
+			$siteheadData = $siteheadModel->first(['user_id' => $userId]);
 
 			if (!empty($siteheadData)) {
 				// Get project IDs of the sitehead
 				$projectModel = new Project();
 				$projectIds = [];
 
-				foreach ($siteheadData as $sdata) {
-					$projects = $projectModel->where(['land_id' => $sdata->land_id]);
-					foreach ($projects as $project) {
-						$projectIds[] = $project->id;
-					}
+				$projects = $projectModel->where([
+					'sitehead_id' => $siteheadData->id,
+					'status' => 'ongoing'
+				]);
+
+				foreach ($projects as $project) {
+					$projectIds[] = $project->id;
 				}
 
 				// Get today's events if we have projects
@@ -44,7 +48,7 @@ class Index
 				}
 			}
 
-			$data['sname'] = $userName;
+			$data['sname'] = $userData->full_name;
 
 			// // Get upcoming events count (implement your logic)
 			// $data['upcomingEventsCount'] = $this->getUpcomingEventsCount($userId);

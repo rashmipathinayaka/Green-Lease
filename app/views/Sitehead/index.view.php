@@ -33,7 +33,7 @@
 							<span class="metric-value">20</span>
 							<i class="fas fa-user"></i>
 						</div>
-						<button onclick="showSection('manage-workers-section')">View</button>
+						<button onclick="window.location.href='<?= URLROOT ?>/Sitehead/Manage_worker'">View</button>
 					</div>
 
 					<div class="metric-card">
@@ -42,7 +42,7 @@
 							<span class="metric-value">10</span>
 
 						</div>
-						<button onclick="showSection('manage-buyers-section')">View</button>
+						<button onclick="window.location.href='<?= URLROOT ?>/Sitehead/Event/Upcoming_events'">View</button>
 					</div>
 				</div>
 				<div class="events-container">

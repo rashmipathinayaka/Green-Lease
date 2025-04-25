@@ -35,7 +35,9 @@ function confirmRemoveIssue(issueId) {
 }
 
 function confirmApproveRequest(requestId) {
-  const confirmation = confirm("Are you sure you want to approve this fertilizer request?");
+  const confirmation = confirm(
+    "Are you sure you want to proceed to process this fertilizer request?"
+  );
   if (confirmation) {
     window.location.href = `${URLROOT}/Supervisor/Manage_fertilizer/approveRequest/${requestId}`;
   }

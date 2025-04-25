@@ -75,7 +75,7 @@ public function getsiteheadbyproid($id)
 
 public function getsupervisorbyproid($id)
 {
-$query="SELECT U.* fROM user u,supervisor s,project  p WHERE p.id=:id AND p.supervisor_id=s.id AND s.user_id=u.id";
+$query="SELECT u.* fROM user u,supervisor s,project  p WHERE p.id=:id AND p.supervisor_id=s.id AND s.user_id=u.id";
     $data = ['id' => $id];
     $result = $this->query($query, $data);
     return $result ? $result[0] : null;  // returns single sitehead details

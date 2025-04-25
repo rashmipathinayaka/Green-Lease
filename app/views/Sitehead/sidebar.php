@@ -26,6 +26,10 @@
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
 				<a href="<?php echo URLROOT; ?>/Sitehead/Manage_fertilizer">Request Fertilizers</a>
 			</li>
+			<li>
+				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+				<a href="<?php echo URLROOT; ?>/Sitehead/Manage_fertilizer/requests">Fertilizer Requests Log</a>
+			</li>
 			<!-- <li>
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
 				<a href="<?php echo URLROOT; ?>/Sitehead/Attendance">Mark Attendance</a>
@@ -34,6 +38,12 @@
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
 				<a href="<?php echo URLROOT; ?>/Sitehead/ReportIssue">Report an Issue</a>
 			</li>
+
+			<li>
+				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+				<a href="<?php echo URLROOT; ?>/sitehead/feedback">Manage Feedbacks</a>
+			</li>
+
 		</ul>
 
 		<!-- Logout Section -->

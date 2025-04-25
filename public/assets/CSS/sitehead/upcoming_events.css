@@ -1,0 +1,116 @@
+/* upcoming_events.css - Specific styles for upcoming events page */
+
+/* Main container styles */
+.upcoming-events-container {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    margin-top: 60px;
+    padding: 25px;
+}
+
+/* Page header styles */
+.upcoming-events-header {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.upcoming-events-header h1 {
+    color: #2c3e50;
+    font-size: 1.8rem;
+    margin: 0 0 5px 0;
+}
+
+.upcoming-events-header p {
+    color: #7f8c8d;
+    font-size: 1rem;
+    margin: 0;
+}
+
+/* Event list styles (preserving existing from sitehead.css) */
+.upcoming-events-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+/* No events message */
+.upcoming-no-events {
+    text-align: center;
+    padding: 40px 20px;
+    color: #95a5a6;
+}
+
+.upcoming-no-events i {
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    color: #bdc3c7;
+}
+
+.upcoming-no-events p {
+    font-size: 1.1rem;
+    margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .upcoming-events-container {
+        margin: 10px;
+        padding: 15px;
+    }
+    
+    .upcoming-events-header h1 {
+        font-size: 1.5rem;
+    }
+}
+/* Add this to your CSS file */
+.event-info.vertical {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.event-info.vertical span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* Optional: Add some visual separation between items */
+.event-info.vertical span:not(:last-child) {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+/* Event Action Buttons */
+.event-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.event-actions .btn {
+    padding: 8px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-size: 0.9rem;
+}
+
+.event-actions .postpone-btn {
+    background: #e74c3c;
+    color: white;
+}
+
+.event-actions .btn:hover {
+    opacity: 0.9;
+}
+.postponed-badge {
+    background-color: #ff9800;
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 12px;
+    margin-right: 8px;
+}

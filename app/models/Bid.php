@@ -1,7 +1,11 @@
 <?php
-class Bid 
+class Bid {
+
+
 {
     use Model;
+    
+    
     protected $table = 'bids';
     protected $allowedColumns = [
         'id',
