@@ -34,7 +34,7 @@ class Manage_sitehead
                 'user_id' => $user_id,
                 'land_id' => $land_id,
                 'full_name' =>$full_name,
-                'status' => 0 // Now setting status to Active
+                'status' => 'Active' // Now setting status to Active
             ];
     
             if ($this->sitehead->validate($formData)) {
@@ -44,7 +44,7 @@ class Manage_sitehead
                 // Step 3: Update sitehead record with land_id and set status to active
                 $this->sitehead->update($user_id, [
                     'land_id' => $land_id,
-                    'status' => 0,
+                    'status' => 'Active',
                 ], 'user_id'); // assuming user_id is the key for updating
                 
 

@@ -21,7 +21,7 @@ class Sitehead
     $query = "SELECT DISTINCT s.user_id, u.full_name
         FROM sitehead s
         INNER JOIN user u ON s.user_id = u.id
-        WHERE s.status = 1
+        WHERE s.status = 'Inactive'
     ";
 
     return $this->query($query);

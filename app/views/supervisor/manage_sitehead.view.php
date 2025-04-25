@@ -103,8 +103,8 @@ require ROOT . '/views/components/topbar.php';
         <td><?= $row->id ?></td>
         <td><?= $row->full_name ?></td>
         <td><?= $row->contact_no?></td>
-        <td class="<?= $row->status == 0 ? 'active-status' : 'inactive-status' ?>">
-  <?= $row->status == 0 ? 'Active' : 'Inactive' ?>
+        <td class="<?= $row->status == 'Active' ? 'active-status' : 'inactive-status' ?>">
+  <?= $row->status == 'Active' ? 'Active' : 'Inactive' ?>
 </td>
 
         
