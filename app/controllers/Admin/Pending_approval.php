@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -10,86 +10,101 @@ require_once '../vendor/autoload.php'; // Adjust if needed
  */
 class Pending_approval
 {
-	use Controller;
+    use Controller;
     private $manageland;
     private $sitevisit;
+    private $projects;
+
+
+
     public function __construct()
     {
-       $this-> manageland =new RLand();
-       $this-> sitevisit =new Rsite_visit();
-        
-
+        $this->manageland = new RLand();
+        $this->sitevisit = new Rsite_visit();
+        $this->projects = new RProject();
     }
 
-	public function index()
-	{
+    public function index()
+    {
 
-$visitdata1 = $this->sitevisit->getallapprovedvisits();
+        $visitdata1 = $this->sitevisit->getallapprovedvisits();
 
 
         $lands = $this->manageland->getpendinglands();
-       
-    
 
-
-        $this->view('admin/pending_approval',['lands'=> $lands, 'visitdata1'=>$visitdata1]);
-		
-	}
-
-    
-    public function opensitevisit($id){
-        echo $id;
-             $land_id=$id;
-             header("Location: " . URLROOT . "/admin/site_visit/index/{$land_id}");
-        
-            }
-          
+        //adminge final approve eka gann tyena lands
+        $project = $this->projects->getpendingprojects();
 
 
 
-
-
-public function getland($visit_id)
-{
-    // Get full visit info
-    $visit = $this->sitevisit->getVisitById($visit_id);
-
-    if ($visit) {
-        $land_id = $visit->land_id;
-        $supervisor_id = $visit->supervisor_id;
-        $landowner_id = $visit->landowner_id;
-        $re_date = $visit->re_date;
-
-        // Get supervisor email
-        $supervisorModel = new RSupervisor();
-        $supervisor_email = $supervisorModel->getEmailById($supervisor_id);
-
-        // Get landowner email
-        $landownerModel = new RUser();
-        $landowner_email = $landownerModel->getEmailById($landowner_id);
-
-        // Send email to supervisor
-        if ($supervisor_email) {
-            $this->sendEmail($supervisor_email, $land_id, $re_date, 'Supervisor');
-        }
-
-        // Send email to landowner
-        if ($landowner_email) {
-            $this->sendEmail($landowner_email, $land_id, $re_date, 'Landowner');
-        }
-
-        echo "Emails sent successfully!";
-        $this->sitevisit->emailupdate($visit_id); 
-        // Redirect to the same page or another page
-        header('Location: ' . URLROOT . '/admin/pending_approval');
-    } else {
-        echo "Visit not found!";
+        $this->view('admin/pending_approval', ['lands' => $lands, 'visitdata1' => $visitdata1, 'project' => $project]);
     }
+
+
+    public function opensitevisit($id)
+    {
+        echo $id;
+        $land_id = $id;
+        header("Location: " . URLROOT . "/admin/site_visit/index/{$land_id}");
+    }
+
+
+public function approveproject($id){
+
+$this->projects->approveproject($id);
+    // Redirect to the same page or another page
+    header('Location: ' . URLROOT . '/admin/pending_approval');
+
+
 }
 
 
 
-private function sendEmail($email, $land_id, $re_date,$role)
+
+
+
+
+    public function getland($visit_id)
+    {
+        // Get full visit info
+        $visit = $this->sitevisit->getVisitById($visit_id);
+
+        if ($visit) {
+            $land_id = $visit->land_id;
+            $supervisor_id = $visit->supervisor_id;
+            $landowner_id = $visit->landowner_id;
+            $re_date = $visit->re_date;
+
+            // Get supervisor email
+            $supervisorModel = new RSupervisor();
+            $supervisor_email = $supervisorModel->getEmailById($supervisor_id);
+
+            // Get landowner email
+            $landownerModel = new RUser();
+            $landowner_email = $landownerModel->getEmailById($landowner_id);
+
+            // Send email to supervisor
+            if ($supervisor_email) {
+                $this->sendEmail($supervisor_email, $land_id, $re_date, 'Supervisor');
+            }
+
+            // Send email to landowner
+            if ($landowner_email) {
+                $this->sendEmail($landowner_email, $land_id, $re_date, 'Landowner');
+            }
+
+            echo "Emails sent successfully!";
+            $this->sitevisit->emailupdate($visit_id);
+            // Redirect to the same page or another page
+            header('Location: ' . URLROOT . '/admin/pending_approval');
+        } else {
+            echo "Visit not found!";
+        }
+    }
+
+
+
+    private function sendEmail($email, $land_id, $re_date, $role)
     {
         // Create PHPMailer instance
         $mail = new PHPMailer(true);
@@ -135,5 +150,3 @@ private function sendEmail($email, $land_id, $re_date,$role)
         }
     }
 }
-
-

@@ -15,6 +15,9 @@ class RProject
        'end_date',
        'start_date',
          'crop_type',
+         'sitehead_id',
+         'profit',  
+            'description',
     ];
 
     // Method to count the number of projects for a given supervisor
@@ -94,12 +97,26 @@ $this->query($query,$data);
 //admin initilaize project
 
 public function initializeproject($formdata){
-    $query="INSERT INTO project (land_id,crop_type,duration,status,start_date,supervisor_id) VALUES (:land_id,:crop_type,:duration,:status,:start_date,:supervisor_id)";
+    $query="INSERT INTO project (land_id,crop_type,duration,profit,sitehead_id,status,supervisor_id,description) 
+                        VALUES (:land_id,:crop_type,:duration,:profit,:sitehead_id,:status,:supervisor_id,:description)";
    
     
     
    return  $this->query($query,$formdata);
 }
+
+//enter karana land ekat kalin project ekk tyeda blnwa. tye nm aye project ekk dann be.
+public function checkLandIdExists($land_id)
+{
+    $query = "SELECT COUNT(*) AS count FROM project WHERE land_id = :land_id";
+    
+    // Assuming query() returns an array of objects (stdClass)
+    $result = $this->query($query, ['land_id' => $land_id]);
+
+    // Since result is an array of objects, access the property using '->'
+    return $result[0]->count > 0;  // Return true if count > 0, false otherwise
+}
+
 
 
 public function getforminfo($land_id){
@@ -126,6 +143,38 @@ public function getsupinfo($land_id){
 
 
 
+//get pending projects for admin
+public function getpendingprojects()
+{
+    $query="SELECT  p.*, 
+    sv.id AS visit_id, 
+    l.zone, 
+    z.zone_name, 
+    l.crop_type, 
+    p.crop_type AS selected_crop
+FROM 
+    project p
+JOIN 
+    site_visit sv ON p.land_id = sv.land_id
+JOIN 
+    land l ON p.land_id = l.id
+JOIN 
+    zone z ON l.zone = z.id
+WHERE 
+    p.status = 'pending'";
+    $result = $this->query($query);
+    return $result;  // returns all pending projects
+
+}
+
+
+
+public function approveproject($id){
+    $query="UPDATE project SET status='ongoing' WHERE id=:id";
+    $data=[
+        'id'=>$id
+    ];
+    $this->query($query,$data);
 
 }
 
@@ -133,6 +182,7 @@ public function getsupinfo($land_id){
 
 
 
+}
 
 
 

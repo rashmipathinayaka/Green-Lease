@@ -68,22 +68,7 @@
               
             </div>
 
-<style>
-            .report-button {
-    background-color: #f44336;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
 
-.report-button:hover {
-    background-color: #c62828;
-}
-</style>
 
             <!-- Add this anywhere in the dashboard section -->
 <div style="text-align: right; margin: 20px;"><button>
@@ -91,7 +76,11 @@
 </button>
 </div>
 
-
+<div class="info">
+    <div class="topic">
+        <div class="topic-title">most popular crop type</div>
+        <div class="topic-content">tea</div>
+        <div class="topic-title">most popular land type</div>
 
 
 

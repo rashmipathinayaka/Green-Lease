@@ -215,9 +215,15 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 
 
 
-
+//for admins manageland section
 public function getFilteredLands($filters = []) {
-    $query = "SELECT * FROM land WHERE 1=1 ORDER BY registered_date DESC";
+	$query = "SELECT land.*, zone.zone_name, project.id AS project_id
+	FROM land 
+	JOIN zone ON land.zone = zone.id 
+	LEFT JOIN project ON project.land_id = land.id
+	WHERE 1=1";
+
+    
     $params = [];
 
     if (!empty($filters['crop_type'])) {
@@ -230,8 +236,17 @@ public function getFilteredLands($filters = []) {
         $params[] = $filters['status'];
     }
 
+    if (!empty($filters['zone_id'])) {
+        $query .= " AND land.zone = ?";
+        $params[] = $filters['zone_id'];
+    }
+
+    $query .= " ORDER BY registered_date DESC";
+
     return $this->query($query, $params);
 }
+
+
 
 public function takeLandId() {
     $query = 'SELECT id FROM land ORDER BY id DESC LIMIT 1';

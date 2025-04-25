@@ -38,7 +38,7 @@
 			</li>
 			<li>
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
-				<a href="<?php echo URLROOT; ?>/Supervisor/Site_Visit">site visit</a>
+				<a href="<?php echo URLROOT; ?>/Supervisor/Site_Visit">Site visit</a>
 			</li>
 
 			<li>
