@@ -16,8 +16,9 @@ class RProject
        'start_date',
          'crop_type',
          'sitehead_id',
-         'profit',  
+         'profit_rate',  
             'description',
+            'profit',
     ];
 
     // Method to count the number of projects for a given supervisor
@@ -97,7 +98,7 @@ $this->query($query,$data);
 //admin initilaize project
 
 public function initializeproject($formdata){
-    $query="INSERT INTO project (land_id,crop_type,duration,profit,sitehead_id,status,supervisor_id,description) 
+    $query="INSERT INTO project (land_id,crop_type,duration,profit_rate,sitehead_id,status,supervisor_id,description) 
                         VALUES (:land_id,:crop_type,:duration,:profit,:sitehead_id,:status,:supervisor_id,:description)";
    
     

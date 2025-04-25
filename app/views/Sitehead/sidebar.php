@@ -44,6 +44,11 @@
 				<a href="<?php echo URLROOT; ?>/sitehead/feedback">Manage Feedbacks</a>
 			</li>
 
+			<li>
+				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+				<a href="<?php echo URLROOT; ?>/sitehead/project_completion">Complete project</a>
+			</li>
+
 		</ul>
 
 		<!-- Logout Section -->
