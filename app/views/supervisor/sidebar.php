@@ -45,7 +45,14 @@
 				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
 				<a href="<?php echo URLROOT; ?>/Supervisor/Event">Event Schedule</a>
 			</li>
-			
+			<li>
+				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+				<a href="<?php echo URLROOT; ?>/Supervisor/Attendance">Attendance</a>
+			</li>
+			<li>
+				<img src="<?= URLROOT ?>/assets/images/leaf (3).png" alt="Green Lease Logo" class="menu-icon">
+				<a href="<?php echo URLROOT; ?>/Supervisor/feedback">Manage Feedbacks</a>
+			</li>
 		</ul>
 		<ul class="logout">
 			<li><a href="/gl/logout.php">Log Out</a></li>
