@@ -137,6 +137,24 @@
     margin-bottom: 20px;
     color:black;
 }
+
+/* Postpone Link Styles */
+.postpone-link {
+    margin-top: 15px;
+    text-align: center;
+}
+
+.postpone-link a {
+    color: #e74c3c;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.2s;
+}
+
+.postpone-link a:hover {
+    color: #c0392b;
+    text-decoration: underline;
+}
 /* 
 .form-group {
     margin-bottom: 20px;

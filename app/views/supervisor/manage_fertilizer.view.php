@@ -58,7 +58,7 @@
 								<td><?php echo htmlspecialchars($request->preferred_date); ?></td>
 								<td><?php echo htmlspecialchars($request->remarks); ?></td>
 								<td>
-									<button class="green-btn" onclick="confirmApproveRequest(<?php echo $request->id; ?>)">Approve</button>
+									<button class="green-btn" onclick="confirmApproveRequest(<?php echo $request->id; ?>)">Proceed</button>
 									<!-- <button class="red-btn" onclick="confirmRejectRequest(<?php echo $request->id; ?>)">Reject</button> -->
 
 								</td>
@@ -84,11 +84,11 @@
 						<th>Sitehead <br> Name</th>
 						<th>Contact No.</th>
 						<th>Crop type</th>
-						<th>Requested <br> Fertilizer Type</th>
-						<th>Amount(kg)</th>
-						<th>Prefferrred <br> Delivery Date</th>
-						<th>Remarks</th>
-						<th>actions</th>
+						<th>Requested<br>Fertilizer Type</th>
+						<th>Requested<br>Amount(kg)</th>
+						<th>Approved<br>Amount(kg)</th>
+						<th>Planned <br> Delivery Date</th>
+						<!-- <th>actions</th> -->
 					</tr>
 				</thead>
 				<tbody>
@@ -100,13 +100,13 @@
 								<td><?php echo htmlspecialchars($request->crop_type); ?></td>
 								<td><?php echo htmlspecialchars($request->fertilizer_type); ?></td>
 								<td><?php echo htmlspecialchars($request->amount); ?></td>
-								<td><?php echo htmlspecialchars($request->preferred_date); ?></td>
-								<td><?php echo htmlspecialchars($request->remarks); ?></td>
+								<td><?php echo htmlspecialchars($request->approvedAmount); ?></td>
+								<td><?php echo htmlspecialchars($request->plannedDate); ?></td>
 							</tr>
 						<?php endforeach; ?>
 					<?php else : ?>
 						<tr>
-							<td colspan="8">No handled requests found.</td>
+							<td colspan="7">No handled requests found.</td>
 						</tr>
 					<?php endif; ?>
 				</tbody>

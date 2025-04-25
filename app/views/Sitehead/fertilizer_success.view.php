@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Fertilizer Request Submitted</title>
     <link rel="stylesheet" href="<?= URLROOT ?>/assets/css/sitehead/issue_success.css">
+    <link rel="stylesheet" href="<?= URLROOT ?>/assets/css/sitehead.css">
 </head>
 
 <body>
