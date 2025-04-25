@@ -14,7 +14,7 @@
 
     <?php
 
-    require ROOT . '/views/admin/sidebar.php';
+    require ROOT . '/views/supervisor/sidebar.php';
     require ROOT . '/views/components/topbar.php';
 
     ?>
@@ -62,7 +62,7 @@
                                 <?php echo htmlspecialchars($us->feedback); ?>
                             </div>
                             <div class="feedback-actions">
-                                <form method="post" action="<?php echo htmlspecialchars(URLROOT); ?>/admin/Feedback/markSolved" onsubmit="return confirm('Are you sure you want to mark this feedback as solved?');">
+                                <form method="post" action="<?php echo htmlspecialchars(URLROOT); ?>/supervisor/Feedback/markSolved" onsubmit="return confirm('Are you sure you want to mark this feedback as solved?');">
                                     <input type="hidden" name="feedback_id" value="<?php echo htmlspecialchars($us->id); ?>">
                                     <button type="submit" name="mark_solved" class="button solve-button">Mark as Solved</button>
                                 </form>
@@ -109,7 +109,7 @@
                                 ?>
                             </div>
                             <div class="feedback-actions">
-                                <form method="post" action="<?= URLROOT ?>/admin/Feedback/deleteFeedback" onsubmit="return confirm('Are you sure you want to delete this feedback?');">
+                                <form method="post" action="<?= URLROOT ?>/supervisor/Feedback/deleteFeedback" onsubmit="return confirm('Are you sure you want to delete this feedback?');">
                                     <button type="submit" name="feedback_id" value="<?= htmlspecialchars($sl->id) ?>" class="button delete-button">Delete</button>
                                 </form>
 
