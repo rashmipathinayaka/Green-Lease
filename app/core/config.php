@@ -16,8 +16,6 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 
 	define('ROOT', dirname(dirname(__FILE__)));
 	define('URLROOT', 'http://localhost/Green-Lease/public');
-
-
 } else {
 	/** database config **/
 	define('DBNAME', 'sasmitha_green_lease');
@@ -27,8 +25,6 @@ if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	define('DBDRIVER', '');
 
 	define('ROOT', 'https://www.yourwebsite.com');
-
-
 }
 
 define('APP_NAME', "My Website");
@@ -39,11 +35,11 @@ define('DEBUG', true);
 
 // Error handling for production
 if (!DEBUG) {
-    error_reporting(0);
-    ini_set('display_errors', '0');
+	error_reporting(0);
+	ini_set('display_errors', '0');
 } else {
-    error_reporting(E_ALL);
-    ini_set('display_errors', '1');
+	error_reporting(E_ALL);
+	ini_set('display_errors', '1');
 }
 
 // Stripe Configuration removed
@@ -52,12 +48,12 @@ if (!DEBUG) {
 
 // Add this helper to load .env if not already loaded
 if (file_exists(__DIR__ . '/../../.env')) {
-    $lines = file(__DIR__ . '/../../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-    foreach ($lines as $line) {
-        if (strpos(trim($line), '#') === 0) continue;
-        list($name, $value) = array_map('trim', explode('=', $line, 2));
-        if (!getenv($name)) {
-            putenv("{$name}={$value}");
-        }
-    }
+	$lines = file(__DIR__ . '/../../.env', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+	foreach ($lines as $line) {
+		if (strpos(trim($line), '#') === 0) continue;
+		list($name, $value) = array_map('trim', explode('=', $line, 2));
+		if (!getenv($name)) {
+			putenv("{$name}={$value}");
+		}
+	}
 }

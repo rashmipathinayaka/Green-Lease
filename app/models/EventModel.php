@@ -27,14 +27,11 @@ class EventModel
      * @param array $projectIds Array of project IDs
      * @return array Array of event objects
      */
-    public function getTodaysEvents($projectIds)
+    public function getTodaysEvents($projectId)
     {
-        if (empty($projectIds)) {
+        if (empty($projectId)) {
             return [];
         }
-
-        // Prepare placeholders for the IN clause
-        $placeholders = implode(',', array_fill(0, count($projectIds), '?'));
 
         // Get today's date
         $today = date('Y-m-d');
@@ -42,14 +39,11 @@ class EventModel
         $query = "SELECT e.*, p.crop_type 
                  FROM {$this->table} e
                  JOIN project p ON e.project_id = p.id
-                 WHERE e.project_id IN ($placeholders)
+                 WHERE e.project_id = ?
                  AND DATE(e.date) = ?
                  ORDER BY e.date ASC";
 
-        // Combine project IDs and today's date for binding
-        $params = array_merge($projectIds, [$today]);
-
-        return $this->query($query, $params);
+        return $this->query($query, [$projectId, $today]);
     }
 
     public function getEventWithImages($eventId)

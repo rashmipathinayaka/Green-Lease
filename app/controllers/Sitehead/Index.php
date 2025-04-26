@@ -28,27 +28,23 @@ class Index
 			$siteheadData = $siteheadModel->first(['user_id' => $userId]);
 
 			if (!empty($siteheadData)) {
-				// Get project IDs of the sitehead
+				// Get ongoing project ID of the sitehead
 				$projectModel = new Project();
-				$projectIds = [];
 
-				$projects = $projectModel->where([
+				$project = $projectModel->first([
 					'sitehead_id' => $siteheadData->id,
 					'status' => 'ongoing'
 				]);
 
-				foreach ($projects as $project) {
-					$projectIds[] = $project->id;
-				}
-
 				// Get today's events if we have projects
-				if (!empty($projectIds)) {
+				if ($project !== false) {
 					$eventModel = new EventModel();
-					$data['todaysEvents'] = $eventModel->getTodaysEvents($projectIds);
+					$data['todaysEvents'] = $eventModel->getTodaysEvents($project->id);
 				}
 			}
 
 			$data['sname'] = $userData->full_name;
+			$data['project'] = $project;
 
 			// // Get upcoming events count (implement your logic)
 			// $data['upcomingEventsCount'] = $this->getUpcomingEventsCount($userId);
