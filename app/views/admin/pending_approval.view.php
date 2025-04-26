@@ -67,6 +67,10 @@
                                     <a href="<?= URLROOT ?>/Admin/Pending_approval/opensitevisit/<?php echo $land->id; ?>">
                                         <button class="red-btn">site visit</button>
                                     </a>
+                                    <a href="<?= URLROOT ?>/Admin/Pending_approval/rejectland/<?php echo $land->id; ?>">
+                                        <button class="red-btn">Reject land</button>
+                                    </a>
+
                                 </td>
                             </tr>
                         <?php endforeach; ?>

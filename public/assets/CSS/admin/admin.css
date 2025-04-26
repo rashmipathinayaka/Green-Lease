@@ -29,9 +29,9 @@ body {
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(43, 164, 119, 0.395);
   margin: 20px 20px;
-  width: 40%;
+  width: 45%;
   max-width: 700px;
-  height: 396px; /* Set a height for the chart box */
+  height: 460px; /* Set a height for the chart box */
   display: flex;
   flex-direction: column; /* Stack the content vertically */
   justify-content: space-between; /* Space the content between top and bottom */
@@ -47,7 +47,7 @@ body {
 
 .charts {
   display: flex;
-  justify-content: space-around; /* Space out charts */
+  justify-content: space-around; 
 }
 
 .landBarChart {

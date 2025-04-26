@@ -197,6 +197,13 @@ h6 {
     margin-bottom: 20px;
 }
 
+.error {
+    color: red;
+    font-size: 0.85em;
+    margin-top: 4px;
+    display: block;
+}
+
 /* Submit Button */
 .form-submit-btn {
     width: 100%;
