@@ -58,7 +58,13 @@ $this->projects->approveproject($id);
 
 }
 
+public function rejectland($id){
 
+    if($this->manageland->rejectland($id)){
+        echo "hari";
+    }
+
+}
 
 
 

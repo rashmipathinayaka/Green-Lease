@@ -27,11 +27,15 @@
 
 					<!-- MAP + Coordinates -->
 					<div id="map" style="height: 400px;"></div>
+					<div id="map-error" style="color: red; margin-top: 5px; display: none;">
+						Please select a location on the map.
+					</div>
+
 					<label for="latitude">Latitude</label>
-					<input type="number" id="latitude" name="latitude" step="any" readonly placeholder="Latitude">
+					<input type="number" id="latitude" name="latitude" step="any" readonly placeholder="Latitude" required>
 
 					<label for="longitude">Longitude</label>
-					<input type="number" id="longitude" name="longitude" step="any" readonly placeholder="Longitude">
+					<input type="number" id="longitude" name="longitude" step="any" readonly placeholder="Longitude" required>
 
 					<label for="district">District</label>
 					<select name="zone_id" id="district" required>
@@ -118,34 +122,49 @@
 			}
 
 			marker.bindPopup(`Selected Location:<br>Lat: ${lat.toFixed(5)}, Lng: ${lng.toFixed(5)}`).openPopup();
+
+			// Hide error message after a valid selection
+			document.getElementById('map-error').style.display = 'none';
 		});
-
-
-
 
 		document.addEventListener('DOMContentLoaded', function() {
 			const fromDateInput = document.getElementById('from_date');
 			const toDateInput = document.getElementById('to_date');
+			const form = document.querySelector('form');
 
-			// Update min date for "to_date" when "from_date" changes
 			fromDateInput.addEventListener('change', function() {
-				toDateInput.min = this.value; // Ensures "to_date" cannot be before "from_date"
+				toDateInput.min = this.value;
 
-				// If current "to_date" is invalid, reset it
 				if (toDateInput.value && new Date(toDateInput.value) < new Date(this.value)) {
 					toDateInput.value = '';
 				}
 			});
 
-			// Optional: Validate on form submission
-			document.querySelector('form').addEventListener('submit', function(e) {
-				if (new Date(toDateInput.value) <= new Date(fromDateInput.value)) {
-					e.preventDefault(); // Prevent form submission
+			form.addEventListener('submit', function(e) {
+				const lat = document.getElementById('latitude').value;
+				const lng = document.getElementById('longitude').value;
+				const fromDate = fromDateInput.value;
+				const toDate = toDateInput.value;
+				const mapError = document.getElementById('map-error');
+
+				mapError.style.display = 'none'; // Reset error visibility
+
+				// Map validation
+				if (!lat || !lng) {
+					e.preventDefault();
+					mapError.style.display = 'block';
+					return;
+				}
+
+				// Date validation
+				if (new Date(toDate) <= new Date(fromDate)) {
+					e.preventDefault();
 					alert('"To Date" must be after "From Date"!');
 				}
 			});
 		});
 	</script>
+
 
 </body>
 

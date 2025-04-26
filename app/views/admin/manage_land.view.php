@@ -32,10 +32,13 @@
 
         <label for="status">Status:</label>
         <select name="status" id="status">
-            <option value="">All</option>
-            <option value="0" <?= (isset($_GET['status']) && $_GET['status'] === '0') ? 'selected' : '' ?>>Pending</option>
-            <option value="1" <?= (isset($_GET['status']) && $_GET['status'] === '1') ? 'selected' : '' ?>>Approved</option>
-        </select>
+    <option value="">All</option>
+    <option value="1" <?= (isset($_GET['status']) && $_GET['status'] === '1') ? 'selected' : '' ?>>Pending</option>
+    <option value="2" <?= (isset($_GET['status']) && $_GET['status'] === '2') ? 'selected' : '' ?>>Ongoing</option>
+    <option value="3" <?= (isset($_GET['status']) && $_GET['status'] === '3') ? 'selected' : '' ?>>Completed</option>
+    <option value="4" <?= (isset($_GET['status']) && $_GET['status'] === '4') ? 'selected' : '' ?>>Rejected</option>
+</select>
+
 
 
         <label for="zone_id">Zone:</label>
@@ -92,14 +95,18 @@
                             </td>
 
                             <td>
-                                <?= $land->status === 0 ? "Pending" : "Approved" ?>
+                                <?=
+                                $land->status == 1 ? "Pending" : ($land->status == 2 ? "Ongoing" : ($land->status == 3 ? "Completed" : ($land->status == 4 ? "Rejected" : "Unknown")))
+                                ?>
+
                             </td>
                             <td>
-                                <?php if ($land->status === 0): ?>
-                                    <!-- <button class="red-btn" onclick="window.location.href='<?php echo URLROOT; ?>/admin/Manage_land/updateland/<?php echo $land->id; ?>';">Approve</button> -->
-                                <?php else: ?>
+                                <?php if ($land->status == 2 || $land->status == 3): ?>
                                     <button class="green-btn" onclick="window.location.href='<?php echo URLROOT; ?>/components/project/index/<?php echo $land->project_id; ?>';">View project</button>
+                                <?php else: ?>
+                                    <!-- put another button or leave it empty -->
                                 <?php endif; ?>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>

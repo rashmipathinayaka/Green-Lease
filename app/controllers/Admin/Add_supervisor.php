@@ -20,6 +20,7 @@ class Add_supervisor
 
     public function index()
     {
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $full_name = $_POST['full_name'] ?? null;
             $zone = $_POST['zone'] ?? null;
@@ -55,13 +56,16 @@ class Add_supervisor
                 ];
 
                //supervisor table ekta data insert karanna
-               $this->supervisor->insert($formData2);
-
+               if($this->supervisor->insert($formData2)){
+               
+               }
             
        
 
                 // Send an email with the plain password to the supervisor
                 $this->sendEmailToSupervisor($email, $full_name, $password);
+                
+
             }
         }
 $zones = $this->zoneModel->getAllZones(); // Fetch all zones for the dropdown
@@ -107,14 +111,14 @@ $zones = $this->zoneModel->getAllZones(); // Fetch all zones for the dropdown
 
             // Send email
             if ($mail->send()) {
-                echo "Email sent successfully to $email!";
+                // echo "Email sent successfully to $email!";
             } else {
-                throw new Exception("Email could not be sent.");
+                // throw new Exception("Email could not be sent.");
             }
         } catch (Exception $e) {
             // Log error to PHP error log
-            error_log("Email error: {$mail->ErrorInfo}");
-            echo "There was an issue sending the email: " . $e->getMessage();  // Optionally display error message in dev
+            // error_log("Email error: {$mail->ErrorInfo}");
+            // echo "There was an issue sending the email: " . $e->getMessage();  // Optionally display error message in dev
         }
     }
 }

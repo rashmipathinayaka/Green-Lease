@@ -139,12 +139,12 @@ h1 i {
 }
 
 .btn-solve {
-    background-color: var(--accent-green);
+    background-color:rgb(211, 27, 27);
     color: var(--white);
 }
 
 .btn-solve:hover {
-    background-color: var(--dark-green);
+    background-color:#721515;
 }
 
 .no-inquiries {
