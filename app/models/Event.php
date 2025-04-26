@@ -7,6 +7,6 @@ class Event
 
     public function getAvailableEvents()
     {
-        return $this->query("SELECT * FROM event WHERE status = 'Available'");
+        return $this->query("SELECT * FROM event WHERE completion_status = 'pending'");
     }
 }

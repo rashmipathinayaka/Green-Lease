@@ -99,18 +99,12 @@
 
         <!-- Filter Form -->
         <form method="GET" action="" class="filter-form">
-            <select name="status" id="status">
-                <option value="">All Status</option>
-                <option value="Pending" <?= (isset($_GET['status']) && $_GET['status'] === 'Pending') ? 'selected' : '' ?>>Pending</option>
-                <option value="Approved" <?= (isset($_GET['status']) && $_GET['status'] === 'Approved') ? 'selected' : '' ?>>Approved</option>
-                <option value="Not Approved" <?= (isset($_GET['status']) && $_GET['status'] === 'Not Approved') ? 'selected' : '' ?>>Not Approved</option>
-                <option value="Rejected (No Payment)" <?= (isset($_GET['status']) && $_GET['status'] === 'Rejected (No Payment)') ? 'selected' : '' ?>>Rejected (No Payment)</option>
-            </select>
-
-            <input type="date" name="date_from" value="<?= isset($_GET['date_from']) ? htmlspecialchars($_GET['date_from']) : '' ?>" placeholder="From Date">
-            <input type="date" name="date_to" value="<?= isset($_GET['date_to']) ? htmlspecialchars($_GET['date_to']) : '' ?>" placeholder="To Date">
-
-            <button type="submit">Apply Filters</button>
+        <label for="date_from" style="margin-right: 2px; color: #333; font-size: 14px;">From</label>
+        <input type="date" name="date_from" id="date_from" value="<?= isset($_GET['date_from']) ? htmlspecialchars($_GET['date_from']) : '' ?>" placeholder="From Date">
+        <label for="date_to" style="margin-left: 8px; margin-right: 2px; color: #333; font-size: 14px;">To</label>
+        <input type="date" name="date_to" id="date_to" value="<?= isset($_GET['date_to']) ? htmlspecialchars($_GET['date_to']) : '' ?>" placeholder="To Date">
+        <input type="text" name="event_name" value="<?= isset($_GET['event_name']) ? htmlspecialchars($_GET['event_name']) : '' ?>" placeholder="Event Name">
+        <button type="submit">Apply Filters</button>
         </form>
 
         <!-- Active Bids Tab -->
