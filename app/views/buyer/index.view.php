@@ -14,6 +14,7 @@
 <body>
 
 <?php
+$activePage = 'dashboard';
 require ROOT . '/views/buyer/sidebar.php';
 require ROOT . '/views/components/topbar.php';
 ?>
@@ -22,6 +23,12 @@ require ROOT . '/views/components/topbar.php';
        
         <div class="content">
             <div id="dashboard-section" class="section">
+            <div class="welcome-container">
+				<div class="welcome-header">
+					<h1>Hello, <span class="username"><?= htmlspecialchars($sname) ?></span> ! 👋</h1>
+					<p class="welcome-message">Welcome back to your dashboard</p>
+				</div>
+			</div>
                 <div class="metric-grid">
                     <div class="metric-card">
                         <h3>Pending Payments</h3>

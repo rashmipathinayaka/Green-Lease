@@ -75,7 +75,11 @@ class Sitehead
     ]);
 }
 
-
-
+public function first($where)
+{
+    $keys = array_keys($where);
+    $query = "SELECT * FROM sitehead WHERE " . implode(' = ? AND ', $keys) . " = ? LIMIT 1";
+    return $this->query($query, array_values($where))[0] ?? false;
+}
 
 }

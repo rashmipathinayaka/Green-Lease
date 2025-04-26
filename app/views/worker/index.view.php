@@ -133,43 +133,6 @@ require ROOT . '/views/components/topbar.php';
         </div>
     </div>
 
-    <div class="worker-events-section">
-        <div class="worker-events-header" style="margin-top: 120px;">
-            <h2>Postponed Events</h2>
-            <div class="worker-event-filter">
-                <input type="text" placeholder="Search by project ID or date">
-                <button><i class="fas fa-search"></i></button>
-            </div>
-        </div>
-
-        <div class="worker-events-list" style="margin-bottom: 30px;">
-            <?php if (!empty($events)): ?>
-                <?php foreach ($events as $event): ?>
-                    <div class="worker-event-card">
-                        <div class="worker-event-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <div class="worker-event-details">
-                            <div class="worker-event-header">
-                                <h3><?= htmlspecialchars($event->event_name) ?></h3>
-                            </div>
-                            <div class="worker-event-info">
-                                <span><i class="fas fa-clock"></i> <?= $event->date?></span>
-                                <span><i class="fas fa-map-pin"></i> Project ID: <?= $event->project_id ?></span>
-                                <span><i class="fas fa-user"></i> Assigned Supervisor</span>
-                            </div>
-                        </div>
-                        <div class="worker-event-actions">
-                            <button class="green-btn" onclick="confirmApply(<?= $event->id ?>)">Apply</button>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="no-events-message">No available events right now.</p>
-            <?php endif; ?>
-        </div>
-    </div>
-
     <!-- Confirmation Modal -->
     <div id="confirmationModal" class="confirmation-modal">
         <div class="confirmation-modal-content">

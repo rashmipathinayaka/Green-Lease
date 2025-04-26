@@ -15,11 +15,11 @@ class Index
         }
 
         // Check if user is a sitehead (role_id = 3)
-        if ($_SESSION['role_id'] != 2) {
-            // Redirect to their own dashboard or show error
-            header('Location: ' . URLROOT . '/unauthorized');
-            exit;
-        }
+        // if ($_SESSION['role_id'] != 5) {
+        //     // Redirect to their own dashboard or show error
+        //     header('Location: ' . URLROOT . '/unauthorized');
+        //     exit;
+        // }
 
         $this->view('supervisor/index');
     }
