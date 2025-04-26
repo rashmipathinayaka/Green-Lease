@@ -9,7 +9,7 @@
     <title>Document</title>
 </head>
 
-<body>
+<body style="margin-top: 50px; margin-left: 20px; margin-right: 20px;">
 
     <?php
 

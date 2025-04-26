@@ -96,6 +96,9 @@
                     <button type="submit" class="signup-button">Create Account</button>
                 </div>
             </form>
+            <div class="register-link">
+                    Already have an account? <a href="<?= URLROOT ?>/login">Login</a>
+            </div>
         </div>
     </div>
     <script src="<?= URLROOT ?>/assets/js/signup.js"></script>

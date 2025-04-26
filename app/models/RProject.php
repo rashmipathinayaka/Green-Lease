@@ -16,8 +16,9 @@ class RProject
        'start_date',
          'crop_type',
          'sitehead_id',
-         'profit',  
+         'profit_rate',  
             'description',
+            'profit',
     ];
 
     // Method to count the number of projects for a given supervisor
@@ -75,7 +76,7 @@ public function getsiteheadbyproid($id)
 
 public function getsupervisorbyproid($id)
 {
-$query="SELECT U.* fROM user u,supervisor s,project  p WHERE p.id=:id AND p.supervisor_id=s.id AND s.user_id=u.id";
+$query="SELECT u.* fROM user u,supervisor s,project  p WHERE p.id=:id AND p.supervisor_id=s.id AND s.user_id=u.id";
     $data = ['id' => $id];
     $result = $this->query($query, $data);
     return $result ? $result[0] : null;  // returns single sitehead details
@@ -97,7 +98,7 @@ $this->query($query,$data);
 //admin initilaize project
 
 public function initializeproject($formdata){
-    $query="INSERT INTO project (land_id,crop_type,duration,profit,sitehead_id,status,supervisor_id,description) 
+    $query="INSERT INTO project (land_id,crop_type,duration,profit_rate,sitehead_id,status,supervisor_id,description) 
                         VALUES (:land_id,:crop_type,:duration,:profit,:sitehead_id,:status,:supervisor_id,:description)";
    
     

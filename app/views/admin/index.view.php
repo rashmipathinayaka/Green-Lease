@@ -76,22 +76,6 @@
 </button>
 </div>
 
-<div class="info">
-    <div class="topic">
-        <div class="topic-title">most popular crop type</div>
-        <div class="topic-content">tea</div>
-        <div class="topic-title">most popular land type</div>
-
-
-
-
-
-
-
-
-
-
-
 
 
 

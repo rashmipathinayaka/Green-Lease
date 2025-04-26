@@ -7,7 +7,7 @@
     <title>Project Details & Events</title>
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/components/project.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
 </head>
 
@@ -136,7 +136,7 @@
         </section>
 
         <!-- Stats Section -->
-     
+
 
         <!-- Upcoming Events -->
         <!-- <section class="events-section">
@@ -256,6 +256,7 @@
     </div>
 
     <!-- Footer -->
+    <?php if (isset($_SESSION['id'])): ?>
     <footer>
         <div class="container">
             <div class="footer-content">
@@ -270,12 +271,14 @@
                     </form>
 
 
-
-
-
                 </div>
     </footer>
+
+    <?php endif; ?>
+
 </body>
+
+
 <script>
     // Function to open the modal and display all images
     function openImageModal(eventId) {
@@ -299,13 +302,8 @@
             }
         }
     }
-
 </script>
 <script>
-
-
-
-    
     // Ensure landdetails contains latitude and longitude properties
     var latitude = <?php echo $landdetails->latitude; ?>;
     var longitude = <?php echo $landdetails->longitude; ?>;
