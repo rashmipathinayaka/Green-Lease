@@ -18,7 +18,10 @@
 
     ?>
 
-    <h1 font face='green'>Upcomming harvests</h1><br><br><br>
+    <center>
+        <h1>Upcoming Harvests</h1>
+    </center>
+    <br><br>
 
 
     <div id="completed-projects">
