@@ -46,36 +46,6 @@ class RLand
 		if (empty($data['crop_type'])) {
 			$this->errors['crop_type'] = "Crop type is required";
 		}
-		if (empty($data['zone'])) {
-			$this->errors['zone'] = "Zone is required";
-		}
-		if (empty($data['district'])) {
-			$this->errors['district'] = "district is required";
-		}
-		if (empty($data['latitude'])) {
-			$this->errors['latitude'] = "Latitude is required";
-		}
-		if (empty($data['longitude'])) {
-			$this->errors['longitude'] = "Longitude is required";
-		}
-		if (empty($data['document'])) {
-			$this->errors['document'] = "Document is required";
-		} else {
-			$allowedTypes = ['application/pdf', 'image/jpeg', 'image/png'];
-			if (!in_array($_FILES['document']['type'], $allowedTypes)) {
-				$this->errors['document'] = "Invalid document type. Only PDF, JPEG, and PNG are allowed.";
-			}
-		}
-		if (empty($data['from_date'])) {
-			$this->errors['from_date'] = "From date is required";
-		}
-		if (empty($data['to_date'])) {
-			$this->errors['to_date'] = "To date is required";
-		} else {
-			if ($data['from_date'] > $data['to_date']) {
-				$this->errors['date_range'] = "To date must be greater than from date";
-			}
-		}
 		
 
 
