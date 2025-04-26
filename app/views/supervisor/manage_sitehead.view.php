@@ -9,7 +9,7 @@
   <title>Manage Site Heads</title>
   <style>
   #add-sitehead-btn {
-    padding: 8px 16px;
+    padding: 8px 10px;
     background-color: #4CAF50;
     color: white;
     border: none;
@@ -61,6 +61,7 @@
 </head>
 
 <body>
+  
 <?php
 require ROOT . '/views/supervisor/sidebar.php';
 require ROOT . '/views/components/topbar.php';
@@ -70,7 +71,18 @@ require ROOT . '/views/components/topbar.php';
     <h1>Manage Site Heads</h1>
   </center>
   <br><br>
-  
+  <?php if (!empty($success)): ?>
+    <div style="padding: 10px; background-color: #d4edda; color: #155724; margin-bottom: 10px; border: 1px solid #c3e6cb; border-radius: 5px;">
+        <?= htmlspecialchars($success) ?>
+    </div>
+<?php endif; ?>
+<!-- Error message display -->
+<?php if (isset($error)): ?>
+        <div class="error-message" style="padding: 10px; background-color: #f8d7da; color: #721c24; margin-bottom: 10px; border: 1px solid #f5c6cb; border-radius: 5px;">
+            <?= $error ?>
+        </div>
+    <?php endif; ?>
+
 
   <button class="green-btn" id="add-sitehead-btn">
   &#43; Assign Site Head
@@ -117,21 +129,18 @@ require ROOT . '/views/components/topbar.php';
   </tbody>
 </table>
 
-<div id="no-results-message" class="no-results-message" style="display: none;">
-      No results found for your search.
-    </div>
+<div id="no-results-message" class="no-results-message" style="display: none; padding: 10px; background-color: #d4edda; color: #155724; margin-bottom: 10px; border: 1px solid #c3e6cb; border-radius: 5px;">
+  No results found for your search.
+</div>
 
-  
+
 
   <!-- Add Sitehead Modal -->
 <div id="add-sitehead-form" class="modal">
   <div class="modal-content">
     <span class="close-form">&times;</span>
     <h2>Add New Site Head</h2>
-    <?php if (!empty($error)): ?>
-  <div style="color: red; margin-bottom: 10px;"><?= $error ?></div>
-<?php endif; ?>
-
+   
     <form method="POST" action="<?php echo URLROOT; ?>/supervisor/manage_sitehead/add_sitehead" class="form-styles">
       <label for="user_id">User ID & Name:</label>
       <select name="user_id" required>

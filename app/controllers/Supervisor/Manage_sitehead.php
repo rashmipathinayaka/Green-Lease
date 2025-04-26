@@ -20,6 +20,7 @@ class Manage_sitehead
         $this->view('Supervisor/Manage_sitehead', [
             'data' => $data,
             'inactiveUsers' => $inactiveUsers
+
         ]);
     }
     public function add_sitehead()
@@ -29,10 +30,17 @@ class Manage_sitehead
             $land_id = $_POST['land_id'] ?? null;
             $full_name = $_POST['full_name'] ?? null;
 
-    if ($this->sitehead->isLandAssigned($land_id)) {
-            echo "This land is already assigned to an active sitehead.";
-            return;
-        }
+            if ($this->sitehead->isLandAssigned($land_id)) {
+                // Set error message and return
+                $this->view('supervisor/manage_sitehead', [
+                    'error' => "This land is already assigned to an active sitehead.",
+                    'inactiveUsers' => $this->sitehead->getInactiveUsers(),
+                    'data' => $this->sitehead->getAllSiteheads('1')
+                ]);
+                return;
+            }
+
+        
             // Step 1: Validate input
             $formData = [
                 'user_id' => $user_id,
@@ -63,8 +71,10 @@ class Manage_sitehead
     
                 $this->view('Supervisor/Manage_sitehead', [
                     'data' => $data,
-                    'inactiveUsers' => $inactiveUsers
+                    'inactiveUsers' => $inactiveUsers,
+                    'success' => "Sitehead assigned successfully!"
                 ]);
+                
             } else {
                 echo "Validation failed.";
             }
