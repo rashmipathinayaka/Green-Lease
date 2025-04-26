@@ -24,33 +24,25 @@ require ROOT . '/views/components/topbar.php';
             <div id="dashboard-section" class="section">
                 <div class="metric-grid">
                     <div class="metric-card">
-                        <h3>Heading 1</h3>
+                        <h3>Pending Payments</h3>
                         <div class="metric-content">
-                            <span class="metric-value">Value 1</span>
+                            <span class="metric-value"><?= $pending_payments_count ?></span>
                             <i class="fas fa-user"></i>
                         </div>
                         <button>View</button>
                     </div>
                     <div class="metric-card">
-                        <h3>Heading 2</h3>
+                        <h3>Bids Placed</h3>
                         <div class="metric-content">
-                            <span class="metric-value">Value 2</span>
+                            <span class="metric-value"><?= $bids_placed_count ?></span>
                             <i class="fas fa-user"></i>
                         </div>
                         <button>View</button>
                     </div>
                     <div class="metric-card">
-                        <h3>Heading 3</h3>
+                        <h3>Complaints Filed</h3>
                         <div class="metric-content">
-                            <span class="metric-value">Value 3</span>
-                            <i class="fas fa-user"></i>
-                        </div>
-                        <button>View</button>
-                    </div>
-                    <div class="metric-card">
-                        <h3>Heading 4</h3>
-                        <div class="metric-content">
-                            <span class="metric-value">Value 4</span>
+                            <span class="metric-value"><?= $complaints_filed_count ?></span>
                             <i class="fas fa-user"></i>
                         </div>
                         <button>View</button>
@@ -77,7 +69,9 @@ require ROOT . '/views/components/topbar.php';
                                     <td>LKR <?= number_format($payment->amount * $payment->unit_price, 2) ?></td>
                                     <td><?= $payment->status ?></td>
                                     <td>
-                                        <button class="green-btn" onclick="initiatePayment(<?= $payment->id ?>, <?= $payment->amount * $payment->unit_price ?>)">Pay</button>
+                                        <a href="<?= URLROOT ?>/Buyer/Payment/checkout/<?= $payment->id ?>">
+                                            <button class="green-btn">Pay</button>
+                                        </a>
                                         <button class="red-btn" onclick="cancelOrder(<?= $payment->id ?>)">Cancel Order</button>
                                     </td>
                                 </tr>
@@ -96,186 +90,6 @@ require ROOT . '/views/components/topbar.php';
             
         </div>
     </div>    
-
-    <!-- Payment Modal -->
-    <div id="paymentModal" class="modal">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h2>Complete Payment</h2>
-                <span class="close" onclick="closePaymentModal()">&times;</span>
-            </div>
-            <div class="modal-body">
-                <form id="payment-form">
-                    <div id="card-element">
-                        <!-- Stripe Elements will be inserted here -->
-                    </div>
-                    <button id="submit" class="green-btn">
-                        <span id="button-text">Pay now</span>
-                        <span id="spinner" class="spinner hidden"></span>
-                    </button>
-                    <div id="payment-message" class="hidden"></div>
-                </form>
-            </div>
-        </div>
-    </div>
-
-    <script src="https://js.stripe.com/v3/"></script>
-    <script>
-        const stripe = Stripe('<?= STRIPE_PUBLISHABLE_KEY ?>');
-        let elements;
-        let currentBidId;
-        let currentAmount;
-        let clientSecret;
-
-        function initiatePayment(bidId, amount) {
-            currentBidId = bidId;
-            currentAmount = amount;
-            document.getElementById('paymentModal').style.display = 'block';
-            initializePaymentForm();
-        }
-
-        function closePaymentModal() {
-            document.getElementById('paymentModal').style.display = 'none';
-            if (elements) {
-                elements.getElement('card').unmount();
-            }
-        }
-
-        async function initializePaymentForm() {
-            try {
-                // Create payment intent
-                const response = await fetch('<?= URLROOT ?>/Buyer/Payment/create_payment_intent', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({
-                        amount: currentAmount,
-                        bid_id: currentBidId
-                    })
-                });
-
-                const data = await response.json();
-                console.log('Payment intent response:', data); // Debug log
-
-                if (data.error) {
-                    throw new Error(data.error);
-                }
-                
-                if (!data.clientSecret) {
-                    throw new Error('No client secret received from the server');
-                }
-
-                clientSecret = data.clientSecret;
-
-                // Initialize Stripe Elements
-                elements = stripe.elements({ clientSecret });
-                const card = elements.create('card', {
-                    style: {
-                        base: {
-                            fontSize: '16px',
-                            color: '#32325d',
-                            fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
-                            '::placeholder': {
-                                color: '#aab7c4'
-                            }
-                        },
-                        invalid: {
-                            color: '#fa755a',
-                            iconColor: '#fa755a'
-                        }
-                    }
-                });
-                
-                // Clear previous card element if it exists
-                const cardElement = document.getElementById('card-element');
-                cardElement.innerHTML = '';
-                
-                card.mount('#card-element');
-
-                // Handle real-time validation errors
-                card.addEventListener('change', function(event) {
-                    const displayError = document.getElementById('payment-message');
-                    if (event.error) {
-                        displayError.textContent = event.error.message;
-                        displayError.classList.remove('hidden');
-                    } else {
-                        displayError.textContent = '';
-                        displayError.classList.add('hidden');
-                    }
-                });
-
-            } catch (error) {
-                console.error('Payment form initialization error:', error); // Debug log
-                showMessage(error.message || 'An error occurred while initializing the payment form.');
-            }
-        }
-
-        async function handleSubmit(e) {
-            e.preventDefault();
-            setLoading(true);
-
-            try {
-                if (!elements) {
-                    throw new Error('Payment form not properly initialized');
-                }
-
-                const { error } = await stripe.confirmPayment({
-                    elements,
-                    confirmParams: {
-                        return_url: '<?= URLROOT ?>/Buyer/Index',
-                    },
-                });
-
-                if (error) {
-                    throw error;
-                }
-            } catch (error) {
-                console.error('Payment submission error:', error); // Debug log
-                showMessage(error.message || 'An error occurred while processing your payment.');
-                setLoading(false);
-            }
-        }
-
-        function setLoading(isLoading) {
-            const submitButton = document.getElementById('submit');
-            const spinner = document.getElementById('spinner');
-            const buttonText = document.getElementById('button-text');
-
-            if (isLoading) {
-                submitButton.disabled = true;
-                spinner.classList.remove('hidden');
-                buttonText.classList.add('hidden');
-            } else {
-                submitButton.disabled = false;
-                spinner.classList.add('hidden');
-                buttonText.classList.remove('hidden');
-            }
-        }
-
-        function showMessage(messageText) {
-            const messageContainer = document.getElementById('payment-message');
-            messageContainer.classList.remove('hidden');
-            messageContainer.textContent = messageText;
-        }
-
-        function cancelOrder(bidId) {
-            if (confirm('Are you sure you want to cancel this order?')) {
-                window.location.href = '<?= URLROOT ?>/Buyer/Manage_bids/removeBid/' + bidId;
-            }
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('paymentModal');
-            if (event.target == modal) {
-                closePaymentModal();
-            }
-        }
-
-        // Add form submission handler
-        document.getElementById('payment-form').addEventListener('submit', handleSubmit);
-    </script>
 
     <style>
         .modal {

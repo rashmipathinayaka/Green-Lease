@@ -11,7 +11,7 @@ class Event
         //header('Location: ' . URLROOT . '/sitehead/Event/details/');
     }
 
-    public function details($eventId = null)
+    public function details($eventId)
     {
         // Check if user is logged in
         if (!isset($_SESSION['id'])) {
@@ -22,7 +22,7 @@ class Event
         if (empty($eventId)) {
             $this->view('_404');
             return;
-        } 
+        }
 
         // Load required models
         $eventModel = new EventModel();

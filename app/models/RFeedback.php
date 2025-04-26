@@ -40,11 +40,15 @@ return $this->query($query);
 
 
 
-    public function markAsSolved($feedbackId, $userId) {
-        $query = "UPDATE project_feedback SET is_solved = 1, remark_user_id = ? WHERE id = ?";
-        return $this->query($query, [$userId, $feedbackId]);
-    }
-    
+public function markAsSolved($feedbackId, $userId, $remark) {
+    $query = "UPDATE project_feedback 
+              SET is_solved = 1, 
+                  remark_user_id = ?, 
+                  remark = ?
+              WHERE id = ?";
+    return $this->query($query, [$userId, $remark, $feedbackId]);
+}
+
 
 
 public function deleteFeedback($feedbackId) {

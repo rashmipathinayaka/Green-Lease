@@ -63,8 +63,7 @@ class SHarvest
             FROM harvest h
             JOIN project p ON h.project_id = p.id
             JOIN land l ON p.land_id = l.id
-            WHERE l.status = 1
-            AND NOW() BETWEEN h.bidding_start AND h.bidding_end
+            WHERE NOW() BETWEEN h.bidding_start AND h.bidding_end
         ";
         
         $params = [];

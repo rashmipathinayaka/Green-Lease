@@ -13,6 +13,8 @@ class User
         'nic',
         'contact_no',
         'full_name',
+        'reset_token',
+        'reset_token_expiry',
     ];
 
    
