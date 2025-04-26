@@ -21,11 +21,15 @@ class Sitehead
     $query = "SELECT DISTINCT s.user_id, u.full_name
         FROM sitehead s
         INNER JOIN user u ON s.user_id = u.id
-        WHERE s.status = 'Inactive'
+        INNER JOIN supervisor sp ON sp.zone = s.zone
+        WHERE s.status = 'Inactive' 
+        AND sp.id = 1
     ";
 
     return $this->query($query);
 }
+
+
 
 	public function getAllSiteheads($supervisorUserId)
 {
@@ -66,7 +70,17 @@ class Sitehead
 		return empty($this->errors);
 	}
 	
+	public function isLandAssigned($land_id)
+{
+    $land_id = addslashes($land_id); // sanitize input to avoid SQL injection
+    $query = "SELECT * FROM sitehead WHERE land_id = '$land_id' AND status = 'Active'";
+    $result = $this->query($query);
+    
+    return !empty($result); // if any matching row exists
+}
 
+
+	
 
 	// Additional useful methods
 	public function getUserById($user_id)

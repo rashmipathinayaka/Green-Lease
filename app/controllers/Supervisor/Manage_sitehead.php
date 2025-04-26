@@ -28,7 +28,11 @@ class Manage_sitehead
             $user_id = $_POST['user_id'] ?? null;
             $land_id = $_POST['land_id'] ?? null;
             $full_name = $_POST['full_name'] ?? null;
-    
+
+    if ($this->sitehead->isLandAssigned($land_id)) {
+            echo "This land is already assigned to an active sitehead.";
+            return;
+        }
             // Step 1: Validate input
             $formData = [
                 'user_id' => $user_id,

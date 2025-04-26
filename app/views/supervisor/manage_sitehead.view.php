@@ -128,6 +128,10 @@ require ROOT . '/views/components/topbar.php';
   <div class="modal-content">
     <span class="close-form">&times;</span>
     <h2>Add New Site Head</h2>
+    <?php if (!empty($error)): ?>
+  <div style="color: red; margin-bottom: 10px;"><?= $error ?></div>
+<?php endif; ?>
+
     <form method="POST" action="<?php echo URLROOT; ?>/supervisor/manage_sitehead/add_sitehead" class="form-styles">
       <label for="user_id">User ID & Name:</label>
       <select name="user_id" required>
