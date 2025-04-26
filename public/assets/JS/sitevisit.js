@@ -1,9 +1,15 @@
-function showRescheduleForm(visitId, landAddress) {
+function showRescheduleForm(visitId, landAddress, fromDate, toDate) {
     document.getElementById('rescheduleForm').style.display = 'block';
     document.getElementById('formVisitId').value = visitId;
     document.getElementById('formLandId').value = visitId; // or another land ID if needed
     document.getElementById('displayVisitId').textContent = visitId;
     document.getElementById('displayLandAddress').textContent = landAddress;
+    document.getElementById('newDate').setAttribute('min', fromDate);
+    document.getElementById('newDate').setAttribute('max', toDate);
+    
+    // Set fromDate and toDate into hidden fields
+    document.getElementById('fromDate').value = fromDate;
+    document.getElementById('toDate').value = toDate;
 }
 
 

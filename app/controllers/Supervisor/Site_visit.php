@@ -17,8 +17,8 @@ class Site_visit
 
 	public function index()
 {
-	$userid=$_SESSION['id'];
-	$userid=19;
+	// $userid=$_SESSION['id'];
+	$userid=32;
     $visitdata = $this->sitevisit->getAllSiteVisits($userid);
 
 
