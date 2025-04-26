@@ -35,6 +35,7 @@
 					</div>
 					<button onclick="window.location.href='<?= URLROOT ?>/Sitehead/Manage_worker'">View</button>
 				</div>
+			
 
 				<!-- Project Card (middle) -->
 				<div class="project-card">

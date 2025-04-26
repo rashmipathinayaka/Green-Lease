@@ -428,29 +428,55 @@ body {
     background: white;
     border-radius: 10px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid rgba(46, 125, 50, 0.1);
 }
 
 .filter-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .filter-input {
     padding: 12px 16px;
-    border-radius: 4px;
+    border-radius: 6px;
     color: #2c3e50;
     font-family: inherit;
     background-color: #ffffff;
     border: 1px solid #cbd5e1;
     width: 100%;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    transition: all 0.3s ease;
+    font-size: 0.95rem;
 }
 
 .filter-input:focus {
     outline: none;
-    border-color: #2c3e50;
-    box-shadow: 0 0 0 2px rgba(44, 62, 80, 0.1);
+    border-color: #2e7d32;
+    box-shadow: 0 0 0 3px rgba(46, 125, 50, 0.15);
+}
+
+.filter-button {
+    background: linear-gradient(135deg, #1a472a 0%, #2e7d32 100%);
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    min-width: 120px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-size: 0.95rem;
+}
+
+.filter-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(46, 125, 50, 0.2);
+}
+
+.filter-button:active {
+    transform: scale(0.98);
 }
 
 @media (max-width: 768px) {
@@ -468,6 +494,19 @@ body {
     }
 
     .bid-button {
+        width: 100%;
+    }
+
+    .filter-section {
+        padding: 16px;
+    }
+    
+    .filter-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .filter-button {
         width: 100%;
     }
 }

@@ -9,21 +9,24 @@ class Add_sitehead
     use Controller;
     private $sitehead;
     private $userModel;
+    private $zoneModel;
 
     public function __construct()
     {
         $this->sitehead = new RSitehead;
         $this->userModel = new RUser;
+        $this->zoneModel = new RZone;
+
     }
 
     public function index()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $full_name = $_POST['full_name'] ?? null;
-            $zone = $_POST['land'] ;
+            $zone = $_POST['zone'] ;
             $email = $_POST['email'] ?? null;
             $contact_no = $_POST['contact_no'] ?? null;
-            $status = $_POST['status'] ?? null;
+            $status = 'Inactive';
             $nic = $_POST['nic'] ?? null;
             
             // Generate a random plain password for the supervisor
@@ -59,8 +62,9 @@ class Add_sitehead
                 $this->sendEmailToSitehead($email, $full_name, $password);
             }
         }
+        $zones = $this->zoneModel->getAllZones(); // Fetch all zones for the dropdown
 
-        $this->view('admin/add_sitehead');
+        $this->view('admin/add_sitehead',['zones' => $zones]);
     }
 
     // Function to generate a random password
@@ -102,14 +106,14 @@ class Add_sitehead
 
             // Send email
             if ($mail->send()) {
-                echo "Email sent successfully to $email!";
+                // echo "Email sent successfully to $email!";
             } else {
-                throw new Exception("Email could not be sent.");
+                // throw new Exception("Email could not be sent.");
             }
         } catch (Exception $e) {
             // Log error to PHP error log
-            error_log("Email error: {$mail->ErrorInfo}");
-            echo "There was an issue sending the email: " . $e->getMessage();  // Optionally display error message in dev
+            // error_log("Email error: {$mail->ErrorInfo}");
+            // echo "There was an issue sending the email: " . $e->getMessage();  // Optionally display error message in dev
         }
     }
 }
