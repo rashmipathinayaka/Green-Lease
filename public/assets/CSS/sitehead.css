@@ -1032,3 +1032,18 @@ body {
 .postpone-btn:hover {
   background-color: #c82333;
 }
+
+.Issue-history-link {
+  text-align: center;
+}
+
+.Issue-history-link a {
+  color: #3739c3fd;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.Issue-history-link a:hover {
+  color: #170ff3;
+  text-decoration: underline;
+}

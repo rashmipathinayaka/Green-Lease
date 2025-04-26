@@ -21,16 +21,54 @@
 
 
     <div class="container">
-        <h1>Feedbacks and Issues Management</h1>
+        <h1> Issues and Feedback Management</h1>
 
         <!-- Tabs -->
         <div class="tab-navigation">
-            <button class="tab-btn active" onclick="openTab('unsolved')">Unsolved Feedbacks</button>
+            <button class="tab-btn active" onclick="openTab('Issues')">Issues History</button>
+            <button class="tab-btn" onclick="openTab('unsolved')">Unsolved Feedbacks</button>
             <button class="tab-btn" onclick="openTab('solved')">Solved Feedbacks</button>
         </div>
 
+        <div id="Issues" class="tab-content active">
+            <table class="dashboard-table">
+                <thead>
+                    <tr>
+                        <th>Complaint Type</th>
+                        <th>Description</th>
+                        <th>Created at</th>
+                        <th>Attachment</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <?php if (!empty($Issues)) : ?>
+                        <?php foreach ($Issues as $issue) : ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($issue->complaint_type); ?></td>
+                                <td><?php echo htmlspecialchars($issue->description); ?></td>
+                                <td><?php echo htmlspecialchars($issue->created_at); ?></td>
+                                <td>
+                                    <?php if (!empty($issue->attachment)) : ?>
+                                        <a href="<?php echo URLROOT . '/../app/uploads/issues/' . $issue->attachment; ?>" target="_blank">View</a>
+                                    <?php else : ?>
+                                        No Attachment
+                                    <?php endif; ?>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else : ?>
+                        <tr>
+                            <td colspan="4">No issues Sent.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+
+            </table>
+        </div>
+
         <!-- Unsolved Feedbacks Tab -->
-        <div id="unsolved" class="tab-content active">
+        <div id="unsolved" class="tab-content">
             <div class="feedback-section">
                 <?php if (!empty($unsolved)): ?>
                     <?php foreach ($unsolved as $us): ?>
