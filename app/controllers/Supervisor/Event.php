@@ -9,8 +9,8 @@ class Event
     public function __construct()
     {
         // Initialize the Project and EventModel models in the constructor
-        $this->project = new Project();
-        $this->eventModel = new modelEvent();
+        $this->project = new Project;
+        $this->eventModel = new modelEvent;
     }
 
     public function index()
@@ -88,9 +88,8 @@ class Event
                 if ($this->eventModel->addEvent($newEvent)) {
                     // Redirect back to events list
                     redirect('Supervisor/Event/viewEvents', ['project_id' => $project_id]);
-                } else {
-                    $errors[] = 'Failed to add event.';
-                }
+               // } else { $errors[] = 'Failed to add event.';
+ }
             }
 
             // On error, reload events page with errors
