@@ -16,7 +16,7 @@
     <div class="confirmation-message-container">
         <h1 class="success-title">Fertilizer Request Submitted Successfully</h1>
         <p class="success-description">Your fertilizer request has been submitted. You'll be contacted shortly regarding further processing.</p>
-        <button class="green-btn" onclick="window.location.href='<?= URLROOT ?>/Sitehead/Index'">Home</button>
+        <button class="home-btn" onclick="window.location.href='<?= URLROOT ?>/Sitehead/Index'">Home</button>
     </div>
 </body>
 

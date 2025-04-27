@@ -49,10 +49,10 @@ class Index
 			// $data['upcomingEventsCount'] = $this->getUpcomingEventsCount($userId);
 
 			// Get notifications for the sitehead
-			if ($userData && $userData->role_id == 3) { // 3 = Sitehead
-				$notificationModel = new Notification();
-				$data['notifications'] = $notificationModel->getForUser($userId, true);
-			}
+			// if ($userData && $userData->role_id == 3) { // 3 = Sitehead
+			// 	$notificationModel = new Notification();
+			// 	$data['notifications'] = $notificationModel->getForUser($userId, true);
+			// }
 		}
 
 		$this->view('sitehead/index', $data);
