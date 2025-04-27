@@ -27,154 +27,98 @@ class Event
         ]);
     }
     
-    public function viewEvents()
+    public function addEventForm($project_id)
     {
-        // Get project ID from either POST or GET
-        $projectId = null;
-        
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $projectId = $_POST['project_id'] ?? null;
-        } else if (isset($_GET['project_id'])) {
-            $projectId = $_GET['project_id'];
-        }
-        
-        if (empty($projectId)) {
-            $_SESSION['message'] = 'No project selected';
-            $_SESSION['message_type'] = 'error';
-            redirect('Supervisor/Event');
-            exit();
-        }
-        
-        // Get events for this project
-        $events = $this->eventModel->getEventsByProject($projectId);
-        
-        // Get project details
-        $project = $this->project->getProjectById($projectId);
-        
-        // Pass data to the view
-        $this->view('supervisor/project_events', [
-            'events' => $events,
-            'project' => $project
-        ]);
+        $data = [
+            'project_id' => $project_id,
+            'errors' => []
+        ];
+        $this->view('supervisor/add_event', $data);
     }
+
     
     public function addEvent()
     {
-        // If this is a GET request, show the add event form
-        if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-            // Get project_id from query string
-            $projectId = $_GET['project_id'] ?? null;
-            
-            if (empty($projectId)) {
-                $_SESSION['message'] = 'No project selected';
-                $_SESSION['message_type'] = 'error';
-                redirect('Supervisor/Event');
-                exit();
-            }
-            
-            // Get project details
-            $project = $this->project->getProjectById($projectId);
-            
-            // Pass data to the view
-            $this->view('supervisor/add_event', [
-                'project' => $project
-            ]);
-            return;
-        }
-        
-        // If this is a POST request, process the form submission
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Sanitize inputs
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
-            
-            $data = [
-                'project_id' => trim($_POST['project_id']),
-                'event_name' => trim($_POST['event_name']),
-                'date' => trim($_POST['date']),
-                'time' => trim($_POST['time']),
-                'location' => trim($_POST['location']),
-                'workers_required' => intval($_POST['workers_required']),
-                'payment_per_worker' => floatval($_POST['payment_per_worker']),
-                'status' => isset($_POST['status']) ? intval($_POST['status']) : 0,
-                'description' => trim($_POST['description'] ?? ''),
-                'completion_status' => 'pending'
-            ];
-            
-            // Validate inputs
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $project_id = $_POST['project_id'] ?? null;
+            $event_name = trim($_POST['event_name'] ?? '');
+            $date = trim($_POST['date'] ?? '');
+            $time = trim($_POST['time'] ?? '');
+            $workers_required = intval($_POST['workers_required'] ?? 0);
+            $payment_per_worker = floatval($_POST['payment_per_worker'] ?? 0);
+            $description = trim($_POST['description'] ?? '');
+
             $errors = [];
-            
-            if (empty($data['event_name'])) {
-                $errors['event_name'] = 'Event name is required';
+
+            if (!$project_id) {
+                $errors[] = 'Invalid project.';
             }
-            
-            if (empty($data['date'])) {
-                $errors['date'] = 'Date is required';
+            if (empty($event_name)) {
+                $errors[] = 'Event name is required.';
             }
-            
-            if (empty($data['time'])) {
-                $errors['time'] = 'Time is required';
+            if (empty($date)) {
+                $errors[] = 'Event date is required.';
             }
-            
-            // If there are errors, redisplay the form
-            if (!empty($errors)) {
-                // Get project details
-                $project = $this->project->getProjectById($data['project_id']);
-                
-                $this->view('supervisor/add_event', [
-                    'project' => $project,
-                    'data' => $data,
-                    'errors' => $errors
-                ]);
-                return;
+            if (empty($time)) {
+                $errors[] = 'Event time is required.';
             }
-            
-            // Add event to database
-            if ($this->eventModel->addEvent($data)) {
-                $_SESSION['message'] = 'Event added successfully';
-                $_SESSION['message_type'] = 'success';
-                redirect('Supervisor/Event/viewEvents?project_id=' . $data['project_id']);
-                exit();
-            } else {
-                $_SESSION['message'] = 'Failed to add event';
-                $_SESSION['message_type'] = 'error';
-                
-                // Get project details
-                $project = $this->project->getProjectById($data['project_id']);
-                
-                $this->view('supervisor/add_event', [
-                    'project' => $project,
-                    'data' => $data
-                ]);
+    
+
+            if (count($errors) == 0) {
+                $newEvent = [
+                    'project_id' => $project_id,
+                    'event_name' => $event_name,
+                    'date' => $date,
+                    'time' => $time,
+                    'workers_required' => $workers_required,
+                    'payment_per_worker' => $payment_per_worker,
+                    'description' => $description
+                ];
+
+                if ($this->eventModel->addEvent($newEvent)) {
+                    // Redirect back to events list
+                    redirect('Supervisor/Event/viewEvents', ['project_id' => $project_id]);
+                } else {
+                    $errors[] = 'Failed to add event.';
+                }
             }
+
+            // On error, reload events page with errors
+            $events = $this->eventModel->getEventsByProject($project_id);
+            $data = [
+                'project_id' => $project_id,
+                'events' => $events,
+                'errors' => $errors,
+                'form_data' => $_POST
+            ];
+            $this->view('supervisor/events', $data);
+        } else {
+            redirect('supervisor/event');
         }
     }
-    
-    public function viewEvent($id = null)
+
+    public function viewEvents()
     {
-        if ($id === null) {
-            redirect('Supervisor/Event');
-            exit();
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $project_id = $_POST['project_id'] ?? null;
+            if (!$project_id) {
+                // Redirect or show error
+                redirect('supervisor/event');
+            }
+
+            $events = $this->eventModel->getEventsByProject($project_id);
+
+            $data = [
+                'project_id' => $project_id,
+                'events' => $events,
+                'errors' => []
+            ];
+
+            $this->view('supervisor/events', $data);
+        } else {
+            redirect('supervisor/event');
         }
-        
-        // Get event details
-        $event = $this->eventModel->getEventWithImages($id);
-        
-        if (!$event) {
-            $_SESSION['message'] = 'Event not found';
-            $_SESSION['message_type'] = 'error';
-            redirect('Supervisor/Event');
-            exit();
-        }
-        
-        // Get project details
-        $project = $this->project->getProjectById($event->project_id);
-        
-        $this->view('supervisor/event_details', [
-            'event' => $event,
-            'project' => $project
-        ]);
     }
-    
     public function update($id = null)
     {
         if ($id === null) {
