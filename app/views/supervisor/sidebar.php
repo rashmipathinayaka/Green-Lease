@@ -26,12 +26,8 @@
 			<li>
 				<a href="<?php echo URLROOT; ?>/Supervisor/Manage_sitehead">Manage Site Heads</a>
 			</li>
-			<li>
-				<a href="<?php echo URLROOT; ?>/Supervisor/Manage_worker">Manage Workers</a>
-			</li>
-			<!-- <li>
-				<a href="<?php echo URLROOT; ?>/Supervisor/Approve_bid">Approve Bids</a>
-			</li> -->
+			
+		
 			<li>
 				<a href="<?php echo URLROOT; ?>/Supervisor/ManageIssues">Manage Issues</a>
 			</li>

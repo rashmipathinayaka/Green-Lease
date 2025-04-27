@@ -11,7 +11,7 @@ class InquiryModel
         'email',
         'subject',
         'message',
-        'is_resolved',  // Add any other fields if needed
+        'is_solved',  // Add any other fields if needed
         'is_deleted',
     ];
 

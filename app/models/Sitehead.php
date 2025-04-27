@@ -10,11 +10,44 @@ class Sitehead
 	protected $table = 'sitehead';
 
 	protected $allowedColumns = [
-		'id',
+		
 		'user_id',
-		'land_id',
-		'status'
+		'status',
+		'zone',
+		'land_id'
 	];
+	public function getInactiveUsers()
+{
+    $query = "SELECT DISTINCT s.user_id, u.full_name
+        FROM sitehead s
+        INNER JOIN user u ON s.user_id = u.id
+        INNER JOIN supervisor sp ON sp.zone = s.zone
+        WHERE s.status = 'Inactive' 
+        AND sp.id = 1
+    ";
+
+    return $this->query($query);
+}
+
+
+
+public function getSiteheadsBySupervisorUserId($userId)
+{
+    $query = "SELECT u.*, s.status, s.land_id
+        FROM sitehead s
+        INNER JOIN user u ON s.user_id = u.id
+        WHERE s.zone = (
+            SELECT zone FROM supervisor WHERE user_id = :userId
+        )";
+
+    return $this->query($query, [
+        'userId' => $userId
+    ]);
+}
+
+
+    
+
 
 	public function validate($data)
 	{
@@ -32,54 +65,50 @@ class Sitehead
 			$this->errors['land_id'] = "Land ID must be a number";
 		}
 
-		if (!isset($data['status'])) {
-			$this->errors['status'] = "Status is required";
-		} elseif (!is_numeric($data['status'])) {
-			$this->errors['status'] = "Status must be a number";
-		}
+		
 
 		return empty($this->errors);
 	}
+	
+	public function isLandAssigned($land_id)
+{
+    $land_id = addslashes($land_id); // sanitize input to avoid SQL injection
+    $query = "SELECT * FROM sitehead WHERE land_id = '$land_id' AND status = 'Active'";
+    $result = $this->query($query);
+    
+    return !empty($result); // if any matching row exists
+}
+
+
+	
 
 	// Additional useful methods
-	public function getByUserId($user_id)
-	{
-		return $this->first(['user_id' => $user_id]);
-	}
+	public function getUserById($user_id)
+{
+    $query = "SELECT * FROM user WHERE id = :id";
+    return $this->query($query, ['id' => $user_id]);
+}
 
-	public function getByLandId($land_id)
-	{
-		return $this->first(['land_id' => $land_id]);
-	}
 
 	// In your Sitehead model
-	public function getAssignedLands($userId)
-	{
-		$query = "SELECT land_id FROM sitehead WHERE user_id = :user_id";
-		return $this->query($query, ['user_id' => $userId]);
-	}
-
-
-	public function getAllSiteheads($supervisorUserId)
+	public function assignLandToSitehead($land_id, $user_id)
 {
-    $query = " SELECT u.*, s.status,s.id as sitehead_id
-        FROM sitehead s
-        INNER JOIN user u ON s.user_id = u.id
-        WHERE s.zone = (
-            SELECT zone FROM supervisor WHERE user_id = :supervisorUserId
-        )
-    ";
-
+    $query = "INSERT INTO sitehead (land_id, user_id) VALUES (:land_id, :user_id)";
     return $this->query($query, [
-        'supervisorUserId' => $supervisorUserId
+        'land_id' => $land_id,
+        'user_id' => $user_id
     ]);
 }
-
-public function first($where)
+public function updateUser($user_id, $data)
 {
-    $keys = array_keys($where);
-    $query = "SELECT * FROM sitehead WHERE " . implode(' = ? AND ', $keys) . " = ? LIMIT 1";
-    return $this->query($query, array_values($where))[0] ?? false;
+    $columns = array_keys($data);
+    $setClause = implode(', ', array_map(fn($col) => "$col = :$col", $columns));
+
+    $query = "UPDATE user SET  WHERE id = :user_id";
+    $data['user_id'] = $user_id;
+
+    return $this->query($query, $data);
 }
+
 
 }

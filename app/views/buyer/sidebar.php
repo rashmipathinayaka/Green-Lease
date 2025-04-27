@@ -25,7 +25,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                 </a>
             </li>
             <li class="<?= $currentPage === 'marketplace.view.php' ? 'active' : '' ?>">
-                <a href="<?= URLROOT ?>/Buyer/Marketplace">
+                <a href="<?= URLROOT ?>/Marketplace">
                     <i class="fas fa-store"></i>
                     <span>Marketplace</span>
                 </a>

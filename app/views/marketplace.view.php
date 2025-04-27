@@ -95,7 +95,7 @@
     <div class="container">
         <!-- Display messages if any -->
         <?php if(isset($_SESSION['message'])): ?>
-            <div class="alert alert-<?= $_SESSION['message_type'] ?>">
+            <div class="alert alert-<?= $_SESSION['message_type'] === 'success' ? 'success' : 'error' ?>">
                 <?= $_SESSION['message'] ?>
             </div>
             <?php 
@@ -176,7 +176,7 @@
                             <div class="current-bid">Minimum Bid (1kg): LKR <?= htmlspecialchars($harvest->min_bid) ?></div>
                             
                             <!-- Updated Bid Form -->
-                            <form method="POST" action="<?= URLROOT ?>/marketplace/placebid" class="bid-form" onsubmit="return showConfirmation(this, event)">
+                            <form method="POST" action="<?= URLROOT ?>/marketplace/placeBid" class="bid-form" onsubmit="return showConfirmation(this, event)">
                                 <input type="hidden" name="harvest_id" value="<?= $harvest->id ?>">
                                 <input type="hidden" name="crop_type" value="<?= htmlspecialchars($harvest->crop_type) ?>">
                                 

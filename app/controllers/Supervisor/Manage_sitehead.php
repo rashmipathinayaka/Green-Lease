@@ -10,7 +10,9 @@ private $sitehead;
 
 	public function index()
 	{
-		$data = $this->sitehead->findAll();
+        $supervisorId = $_SESSION['id'] ?? 1;
+		$data = $this->sitehead->getSiteheadsBySupervisorUserId($supervisorId);
+        echo $supervisorId;
             
         $this->view('supervisor/manage_sitehead', ['data' => $data]);
 		

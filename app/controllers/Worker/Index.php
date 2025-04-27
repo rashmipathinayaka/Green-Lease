@@ -21,7 +21,7 @@ class Index {
 
         // Get events
         $eventModel = new Event;
-        $events = $eventModel->getAvailableEvents();
+        $events = $eventModel->getAvailableEventsForWorker($userId);
 
         // Get user data
         $userModel = new User();

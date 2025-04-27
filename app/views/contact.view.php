@@ -66,6 +66,23 @@
 			</section>
 
 			<section class="col right">
+				<?php if (!empty($errors)): ?>
+					<div class="alert alert-danger">
+						<ul>
+							<?php foreach ($errors as $error): ?>
+								<li><?= $error ?></li>
+							<?php endforeach; ?>
+						</ul>
+					</div>
+				<?php endif; ?>
+
+				<?php if (isset($_SESSION['success_message'])): ?>
+					<div class="alert alert-success">
+						<?= $_SESSION['success_message'] ?>
+					</div>
+					<?php unset($_SESSION['success_message']); ?>
+				<?php endif; ?>
+
 				<form class="messageForm" action="<?= URLROOT ?>/Inquiry/addInquiry" method="POST">
 
 					<div class="inputGroup halfWidth">

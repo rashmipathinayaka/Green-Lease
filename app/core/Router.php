@@ -11,7 +11,9 @@ class Router {
         'signup' => ['controller' => 'Signup', 'method' => 'index'],
         'reset-password' => ['controller' => 'ResetPassword', 'method' => 'index'],
         'unauthorized' => ['controller' => 'Unauthorized', 'method' => 'index'],
-        'inquiry/addInquiry' => ['controller' => 'Inquiry', 'method' => 'addInquiry']
+        'inquiry/addInquiry' => ['controller' => 'Inquiry', 'method' => 'addInquiry'],
+        'marketplace' => ['controller' => 'Marketplace', 'method' => 'index'],
+        'marketplace/placeBid' => ['controller' => 'Marketplace', 'method' => 'placeBid']
     ];
 
     private static $roleRoutes = [
@@ -46,22 +48,35 @@ class Router {
             $url = 'home';
         }
 
-        // Check if this is a public route
-        if (isset(self::$publicRoutes[$url])) {
-            $route = self::$publicRoutes[$url];
-            $controllerFile = "../app/controllers/{$route['controller']}.php";
+        // Split URL into segments
+        $segments = explode('/', $url);
+        $controllerName = ucfirst($segments[0]);
+        
+        // Check if this is the Inquiry controller or a public route
+        if ($controllerName === 'Inquiry' || isset(self::$publicRoutes[$url])) {
+            if ($controllerName === 'Inquiry') {
+                $method = isset($segments[1]) ? $segments[1] : 'index';
+                $params = array_slice($segments, 2);
+                $controllerFile = "../app/controllers/Inquiry.php";
+            } else {
+                $route = self::$publicRoutes[$url];
+                $controllerFile = "../app/controllers/{$route['controller']}.php";
+                $controllerName = $route['controller'];
+                $method = $route['method'];
+                $params = [];
+            }
             
             if (file_exists($controllerFile)) {
                 require_once $controllerFile;
-                $controller = new $route['controller']();
-                if (method_exists($controller, $route['method'])) {
-                    call_user_func_array([$controller, $route['method']], []);
+                $controller = new $controllerName();
+                if (method_exists($controller, $method)) {
+                    call_user_func_array([$controller, $method], $params);
                     return true;
                 }
             }
         }
 
-        // Check authentication
+        // Check authentication for non-public routes
         $auth = Auth::getInstance();
         if (!$auth->isLoggedIn()) {
             redirect('login');
@@ -69,9 +84,6 @@ class Router {
         }
 
         // If not a public route, use the standard routing
-        $segments = explode('/', $url);
-        
-        // Check if first segment is a role (e.g., Buyer, Admin, etc.)
         $role = strtolower($segments[0]);
         if (isset(self::$roleRoutes[$role])) {
             // Check if user has the required role
@@ -87,7 +99,6 @@ class Router {
             $controllerFile = "../app/controllers/" . ucfirst($role) . "/{$controllerName}.php";
         } else {
             // If not a role directory, treat first segment as controller
-            $controllerName = ucfirst($segments[0]);
             $controllerFile = "../app/controllers/{$controllerName}.php";
             $method = isset($segments[1]) ? $segments[1] : 'index';
             $params = array_slice($segments, 2);
