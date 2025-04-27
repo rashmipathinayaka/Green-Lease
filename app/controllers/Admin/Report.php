@@ -1,5 +1,6 @@
 <?php
-class Report{
+class Report
+{
 
     use Controller;
 
@@ -8,7 +9,8 @@ class Report{
     private $supervisor;
     private $report;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->lands = new RLand();
         $this->bids = new RBid();
         $this->supervisor = new RSupervisor();
@@ -32,15 +34,17 @@ class Report{
 
         // Fetching land statistics for the report
         $landStats = $this->lands->findRegisteredYear();
-$mostSelectedCrop = $this->report->mostseletectedcrop();
-$mostprefferedCrop = $this->report->mostprefferedcrop();
-$matchingcount=$this->report->getMatchingCropCount();
-$totalprojects=$this->report->totalprojects();
-$successrate=round(($matchingcount->match_count/$totalprojects)*100, 2);
-$mostlandzone=$this->report->mostlandzone();
-$mostlandyear=$this->report->mostlandyear();
+        $mostSelectedCrop = $this->report->mostseletectedcrop();
+        $mostprefferedCrop = $this->report->mostprefferedcrop();
+        $matchingcount = $this->report->getMatchingCropCount();
+        $totalprojects = $this->report->totalprojects();
+        $successrate = round(($matchingcount->match_count / $totalprojects) * 100, 2);
+        $mostlandzone = $this->report->mostlandzone();
+        $mostlandyear = $this->report->mostlandyear();
 
-
+        $noofpostponedevents = $this->report->countPostponedEventsThisYear();
+        $totalevents = $this->report->gettotalevents();
+        $eventpostponedrate=round(($noofpostponedevents/$totalevents)*100,2);
 
 
 
@@ -56,13 +60,13 @@ $mostlandyear=$this->report->mostlandyear();
             'yearData' => $landStats['data'],
             'mostselectedcrop' => $mostSelectedCrop,
             'mostprefferedCrop' => $mostprefferedCrop,
-            'matchingcount'=>$matchingcount,
-            'successrate'=>$successrate,
-            'mostlandzone'=>$mostlandzone,
-            'mostlandyear'=>$mostlandyear,
-            
-
-
+            'matchingcount' => $matchingcount,
+            'successrate' => $successrate,
+            'mostlandzone' => $mostlandzone,
+            'mostlandyear' => $mostlandyear,
+            'postponed' => $noofpostponedevents,
+            'totalevents' => $totalevents,
+'eventpostponedrate'=>$eventpostponedrate,
 
         ];
 

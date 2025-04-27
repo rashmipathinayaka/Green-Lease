@@ -1,4 +1,4 @@
-<?php 
+<?php
 class Approve_land
 {
     use Controller;
@@ -16,56 +16,65 @@ class Approve_land
         $showBigForm = false;
         $landInfo = null;
         $supinfo = null;
-        $alertMessage = '';  // Initialize the alert message variable
+        $alertMessage = '';
 
-        // $supervisor_id=$_SESSION['id'];
-        $supervisor_id = '1';
-
-        $land_id = $_POST['land_id'] ?? null;
-        $exist = $this->project->checkLandIdExists($land_id);
-
-        // Check if the project already exists
-        if ($exist) {
-            $alertMessage = 'A project for this land already exists';  // Set the alert message
-      
-        }
+        // $user_id=$_SESSION['id'];
+        $user_id = '45'; 
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $formdata = [
-                'land_id' => $_POST['land_id'] ?? null,
-                'crop_type' => $_POST['crop_type'] ?? null,
-                'duration' => $_POST['duration'] ?? null,
-                'profit' => $_POST['profit'] ?? null,
-                'sitehead_id' => $_POST['sitehead'] ?? null,
-                'status' => 'pending',
-                'supervisor_id' => $supervisor_id,
-                'description' => $_POST['description'] ?? null,
-            ];
+            $land_id = $_POST['land_id'] ?? null;
 
-            // If only land_id is posted (first form)
-            if (!isset($_POST['crop_type'])) {
-                $landInfo = $this->project->getforminfo($formdata['land_id']);
-                $supinfo = $this->project->getsupinfo($formdata['land_id']);
-                $showBigForm = true;
+            if (!$land_id) {
+                $alertMessage = 'Land ID is required.';
             } else {
-                // Full form submitted, initialize project
-                if ($this->project->initializeproject($formdata)) {
-                    $_SESSION['success_message'] = "Project initialized successfully!";
-                    header('Location: ' . URLROOT . '/admin/initialize_project');
-                    exit;
+                $exist = $this->project->checkLandIdExists($land_id);
+                if ($exist) {
+                    $alertMessage = 'A project for this land already exists.';
+                } else {
+                    $supervisor_id = $this->project->getsupervisoridbyuserid($user_id);
+
+                    $assigned = $this->project->checksupervisorOfVisit($land_id, $supervisor_id);
+                    if (!$assigned) {
+                        $alertMessage = 'This land is not assigned to you. Please check again.';
+                    } else {
+                        // Passed all checks
+                        $formdata = [
+                            'land_id' => $_POST['land_id'] ?? null,
+                            'crop_type' => $_POST['crop_type'] ?? null,
+                            'duration' => $_POST['duration'] ?? null,
+                            'profit' => $_POST['profit'] ?? null,
+                            'sitehead_id' => $_POST['sitehead'] ?? null,
+                            'status' => 'pending',
+                            'supervisor_id' => $supervisor_id,
+                            'description' => $_POST['description'] ?? null,
+                        ];
+
+                        if (!isset($_POST['crop_type'])) {
+                            // Only land_id submitted: Show the big form
+                            $landInfo = $this->project->getforminfo($formdata['land_id']);
+                            $supinfo = $this->project->getsupinfo($formdata['land_id']);
+                            $showBigForm = true;
+                        } else {
+                            // Full form submitted: Initialize the project
+                            if ($this->project->initializeproject($formdata)) {
+                                $_SESSION['success_message'] = "Project initialized successfully!";
+                                header('Location: ' . URLROOT . '/admin/initialize_project');
+                                exit;
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        $sitehead = $this->siteheadmodel->getAllSiteheads($supervisor_id);
+        $sitehead = $this->siteheadmodel->getAllSiteheads($user_id); // <-- use $user_id or $supervisor_id as needed
 
-        // Pass the alert message to the view
         $this->view('Supervisor/Approve_land', [
             'showBigForm' => $showBigForm,
             'landInfo' => $landInfo,
             'supinfo' => $supinfo,
             'sitehead' => $sitehead,
-            'alertMessage' => $alertMessage,  // Pass alert message
+            'alertMessage' => $alertMessage,
         ]);
     }
 }

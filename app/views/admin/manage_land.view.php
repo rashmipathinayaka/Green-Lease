@@ -21,8 +21,8 @@
 
     <div id="manage-land-section" class="section" ">
                 <center>
-                    <h1>Manage lands</h1>
-                    <h2>These are all the lands registered in the system. <br>
+                    <h1>Manage projects</h1>
+                    <h2>These are all the projects in the system. <br>
                 </h2>
                 </center>
 
@@ -32,12 +32,12 @@
 
         <label for="status">Status:</label>
         <select name="status" id="status">
-    <option value="">All</option>
-    <option value="1" <?= (isset($_GET['status']) && $_GET['status'] === '1') ? 'selected' : '' ?>>Pending</option>
-    <option value="2" <?= (isset($_GET['status']) && $_GET['status'] === '2') ? 'selected' : '' ?>>Ongoing</option>
-    <option value="3" <?= (isset($_GET['status']) && $_GET['status'] === '3') ? 'selected' : '' ?>>Completed</option>
-    <option value="4" <?= (isset($_GET['status']) && $_GET['status'] === '4') ? 'selected' : '' ?>>Rejected</option>
-</select>
+            <option value="">All</option>
+            <option value="1" <?= (isset($_GET['status']) && $_GET['status'] === '1') ? 'selected' : '' ?>>Pending</option>
+            <option value="2" <?= (isset($_GET['status']) && $_GET['status'] === '2') ? 'selected' : '' ?>>Ongoing</option>
+            <option value="3" <?= (isset($_GET['status']) && $_GET['status'] === '3') ? 'selected' : '' ?>>Completed</option>
+            <option value="4" <?= (isset($_GET['status']) && $_GET['status'] === '4') ? 'selected' : '' ?>>Rejected</option>
+        </select>
 
 
 
@@ -95,19 +95,28 @@
                             </td>
 
                             <td>
-                                <?=
-                                $land->status == 1 ? "Pending" : ($land->status == 2 ? "Ongoing" : ($land->status == 3 ? "Completed" : ($land->status == 4 ? "Rejected" : "Unknown")))
+                                <?php
+                                if ($land->status == "Pending") {
+                                    echo "Pending";
+                                } elseif ($land->status == "Ongoing") {
+                                    echo "Ongoing";
+                                } elseif ($land->status == "Completed") {
+                                    echo "Completed";
+                                } elseif ($land->status == "Rejected") {
+                                    echo "Rejected";
+                                } else {
+                                    echo "Unknown";
+                                }
                                 ?>
-
                             </td>
                             <td>
-                                <?php if ($land->status == 2 || $land->status == 3): ?>
-                                    <button class="green-btn" onclick="window.location.href='<?php echo URLROOT; ?>/components/project/index/<?php echo $land->project_id; ?>';">View project</button>
+                                <?php if ($land->status == "Ongoing" || $land->status == "Completed"): ?>
+                                    <button class="green-btn" onclick="window.location.href='<?php echo URLROOT; ?>/project/index/<?php echo $land->project_id; ?>';">View project</button>
                                 <?php else: ?>
                                     <!-- put another button or leave it empty -->
                                 <?php endif; ?>
-
                             </td>
+
                         </tr>
                     <?php endforeach; ?>
                 <?php else: ?>

@@ -3,14 +3,14 @@
 /**
  * home class
  */
-class Manage_worker
+class Manage_buyer
 {
-	private $worker;
+	private $buyer;
 	use Controller;
 
 	public function __construct()
 	{
-		$this->worker=new RWorker();
+		$this->buyer=new RBuyer();
 
 	}
 
@@ -24,8 +24,8 @@ class Manage_worker
             'full_name' => $full_name,
 		];
 
-		$data=$this->worker->getworkerdetails($filters);		
-		$this->view('admin/manage_worker',['data'=>$data]);
+		$data=$this->buyer->getbuyerdetails();		
+		$this->view('admin/manage_buyer',['data'=>$data]);
 	}
 
 	public function getid($id){
