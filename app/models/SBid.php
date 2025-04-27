@@ -24,4 +24,8 @@ class SBid {
     public function getBidsByHarvest($harvest_id) {
         return $this->where(['harvest_id' => $harvest_id]);
     }
+
+    public function removeBid($id) {
+        return $this->delete($id);
+    }
 }

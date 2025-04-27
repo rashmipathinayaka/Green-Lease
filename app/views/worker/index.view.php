@@ -68,9 +68,11 @@
         .alert {
             padding: 10px 15px;
             margin: 10px 20px;
-            margin-bottom: -70px;
+            margin-bottom: 20px;
             border-radius: 4px;
             display: none;
+            position: relative;
+            z-index: 1000;
         }
 
         .alert-success {
@@ -93,56 +95,22 @@ require ROOT . '/views/worker/sidebar.php';
 require ROOT . '/views/components/topbar.php';
 ?>
 
-    <!-- Alert container -->
-    <div id="alertContainer"></div>
-
-    <div class="worker-events-section">
-        <div class="worker-events-header" style="margin-top: 120px;">
-            <h2>Available Events</h2>
-            <div class="worker-event-filter">
-                <input type="text" placeholder="Search by project ID or date">
-                <button><i class="fas fa-search"></i></button>
-            </div>
-        </div>
-
-        <div class="worker-events-list">
-            <?php if (!empty($events)): ?>
-                <?php foreach ($events as $event): ?>
-                    <div class="worker-event-card">
-                        <div class="worker-event-icon">
-                            <i class="fas fa-calendar-check"></i>
-                        </div>
-                        <div class="worker-event-details">
-                            <div class="worker-event-header">
-                                <h3><?= htmlspecialchars($event->event_name) ?></h3>
-                            </div>
-                            <div class="worker-event-info">
-                                <span><i class="fas fa-clock"></i> <?= $event->date?></span>
-                                <span><i class="fas fa-map-pin"></i> Project ID: <?= $event->project_id ?></span>
-                                <span><i class="fas fa-user"></i> Assigned Supervisor</span>
-                            </div>
-                        </div>
-                        <div class="worker-event-actions">
-                            <button class="green-btn" onclick="confirmApply(<?= $event->id ?>)">Apply</button>
-                        </div>
-                    </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p class="no-events-message">No available events right now.</p>
-            <?php endif; ?>
+    <div class="welcome-container">
+        <div class="welcome-header">
+            <h1>Hello, <span class="username"><?= htmlspecialchars($sname) ?></span> ! 👋</h1>
+            <p class="welcome-message">Welcome back to your dashboard</p>
         </div>
     </div>
 
+    <!-- Alert container -->
+    <div id="alertContainer" style="margin: 20px;"></div>
+
     <div class="worker-events-section">
-        <div class="worker-events-header" style="margin-top: 120px;">
-            <h2>Postponed Events</h2>
-            <div class="worker-event-filter">
-                <input type="text" placeholder="Search by project ID or date">
-                <button><i class="fas fa-search"></i></button>
-            </div>
+        <div class="worker-events-header" style="margin-top: 70px;">
+            <h2>Available Events</h2>
         </div>
 
-        <div class="worker-events-list" style="margin-bottom: 30px;">
+        <div class="worker-events-list">
             <?php if (!empty($events)): ?>
                 <?php foreach ($events as $event): ?>
                     <div class="worker-event-card">

@@ -154,12 +154,12 @@ class Marketplace {
 
             // Insert bid
             if ($bidModel->createBid($formData)) {
-                $_SESSION['message'] = 'Bid placed successfully!';
+                $_SESSION['message'] = 'Bid placed successfully! Your bid of LKR ' . number_format($formData['unit_price']) . ' per kg for ' . number_format($formData['amount']) . ' kg has been submitted.';
                 $_SESSION['message_type'] = 'success';
-                header("Location: " . URLROOT . "/buyer");
+                header("Location: " . URLROOT . "/marketplace");
                 exit();
             } else {
-                $_SESSION['message'] = 'Failed to place bid';
+                $_SESSION['message'] = 'Failed to place bid. Please try again.';
                 $_SESSION['message_type'] = 'error';
                 header("Location: " . URLROOT . "/marketplace");
                 exit();

@@ -63,7 +63,9 @@ class Registerland
             }
     
             if ($registerland->validate($formData) && empty($data['errors'])) {
-                $registerland->insert($formData);
+               if( $registerland->insert($formData)){
+                echo "hariiiiii";
+               };
                 $land_id = $registerland->takeLandId();
     
                 $harvest->insert([

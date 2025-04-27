@@ -39,9 +39,6 @@
 				<a href="<?php echo URLROOT; ?>/Supervisor/Event">Event Schedule</a>
 			</li>
 			<li>
-				<a href="<?php echo URLROOT; ?>/Supervisor/Attendance">Attendance</a>
-			</li>
-			<li>
 				<a href="<?php echo URLROOT; ?>/Supervisor/feedback">Manage Feedbacks</a>
 			</li>
 		</ul>

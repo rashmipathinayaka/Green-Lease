@@ -88,4 +88,11 @@ class WorkerEventModel
 
         return false;
     }
+
+    public function first($where)
+    {
+        $keys = array_keys($where);
+        $query = "SELECT * FROM worker_event WHERE " . implode(' = ? AND ', $keys) . " = ? LIMIT 1";
+        return $this->query($query, array_values($where))[0] ?? false;
+    }
 }

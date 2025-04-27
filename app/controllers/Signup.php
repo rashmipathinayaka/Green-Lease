@@ -41,7 +41,8 @@ class Signup
 
         // Check if email already exists
         if ($user->emailExists($userData['email'])) {
-            echo "<h1 style=\"color: red;\">Error: Email already exists!</h1>";
+            $data = ['error' => 'Email already exists!'];
+            $this->view('signup', $data);
             return;
         }
 

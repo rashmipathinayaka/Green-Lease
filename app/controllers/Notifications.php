@@ -1,43 +1,19 @@
 <?php
-
 class Notifications
 {
     use Controller;
 
-    private $notificationModel;
-
-    public function __construct()
+    public function markAllRead()
     {
         if (!isset($_SESSION['id'])) {
-            redirect('login');
-        }
-        $this->notificationModel = new Notification();
-    }
-
-    public function index()
-    {
-        $data['notifications'] = $this->notificationModel->get_all_notifications($_SESSION['id']);
-        $this->view('notifications/index', $data);
-    }
-
-    public function mark_as_read($id = null)
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            if ($id) {
-                $this->notificationModel->mark_as_read($id);
-            } else {
-                $this->notificationModel->mark_all_as_read($_SESSION['id']);
-            }
-        }
-        redirect($_SERVER['HTTP_REFERER'] ?? 'notifications');
-    }
-
-    public function get_unread_count()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-            $count = $this->notificationModel->get_unread_count($_SESSION['id']);
-            echo json_encode(['count' => $count]);
+            http_response_code(403);
             exit;
         }
+        $notificationModel = new Notification();
+        $userId = $_SESSION['id'];
+        // Mark all as read for this user
+        $notificationModel->query("UPDATE notifications SET is_read = 1 WHERE user_id = :user_id", ['user_id' => $userId]);
+        echo 'OK';
+        exit;
     }
-} 
+}

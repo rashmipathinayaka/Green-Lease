@@ -36,14 +36,14 @@
     <h2>Crop Data</h2>
     <div class="highlight-box">
         <div class="data-point">
-            Most selected crop: <strong><?= htmlspecialchars($mostselectedcrop['crop_type']) ?></strong>
+            Most Selected Crop: <strong><?= htmlspecialchars($mostselectedcrop['crop_type']) ?></strong>
             (Used in <?= htmlspecialchars($mostselectedcrop['count']) ?> projects)
         </div>
         <div class="data-point">
-            Most preferred crop by landowners: <strong><?= htmlspecialchars($mostprefferedCrop['crop_type']) ?></strong>
+            Most Preferred Crop by Landowners: <strong><?= htmlspecialchars($mostprefferedCrop['crop_type']) ?></strong>
         </div>
         <div class="data-point">
-            Success rate: <span class="success-rate"><?= htmlspecialchars($successrate) ?>%</span>
+            Success Rate: <span class="success-rate"><?= htmlspecialchars($successrate) ?>%</span>
             (Rate of getting the preferred crop type as the selected crop)
         </div>
     </div>

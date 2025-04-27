@@ -1,73 +1,48 @@
 <?php
-
 class Notification
 {
     use Model;
 
     protected $table = 'notifications';
+
     protected $allowedColumns = [
         'user_id',
-        'title',
-        'message',
         'type',
+        'message',
+        'link',
         'is_read',
         'created_at'
     ];
 
-    // Create a new notification
-    public function create_notification($user_id, $title, $message, $type = 'info')
+    // Insert a new notification
+    public function create($data)
     {
-        return $this->insert([
-            'user_id' => $user_id,
-            'title' => $title,
-            'message' => $message,
-            'type' => $type,
-            'is_read' => false
-        ]);
+        // Add created_at timestamp if not provided
+        if (!isset($data['created_at'])) {
+            $data['created_at'] = date('Y-m-d H:i:s');
+        }
+        // Set is_read to 0 by default if not provided
+        if (!isset($data['is_read'])) {
+            $data['is_read'] = 0;
+        }
+        return $this->insert($data);
     }
 
-    // Get all unread notifications for a user
-    public function get_unread_notifications($user_id)
+    // Get notifications for a user
+    public function getForUser($userId, $onlyUnread = false)
     {
-        return $this->where([
-            'user_id' => $user_id,
-            'is_read' => false
-        ]);
+        $query = "SELECT * FROM notifications WHERE user_id = :user_id";
+        if ($onlyUnread) {
+            $query .= " AND is_read = 0";
+        }
+        $query .= " ORDER BY created_at DESC";
+        $result = $this->query($query, ['user_id' => $userId]);
+        return $result ?: [];
     }
 
-    // Get all notifications for a user
-    public function get_all_notifications($user_id)
+    // Mark notification as read
+    public function markAsRead($id)
     {
-        return $this->query(
-            "SELECT * FROM $this->table WHERE user_id = :user_id ORDER BY created_at DESC",
-            ['user_id' => $user_id]
-        );
+        return $this->update($id, ['is_read' => 1]);
     }
-
-    // Mark a notification as read
-    public function mark_as_read($notification_id)
-    {
-        return $this->update($notification_id, [
-            'is_read' => true
-        ]);
-    }
-
-    // Mark all notifications as read for a user
-    public function mark_all_as_read($user_id)
-    {
-        return $this->query(
-            "UPDATE $this->table SET is_read = true WHERE user_id = :user_id",
-            ['user_id' => $user_id]
-        );
-    }
-
-    // Get unread notification count for a user
-    public function get_unread_count($user_id)
-    {
-        $result = $this->query(
-            "SELECT COUNT(*) as count FROM $this->table WHERE user_id = :user_id AND is_read = false",
-            ['user_id' => $user_id]
-        );
-        return $result[0]->count ?? 0;
-    }
-} 
+}

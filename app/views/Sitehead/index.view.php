@@ -35,14 +35,15 @@
 					</div>
 					<button onclick="window.location.href='<?= URLROOT ?>/Sitehead/Manage_worker'">View</button>
 				</div>
+			
 
 				<!-- Project Card (middle) -->
-				<div class="project-card">
+				<!-- <div class="project-card">
 					<img src="<?php echo URLROOT; ?>/assets/images/ongoing2.png" alt="Project Image" class="img" />
 					<p>Project ID: <?php echo htmlspecialchars($project->id); ?></p>
 					<p>Crop Type: <?php echo htmlspecialchars($project->crop_type); ?></p>
 					<a href="<?= URLROOT ?>/Components/Project/index/<?php echo $project->id; ?>" class="view">View Project</a>
-				</div>
+				</div> -->
 
 				<!-- Upcoming Events Card -->
 				<div class="metric-card">
