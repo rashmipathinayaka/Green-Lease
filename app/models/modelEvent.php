@@ -1,6 +1,6 @@
 <?php
 
-class EventModel
+class modelEvent
 {
     use Model;
 
@@ -30,11 +30,13 @@ class EventModel
         return $this->query($query, ['project_id' => $projectId]);
     }
 
-    // Add a new event (simplified)
+    // Add a new event (simplified with default values)
     public function addEvent($data)
     {
+        // Set default values for required fields
         $data['status'] = $data['status'] ?? 0;
         $data['completion_status'] = $data['completion_status'] ?? 'Pending';
+        $data['progress_notes'] = $data['progress_notes'] ?? '';
         
         $query = "INSERT INTO event (project_id, event_name, date, time, location, workers_required, payment_per_worker, status, description, progress_notes, completion_status, completion_images, postponed_date)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -47,10 +49,10 @@ class EventModel
             $data['location'] ?? null,
             $data['workers_required'] ?? 0,
             $data['payment_per_worker'] ?? 0,
-            $data['status'] ?? null,
+            $data['status'],
             $data['description'] ?? null,
-            $data['progress_notes'] ?? null,
-            $data['completion_status'] ?? null,
+            $data['progress_notes'],
+            $data['completion_status'],
             $data['completion_images'] ?? null,
             $data['postponed_date'] ?? null
         ];
