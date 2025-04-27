@@ -31,20 +31,20 @@ class Sitehead
 
 
 
-	public function getAllSiteheads($supervisorUserId)
+public function getSiteheadsBySupervisorUserId($userId)
 {
-    $query = " SELECT u.*, s.status
+    $query = "SELECT u.*, s.status, s.land_id
         FROM sitehead s
         INNER JOIN user u ON s.user_id = u.id
         WHERE s.zone = (
-            SELECT zone FROM supervisor WHERE user_id = :supervisorUserId
-        )
-    ";
+            SELECT zone FROM supervisor WHERE user_id = :userId
+        )";
 
     return $this->query($query, [
-        'supervisorUserId' => $supervisorUserId
+        'userId' => $userId
     ]);
 }
+
 
     
 

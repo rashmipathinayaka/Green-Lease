@@ -108,7 +108,7 @@ require ROOT . '/views/components/topbar.php';
       <tr 
         data-id="<?= $row->id ?>"
         data-name="<?= $row->full_name ?>"
-        data-address="<?= $row->address?>"
+        data-contact_no="<?= $row->contact_no?>"
          data-status="<?= $row->status?>"
        
       >
