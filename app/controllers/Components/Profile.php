@@ -6,6 +6,7 @@ class Profile
     private $supervisor;
     private $sitehead;
 private $worker;
+private $buyer;
 
     public function __construct()
     {
@@ -13,6 +14,7 @@ private $worker;
         $this->supervisor = new RSupervisor;
         $this->sitehead = new RSitehead;
         $this->worker = new RWorker;
+        $this->buyer= new RBuyer;
     }
 
     public function index($id = null)
@@ -33,6 +35,11 @@ private $worker;
                 $id = $_POST['worker_id'];
                 $user = $this->worker->getWorkerbyid($id);
                 $this->view('components/profile', ['user' => $user, 'user_type' => 'worker']);
+                return;
+            } elseif (isset($_POST['buyer_id'])) {
+                $id = $_POST['buyer_id'];
+                $user = $this->buyer->getBuyerbyid($id);
+                $this->view('components/profile', ['user' => $user, 'user_type' => 'buyer']);
                 return;
             } else {
                 echo "User ID not provided.";
@@ -55,6 +62,11 @@ private $worker;
         $user = $this->worker->getWorkerbyid($id);
         if ($user) {
             $this->view('components/profile', ['user' => $user, 'user_type' => 'worker']);
+            return;
+        }
+        $user = $this->buyer->getBuyerbyid($id);
+        if ($user) {
+            $this->view('components/profile', ['user' => $user, 'user_type' => 'buyer']);
             return;
         }
 

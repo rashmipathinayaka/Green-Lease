@@ -47,14 +47,14 @@
                 <?php echo $alertMessage; ?>
             </div>
         <?php endif; ?>
-
+ 
         <!-- Only show small form if no alert message is set -->
         <?php if (empty($alertMessage) && !$showBigForm): ?>
             <form action="<?= URLROOT ?>/Supervisor/Approve_land/" method="POST">
                 <div class="lil-form">
                     <div class="form-group">
                         <label for="land_id">Land id</label>
-                        <input type="number" id="land_id" name="land_id" required>
+                        <input type="number" id="land_id" name="land_id" >
                     </div>
                     <button type="submit">Submit</button>
                 </div>

@@ -68,10 +68,11 @@
                             </td>
                             <td><?= htmlspecialchars($sitehead->land_id) ?></td>
                             <td><?= htmlspecialchars($sitehead->address) ?></td>
-                            <td><?= $sitehead->status == 0 ? "Active" : "Inactive" ?></td>
+                            <td><?= htmlspecialchars($sitehead->status) ?></td>
+
                             <td>
                                 <button class="green-btn toggle-edit-btn" data-id="<?= $sitehead->id ?>">Edit</button>
-                                <?php if ($sitehead->status != 0): ?>
+                                <?php if ($sitehead->status !== 'Active'): ?>
                                     <button class="red-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_sitehead/delete_sitehead/<?= $sitehead->id ?>';">Remove</button>
                                 <?php endif; ?>
                             </td>
@@ -91,8 +92,8 @@
                                     </label>
                                     <label>Status:
                                         <select name="status" required>
-                                            <option value="0" <?= $sitehead->status == 0 ? "selected" : "" ?>>Active</option>
-                                            <option value="1" <?= $sitehead->status == 1 ? "selected" : "" ?>>Inactive</option>
+                                            <option value="Active" <?= $sitehead->status == 'Active' ? "selected" : "" ?>>Active</option>
+                                            <option value="Inactive" <?= $sitehead->status == 'Inactive' ? "selected" : "" ?>>Inactive</option>
                                         </select>
                                     </label>
                                     <button type="submit">Update</button>
