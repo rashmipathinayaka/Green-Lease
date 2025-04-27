@@ -5,26 +5,16 @@ class Inquiry
     use Controller;
     public function index($a = '', $b = '', $c = '')
     {
-        // Ensure session_start() is called first
-        if (session_status() == PHP_SESSION_NONE) {
-            session_start();
-        }
-        // Check if the user is logged in
-        if (!isset($_SESSION['id'])) {
-            header("Location: " . URLROOT . "/unauthorized");
-            exit();
-        }
-
-        // Load the view for inquiries (if required)
+        // Load the view for inquiries
         $this->view('inquiry');
     }
 
     public function addInquiry()
     {
-
-        $inquiryModel = new InquiryModel();  // Using InquiryModel for the model
+        $inquiryModel = new InquiryModel();
         $data = [
-            'errors' => [], // Initialize errors
+            'errors' => [],
+            'success' => false
         ];
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -32,21 +22,34 @@ class Inquiry
             $formData = [
                 'name' => $_POST['name'] ?? null,
                 'email' => $_POST['email'] ?? null,
-                'subject' => $_POST['subject'],
+                'subject' => $_POST['subject'] ?? null,
                 'message' => $_POST['message'] ?? null,
+                'is_resolved' => 0,
+                'is_deleted' => 0
             ];
 
             // Validate data
             if ($inquiryModel->validate($formData)) {
                 // Insert data into the inquiry table
-                $inquiryModel->insert($formData);
+                if ($inquiryModel->insert($formData)) {
+                    $data['success'] = true;
+                    $_SESSION['success_message'] = "Your inquiry has been submitted successfully!";
+                } else {
+                    $data['errors']['submit'] = "Failed to submit inquiry. Please try again.";
+                }
             } else {
-                echo "Data insertion failed.";
+                $data['errors'] = $inquiryModel->errors;
             }
         }
 
-        // Redirect back to the landing page or wherever necessary
-        header('Location:' . URLROOT . '/home');
+        // If there are errors or it's not a POST request, show the contact page
+        if (!empty($data['errors']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+            $this->view('contact', $data);
+        } else {
+            // Redirect to home page on success
+            header('Location:' . URLROOT . '/home');
+            exit();
+        }
     }
 
     public function markAsSolved($id)

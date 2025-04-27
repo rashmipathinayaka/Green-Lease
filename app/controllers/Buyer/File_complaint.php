@@ -46,7 +46,7 @@ class File_complaint
             }
             
             // Insert data using the model
-            if(!$complaint->insert($data)) {
+            if($complaint->insert($data)) {
                 $this->view('Buyer/File_complaint', ['success' => 'Your complaint has been submitted successfully!']);
             } else {
                 $this->view('Buyer/File_complaint', ['error' => 'Failed to submit complaint. Please try again.']);

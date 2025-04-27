@@ -68,9 +68,11 @@
         .alert {
             padding: 10px 15px;
             margin: 10px 20px;
-            margin-bottom: -70px;
+            margin-bottom: 20px;
             border-radius: 4px;
             display: none;
+            position: relative;
+            z-index: 1000;
         }
 
         .alert-success {
@@ -93,14 +95,15 @@ require ROOT . '/views/worker/sidebar.php';
 require ROOT . '/views/components/topbar.php';
 ?>
 
-    <!-- Alert container -->
-    <div id="alertContainer"></div>
     <div class="welcome-container">
-				<div class="welcome-header">
-					<h1>Hello, <span class="username"><?= htmlspecialchars($sname) ?></span> ! 👋</h1>
-					<p class="welcome-message">Welcome back to your dashboard</p>
-				</div>
-			</div>
+        <div class="welcome-header">
+            <h1>Hello, <span class="username"><?= htmlspecialchars($sname) ?></span> ! 👋</h1>
+            <p class="welcome-message">Welcome back to your dashboard</p>
+        </div>
+    </div>
+
+    <!-- Alert container -->
+    <div id="alertContainer" style="margin: 20px;"></div>
 
     <div class="worker-events-section">
         <div class="worker-events-header" style="margin-top: 70px;">
