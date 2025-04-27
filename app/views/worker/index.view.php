@@ -95,14 +95,16 @@ require ROOT . '/views/components/topbar.php';
 
     <!-- Alert container -->
     <div id="alertContainer"></div>
+    <div class="welcome-container">
+				<div class="welcome-header">
+					<h1>Hello, <span class="username"><?= htmlspecialchars($sname) ?></span> ! 👋</h1>
+					<p class="welcome-message">Welcome back to your dashboard</p>
+				</div>
+			</div>
 
     <div class="worker-events-section">
-        <div class="worker-events-header" style="margin-top: 120px;">
+        <div class="worker-events-header" style="margin-top: 70px;">
             <h2>Available Events</h2>
-            <div class="worker-event-filter">
-                <input type="text" placeholder="Search by project ID or date">
-                <button><i class="fas fa-search"></i></button>
-            </div>
         </div>
 
         <div class="worker-events-list">

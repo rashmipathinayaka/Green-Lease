@@ -793,3 +793,51 @@ body {
       padding: 12px;
   }
 }
+
+/* Green-themed welcome header */
+.welcome-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1.1rem;
+}
+
+.welcome-header {
+  text-align: center;
+  padding: 1.7rem 2rem;
+  border-radius: 10px;
+   /* background: linear-gradient(135deg, #f3f5f3 0%, #15d115 100%);  */
+   background: linear-gradient(135deg, #359a3c 0%, #1a472a 100%);
+  /* background: linear-gradient(11deg,  #9ff7e6 0%,#67e981 100%); */
+  box-shadow: 0 4px 12px rgba(0, 100, 0, 0.1);
+  width: 95%;
+  max-width: 1800px;
+}
+
+.welcome-header h1 {
+  font-size: 2.5rem;
+  color:white;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.welcome-header .username {
+  color:white; /* Slightly lighter green */
+  text-transform: capitalize;
+}
+
+.welcome-message {
+  font-size: 1.2rem;
+  color:white; /* Medium green */
+  margin: 0.9rem;
+  font-weight: 500;
+}
+.welcome-header h1:hover .username {
+  display: inline-block;
+  animation: wave 0.5s ease;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(0deg); }
+  25% { transform: rotate(-10deg); }
+  75% { transform: rotate(10deg); }
+}

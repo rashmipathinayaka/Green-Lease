@@ -8,14 +8,14 @@
     <title>Manage Supervisors</title>
 </head>
 
-<body>
+<body style="margin-top: -40px; margin-left: 37px; margin-right: 20px;">
     <?php
     require ROOT . '/views/admin/sidebar.php';
     require ROOT . '/views/components/topbar.php';
     ?>
     <div class="content">
         <center>
-            <h1>Manage siteheads</h1>
+            <h1>Manage Siteheads</h1>
         </center>
         <br><br>
 
@@ -43,7 +43,7 @@
             </a>
         </div>
 
-        <table class="dashboard-table">
+        <table class="dashboard-table" >
             <thead>
                 <tr>
                     <th>Name</th>

@@ -36,7 +36,7 @@ $mostSelectedCrop = $this->report->mostseletectedcrop();
 $mostprefferedCrop = $this->report->mostprefferedcrop();
 $matchingcount=$this->report->getMatchingCropCount();
 $totalprojects=$this->report->totalprojects();
-$successrate=($matchingcount->match_count/$totalprojects)*100;
+$successrate=round(($matchingcount->match_count/$totalprojects)*100, 2);
 $mostlandzone=$this->report->mostlandzone();
 $mostlandyear=$this->report->mostlandyear();
 

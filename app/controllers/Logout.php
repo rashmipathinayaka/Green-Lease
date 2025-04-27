@@ -6,11 +6,8 @@ class Logout
 
     public function index()
     {
-        session_start();
-        session_unset();
-        session_destroy();
-
-        header("Location: " . URLROOT . "/login");
-        exit();
+        $auth = Auth::getInstance();
+        $auth->logout();
+        redirect('login');
     }
 }

@@ -17,14 +17,25 @@ class Index {
             return;
         }
 
-        $eventModel = new Event; // Assuming your model is named Event.php
+        $userId = $_SESSION['id'];
+
+        // Get events
+        $eventModel = new Event;
         $events = $eventModel->getAvailableEvents();
 
-        $notifications = [];
-        $this->view('worker/index', [
+        // Get user data
+        $userModel = new User();
+        $userData = $userModel->first(['id' => $userId]);
+
+        // Prepare data array
+        $data = [
             'events' => $events,
-            'notifications' => $notifications
-        ]);
+            'notifications' => [],
+            'sname' => $userData->full_name
+        ];
+
+        // Load the view with all data
+        $this->view('worker/index', $data);
     }
 
     private function applyForEvent($event_id) {

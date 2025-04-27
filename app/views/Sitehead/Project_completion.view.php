@@ -22,15 +22,17 @@
         <div class="form-header">
             <?php if ($proinfo): ?>
                 <div class="project-id">
-                    Project ID: <span id="project-id-display"><?= htmlspecialchars($proinfo->id) ?></span>
+                    Project ID: <span id="project-id-display"><?= $proinfo ? htmlspecialchars($proinfo->id) : 'N/A' ?></span>
                 </div>
             <?php else: ?>
                 <p>No ongoing project found for this user.</p>
-            <?php endif; ?> <div class="project-status">Status: <span style="color: #e67e22; font-weight: bold;"><?php echo htmlspecialchars($proinfo->status); ?></span></div>
+            <?php endif; ?> <div class="project-status">Status: <span style="color: #2e7d32; font-weight: bold;">
+    <?php echo $proinfo ? htmlspecialchars($proinfo->status) : 'N/A'; ?>
+</span></div>
         </div>
 
         <form id="project-completion-form" method="post" action="<?php echo URLROOT; ?>/sitehead/project_completion/index">
-            <input type="hidden" name="project_id" id="project-id" value="<?php echo htmlspecialchars($proinfo->id); ?>">
+            <input type="hidden" name="project_id" id="project-id" value="<?php echo $proinfo ? htmlspecialchars($proinfo->id) : ''; ?>">
 
             <div class="form-group">
                 <label for="profit-gained">Profit Gained by The Excess Amount of Harvest <span class="required"></span></label>
