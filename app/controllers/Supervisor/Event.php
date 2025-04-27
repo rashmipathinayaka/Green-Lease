@@ -10,13 +10,13 @@ class Event
     {
         // Initialize the Project and EventModel models in the constructor
         $this->project = new Project();
-        $this->eventModel = new EventModel();
+        $this->eventModel = new modelEvent();
     }
 
     public function index()
     {
         // Get supervisor ID from session (using 1 for testing)
-        $supervisorId = $_SESSION['user_id'] ?? 1;
+        $supervisorId = $_SESSION['id'] ?? 1;
         
         // Get all projects for this supervisor
         $projects = $this->project->getProjectsBySupervisor($supervisorId);
@@ -43,11 +43,12 @@ class Event
             $project_id = $_POST['project_id'] ?? null;
             $event_name = trim($_POST['event_name'] ?? '');
             $date = trim($_POST['date'] ?? '');
+            $today = date('Y-m-d');
             $time = trim($_POST['time'] ?? '');
+            $location = trim($_POST['location'] ?? '');
             $workers_required = intval($_POST['workers_required'] ?? 0);
-            $payment_per_worker = floatval($_POST['payment_per_worker'] ?? 0);
+            $payment_per_worker = filter_var($_POST['payment_per_worker'] ?? 0, FILTER_VALIDATE_INT);
             $description = trim($_POST['description'] ?? '');
-
             $errors = [];
 
             if (!$project_id) {
@@ -58,9 +59,15 @@ class Event
             }
             if (empty($date)) {
                 $errors[] = 'Event date is required.';
+            } elseif ($date < $today) {
+                $errors[] = 'Event date cannot be in the past.';
             }
             if (empty($time)) {
                 $errors[] = 'Event time is required.';
+            }
+            if ($payment_per_worker === false || $payment_per_worker < 0) {
+                $errors[] = 'Payment per worker must be a positive integer.';
+                $payment_per_worker = 0;
             }
     
 
@@ -70,9 +77,12 @@ class Event
                     'event_name' => $event_name,
                     'date' => $date,
                     'time' => $time,
+                    'location' => $location,
                     'workers_required' => $workers_required,
                     'payment_per_worker' => $payment_per_worker,
-                    'description' => $description
+                    'description' => $description,
+                    'status' => 0,
+                    'completion_status' => 'Pending'
                 ];
 
                 if ($this->eventModel->addEvent($newEvent)) {

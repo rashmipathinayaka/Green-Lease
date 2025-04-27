@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         body {
-            padding: 20px;
+            padding: 40px;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: #f5f7fa;
         }
@@ -18,6 +18,7 @@
             padding: 20px;
             border-radius: 8px;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            align-items: center;
         }
         h1 {
             color: #2e7d32;
@@ -46,7 +47,7 @@
         th, td {
             padding: 12px 15px;
             border: 1px solid #ddd;
-            text-align: left;
+            text-align:center;
         }
         th {
             background-color: #2e7d32;
@@ -112,6 +113,8 @@
         button.submit-btn:hover {
             background-color: #1b5e20;
         }
+
+        
     </style>
 </head>
 <body>
@@ -126,7 +129,7 @@
             <?php endforeach; ?>
         </div>
     <?php endif; ?>
-
+<br>
     <button class="btn-add-event" id="openModalBtn"><i class="fas fa-plus"></i> Add Event</button>
 
     <table>
@@ -134,7 +137,9 @@
             <tr>
                 <th>Event Name</th>
                 <th>Date</th>
-                <th>Description</th>
+                <th>Time</th>
+                <th>Location</th>
+                <th>Workers Required</th>
             </tr>
         </thead>
         <tbody>
@@ -143,11 +148,13 @@
                     <tr>
                         <td><?= htmlspecialchars($event->event_name) ?></td>
                         <td><?= htmlspecialchars($event->date) ?></td>
-                        <td><?= htmlspecialchars($event->description) ?></td>
+                        <td><?= htmlspecialchars($event->time) ?></td>
+                        <td><?= htmlspecialchars($event->location) ?></td>
+                        <td><?= htmlspecialchars($event->workers_required) ?></td>
                     </tr>
                 <?php endforeach; ?>
             <?php else : ?>
-                <tr><td colspan="3" style="text-align:center;">No events found for this project.</td></tr>
+                <tr><td colspan="5" style="text-align:center;">No Events found for this project.</td></tr>
             <?php endif; ?>
         </tbody>
     </table>
@@ -164,19 +171,33 @@
             <input type="text" id="event_name" name="event_name" value="<?= htmlspecialchars($form_data['event_name'] ?? '') ?>" required />
 
             <label for="event_date">Event Date <span style="color:red;">*</span></label>
-            <input type="date" id="date" name="date" value="<?= htmlspecialchars($form_data['date'] ?? '') ?>" required />
+            <input type="date" id="event_date" name="date" 
+             min="<?= date('Y-m-d') ?>" 
+             value="<?= htmlspecialchars($form_data['date'] ?? '') ?>" 
+             required />
+
 
             <label for="event_time">Event Time <span style="color:red;">*</span></label>
-<input type="time" id="event_time" name="time" value="<?= htmlspecialchars($form_data['time'] ?? '') ?>" required />
+           <input type="time" id="event_time" name="time" value="<?= htmlspecialchars($form_data['time'] ?? '') ?>" required />
 
-<label for="workers_required">Workers Required</label>
-<input type="number" id="workers_required" name="workers_required" min="0" value="<?= htmlspecialchars($form_data['workers_required'] ?? '0') ?>" />
+           <label for="location">Location</label>
+           <input type="text" id="location" name="location" value="<?= htmlspecialchars($form_data['location'] ?? '') ?>" />
 
-<label for="payment_per_worker">Payment per Worker</label>
-<input type="number" id="payment_per_worker" name="payment_per_worker" min="0" step="0.01" value="<?= htmlspecialchars($form_data['payment_per_worker'] ?? '0') ?>" />
-            <label for="description">Description</label>
+           <label for="workers_required">Workers Required</label>
+           <input type="number" id="workers_required" name="workers_required" min="0" value="<?= htmlspecialchars($form_data['workers_required'] ?? '0') ?>" />
+
+           <label for="payment_per_worker">Payment per Worker (₹)</label>
+<div class="input-group">
+    <input type="number" id="payment_per_worker" name="payment_per_worker" 
+           min="0" step="1" 
+           value="<?= htmlspecialchars($form_data['payment_per_worker'] ?? '0') ?>" 
+           oninput="this.value = Math.floor(this.value);" />
+</div>
+           
+         <label for="description">Description</label>
             <textarea id="description" name="description" rows="3"><?= htmlspecialchars($form_data['description'] ?? '') ?></textarea>
 
+            
             <button type="submit" class="submit-btn">Add Event</button>
         </form>
     </div>
