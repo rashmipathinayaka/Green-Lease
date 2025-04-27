@@ -30,7 +30,7 @@ class Manage_buyer
 
 	public function getid($id){
 		echo $id;
-		header("Location: " . URLROOT . "/Components/profile/index/{$id}");
+		header("Location: " . URLROOT . "/profile/index/{$id}");
 	}
 
 
