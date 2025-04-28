@@ -20,10 +20,12 @@
         <div class="content">
             <div id="dashboard-section" class="section">
                 <!-- Dashboard Header -->
-                <div class="dashboard-header">
-                    <h1 class="welcome-message">Welcome to Supervisor Dashboard</h1>
-                </div>
-            
+                <!-- Dashboard Header -->
+<div class="dashboard-header">
+    <h1 class="welcome-message" style="font-size: 42px !important; font-weight: 800 !important;">Welcome to Supervisor Dashboard</h1>
+</div>
+
+
 
                 <!-- Metric Cards -->
                 <div class="metric-grid">

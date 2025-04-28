@@ -24,7 +24,7 @@ class Login
                         redirect('admin/Index');
                         break;
                     case 2: // Supervisor
-                        redirect('supervisor/Index');
+                        redirect('supervisor/dashboard');
                         break;
                     case 3: // Sitehead
                         redirect('sitehead/Index');

@@ -107,7 +107,7 @@ require ROOT . '/views/components/topbar.php';
 
     <div class="worker-events-section">
         <div class="worker-events-header" style="margin-top: 70px;">
-            <h2>Available Events</h2>
+            <h2>Available Jobs</h2>
         </div>
 
         <div class="worker-events-list">

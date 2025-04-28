@@ -34,14 +34,14 @@ class Auth {
             return false;
         }
 
-        return isset($this->user['role']) && $this->user['role'] == $role;
+        return isset($this->user['role_id']) && $this->user['role_id'] == $role;
     }
 
     public function login($user) {
-        $_SESSION['id'] = $user['id'];
-        $_SESSION['role'] = $user['role'];
-        $_SESSION['name'] = $user['name'];
-        $_SESSION['email'] = $user['email'];
+        $_SESSION['id'] = $user->id;
+        $_SESSION['role_id'] = $user->role_id;
+        $_SESSION['name'] = $user->name;
+        $_SESSION['email'] = $user->email;
 
         $this->isLoggedIn = true;
         $this->user = $_SESSION;

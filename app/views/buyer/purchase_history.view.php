@@ -184,6 +184,24 @@
             background-color: #6c757d;
             color: white;
         }
+
+        .rating-modal-content textarea#feedbackText {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px 12px;
+            border: 1.5px solid #b5b5b5;
+            border-radius: 6px;
+            font-size: 1em;
+            resize: vertical;
+            min-height: 70px;
+            background: #fafbfc;
+            transition: border-color 0.2s;
+        }
+        .rating-modal-content textarea#feedbackText:focus {
+            border-color: #1a472a;
+            outline: none;
+            background: #fff;
+        }
     </style>
 </head>
 <body style="margin-top: 100px; margin-left: 20px; margin-right: 20px;">
@@ -293,6 +311,7 @@
                 <span class="star" data-rating="4">★</span>
                 <span class="star" data-rating="5">★</span>
             </div>
+            <textarea id="feedbackText" placeholder="Write your feedback here..." rows="4" style="width:100%;margin-top:10px;"></textarea>
             <input type="hidden" id="selectedRating" value="0">
             <input type="hidden" id="currentPurchaseId" value="">
             <div class="rating-actions">
@@ -391,6 +410,7 @@
         function submitRating() {
             const purchaseId = document.getElementById('currentPurchaseId').value;
             const rating = document.getElementById('selectedRating').value;
+            const feedbackText = document.getElementById('feedbackText').value;
 
             if (rating === '0') {
                 alert('Please select a rating before submitting.');
@@ -399,7 +419,7 @@
 
             const url = `${URLROOT}/Buyer/Purchase_history/submit_rating`;
             console.log('Submitting rating to:', url);
-            console.log('Data:', { purchase_id: purchaseId, rating: rating });
+            console.log('Data:', { purchase_id: purchaseId, rating: rating, feedback: feedbackText });
 
             // Submit rating via AJAX
             fetch(url, {
@@ -409,7 +429,8 @@
                 },
                 body: JSON.stringify({
                     purchase_id: purchaseId,
-                    rating: rating
+                    rating: rating,
+                    feedback: feedbackText
                 })
             })
             .then(response => {

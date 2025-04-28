@@ -13,7 +13,8 @@ class Router {
         'unauthorized' => ['controller' => 'Unauthorized', 'method' => 'index'],
         'inquiry/addInquiry' => ['controller' => 'Inquiry', 'method' => 'addInquiry'],
         'marketplace' => ['controller' => 'Marketplace', 'method' => 'index'],
-        'marketplace/placeBid' => ['controller' => 'Marketplace', 'method' => 'placeBid']
+        'marketplace/placeBid' => ['controller' => 'Marketplace', 'method' => 'placeBid'],
+        'statistics' => ['controller' => 'Statistics', 'method' => 'index']
     ];
 
     private static $roleRoutes = [

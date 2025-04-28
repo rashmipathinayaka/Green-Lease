@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/report.css">
+<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/report.css">
 
      <!-- Include html2pdf.js library -->
      <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
@@ -67,6 +67,66 @@
             Most projects are from <strong><?= htmlspecialchars($mostlandzone['zone_name']) ?></strong> district
             (Project count: <?= htmlspecialchars($mostlandzone['count']) ?>)
         </div>
+    </div>
+
+    <h2>Financial Data</h2>
+    <div class="highlight-box">
+        <div class="data-point">
+            Total Income from Completed Projects: <strong>Rs. <?= number_format($totalIncome, 2) ?></strong>
+        </div>
+        <div class="data-point">
+            Most Profitable Crop: 
+            <?php if ($mostProfitableCrop): ?>
+                <strong><?= htmlspecialchars($mostProfitableCrop->crop_type) ?></strong>
+                (Total Income: Rs. <?= number_format($mostProfitableCrop->total_income, 2) ?>)
+            <?php else: ?>
+                <strong>No data available</strong>
+            <?php endif; ?>
+        </div>
+        <div class="data-point">
+            Most Contributing Supervisor: 
+            <?php if ($mostContributingSupervisor): ?>
+                <strong><?= htmlspecialchars($mostContributingSupervisor->user_name) ?></strong>
+                (Total Contribution: Rs. <?= number_format($mostContributingSupervisor->total_contribution, 2) ?>)
+            <?php else: ?>
+                <strong>No data available</strong>
+            <?php endif; ?>
+        </div>
+        <div class="data-point">
+            Most Contributing Sitehead: 
+            <?php if ($mostContributingSitehead): ?>
+                <strong><?= htmlspecialchars($mostContributingSitehead->user_name) ?></strong>
+                (Total Contribution: Rs. <?= number_format($mostContributingSitehead->total_contribution, 2) ?>)
+            <?php else: ?>
+                <strong>No data available</strong>
+            <?php endif; ?>
+        </div>
+    </div>
+
+    <h3>Income by Crop Type</h3>
+    <div class="highlight-box">
+        <table class="income-table">
+            <thead>
+                <tr>
+                    <th>Crop Type</th>
+                    <th>Total Income</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php if (is_array($incomeByCropType) && count($incomeByCropType) > 0): ?>
+                    <?php foreach ($incomeByCropType as $crop): ?>
+                    <tr>
+                        <td><?= htmlspecialchars($crop->crop_type) ?></td>
+                        <td>Rs. <?= number_format($crop->total_income, 2) ?></td>
+                    </tr>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <tr>
+                        <td colspan="2" class="text-center">No data available</td>
+                    </tr>
+                <?php endif; ?>
+            </tbody>
+        </table>
     </div>
 
     <div class="footer-note">
