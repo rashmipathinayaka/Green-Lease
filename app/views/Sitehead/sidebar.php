@@ -62,8 +62,8 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 				</li>
                 <li class="<?= $currentPage === 'harvest.view.php' ? 'active' : '' ?>">
 					<a href="<?= URLROOT ?>/sitehead/harvest">
-						<i class="fas fa-comments"></i>
-						<span>Harvest</span>
+						<i class="fas fa-shopping-cart"></i>
+						<span>Purchases</span>
 					</a>
 				</li>
 			</ul>

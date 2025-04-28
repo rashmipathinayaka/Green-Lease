@@ -124,7 +124,7 @@
                             <td><?= date('M d, Y', strtotime($purchase->harvest_date)) ?></td>
                             <td>
                                 <form method="POST" action="<?= URLROOT ?>/Sitehead/Harvest/markDelivered/<?= $purchase->id ?>" style="display: inline;">
-                                    <button type="submit" class="delivery-btn">Mark Delivered</button>
+                                    <button type="submit" class="delivery-btn">Mark As Delivered</button>
                                 </form>
                             </td>
                         </tr>

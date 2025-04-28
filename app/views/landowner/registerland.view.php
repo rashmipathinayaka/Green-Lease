@@ -88,7 +88,7 @@
                     <label for="doc">Upload a Legal Document of the Land</label>
                     <input type="file" id="document" name="document" required>
 
-                    <h6>You Cannot Change the Details Again</h6>
+                    <h5>* You Cannot Change the Details Again</h5>
                     <button class="form-submit-btn" type="submit">
                         <i class="fas fa-paper-plane"></i>&nbsp;Submit
                     </button>
