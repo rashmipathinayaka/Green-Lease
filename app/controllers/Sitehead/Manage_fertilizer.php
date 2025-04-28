@@ -118,7 +118,7 @@ class Manage_fertilizer
 		// Get all requests for this sitehead
 		$requests = $this->fertilizerRequestModel->where(
 			['sitehead_id' => $sitehead->id],  // $data
-			[]  // $data_not (must be array)
+			// $data_not (must be array)
 		);
 
 		// Manually sort by ID descending since we can't pass order params

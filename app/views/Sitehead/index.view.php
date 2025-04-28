@@ -61,7 +61,6 @@
 					<h2><i class="fas fa-calendar-day"></i> Today's Events</h2>
 					<span class="current-date"><?= date("F j, Y") ?></span>
 				</div>
-
 				<div class="events-list">
 					<?php if (!empty($todaysEvents)) : ?>
 						<?php foreach ($todaysEvents as $event) : ?>
@@ -72,17 +71,17 @@
 								<div class="event-details">
 									<div class="event-header">
 										<h3><?= htmlspecialchars($event->event_name) ?></h3>
+										<?php if ($event->postponed === 'yes') : ?>
+											<span class="postponed-badge">Postponed</span>
+										<?php endif; ?>
 										<span class="priority-badge">
 											<?= $event->status == 1 ? 'High Priority' : 'Medium Priority' ?>
 										</span>
 									</div>
-
 									<div class="event-bottom">
 										<div class="event-info">
-											<!-- <span><i class="fas fa-clock"></i> <?= date('h:i A', strtotime($event->date)) ?></span> -->
 											<span><i class="fas fa-leaf"></i> <?= htmlspecialchars($event->crop_type) ?></span>
 											<span><i class="fas fa-align-left"></i> <?= htmlspecialchars(substr($event->description, 0, 200)) ?>...</span>
-
 										</div>
 										<button onclick="window.location.href='<?= URLROOT ?>/sitehead/Event/details/<?= $event->id ?>'" class="update-btn">
 											<i class="fas fa-edit"></i> Update

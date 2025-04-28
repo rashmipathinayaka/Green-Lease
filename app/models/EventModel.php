@@ -59,18 +59,19 @@ class EventModel
     }
 
     // Get today's events for a list of project IDs
-    public function getTodaysEvents($projectIds)
+    public function getTodaysEvents($projectId)
     {
-        if (empty($projectIds)) return [];
+        if (empty($projectId)) {
+            return [];
+        }
 
-        $placeholders = implode(',', array_fill(0, count($projectIds), '?'));
+        // Get today's date
         $today = date('Y-m-d');
 
-        $query = "SELECT e.*, p.crop_type 
-                 FROM {$this->table} e
-                 JOIN project p ON e.project_id = p.id
-                 WHERE e.project_id = ?
-                 AND (DATE(e.date) = ? OR e.postponed_date = ?)
+        $query = "SELECT e.*, p.crop_type,p.duration 
+                 FROM {$this->table} e JOIN project p 
+                 ON e.project_id = p.id
+                 WHERE e.project_id = ? AND (( e.postponed = 'no' AND DATE(e.date) = ?) OR ( e.postponed = 'yes' AND DATE(e.postponed_date) = ?))
                  ORDER BY e.date ASC";
 
         return $this->query($query, [$projectId, $today, $today]);
