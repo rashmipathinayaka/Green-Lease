@@ -60,6 +60,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 						<span>Manage Feedbacks</span>
 					</a>
 				</li>
+                <li class="<?= $currentPage === 'harvest.view.php' ? 'active' : '' ?>">
+					<a href="<?= URLROOT ?>/sitehead/harvest">
+						<i class="fas fa-comments"></i>
+						<span>Harvest</span>
+					</a>
+				</li>
 			</ul>
 		</nav>
 

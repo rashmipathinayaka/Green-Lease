@@ -149,7 +149,7 @@
 
 
 
-    <br><br><br><br>
+    <br>
     <!-- Button to trigger PDF download -->
     <button id="downloadReport">Download PDF</button>
     </div>

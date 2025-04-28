@@ -13,7 +13,7 @@ class Harvest {
             redirect('unauthorized');
         }
         
-        $this->purchaseModel = $this->model('Purchase');
+        $this->purchaseModel = new Purchase();
     }
 
     public function index() {

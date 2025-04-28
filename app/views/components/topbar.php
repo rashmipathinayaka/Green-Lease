@@ -42,12 +42,14 @@
     <div class="topbar-right">
         <div class="language-switcher">
             <?php $lang = $_SESSION['lang'] ?? 'en'; ?>
+            <?php if ($_SESSION['role_id'] == 6): ?>
             <button type="button" class="language-btn <?php echo $lang === 'en' ? 'active' : ''; ?>" data-lang="en">
                 <i class="fas fa-globe"></i> English
             </button>
             <button type="button" class="language-btn <?php echo $lang === 'si' ? 'active' : ''; ?>" data-lang="si">
                 <i class="fas fa-globe"></i> සිංහල
             </button>
+            <?php endif; ?>
         </div>
     </div>
   </div>
