@@ -67,7 +67,7 @@ class Approve_land
             }
         }
 
-        $sitehead = $this->siteheadmodel->getAllSiteheads($user_id); // <-- use $user_id or $supervisor_id as needed
+        $sitehead = $this->siteheadmodel->getSiteheadsBySupervisorUserId($user_id); // <-- use $user_id or $supervisor_id as needed
 
         $this->view('Supervisor/Approve_land', [
             'showBigForm' => $showBigForm,
