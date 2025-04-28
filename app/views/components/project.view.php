@@ -29,36 +29,45 @@
     <div class="container">
         <!-- Project Details -->
         <section class="project-details">
-            <div class="project-image">
-                <?php foreach ($eventdetails as $event): ?>
-                    <?php
-                    // Decode the JSON if it's not already an array
-                    $images = json_decode($event->completion_images);
-                    ?>
-                    <?php if (!empty($images)): ?>
-                        <div class="event-gallery">
+        <div class="project-image">
+    <?php if (!empty($eventdetails)): ?>
+        <?php foreach ($eventdetails as $event): ?>
+            <?php if (!empty($event->images)): ?>
+                <div class="event-gallery">
+                    <!-- Display first image -->
+                    <div class="event-image-container" data-event-name="<?= htmlspecialchars($event->event_name) ?>" onclick="openImageModal(<?= $event->id ?>)">
+                        <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($event->images[0]) ?>" alt="Event Image" class="event-image-thumbnail">
+                    </div>
 
-                            <!-- Display only the first image initially -->
-                            <div class="event-image-container" data-event-name="<?= htmlspecialchars($event->event_name) ?>" onclick="openImageModal(<?= $event->id ?>)">
-                                <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($images[0]) ?>" alt="Event Image" class="event-image-thumbnail">
-                            </div>
-
-                            <!-- Hidden Modal that will display all images when clicked -->
-                            <div id="modal-<?= $event->id ?>" class="image-modal" style="display: none;">
-                                <div class="modal-content">
-                                    <span class="close" onclick="closeImageModal(<?= $event->id ?>)">&times;</span>
-                                    <h3>Event: <?= htmlspecialchars($event->event_name) ?></h3>
-                                    <div class="modal-images">
-                                        <?php foreach ($images as $img): ?>
-                                            <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($img) ?>" alt="Event Image">
-                                        <?php endforeach; ?>
-                                    </div>
-                                </div>
+                    <!-- Hidden modal with all images -->
+                    <div id="modal-<?= $event->id ?>" class="image-modal" style="display: none;">
+                        <div class="modal-content">
+                            <span class="close" onclick="closeImageModal(<?= $event->id ?>)">&times;</span>
+                            <h3>Event: <?= htmlspecialchars($event->event_name) ?></h3>
+                            <div class="modal-images">
+                                <?php foreach ($event->images as $img): ?>
+                                    <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($img) ?>" alt="Event Image">
+                                <?php endforeach; ?>
                             </div>
                         </div>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
+                    </div>
+                </div>
+            <?php else: ?>
+                <div class="no-images-message">
+                    <p>No images for now for <?= htmlspecialchars($event->event_name) ?></p>
+                </div>
+            <?php endif; ?>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <div class="no-images-message">
+            <p>No event images available for this project yet.</p>
+        </div>
+    <?php endif; ?>
+</div>
+    
+
+
+
 
 
             <div id="map" style="height: 500px; width: 100%;"></div>
@@ -135,50 +144,9 @@
 
         </section>
 
-        <!-- Stats Section -->
 
 
-        <!-- Upcoming Events -->
-        <!-- <section class="events-section">
-            <h2 class="section-title">Upcoming Events</h2>
-            <div class="events-grid">
-                <div class="event-card">
-                    <div class="event-image">
-                        <img src="/api/placeholder/400/250" alt="Irrigation System Update">
-                    </div>
-                    <div class="event-details">
-                        <div class="event-date">April 20, 2025</div>
-                        <h3>Irrigation System Update</h3>
-                        <p class="event-description">Installation of new drip irrigation components in Sectors 3 and 4.</p>
-                        <span class="event-status status-upcoming">Upcoming</span>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-image">
-                        <img src="/api/placeholder/400/250" alt="Pest Control Application">
-                    </div>
-                    <div class="event-details">
-                        <div class="event-date">April 25, 2025</div>
-                        <h3>Pest Control Application</h3>
-                        <p class="event-description">Organic pest control application throughout all sectors.</p>
-                        <span class="event-status status-upcoming">Upcoming</span>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-image">
-                        <img src="/api/placeholder/400/250" alt="Soil Quality Assessment">
-                    </div>
-                    <div class="event-details">
-                        <div class="event-date">May 5, 2025</div>
-                        <h3>Soil Quality Assessment</h3>
-                        <p class="event-description">Comprehensive soil analysis for nutrient levels and pH balance.</p>
-                        <span class="event-status status-planned">Planned</span>
-                    </div>
-                </div>
-            </div>
-        </section> -->
 
-        <!-- Harvest Timeline -->
         <section class="harvest-timeline">
             <h2 class="section-title">Event Schedule</h2>
             <div class="timeline">
@@ -223,7 +191,6 @@
             <div class="team-grid">
                 <div class="team-member">
                     <div class="member-avatar">
-                        <!-- Displaying the profile picture -->
                         <img src="<?php echo URLROOT . '/assets/Images/' . htmlspecialchars($sitehead->propic); ?>" alt="Site Head Avatar" />
                     </div>
                     <div class="member-info">
@@ -257,22 +224,22 @@
 
     <!-- Footer -->
     <?php if (isset($_SESSION['id'])): ?>
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
+        <footer>
+            <div class="container">
+                <div class="footer-content">
+                    <div class="footer-section">
 
-                    <h2>Give you feedbacks about the project here.</h2>
-                    <h3> Your sitehead,supervisor would see
-                        your feedbacks and will make sure to improve the project.</h3>
-                    <form action="<?= URLROOT ?>/components/project/getfeedback/<?php echo $projectdetails->id; ?>" method="POST">
-                        <input type="text" name="feedback" placeholder="Enter your feedback here..." class="feedback-input">
-                        <button type="submit" class="feedback-button">Submit</button>
-                    </form>
+                        <h2>Give you feedbacks about the project here.</h2>
+                        <h3> Your sitehead,supervisor would see
+                            your feedbacks and will make sure to improve the project.</h3>
+                        <form action="<?= URLROOT ?>/components/project/getfeedback/<?php echo $projectdetails->id; ?>" method="POST">
+                            <input type="text" name="feedback" placeholder="Enter your feedback here..." class="feedback-input">
+                            <button type="submit" class="feedback-button">Submit</button>
+                        </form>
 
 
-                </div>
-    </footer>
+                    </div>
+        </footer>
 
     <?php endif; ?>
 

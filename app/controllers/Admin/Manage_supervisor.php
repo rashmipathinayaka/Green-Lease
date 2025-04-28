@@ -21,9 +21,11 @@ class Manage_supervisor
     public function index()
     {
 
-        $full_name = $_GET['full_name'] ?? '';
+        $full_name = strtolower($_GET['full_name'] ?? '');
         $zone = $_GET['zone'] ?? '';
-    
+        
+    echo $zone;
+
         $filters = [
             'full_name' => $full_name,
             'zone' => $zone
@@ -34,6 +36,10 @@ class Manage_supervisor
         $data = $this->supervisor->getSupervisorDetails($filters);
             
         $this->view('admin/manage_supervisor', ['data' => $data,'zones' => $zones]);
+    
+        // header('Location: ?full_name=' . urlencode($full_name) . '&zone=' . urlencode($zone));
+        // exit();
+    
     }
 
 

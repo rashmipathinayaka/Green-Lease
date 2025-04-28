@@ -12,12 +12,17 @@
     <?php
     require ROOT . '/views/admin/sidebar.php';
     require ROOT . '/views/components/topbar.php';
-    ?>
+    ?> 
     <div class="content">
         <center>
             <h1>Manage Supervisors</h1>
         </center>
         <br><br>
+
+
+      
+
+
 
         <div class="filter-section">
             <form method="GET" action="" class="filter-form" style="margin-bottom: 20px; text-align: center;">
