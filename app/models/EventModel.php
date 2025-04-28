@@ -63,6 +63,11 @@ class EventModel
     {
         if (empty($projectIds)) return [];
 
+        // Convert single project ID to array if needed
+        if (!is_array($projectIds)) {
+            $projectIds = [$projectIds];
+        }
+
         $placeholders = implode(',', array_fill(0, count($projectIds), '?'));
         $today = date('Y-m-d');
 
