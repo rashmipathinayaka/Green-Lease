@@ -41,7 +41,7 @@ class Manage_fertilizer
 		if (!empty($siteheadData)) {
 			// Get project IDs of the sitehead
 			$projectModel = new Project();
-			$data['projects'] = []; // Initialize empty array
+			// $data['projects'] = []; // Initialize empty array
 
 			$projects = $projectModel->first([
 				'sitehead_id' => $siteheadData->id,

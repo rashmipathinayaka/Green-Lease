@@ -40,10 +40,10 @@ class EventModel
                  FROM {$this->table} e
                  JOIN project p ON e.project_id = p.id
                  WHERE e.project_id = ?
-                 AND DATE(e.date) = ?
+                 AND (DATE(e.date) = ? OR e.postponed_date = ?)
                  ORDER BY e.date ASC";
 
-        return $this->query($query, [$projectId, $today]);
+        return $this->query($query, [$projectId, $today, $today]);
     }
 
     public function getEventWithImages($eventId)

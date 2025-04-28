@@ -280,7 +280,7 @@ class Event
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Handle form submission
             $data = [
-                // 'postponed' => 'yes',
+                'postponed' => 'yes',
                 'postpone_details' => $_POST['postpone_reason'],
                 'postponed_date' => $_POST['postponed_date'], // Optional: if you want to track when it was postponed
                 // 'date' => $_POST['postponed_date']
