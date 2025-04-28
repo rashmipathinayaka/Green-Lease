@@ -12,7 +12,6 @@ class modelEvent
         'event_name',
         'date',
         'time',
-        'location',
         'workers_required',
         'payment_per_worker',
         'status',
@@ -33,33 +32,31 @@ class modelEvent
     // Add a new event (simplified with default values)
     public function addEvent($data)
     {
-        // Set default values for required fields
-        $data['status'] = $data['status'] ?? 0;
-        $data['completion_status'] = $data['completion_status'] ?? 'Pending';
-        $data['progress_notes'] = $data['progress_notes'] ?? '';
-        
-        $query = "INSERT INTO event (project_id, event_name, date, time, location, workers_required, payment_per_worker, status, description, progress_notes, completion_status, completion_images, postponed_date)
+        $query = "INSERT INTO event (project_id, event_name, date, time,  workers_required, payment_per_worker, status, description, progress_notes, completion_status, completion_images, postponed_date)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
+    
         $params = [
             $data['project_id'] ?? null,
             $data['event_name'] ?? null,
             $data['date'] ?? null,
             $data['time'] ?? null,
-            $data['location'] ?? null,
             $data['workers_required'] ?? 0,
             $data['payment_per_worker'] ?? 0,
             $data['status'],
-            $data['description'] ?? null,
-            $data['progress_notes'],
+            $data['description'] ?? '',
+            $data['progress_notes'] ?? '',
             $data['completion_status'],
             $data['completion_images'] ?? null,
             $data['postponed_date'] ?? null
         ];
-
-        return $this->query($query, $params);
+    
+        // Run the query
+        $result = $this->query($query, $params);
+    
+        // ✅ Always check if $result is not false
+        return $result !== false;
     }
-
+    
     // Get today's events for a list of project IDs
     public function getTodaysEvents($projectIds)
     {

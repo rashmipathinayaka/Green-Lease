@@ -147,7 +147,7 @@ require ROOT . '/views/components/topbar.php';
       <option value="" style="display: none;">-- Select Inactive Sitehead --</option>
   <?php if (!empty($inactiveUsers)): ?>
       <?php foreach ($inactiveUsers as $user): ?>
-          <option value="<?= $user->user_id ?>"><?= $user->user_id ?> - <?= $user->full_name ?></option>
+          <option value="<?= $user->id ?>"><?= $user->id ?> - <?= $user->full_name ?></option>
       <?php endforeach; ?>
   <?php else: ?>
       <option value="">No inactive siteheads available</option>

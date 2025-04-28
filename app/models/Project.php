@@ -20,63 +20,90 @@ class Project {
      * @param int $supervisorId Supervisor ID
      * @return int The count of ongoing projects
      */
-    public function countOngoingProjectsBySupervisorId($supervisorId)
-    {
-        $result = $this->query("SELECT COUNT(*) AS count FROM project WHERE supervisor_id = :supervisor_id AND status = 'Ongoing'", ['supervisor_id' => $supervisorId]);
-        return $result[0]->count ?? 0;
-    }
+    public function countOngoingProjectsByUserId($userId)
+{
+    $result = $this->query("
+        SELECT COUNT(*) AS count 
+        FROM project p
+        INNER JOIN supervisor s ON p.supervisor_id = s.id
+        WHERE s.user_id = :user_id AND p.status = 'Ongoing'
+    ", ['user_id' => $userId]);
+
+    return $result[0]->count ?? 0;
+}
+
     
+
     /**
      * Count completed projects by supervisor ID
      * @param int $supervisorId Supervisor ID
      * @return int The count of completed projects
      */
-    public function countCompletedProjectsBySupervisorId($supervisorId)
+    public function countCompletedProjectsByUserId($userId)
     {
-        $result = $this->query("SELECT COUNT(*) AS count FROM project WHERE supervisor_id = :supervisor_id AND status = 'Completed'", ['supervisor_id' => $supervisorId]);
+        $result = $this->query("
+            SELECT COUNT(*) AS count 
+            FROM project p
+            INNER JOIN supervisor s ON p.supervisor_id = s.id
+            WHERE s.user_id = :user_id AND p.status = 'Completed'
+        ", ['user_id' => $userId]);
+    
         return $result[0]->count ?? 0;
     }
+    
     
     /**
      * Get ongoing projects by supervisor ID
      * @param int $supervisorId Supervisor ID
      * @return array Array of ongoing projects
      */
-    public function findOngoingProjects($supervisorId)
-    {
-        $query = "SELECT * FROM project WHERE status = 'Ongoing' AND supervisor_id = :supervisor_id";
-        $data = [':supervisor_id' => $supervisorId];
-        return $this->query($query, $data);
-    }
+    public function findOngoingProjects($userId)
+{
+    $query = "SELECT p.* 
+              FROM project p
+              INNER JOIN supervisor s ON p.supervisor_id = s.id
+              WHERE p.status = 'Ongoing' AND s.user_id = :user_id";
+
+    $data = ['user_id' => $userId];
+    return $this->query($query, $data);
+}
+
     
     /**
      * Get completed projects by supervisor ID
      * @param int $supervisorId Supervisor ID
      * @return array Array of completed projects
      */
-    public function findCompletedProjects($supervisorId)
-    {
-        $query = "SELECT * FROM project WHERE status = 'Completed' AND supervisor_id = :supervisor_id";
-        $data = [':supervisor_id' => $supervisorId];
-        return $this->query($query, $data);
-    }
+    public function findCompletedProjects($userId)
+{
+    $query = "SELECT p.* 
+              FROM project p
+              INNER JOIN supervisor s ON p.supervisor_id = s.id
+              WHERE p.status = 'Completed' AND s.user_id = :user_id";
+
+    $data = ['user_id' => $userId];
+    return $this->query($query, $data);
+}
+
     
     /**
      * Get all projects for a supervisor
      * @param int $supervisorId Supervisor ID
      * @return array Array of projects
      */
-    public function getProjectsBySupervisor($supervisorId)
-    {
-        $query = "SELECT p.*, 
-                 COALESCE(p.start_date, 'Not Started') as start_date
-                 FROM project p
-                 WHERE p.supervisor_id = :supervisor_id
-                 ORDER BY p.status, p.start_date DESC";
-        
-        $data = [':supervisor_id' => $supervisorId];
-        return $this->query($query, $data);
-    }
+    public function getProjectsByUserId($userId)
+{
+    $query = "SELECT p.*, 
+                     COALESCE(p.start_date, 'Not Started') AS start_date
+              FROM project p
+              JOIN supervisor s ON p.supervisor_id = s.id
+              WHERE s.user_id = :user_id
+              ORDER BY p.status, p.start_date DESC";
+
+    $data = [':user_id' => $userId];
+    return $this->query($query, $data);
+}
+
     
     /**
      * Get project by ID
@@ -116,7 +143,7 @@ class Project {
      */
     public function getProjectsWithEvents($supervisorId)
     {
-        $projects = $this->getProjectsBySupervisor($supervisorId);
+        $projects = $this->getProjectsByUserId($supervisorId);
         $EventModel = new EventModel();
         
         foreach ($projects as $key => $project) {
