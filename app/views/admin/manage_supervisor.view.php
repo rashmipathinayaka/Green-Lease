@@ -93,16 +93,19 @@
                                 <form class="form-styles inline-edit-form" method="POST" action="<?= URLROOT ?>/Admin/manage_supervisor/update_supervisor">
                                     <input type="hidden" name="id" value="<?= $supervisor->id ?>">
                                     <label>Zone:
-                                        <select name="zone" required>
-                                            <?php foreach (["1", "2", "3", "4"] as $zone): ?>
-                                                <option value="<?= $zone ?>" <?= $supervisor->zone == $zone ? "selected" : "" ?>><?= $zone ?></option>
-                                            <?php endforeach; ?>
-                                        </select>
-                                    </label>
+    <select name="zone" required>
+        <?php foreach ($zones as $zone): ?>
+            <option value="<?= $zone->id ?>" <?= $supervisor->zone == $zone->id ? "selected" : "" ?>>
+                <?= $zone->zone_name ?>
+            </option>
+        <?php endforeach; ?>
+    </select>
+</label>
+
                                     <label>Status:
                                         <select name="status" required>
-                                            <option value="0" <?= $supervisor->status == 0 ? "selected" : "" ?>>Active</option>
-                                            <option value="1" <?= $supervisor->status == 1 ? "selected" : "" ?>>Inactive</option>
+                                            <option value="1" <?= $supervisor->status == 1 ? "selected" : "" ?>>Active</option>
+                                            <option value="0" <?= $supervisor->status == 0 ? "selected" : "" ?>>Inactive</option>
                                         </select>
                                     </label>
                                     <button type="submit">Update</button>

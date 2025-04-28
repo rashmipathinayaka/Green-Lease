@@ -34,17 +34,18 @@ class Manage_sitehead
 
   
 
-public function delete_sitehead($id){
-	if ($this->sitehead->delete($id)) {
-              
-		$data = $this->sitehead->getSiteheadDetails();
-				  $this->view('admin/manage_sitehead', ['data' => $data]);
-			   } else {
-				   // If deletion fails, show a 404 page or an error message
-				   $this->view('sorry delete failed');
-			   }
-		   }
-
+    public function delete_sitehead($id){
+        if ($this->sitehead->delete($id)) {
+            // Redirect to the manage sitehead page after successful deletion
+            header("Location: " . URLROOT . "/Admin/manage_sitehead");
+            exit(); // Ensure no further code is executed after the redirect
+        } else {
+            // Redirect to an error page if deletion fails
+            header("Location: " . URLROOT . "/Admin/sorry_delete_failed");
+            exit(); // Ensure no further code is executed after the redirect
+        }
+    }
+    
 	
 
 

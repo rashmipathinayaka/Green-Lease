@@ -170,14 +170,69 @@ WHERE
 
 
 
-public function approveproject($id){
-    $query="UPDATE project SET status='ongoing' WHERE id=:id";
-    $data=[
-        'id'=>$id
+public function approveproject($id) {
+    $query = "UPDATE project SET status='ongoing' WHERE id=:id";
+    $data = [
+        'id' => $id
     ];
-    $this->query($query,$data);
+    $this->query($query, $data); 
 
+    // Get the sitehead_id of the project
+    $query = "SELECT sitehead_id FROM project WHERE id=:id";
+    $result = $this->query($query, $data); 
+    
+    // If sitehead_id is found, update status in the sitehead table to 'active'
+    if ($result && isset($result[0]->sitehead_id)) {
+        $sitehead_id = $result[0]->sitehead_id;
+
+        //  Update the status of the sitehead to 'active'
+        $query = "UPDATE sitehead SET status='active' WHERE id=:sitehead_id";
+        $data = [
+            'sitehead_id' => $sitehead_id
+        ];
+        $this->query($query, $data); 
+    }
 }
+
+
+
+public function getsupervisoridbyuserid($user_id) {
+    $query = "SELECT s.id FROM supervisor s WHERE s.user_id = :user_id";
+    $data = ['user_id' => $user_id];
+    
+    $result = $this->query($query, $data);
+
+    if (!empty($result)) {
+        return $result[0]->id; // ➔ access like an object
+    }
+    
+    return null;
+}
+
+
+
+
+
+
+
+public function checksupervisorOfVisit($land_id, $supervisor_id) {
+    $query = "SELECT id FROM site_visit WHERE land_id = :land_id AND supervisor_id = :supervisor_id";
+    $data = [
+        'land_id' => $land_id,
+        'supervisor_id' => $supervisor_id
+    ];
+    $result = $this->query($query, $data);
+
+    return !empty($result); // returns true if match found, false otherwise
+}
+
+
+
+
+
+
+
+
 
 
 

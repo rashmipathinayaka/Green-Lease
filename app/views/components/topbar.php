@@ -36,7 +36,7 @@
           </div>
       </div>
       <?php endif; ?>
-      <a href="<?php echo URLROOT; ?>/components/profile2/profilenavigation"><button class="profile-btn"><i class="fas fa-user"></i></button></a>
+      <a href="<?php echo URLROOT; ?>/profile2/profilenavigation"><button class="profile-btn"><i class="fas fa-user"></i></button></a>
     </div>
   </div>
   

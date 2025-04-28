@@ -70,7 +70,7 @@
                                 <?php if ($bid->status === 'Pending'): ?>
                                     <button class="green-btn" onclick="showApprovalModal(<?= htmlspecialchars($bid->id) ?>, <?= htmlspecialchars($bid->amount) ?>, <?= $remaining_amount ?>)">Approve</button>
                                 <?php else: ?>
-                                    <button class="blue-btn">View</button>
+                                    <!-- <button class="blue-btn">View</button> -->
                                 <?php endif; ?>
                             </td>
                         </tr>
