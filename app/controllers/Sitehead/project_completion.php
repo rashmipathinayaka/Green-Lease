@@ -15,8 +15,7 @@ class project_completion
     public function index()
     {
 
-        // $user_id=$_SESSION['id'];
-        $user_id = 1;
+        $user_id = $_SESSION['id'];
         $proinfo = $this->projectmodel->getproinfobysiteheadid($user_id);
 
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -27,7 +26,7 @@ class project_completion
                 'mark_complete' => $_POST['mark_complete'] ? 1 : 0,
                 'project_id' => $_POST['project_id']
             ];
-            
+
 
             echo $data['mark_complete'];
             if ($data['mark_complete']) {

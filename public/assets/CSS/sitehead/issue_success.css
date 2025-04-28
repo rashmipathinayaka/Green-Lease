@@ -54,18 +54,46 @@ body {
 }
 
 /* Button styling */
-.green-btn {
-    margin-top: 10px;
-    padding: 12px 30px;
+/* background-color: #43a047; */
+/* Button container */
+.button-group {
+    display: flex;
+    gap: 70px; /* Space between buttons */
+    margin-top: 20px;
+    justify-content: center;
+    width: 100%;
+}
+
+/* Base button styles (shared properties) */
+.home-btn,
+.history-btn {
+    padding: 9px 18px;
     font-size: 1em;
-    background-color: #43a047;
-    color: white;
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
+    min-width: 100px; /* Ensures equal width */
 }
 
-.green-btn:hover {
+/* Home button - Blue variant */
+.home-btn {  
+    color: white;
+    background-color: #43a047;
+}
+
+.home-btn:hover {
     background-color: #388e3c;
+    transform: translateY(-2px);
+}
+
+/* History button - Orange variant */
+.history-btn {
+    background-color: #0d5dde; /* Google blue */
+    color: white;
+}
+
+.history-btn:hover {
+    background-color: #3367D6;
+    transform: translateY(-2px);
 }

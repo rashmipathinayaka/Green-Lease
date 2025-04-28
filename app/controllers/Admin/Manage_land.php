@@ -32,8 +32,7 @@ class Manage_land
 $zones=$this->zonemodel->getAllZones();
 
         $lands = $this->manageland->getFilteredLands($filters);
-        //filter karaddi crop eka penna one unoth ganna
-// $crop_types = $this->cropmodel->getAllCrops();
+  
     
         $this->view('admin/manage_land', ['lands' => $lands,'zones'=>$zones]);
 
@@ -42,11 +41,5 @@ $zones=$this->zonemodel->getAllZones();
 	}
  
 
-// public function updateland($id){
-//     $data=['status'=>1];
-//     $this->manageland->update($id,$data,'id');
 
-//     $lands = $this->manageland->findAll();
-//     $this->view('admin/manage_land',['lands'=> $lands]);
-// }
 }

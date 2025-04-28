@@ -4,12 +4,12 @@ class RProject
 {
     use Model;
 
-    protected $table = 'projects';  // Table name 'projects'
+    protected $table = 'projects';  
 
     protected $allowedColumns = [
        'id',
        'supervisor_id',
-       'land_id',  // Ensure correct column naming
+       'land_id',  
        'duration',
        'status',
        'end_date',
@@ -21,21 +21,16 @@ class RProject
             'profit',
     ];
 
-    // Method to count the number of projects for a given supervisor
     public function projectspersupervisor($supervisorId) {
-        // Query to count the number of projects for a given supervisor
         $query = "SELECT COUNT(*) AS project_count FROM project WHERE supervisor_id = :supervisor_id";
 
-        // Prepare data for binding
         $data = [':supervisor_id' => $supervisorId];
         
-        // Call bind method for the query
         $this->bind($query, ':supervisor_id', $supervisorId);
 
-        // Call the single method to execute the query and get the result
         $result = $this->single($query, $data);
         
-        return $result;  // Return the result object
+        return $result;  
     }
 
 
@@ -45,7 +40,7 @@ class RProject
         $data = ['project_id' => $id];
         $result = $this->query($query, $data);
     
-        return $result ? $result[0] : null;  // return single land details
+        return $result ? $result[0] : null;  
     }
     
     
@@ -57,20 +52,19 @@ public function getprojectdetailsbyid($id){
 
     $data=['id'=>$id];
     $result= $this->query($query,$data);
-    return $result ? $result[0] : null;  // return single land details
+    return $result ? $result[0] : null;  
 
 }
 
 
 
 
-//get reated sitehead for project card
 public function getsiteheadbyproid($id)
 {
     $query = "SELECT u.* FROM sitehead s , user u WHERE s.land_id = (SELECT land_id FROM project WHERE id = :id) AND s.user_id = u.id";
     $data = ['id' => $id];
     $result = $this->query($query, $data);
-    return $result ? $result[0] : null;  // returns single sitehead details
+    return $result ? $result[0] : null; 
 }
 
 
@@ -79,12 +73,11 @@ public function getsupervisorbyproid($id)
 $query="SELECT u.* fROM user u,supervisor s,project  p WHERE p.id=:id AND p.supervisor_id=s.id AND s.user_id=u.id";
     $data = ['id' => $id];
     $result = $this->query($query, $data);
-    return $result ? $result[0] : null;  // returns single sitehead details
-
+    return $result ? $result[0] : null; 
 
 }
 
-//to submit feedback from project card
+
 public function getfeedback($id,$feedback){
 $query="INSERT INTO project_feedback (project_id, feedback) VALUES (:project_id, :feedback)";
 $data=[
@@ -95,7 +88,7 @@ $this->query($query,$data);
 
 }
 
-//admin initilaize project
+
 
 public function initializeproject($formdata){
     $query="INSERT INTO project (land_id,crop_type,duration,profit_rate,sitehead_id,status,supervisor_id,description) 
@@ -106,16 +99,13 @@ public function initializeproject($formdata){
    return  $this->query($query,$formdata);
 }
 
-//enter karana land ekat kalin project ekk tyeda blnwa. tye nm aye project ekk dann be.
 public function checkLandIdExists($land_id)
 {
     $query = "SELECT COUNT(*) AS count FROM project WHERE land_id = :land_id";
     
-    // Assuming query() returns an array of objects (stdClass)
     $result = $this->query($query, ['land_id' => $land_id]);
 
-    // Since result is an array of objects, access the property using '->'
-    return $result[0]->count > 0;  // Return true if count > 0, false otherwise
+    return $result[0]->count > 0;  
 }
 
 
@@ -126,7 +116,7 @@ public function getforminfo($land_id){
         'land_id'=>$land_id
     ];
     $result=$this->query($query,$data);
-    return $result ? $result[0] : null;  // return single land details
+    return $result ? $result[0] : null;  
 
 }
 
@@ -138,13 +128,13 @@ public function getsupinfo($land_id){
         'land_id'=>$land_id
     ];
     $result=$this->query($query,$data);
-    return $result ? $result[0] : null;  // return single land details
+    return $result ? $result[0] : null;  
 
 }
 
 
 
-//get pending projects for admin
+
 public function getpendingprojects()
 {
     $query="SELECT  p.*, 
@@ -164,7 +154,7 @@ JOIN
 WHERE 
     p.status = 'pending'";
     $result = $this->query($query);
-    return $result;  // returns all pending projects
+    return $result; 
 
 }
 
@@ -177,15 +167,13 @@ public function approveproject($id) {
     ];
     $this->query($query, $data); 
 
-    // Get the sitehead_id of the project
     $query = "SELECT sitehead_id FROM project WHERE id=:id";
     $result = $this->query($query, $data); 
     
-    // If sitehead_id is found, update status in the sitehead table to 'active'
+    
     if ($result && isset($result[0]->sitehead_id)) {
         $sitehead_id = $result[0]->sitehead_id;
 
-        //  Update the status of the sitehead to 'active'
         $query = "UPDATE sitehead SET status='active' WHERE id=:sitehead_id";
         $data = [
             'sitehead_id' => $sitehead_id
@@ -203,7 +191,7 @@ public function getsupervisoridbyuserid($user_id) {
     $result = $this->query($query, $data);
 
     if (!empty($result)) {
-        return $result[0]->id; // ➔ access like an object
+        return $result[0]->id; 
     }
     
     return null;
@@ -223,7 +211,26 @@ public function checksupervisorOfVisit($land_id, $supervisor_id) {
     ];
     $result = $this->query($query, $data);
 
-    return !empty($result); // returns true if match found, false otherwise
+    return !empty($result); 
+}
+
+
+public function rejectproject($formdata){
+    // Prepare the query to update the outcome and reason for the site visit
+    $query = "UPDATE site_visit SET outcome = 'Rejected', reason = :reason WHERE id = :id";
+
+    // Prepare the data to bind to the query
+    $data = [
+        'id' => $formdata['id'],
+        'reason' => $formdata['reason']
+    ];
+
+    // Execute the query with the data
+    return $this->query($query, $data);
+}
+
+
+
 }
 
 
@@ -237,8 +244,6 @@ public function checksupervisorOfVisit($land_id, $supervisor_id) {
 
 
 
-
-}
 
 
 

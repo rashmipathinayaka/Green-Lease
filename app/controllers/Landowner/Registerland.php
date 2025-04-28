@@ -18,12 +18,11 @@ class Registerland
     {
         $registerland = new RLand();
         $harvest = new Rsite_visit();
-        $userId = 1; // Replace with session user id in real use
+        $userId = 1; 
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $crop_type = $_POST['crop_type'] ?? null;
     
-            // 👇 Insert crop only if it's not empty and doesn't already exist
             if (!empty($crop_type) && !$this->crop_types->cropExists($crop_type)) {
                 $this->crop_types->insertNewCrop($crop_type);
             }
@@ -46,7 +45,6 @@ class Registerland
             ];
     
             
-            // File upload logic
             $uploadDir = "uploads/";
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
     
@@ -81,7 +79,6 @@ class Registerland
             }
         }
     
-        // This always runs for GET requests
         $crops = $this->crop_types->getAllCrops();
 $zones=$this->zonemodel->getAllZones();
 

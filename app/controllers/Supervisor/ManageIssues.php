@@ -17,41 +17,80 @@ class ManageIssues
 
     public function index()
     {
-        // Fetch all pending issues with user details
-        $pendingIssues = $this->getIssuesWithUserDetails('pending');
 
-        // Fetch all solved issues with user details
-        $solvedIssues = $this->getIssuesWithUserDetails('solved');
+        $data = ['errors' => []]; // Initialize errors array
 
-        $this->view('supervisor/issue', [
-            'pendingIssues' => $pendingIssues,
-            'solvedIssues' => $solvedIssues,
-        ]);
+        // Check if user is logged in
+        if (!isset($_SESSION['id'])) {
+            $this->view('404');
+            return;
+        }
+
+        $userId = $_SESSION['id'];
+
+        // Get sitehead's data
+        $supervisorModel = new supervisor();
+        $supervisorData = $supervisorModel->first(['user_id' => $userId]);
+
+        if (!empty($supervisorData)) {
+            // Get project IDs of the superviosr
+            $projectModel = new Project();
+            $data['projects'] = []; // Initialize empty array
+
+            $projects = $projectModel->where([
+                'supervisor_id' => $supervisorData->id,
+                'status' => 'ongoing'
+            ]);
+
+            foreach ($projects as $project) {
+                $data['projects'][] = $project; // Store full project objects
+            }
+
+            // Fetch all pending issues with user details
+            $pendingIssues = $this->getIssuesWithUserDetails('pending', $projects);
+
+            // Fetch all solved issues with user details
+            $solvedIssues = $this->getIssuesWithUserDetails('solved', $projects);
+
+            $this->view('supervisor/issue', [
+                'pendingIssues' => $pendingIssues,
+                'solvedIssues' => $solvedIssues,
+            ]);
+        }
     }
 
-    private function getIssuesWithUserDetails($status)
+    private function getIssuesWithUserDetails($status, $SupervisorProjects)
     {
-        $issues = $this->issueModel->where(['status' => $status]);
+        $validIssues = [];
 
-        if (!empty($issues)) {
-            foreach ($issues as $issue) {
-                // Get sitehead record
-                $sitehead = $this->siteheadModel->first(['id' => $issue->sitehead_id]);
+        foreach ($SupervisorProjects as $project) {
+            $issues = $this->issueModel->where([
+                'status' => $status,
+                'sitehead_id' => $project->sitehead_id
+            ]);
 
-                if ($sitehead) {
-                    // Get user details
-                    $user = $this->userModel->first(['id' => $sitehead->user_id]);
+            if (!empty($issues)) {
+                foreach ($issues as $issue) {
+                    // Get sitehead record
+                    $sitehead = $this->siteheadModel->first(['id' => $issue->sitehead_id]);
 
-                    if ($user) {
-                        // Add user details to the issue object
-                        $issue->user_name = $user->full_name;
-                        $issue->contact_no = $user->contact_no;
+                    if ($sitehead) {
+                        // Get user details
+                        $user = $this->userModel->first(['id' => $sitehead->user_id]);
+
+                        if ($user) {
+                            // Add user details to the issue object
+                            $issue->user_name = $user->full_name;
+                            $issue->contact_no = $user->contact_no;
+
+                            $validIssues[] = $issue;
+                        }
                     }
                 }
             }
         }
 
-        return $issues;
+        return $validIssues;
     }
 
 

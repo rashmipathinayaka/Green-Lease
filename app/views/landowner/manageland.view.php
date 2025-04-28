@@ -75,7 +75,7 @@
 								<?php if ($land->status == '4'): ?>
 									<button class="red-btn" onclick="openModal('<?= URLROOT ?>/Landowner/Manageland/deleteland/<?php echo $land->id; ?>')">Remove</button>
 								<?php elseif ($land->status == '2' || $land->status == '3'): ?>
-									<button class="green-btn" onclick="window.location.href='<?= URLROOT ?>/components/project/index/<?= $land->id ?>';">View project</button>
+									<button class="green-btn" onclick="window.location.href='<?= URLROOT ?>/project/index/<?= $land->id ?>';">View project</button>
 									<?php else: ?>
 									<span class="status-pending">Pending for approval</span>
 								<?php endif; ?>
