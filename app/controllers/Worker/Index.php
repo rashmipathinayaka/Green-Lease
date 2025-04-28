@@ -1,5 +1,5 @@
 <?php
-class Index extends Controller {
+class Index extends Controller2 {
 
     public function __construct() {
         if (!isset($_SESSION['id'])) {

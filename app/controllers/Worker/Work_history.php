@@ -1,6 +1,6 @@
 <?php
 
-class Work_history extends Controller
+class Work_history extends Controller2
 {
 
     public function index()

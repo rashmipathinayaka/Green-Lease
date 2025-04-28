@@ -1,5 +1,5 @@
 <?php
-class Language extends Controller {
+class Language extends Controller2 {
     private $translation;
 
     public function __construct() {
