@@ -138,7 +138,6 @@
                 <th>Event Name</th>
                 <th>Date</th>
                 <th>Time</th>
-                <th>Location</th>
                 <th>Workers Required</th>
             </tr>
         </thead>
@@ -149,7 +148,6 @@
                         <td><?= htmlspecialchars($event->event_name) ?></td>
                         <td><?= htmlspecialchars($event->date) ?></td>
                         <td><?= htmlspecialchars($event->time) ?></td>
-                        <td><?= htmlspecialchars($event->location) ?></td>
                         <td><?= htmlspecialchars($event->workers_required) ?></td>
                     </tr>
                 <?php endforeach; ?>
@@ -180,9 +178,7 @@
             <label for="event_time">Event Time <span style="color:red;">*</span></label>
            <input type="time" id="event_time" name="time" value="<?= htmlspecialchars($form_data['time'] ?? '') ?>" required />
 
-           <label for="location">Location</label>
-           <input type="text" id="location" name="location" value="<?= htmlspecialchars($form_data['location'] ?? '') ?>" />
-
+          
            <label for="workers_required">Workers Required</label>
            <input type="number" id="workers_required" name="workers_required" min="0" value="<?= htmlspecialchars($form_data['workers_required'] ?? '0') ?>" />
 
