@@ -15,7 +15,6 @@ class RReprot{
         
         $result = $this->query($query);
         
-        // Return the first row if results exist
         if (!empty($result)) {
             return [
                 'crop_type' => $result[0]->crop_type,
@@ -23,7 +22,6 @@ class RReprot{
             ];
         }
         
-        // Return null or default values if no results
         return null;
         
      
@@ -39,7 +37,6 @@ class RReprot{
         
         $result = $this->query($query);
         
-        // Return the first row if results exist
         if (!empty($result)) {
             return [
                 'crop_type' => $result[0]->crop_type,
@@ -47,7 +44,6 @@ class RReprot{
             ];
         }
         
-        // Return null or default values if no results
         return null;
         
      
@@ -69,7 +65,6 @@ public function totalprojects(){
         $query = "SELECT COUNT(*) AS totalprojects FROM project";
         $result = $this->query($query);
         
-        // Return the count (default to 0 if no results)
         return $result[0]->totalprojects ?? 0;
     }
 
@@ -120,29 +115,26 @@ public function countbuyers() {
     $query = "SELECT COUNT(*) AS buyer_count FROM user WHERE role_id = 5";
     $result = $this->query($query);
     
-    // Return the count (default to 0 if no results)
     return $result[0]->buyer_count ?? 0;
 
 }
 
 
 public function countPostponedEventsThisYear() {
-    // Get the current year
     $currentYear = date('Y');
 
-    // SQL query to count postponed events for the current year
     $query = "SELECT count(*) AS postponedCount
               FROM event
               WHERE postponed = 'yes' AND YEAR(date) = $currentYear";
 
-    // Execute the query
+    
     $result = $this->query($query);
 
-    // Fetch and return the count
+    
     if ($result) {
-        return $result[0]->postponedCount; // Return the count of postponed events
+        return $result[0]->postponedCount; 
     } else {
-        return 0; // Return 0 if no postponed events found for this year
+        return 0; 
     }
 }
 

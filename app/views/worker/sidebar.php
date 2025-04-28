@@ -3,18 +3,17 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= getCurrentLanguage() ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?= URLROOT; ?>/assets/css/worker.css">
-    <title>Worker Dashboard</title>
+    <title><?= translate('Worker Dashboard') ?></title>
 </head>
 <body>
 <div class="sidebar">
     <div class="sidebar-header">
-
-        <!-- <h3>Worker Portal</h3> -->
+        <!-- <h3><?= translate('Worker Portal') ?></h3> -->
     </div>
 
     <nav class="sidebar-nav">
@@ -22,19 +21,19 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <li class="<?= $currentPage === 'index.view.php' ? 'active' : '' ?>">
                 <a href="<?= URLROOT ?>/Worker/Index">
                     <i class="fas fa-home"></i>
-                    <span>Dashboard</span>
+                    <span><?= translate('Dashboard') ?></span>
                 </a>
             </li>
             <li class="<?= $currentPage === 'work_history.view.php' ? 'active' : '' ?>">
                 <a href="<?= URLROOT ?>/Worker/Work_history">
                     <i class="fas fa-history"></i>
-                    <span>Work Records</span>
+                    <span><?= translate('Work Records') ?></span>
                 </a>
             </li>
             <li class="<?= $currentPage === 'file_complaint.view.php' ? 'active' : '' ?>">
                 <a href="<?= URLROOT ?>/Worker/File_complaint">
                     <i class="fas fa-exclamation-circle"></i>
-                    <span>File a Complaint</span>
+                    <span><?= translate('File a Complaint') ?></span>
                 </a>
             </li>
         </ul>
@@ -43,7 +42,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
     <div class="sidebar-footer">
         <a href="<?= URLROOT ?>/Logout" class="logout-btn">
             <i class="fas fa-sign-out-alt"></i>
-            <span>Logout</span>
+            <span><?= translate('Logout') ?></span>
         </a>
     </div>
 </div>

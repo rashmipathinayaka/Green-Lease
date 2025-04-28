@@ -5,9 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/project.css">
-
     <title>Green & White Form</title>
-
 </head>
 
 <body>
@@ -23,8 +21,6 @@
         }
     </style>
 
-    <?php $showBigForm = $data['showBigForm'] ?? false; ?>
-
     <div class="form-container">
         <div class="info">
             Kindly complete all fields below using the specific details gathered during the site visit. The information you provide will be used to initialize the project in our system. Please ensure that all details are accurate and complete.
@@ -39,39 +35,24 @@
             <div class="message error-message"><?php echo $data['message']; ?></div>
         <?php endif; ?>
 
-        <h2></h2>
-
         <!-- Display alert message -->
         <?php if (!empty($alertMessage)): ?>
             <div class="alert-custom">
                 <?php echo $alertMessage; ?>
             </div>
         <?php endif; ?>
- 
-        <!-- Only show small form if no alert message is set -->
-        <?php if (empty($alertMessage) && !$showBigForm): ?>
-            <form action="<?= URLROOT ?>/Supervisor/Approve_land/" method="POST">
-                <div class="lil-form">
-                    <div class="form-group">
-                        <label for="land_id">Land id</label>
-                        <input type="number" id="land_id" name="land_id" >
-                    </div>
-                    <button type="submit">Submit</button>
-                </div>
-            </form>
-        <?php endif; ?>
 
-        <!-- Only show big form if there is no alert message and the form is set to be shown -->
-        <?php if (empty($alertMessage) && $showBigForm): ?>
+        <!-- Show only big form -->
+        <?php if (empty($alertMessage)): ?>
             <div class="big-form">
-                <form action="<?= URLROOT ?>/Supervisor/Approve_land/" method="POST">
+                <form action="<?= URLROOT ?>/Supervisor/Approve_land/initializeproject" method="POST">
                     <div class="form-group">
                         <label for="crop_type">Selected Crop type</label>
-                        <div class="note">preferred crop of the landowner: <?php echo htmlspecialchars($landInfo->crop_type); ?></div>
+                        <div class="note">Preferred crop of the landowner: <?php echo htmlspecialchars($landInfo->crop_type); ?></div>
                         <input type="text" id="crop_type" name="crop_type" required>
                     </div>
 
-                    <input type="number" id="land_id" name="land_id" hidden value="<?php echo htmlspecialchars($landInfo->id); ?>">
+                    <input type="hidden" id="land_id" name="land_id" value="<?php echo htmlspecialchars($landInfo->id); ?>">
 
                     <div class="form-group">
                         <label for="duration">Duration of the project</label>
@@ -106,7 +87,7 @@
         <?php endif; ?>
 
         <div class="form-footer">
-            
+            <!-- Optional footer content -->
         </div>
     </div>
 

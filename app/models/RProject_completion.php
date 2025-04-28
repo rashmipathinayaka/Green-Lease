@@ -34,14 +34,14 @@ public function markProjectAsComplete($data)
         WHERE id = :project_id
     ";
 
-    // Use the data passed to the function instead of $_POST directly
+    
     $params = [
         'project_id' => $data['project_id'],
         'profit' => $data['profit_gained'],
         'description' => $data['description']
     ];
 
-    // Execute the query
+    
     $this->query($query, $params);
 }
 

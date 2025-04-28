@@ -8,7 +8,6 @@ class Bidding
 
     public function __construct()
     {
-        // Initialize the Bid and Harvest models in the constructor
         $this->bidding = new RBid();
         $this->harvest = new RHarvest();
     }
@@ -52,31 +51,25 @@ class Bidding
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $harvest_id = $_POST['harvest_id'];
-            $bid_id = $_POST['bid_id']; // Get the bid ID from the form
+            $bid_id = $_POST['bid_id']; 
 
-            // Fetch the bid from the database
             $bid = $this->harvest->getBidById($bid_id);
 
-            // Check if the bid exists
             if ($bid === null) {
                 echo "Bid not found!";
                 return;
             }
 
-            // Check if the bid's amount exceeds the remaining amount
             $remaining_amount = $this->harvest->getRemainingAmount($harvest_id);
             if ($bid->amount > $remaining_amount) {
                 echo "Bid exceeds remaining capacity!";
                 return;
             }
 
-            // Update bid status to 'Approved' (You can also handle other status changes)
             $this->harvest->approveBid($bid_id);
 
-            // Reduce the remaining amount from the harvest capacity
             $this->harvest->reduceRemainingAmount($harvest_id, $bid->amount);
 
-            // Redirect back to the bidding page with success message or fresh data
             header("Location: " . URLROOT . "/Admin/Bidding?harvest_id=$harvest_id");
                                 exit;
         }

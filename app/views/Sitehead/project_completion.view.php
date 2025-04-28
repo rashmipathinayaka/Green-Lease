@@ -9,12 +9,10 @@
     <title>Project Completion Form</title>
 </head>
 
-<body>
+<body style="margin-top: 100px; margin-left: 20px; margin-right: 20px;">
     <?php
     require ROOT . '/views/sitehead/sidebar.php';
     require ROOT . '/views/components/topbar.php';
-
-
     ?>
     <div class="complaint-section">
         <div class="form-container">
@@ -27,9 +25,10 @@
                     </div>
                 <?php else: ?>
                     <p>No ongoing project found for this user.</p>
-                <?php endif; ?> <div class="project-status">Status: <span style="color: #2e7d32; font-weight: bold;">
-                        <?php echo $proinfo ? htmlspecialchars($proinfo->status) : 'N/A'; ?>
-                    </span></div>
+                <?php endif; ?> 
+                <div class="project-status">Status: <span style="color: #2e7d32; font-weight: bold;">
+                    <?php echo $proinfo ? htmlspecialchars($proinfo->status) : 'N/A'; ?>
+                </span></div>
             </div>
 
             <form id="project-completion-form" method="post" action="<?php echo URLROOT; ?>/sitehead/project_completion/index">
@@ -38,15 +37,11 @@
                 <div class="form-group">
                     <label for="profit-gained">Profit Gained by The Excess Amount of Harvest <span class="required"></span></label>
                     <div class="input-group">
-
-
                         <div class="input-group-append">Rs.</div>
-
                         <input type="number" id="profit-gained" name="profit_gained" required min="0" step="0.01">
                     </div>
                     <div class="help-text">Enter the monetary value gained from selling excess harvest</div>
                 </div>
-
 
                 <div class="form-group">
                     <label for="special-notes">Any Special Notes</label>
@@ -62,7 +57,6 @@
                 </div>
 
                 <div class="form-group">
-                    <!-- <button type="button" class="btn btn-secondary" onclick="window.history.back();">Cancel</button> -->
                     <button type="submit" class="form-submit-btn">Submit & Complete Project</button>
                 </div>
             </form>
@@ -70,11 +64,9 @@
     </div>
 
     <script>
-        // You can still use JavaScript to enhance the form if needed
         document.addEventListener('DOMContentLoaded', function() {
             // Any additional client-side functionality
         });
     </script>
 </body>
-
 </html>

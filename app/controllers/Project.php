@@ -6,8 +6,8 @@ class Project
 private $eventmodel;
 private $project;
 private $sitehead;
-    // Constructor to initialize the model
-    public function __construct()
+
+public function __construct()
     {
         $this->eventmodel = new REvent;
         $this->project = new RProject;
@@ -18,17 +18,17 @@ private $sitehead;
         $proimage = $this->eventmodel->geteventimage($id);
         $landdetails = $this->project->getlanddetailsbyproid($id);
         $projectdetails = $this->project->getprojectdetailsbyid($id);
-        $eventdetails = $this->eventmodel->geteventdetailsbyid($id); // returns array
+        $eventdetails = $this->eventmodel->geteventdetailsbyid($id); 
     
-        // Decode completion_images for each event
         if (is_array($eventdetails)) {
             foreach ($eventdetails as $key => $event) {
-                $eventdetails[$key]->images = json_decode($event->completion_images) ?? [];
+                $eventdetails[$key]->images = json_decode($event->completion_images ?: '[]');
             }
         } else {
-            $eventdetails = []; // Set to empty array if no events
+            $eventdetails = [];
         }
-    
+        
+     
         $sitehead = $this->project->getsiteheadbyproid($projectdetails->id);
         $supervisor = $this->project->getsupervisorbyproid($projectdetails->id);
    
@@ -50,7 +50,6 @@ public function getfeedback($id)
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $feedback = trim($_POST['feedback'] ?? '');  }  
     
-    // Get the feedback from POST data
     $this->project->getfeedback($id,$feedback);
 
     header('Location: ' . URLROOT . '/Components/project/index/' . $id);

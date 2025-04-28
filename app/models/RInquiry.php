@@ -20,9 +20,9 @@ class RInquiry
 
 public function getAllunsoledInquiries()
 {
-    $query = "SELECT * FROM inquiry WHERE  is_deleted = '0'";  // Fetch all unsolved inquiries
+    $query = "SELECT * FROM inquiry WHERE  is_deleted = '0'";  
     $result = $this->query($query);
-    return $result;  // Return all unsolved inquiries
+    return $result;  
 }
 
 
@@ -30,7 +30,7 @@ public function markassolved($id)
 {
     $query = "UPDATE inquiry SET is_solved = '1' WHERE id = :id";
     $data = [':id' => $id];
-    $this->query($query, $data);  // Execute the query to mark as solved
+    $this->query($query, $data);  
 
 
 }
@@ -39,7 +39,7 @@ public function markassolved($id)
 public function markasdeleted($data)
 {
     $query = "UPDATE inquiry SET is_deleted = '1' WHERE id = :id";
-    $this->query($query, $data);  // Execute the query to mark as deleted
+    $this->query($query, $data);  
 }
 
 

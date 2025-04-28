@@ -37,23 +37,21 @@ class RSupervisor
 	}
 
 
-   // getlandzone method
 public function getlandzone($id)
 {
     $query = 'SELECT zone FROM land WHERE id = :id';
     $result = $this->query($query, ['id' => $id]);
 
-    // Check if a result was returned and return the zone
     if ($result && isset($result[0])) {
-        return $result[0]->zone;  // Access the 'zone' property from the result object
+        return $result[0]->zone;  
     }
 
-    return false;  // In case no result is found
+    return false;  
 }
 
 
 
-//drop down in sitevisit
+
 public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
     $query = "
         SELECT s.id AS id, COUNT(p.id) AS procount
@@ -65,7 +63,7 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
         HAVING COUNT(p.id) < :procount
     ";
 
-    // Execute the query and bind the parameters
+    
     return $this->query($query, [
         ':landzone' => $landzone,
         ':procount' => $procount
@@ -74,9 +72,6 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
 
 
 
-
-
-//to email supervisors
     public function getEmailById($supervisorId)
     {
         $query = "SELECT user.email 
@@ -87,20 +82,12 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
         $data = [':id' => $supervisorId];
     
         $result = $this->query($query, $data);
-        return $result[0]->email ?? null; // return just the string
+        return $result[0]->email ?? null; 
     }
    
-    // public function getSupervisorDetails() {
-    //     $user=new RUser;
-    //     $query = 'SELECT s.*, u.full_name, u.email ,u.contact_no,u.joined_date
-    //               FROM supervisor s 
-    //               JOIN user u ON s.user_id = u.id';
-    //     return $this->query($query);
-        
-    // }
+   
 
 
-    //for admin to filter supervisors
     public function getSupervisorDetails($filters = []) {
         $query = '
             SELECT s.*, u.full_name, u.email, u.contact_no,u.propic, u.joined_date, 
@@ -136,11 +123,10 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
 	{
 
 		$query = "SELECT COUNT(*) FROM supervisor ";
-		// Make sure 'userId' is passed correctly
 
-		// Call query
+	
 		$result = $this->query($query);
-		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  
 	}
     
        
@@ -154,7 +140,7 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
 
 
 
-      //to get profiles
+      
     public function getSupervisorbyid($id) {
         $query = 'SELECT s.*, u.full_name, u.email, u.contact_no,u.joined_date,u.nic
                   FROM supervisor s
