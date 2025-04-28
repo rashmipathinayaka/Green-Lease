@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/landowner/registerlands.css">
-    <title>add sitehead</title>
+    <title>Add Sitehead</title>
 </head>
 
 <body>
@@ -20,7 +20,7 @@
 
     <div id="register-lands-section" class="section">
         <div class="form-container">
-            <h1 class="register-topic">Fill in sitehead details</h1>
+            <h1 class="register-topic">Fill in Sitehead Details</h1>
             <br>
             <form class="form" action="<?= URLROOT ?>/Admin/add_sitehead" method="POST"
                 enctype="multipart/form-data">
