@@ -126,6 +126,53 @@ public function countbuyers() {
 }
 
 
+public function countPostponedEventsThisYear() {
+    // Get the current year
+    $currentYear = date('Y');
+
+    // SQL query to count postponed events for the current year
+    $query = "SELECT count(*) AS postponedCount
+              FROM event
+              WHERE postponed = 'yes' AND YEAR(date) = $currentYear";
+
+    // Execute the query
+    $result = $this->query($query);
+
+    // Fetch and return the count
+    if ($result) {
+        return $result[0]->postponedCount; // Return the count of postponed events
+    } else {
+        return 0; // Return 0 if no postponed events found for this year
+    }
+}
+
+
+
+public function gettotalevents(){
+
+    $currentYear = date('Y');
+
+
+$query="SELECT count(*) as totalevents from event where YEAR(date) = $currentYear";
+
+$result=$this->query($query);
+
+return $result[0]->totalevents;
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
 }
 
 

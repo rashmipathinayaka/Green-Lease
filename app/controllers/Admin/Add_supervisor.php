@@ -32,13 +32,15 @@ class Add_supervisor
             // Generate a random plain password for the supervisor
             $password = $this->generateRandomPassword(8); // Password length of 12
 
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
             // User data for user table (storing the plain password here)
             $formData1 = [
                 'full_name' => $full_name,
                 'email' => $email,
                 'contact_no' => $contact_no,
                 'nic' => $nic,
-                'password' => $password, // Storing the plain password directly
+                'password' => $hashedPassword, // Storing the plain password directly
             ];
 
             // Insert into user table and get the user ID

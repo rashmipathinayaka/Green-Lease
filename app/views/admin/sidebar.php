@@ -20,7 +20,7 @@
                 <a href="<?php echo URLROOT; ?>/Admin/manage_bids">Manage Bids</a>
             </li>
             <li>
-                <a href="<?php echo URLROOT; ?>/Admin/manage_buyers">Manage Buyers</a>
+                <a href="<?php echo URLROOT; ?>/Admin/manage_buyer">Manage Buyers</a>
             </li>
 
             <li>

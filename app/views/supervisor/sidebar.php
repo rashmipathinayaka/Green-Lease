@@ -13,7 +13,7 @@
 	<div class="sidebar">
 		<ul>
 			<li>
-				<a href="<?php echo URLROOT; ?>/Supervisor/Index">Dashboard</a>
+				<a href="<?php echo URLROOT; ?>/Supervisor/dashboard">Dashboard</a>
 			</li>
 			
             <li>
@@ -26,12 +26,8 @@
 			<li>
 				<a href="<?php echo URLROOT; ?>/Supervisor/Manage_sitehead">Manage Site Heads</a>
 			</li>
-			<li>
-				<a href="<?php echo URLROOT; ?>/Supervisor/Manage_worker">Manage Workers</a>
-			</li>
-			<!-- <li>
-				<a href="<?php echo URLROOT; ?>/Supervisor/Approve_bid">Approve Bids</a>
-			</li> -->
+			
+		
 			<li>
 				<a href="<?php echo URLROOT; ?>/Supervisor/ManageIssues">Manage Issues</a>
 			</li>

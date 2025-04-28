@@ -49,10 +49,18 @@
     </div>
 
     <h2>Event Data</h2>
+    <div class="highlight-box">
     <div class="data-point">
-        <!-- Number of events which got postponed this year: <strong><?= htmlspecialchars($postponedEventsCount) ?></strong> -->
+        Number of events which got postponed this year: <strong><?= htmlspecialchars($postponed) ?></strong><br>
     </div>
-
+        <div class="data-point">
+ Number of total events in this year: <strong><?= htmlspecialchars($totalevents) ?></strong><br>
+        </div>       <div class="data-point">
+ 
+ The rate of postponding an event:<strong><?= htmlspecialchars($eventpostponedrate) .'%'?></strong>
+</div>
+    </div>
+    
     <h2>Land Data</h2>
     <div class="highlight-box">
         <div class="data-point">
@@ -77,7 +85,7 @@
 
 
 
-
+ 
 
 <br><br><br><br>
     <!-- Button to trigger PDF download -->

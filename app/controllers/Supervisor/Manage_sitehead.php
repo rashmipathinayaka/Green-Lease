@@ -10,9 +10,12 @@ private $sitehead;
 
 	public function index()
 	{
-		$data = $this->sitehead->findAll();
+        $supervisorId = $_SESSION['id'] ?? 1;
+		$data = $this->sitehead->getSiteheadsBySupervisorUserId($supervisorId);
+        $inactiveUsers = $this->sitehead->getInactiveUsers($supervisorId);
+
             
-        $this->view('supervisor/manage_sitehead', ['data' => $data]);
+        $this->view('supervisor/manage_sitehead', ['data' => $data,'inactiveUsers' => $inactiveUsers]);
 		
 	}
 
@@ -24,6 +27,8 @@ $this->sitehead = new Sitehead();
 
 
 public function add_sitehead(){
+
+
 
 $data = ['errors'=>[],
 'formdata'=>[]

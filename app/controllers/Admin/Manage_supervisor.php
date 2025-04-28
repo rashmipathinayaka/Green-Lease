@@ -21,9 +21,11 @@ class Manage_supervisor
     public function index()
     {
 
-        $full_name = $_GET['full_name'] ?? '';
+        $full_name = strtolower($_GET['full_name'] ?? '');
         $zone = $_GET['zone'] ?? '';
-    
+        
+    echo $zone;
+
         $filters = [
             'full_name' => $full_name,
             'zone' => $zone
@@ -34,6 +36,10 @@ class Manage_supervisor
         $data = $this->supervisor->getSupervisorDetails($filters);
             
         $this->view('admin/manage_supervisor', ['data' => $data,'zones' => $zones]);
+    
+        // header('Location: ?full_name=' . urlencode($full_name) . '&zone=' . urlencode($zone));
+        // exit();
+    
     }
 
 
@@ -75,16 +81,18 @@ class Manage_supervisor
   
 	  }
 
-public function delete_supervisor($id){
-	if ($this->supervisor->delete($id)) {
-              
-		$data = $this->supervisor->getSupervisorDetails();
-				  $this->view('admin/manage_supervisor', ['data' => $data]);
-			   } else {
-				   // If deletion fails, show a 404 page or an error message
-				   $this->view('sorry delete failed');
-			   }
-		   }
+      public function delete_supervisor($id){
+        if ($this->supervisor->delete($id)) {
+            // Redirect to the manage supervisor page after successful deletion
+            header("Location: " . URLROOT . "/Admin/manage_supervisor");
+            exit(); // Ensure no further code is executed after the redirect
+        } else {
+            // Redirect to an error page if deletion fails
+            header("Location: " . URLROOT . "/Admin/sorry_delete_failed");
+            exit(); // Ensure no further code is executed after the redirect
+        }
+    }
+    
 
 	
 
@@ -117,7 +125,7 @@ public function update_supervisor()
 
 public function getid($id){
     echo $id;
-    header("Location: " . URLROOT . "/Components/profile/index/{$id}");
+    header("Location: " . URLROOT . "/profile/index/{$id}");
 }
 
 
