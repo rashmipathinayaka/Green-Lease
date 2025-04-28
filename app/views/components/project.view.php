@@ -12,7 +12,6 @@
 </head>
 
 <body>
-    <!-- Header -->
     <header>
         <div class="container">
             <div class="header-content">
@@ -27,44 +26,42 @@
     </header>
 
     <div class="container">
-        <!-- Project Details -->
-        <section class="project-details">
-        <div class="project-image">
-    <?php if (!empty($eventdetails)): ?>
-        <?php foreach ($eventdetails as $event): ?>
-            <?php if (!empty($event->images)): ?>
-                <div class="event-gallery">
-                    <!-- Display first image -->
-                    <div class="event-image-container" data-event-name="<?= htmlspecialchars($event->event_name) ?>" onclick="openImageModal(<?= $event->id ?>)">
-                        <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($event->images[0]) ?>" alt="Event Image" class="event-image-thumbnail">
-                    </div>
 
-                    <!-- Hidden modal with all images -->
-                    <div id="modal-<?= $event->id ?>" class="image-modal" style="display: none;">
-                        <div class="modal-content">
-                            <span class="close" onclick="closeImageModal(<?= $event->id ?>)">&times;</span>
-                            <h3>Event: <?= htmlspecialchars($event->event_name) ?></h3>
-                            <div class="modal-images">
-                                <?php foreach ($event->images as $img): ?>
-                                    <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($img) ?>" alt="Event Image">
-                                <?php endforeach; ?>
+        <section class="project-details">
+            <div class="project-image">
+                <?php if (!empty($eventdetails)): ?>
+                    <?php foreach ($eventdetails as $event): ?>
+                        <?php if (!empty($event->images)): ?>
+                            <div class="event-gallery">
+                                <div class="event-image-container" data-event-name="<?= htmlspecialchars($event->event_name) ?>" onclick="openImageModal(<?= $event->id ?>)">
+                                    <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($event->images[0]) ?>" alt="Event Image" class="event-image-thumbnail">
+                                </div>
+
+                                <div id="modal-<?= $event->id ?>" class="image-modal" style="display: none;">
+                                    <div class="modal-content">
+                                        <span class="close" onclick="closeImageModal(<?= $event->id ?>)">&times;</span>
+                                        <h3>Event: <?= htmlspecialchars($event->event_name) ?></h3>
+                                        <div class="modal-images">
+                                            <?php foreach ($event->images as $img): ?>
+                                                <img src="http://localhost/Green-lease/app/uploads/event_images/<?= htmlspecialchars($img) ?>" alt="Event Image">
+                                            <?php endforeach; ?>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        <?php else: ?>
+                            <div class="no-images-message">
+                                <p>No images for now</p>
+                            </div>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <div class="no-images-message">
+                        <p>No event images available for this project yet.</p>
                     </div>
-                </div>
-            <?php else: ?>
-                <div class="no-images-message">
-                    <p>No images for now for <?= htmlspecialchars($event->event_name) ?></p>
-                </div>
-            <?php endif; ?>
-        <?php endforeach; ?>
-    <?php else: ?>
-        <div class="no-images-message">
-            <p>No event images available for this project yet.</p>
-        </div>
-    <?php endif; ?>
-</div>
-    
+                <?php endif; ?>
+            </div>
+
 
 
 
@@ -76,7 +73,6 @@
             <div class="project-info">
                 <h2 class="project-title">Details about the land</h2>
 
-                <!-- First Meta Section -->
                 <div class="project-meta">
                     <div class="meta-item">
                         <h4>Land ID</h4>
@@ -111,7 +107,6 @@
 
                 </div>
                 <br><br>
-                <!-- Second Meta Section -->
                 <h2 class="project-title">Details abut the project</h2>
 
                 <div class="project-meta">
@@ -133,12 +128,9 @@
                     </div>
                     <div class="meta-item">
                         <h4>Start Date</h4>
-                        <p>March 15, 2025</p>
+                        <p><?php echo htmlspecialchars($projectdetails->start_date) ?></p>
                     </div>
-                    <div class="meta-item">
-                        <h4>Expected Completion</h4>
-                        <p>September 30, 2025</p>
-                    </div>
+
                 </div>
             </div>
 
@@ -185,7 +177,6 @@
                 </div>
         </section>
 
-        <!-- Team Section -->
         <section class="team-section">
             <h2 class="section-title">Project Team</h2>
             <div class="team-grid">
@@ -247,19 +238,16 @@
 
 
 <script>
-    // Function to open the modal and display all images
     function openImageModal(eventId) {
         var modal = document.getElementById("modal-" + eventId);
         modal.style.display = "block";
     }
 
-    // Function to close the modal
     function closeImageModal(eventId) {
         var modal = document.getElementById("modal-" + eventId);
         modal.style.display = "none";
     }
 
-    // Close the modal if the user clicks anywhere outside of the modal
     window.onclick = function(event) {
         var modal;
         for (let eventId of <?= json_encode(array_column($eventdetails, 'id')) ?>) {
@@ -271,19 +259,15 @@
     }
 </script>
 <script>
-    // Ensure landdetails contains latitude and longitude properties
     var latitude = <?php echo $landdetails->latitude; ?>;
     var longitude = <?php echo $landdetails->longitude; ?>;
 
-    // Initialize the map centered on the given latitude and longitude
-    var map = L.map('map').setView([latitude, longitude], 13); // Zoom level 13 can be adjusted
+    var map = L.map('map').setView([latitude, longitude], 13);
 
-    // Add OpenStreetMap tile layer
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
     }).addTo(map);
 
-    // Add a marker at the specified latitude and longitude
     L.marker([latitude, longitude]).addTo(map)
         .bindPopup("Project Location")
         .openPopup();

@@ -2,9 +2,9 @@
 
 class Rsite_visit
 {
-    use Model; // Using the Model trait
+    use Model; 
 
-    protected $table = 'site_visit'; // Table name
+    protected $table = 'site_visit'; 
     protected $allowedColumns = [
         'id', 
         'supervisor_id', 
@@ -15,21 +15,18 @@ class Rsite_visit
         'to_date',
         'description',
         'email_flag',
-    ]; // Allowed columns for insert/update
+    ]; 
 
-    // Method to insert data
+    
     public function insertdata($formdata)
     {
-        // Validate the incoming data before insertion
         if (!$this->validate($formdata)) {
-            return $this->errors; // Return validation errors if any
+            return $this->errors; 
         }
 
-        // Insert the data using the insert method from the Model trait
-        return $this->insert($formdata); // This will insert the data into the site_visit table
+        return $this->insert($formdata); 
     }
 
-    // Validation method (already shared)
     public function validate($data)
     {
         $this->errors = [];
@@ -42,10 +39,9 @@ class Rsite_visit
             $this->errors['date'] = "Date is required";
         }
 
-        return empty($this->errors); // Returns true if no errors
+        return empty($this->errors); 
     }
 
-    //get sitevisit which are not rescheduled or not approved(status=0)
     public function getAllSiteVisits($id) {
         $query = "
             SELECT sv.*, l.address AS address
@@ -66,7 +62,6 @@ class Rsite_visit
 
     public function updateVisitSchedule($visitId, $datetime)
     {
-        // Corrected query
         $query = "UPDATE site_visit SET re_date = :datetime, status = '1' WHERE id = :visitId";
         
         return $this->query($query, [
@@ -77,17 +72,13 @@ class Rsite_visit
     
 
 
-//supervisor direct approve the schedule visit
     public function insertApproval($id) {
-        // First, we fetch the current date from the site_visit table based on the visit ID.
         $query = "SELECT `date` FROM site_visit WHERE id = :id";
         $result = $this->query($query, ['id' => $id]);
     
-        // Check if the result is not empty
         if (!empty($result)) {
-            $date = $result[0]->date; // Assuming result is an array of objects
+            $date = $result[0]->date; 
     
-            // Now, we perform the update query to set the status to 1 and insert the date into redate
             $queryUpdate = "UPDATE site_visit 
                             SET status = 1, re_date = :date 
                             WHERE id = :id";
@@ -97,30 +88,62 @@ class Rsite_visit
                 ':id' => $id
             ]);
         } else {
-            // Handle case where no visit is found with the given ID
             return false;
         }
     }
     
 
-    //to get approved site-visits
 
     public function getAllapprovedSiteVisits($id) {
+
+        //meka hari
+        // $query = "
+        //     SELECT sv.*, l.address, l.id as land_id, l.crop_type AS crop_type
+        //     FROM site_visit sv
+        //     JOIN land l ON sv.land_id = l.id
+        //     LEFT JOIN project p ON l.id = p.land_id  -- Joining the project table
+        //     WHERE sv.status = '1' 
+        //       AND sv.supervisor_id = :id
+        //       AND sv.re_date >= CURDATE()
+        //       AND (p.status != 'Pending' OR p.status IS NULL)  -- Excluding 'Pending' projects
+        //     ORDER BY sv.date ASC
+        // ";
+    
+        
         $query = "
-        SELECT sv.*, l.address AS address
+        SELECT sv.*, l.address, l.id as land_id, l.crop_type AS crop_type
         FROM site_visit sv
-        JOIN land l ON sv.land_id = l.id 
-        WHERE sv.status='1' AND sv.supervisor_id = :id
-        AND sv.re_date >= CURDATE()
+        JOIN land l ON sv.land_id = l.id
+        LEFT JOIN project p ON l.id = p.land_id  -- Joining the project table
+        WHERE sv.status = '1' 
+          AND sv.supervisor_id = :id
+          AND sv.re_date >= CURDATE()
+          AND (p.status != 'Pending' OR p.status IS NULL)  -- Excluding 'Pending' projects
+          AND sv.outcome IS NULL  -- Only including rows where outcome is NULL
         ORDER BY sv.date ASC
     ";
+
+    
+    
+    //     $query = "
+    //     SELECT sv.*, l.address, l.id as land_id, l.crop_type AS crop_type
+    //     FROM site_visit sv
+    //     JOIN land l ON sv.land_id = l.id
+    //     LEFT JOIN project p ON l.id = p.land_id  -- Joining the project table
+    //     WHERE sv.status = '1' 
+    //       AND sv.supervisor_id = :id
+    //       AND sv.re_date >= CURDATE()
+    //       AND (p.status != 'Pending' OR p.status IS NULL)  -- Excluding 'Pending' projects
+    //       AND sv.outcome != 'Rejected'  -- Excluding rejected outcomes
+    //     ORDER BY sv.date ASC
+    // ";
+    
     
         $data = [':id' => $id];
         return $this->query($query,$data);
         
     }
     
-// To get all approved site visits for the admin to send emails
 public function getallapprovedvisits() {
     $query = "
         SELECT sv.*, l.address AS address
@@ -142,7 +165,6 @@ public function getallapprovedvisits() {
 
 
 
-//for email
 public function getVisitById($visit_id) {
     $query = "
         SELECT 
@@ -199,6 +221,16 @@ public function insertsupervisor($formdata) {
 
 
 }
+
+
+public function getlandid($id){
+
+ $query="SELECT land_id from site_visit where id=:id";
+
+return $this->query($query);
+
+}
+
 
 
     

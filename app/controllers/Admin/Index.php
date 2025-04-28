@@ -16,7 +16,7 @@ class Index
 
 	public function index()
 	{
-		$userId = 19; // Example user ID
+		$userId = $_SESSION['id'];
 
 		$landCount = $userId ? $this->lands->countLands() : 0;
 		$bidCount = $userId ? $this->bids->countbids() : 0;

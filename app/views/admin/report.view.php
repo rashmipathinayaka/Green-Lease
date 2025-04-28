@@ -1,78 +1,81 @@
 <!-- /views/admin/report_template.php -->
 <!DOCTYPE html>
 <html>
+
 <head>
-<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/report.css">
+    <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/report.css">
 
-     <!-- Include html2pdf.js library -->
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
+    <!-- Include html2pdf.js library -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.9.2/html2pdf.bundle.js"></script>
 </head>
+
 <body>
-<div class="report-container" id="report">
-    <div class="report-header">
-        <h1>Green Lease Summary Report</h1>
-        <div class="report-date">Generated on: <?= date('F j, Y') ?></div>
-    </div>
+    <div class="report-container" id="report">
+        <div class="report-header">
+            <h1>Green Lease Summary Report</h1>
+            <div class="report-date">Generated on: <?= date('F j, Y') ?></div>
+        </div>
 
-    <div class="metric-card">
-        <div class="metric-item">
-            <div class="metric-label">Registered Lands</div>
-            <div class="metric-value"><?= htmlspecialchars($landCount) ?></div>
+        <div class="metric-card">
+            <div class="metric-item">
+                <div class="metric-label">Registered Lands</div>
+                <div class="metric-value"><?= htmlspecialchars($landCount) ?></div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Supervisors</div>
+                <div class="metric-value"><?= htmlspecialchars($supervisorCount) ?></div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Total Bids</div>
+                <div class="metric-value"><?= htmlspecialchars($bidCount) ?></div>
+            </div>
+            <div class="metric-item">
+                <div class="metric-label">Buyers</div>
+                <div class="metric-value"><?= htmlspecialchars($buyerCount) ?></div>
+            </div>
         </div>
-        <div class="metric-item">
-            <div class="metric-label">Supervisors</div>
-            <div class="metric-value"><?= htmlspecialchars($supervisorCount) ?></div>
-        </div>
-        <div class="metric-item">
-            <div class="metric-label">Total Bids</div>
-            <div class="metric-value"><?= htmlspecialchars($bidCount) ?></div>
-        </div>
-        <div class="metric-item">
-            <div class="metric-label">Buyers</div>
-            <div class="metric-value"><?= htmlspecialchars($buyerCount) ?></div>
-        </div>
-    </div>
 
-    <h2>Crop Data</h2>
-    <div class="highlight-box">
-        <div class="data-point">
-            Most Selected Crop: <strong><?= htmlspecialchars($mostselectedcrop['crop_type']) ?></strong>
-            (Used in <?= htmlspecialchars($mostselectedcrop['count']) ?> projects)
+        <h2>Crop Data</h2>
+        <div class="highlight-box">
+            <div class="data-point">
+                Most Selected Crop: <strong><?= htmlspecialchars($mostselectedcrop['crop_type']) ?></strong>
+                (Used in <?= htmlspecialchars($mostselectedcrop['count']) ?> projects)
+            </div>
+            <div class="data-point">
+                Most Preferred Crop by Landowners: <strong><?= htmlspecialchars($mostprefferedCrop['crop_type']) ?></strong>
+            </div>
+            <div class="data-point">
+                Success Rate: <span class="success-rate"><?= htmlspecialchars($successrate) ?>%</span>
+                (Rate of getting the preferred crop type as the selected crop)
+            </div>
         </div>
-        <div class="data-point">
-            Most Preferred Crop by Landowners: <strong><?= htmlspecialchars($mostprefferedCrop['crop_type']) ?></strong>
-        </div>
-        <div class="data-point">
-            Success Rate: <span class="success-rate"><?= htmlspecialchars($successrate) ?>%</span>
-            (Rate of getting the preferred crop type as the selected crop)
-        </div>
-    </div>
 
-    <h2>Event Data</h2>
-    <div class="highlight-box">
-    <div class="data-point">
-        Number of events which got postponed this year: <strong><?= htmlspecialchars($postponed) ?></strong><br>
-    </div>
-        <div class="data-point">
- Number of total events in this year: <strong><?= htmlspecialchars($totalevents) ?></strong><br>
-        </div>       <div class="data-point">
- 
- The rate of postponding an event:<strong><?= htmlspecialchars($eventpostponedrate) .'%'?></strong>
-</div>
-    </div>
+        <h2>Event Data</h2>
+        <div class="highlight-box">
+            <div class="data-point">
+                Number of events which got postponed this year: <strong><?= htmlspecialchars($postponed) ?></strong><br>
+            </div>
+            <div class="data-point">
+                Number of total events in this year: <strong><?= htmlspecialchars($totalevents) ?></strong><br>
+            </div>
+            <div class="data-point">
+
+                The rate of postponding an event:<strong><?= htmlspecialchars($eventpostponedrate) . '%' ?></strong>
+            </div>
+        </div>
+
+        <h2>Land Data</h2>
+        <div class="highlight-box">
+            <div class="data-point">
+                Most projects are from <strong><?= htmlspecialchars($mostlandzone['zone_name']) ?></strong> district
+                (Project count: <?= htmlspecialchars($mostlandzone['count']) ?>)
+            </div>
+        </div>
+
+        <div class="footer-note">
+            This report was automatically generated by the Green Lease System. For any questions, please contact support.
+        </div>
     
-    <h2>Land Data</h2>
-    <div class="highlight-box">
-        <div class="data-point">
-            Most projects are from <strong><?= htmlspecialchars($mostlandzone['zone_name']) ?></strong> district
-            (Project count: <?= htmlspecialchars($mostlandzone['count']) ?>)
-        </div>
-    </div>
-
-    <div class="footer-note">
-        This report was automatically generated by the Green Lease System. For any questions, please contact support.
-    </div>
-</div>
 
 
 
@@ -85,27 +88,38 @@
 
 
 
- 
 
-<br><br><br><br>
+
+    <br><br><br><br>
     <!-- Button to trigger PDF download -->
     <button id="downloadReport">Download PDF</button>
-</div>
+    </div>
 
-<script>
-// Add event listener to the button to trigger PDF download
-document.getElementById('downloadReport').addEventListener('click', function() {
-    const element = document.getElementById('report'); // The section to be downloaded
-    const opt = {
-        margin:       1,
-        filename:     'GreenLeaseReport.pdf',
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { dpi: 192, letterRendering: true },
-        jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-    html2pdf().from(element).set(opt).save();
-});
-</script>
+    <script>
+        // Add event listener to the button to trigger PDF download
+        document.getElementById('downloadReport').addEventListener('click', function() {
+            const element = document.getElementById('report'); // The section to be downloaded
+            const opt = {
+                margin: 1,
+                filename: 'GreenLeaseReport.pdf',
+                image: {
+                    type: 'jpeg',
+                    quality: 0.98
+                },
+                html2canvas: {
+                    dpi: 192,
+                    letterRendering: true
+                },
+                jsPDF: {
+                    unit: 'in',
+                    format: 'letter',
+                    orientation: 'portrait'
+                }
+            };
+            html2pdf().from(element).set(opt).save();
+        });
+    </script>
 
 </body>
+
 </html>

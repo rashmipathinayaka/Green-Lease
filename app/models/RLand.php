@@ -10,7 +10,6 @@ class RLand
 
 	protected $table = 'land';
 
-	// protected $order_column = 'landID';
 
 	protected $allowedColumns = [
 
@@ -57,7 +56,7 @@ class RLand
 	}
 
 
-	//for landowners managelands
+	
 	public function findlandsbyuserid($userId)
 	{
 		$query = "SELECT land.*, project.crop_type  AS selected_crop_type
@@ -134,7 +133,6 @@ class RLand
 
 		$query = "SELECT COUNT(*) FROM land WHERE  status='4'";
 
-		// Call query
 		$result = $this->query($query);
 		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  
 	}
@@ -174,7 +172,7 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 		return $this->query($query, $data);
 	}
 
-	//bar chart
+	//b.c
 	public function findRegisteredYear()
 	{
 		$yearLabels = [];
@@ -213,7 +211,7 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 
 
 
-	//for admins manageland section
+	
 	public function getFilteredLands($filters = [])
 {
 	$query = "SELECT project.*, 

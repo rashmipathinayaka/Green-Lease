@@ -10,7 +10,6 @@ class Index
 	private $landowner;
 
     public function __construct() {
-        // Initialize the Land model in the constructor
         $this->lands = new RLand();
 $this->landowner = new RUser();
     }
@@ -19,44 +18,36 @@ $this->landowner = new RUser();
 	public function index()
 	{
 		
-		$userId = $_SESSION['id'] ?? null; // Change this based on your authentication system
+		$userId = $_SESSION['id'] ?? null;
 	$userId=1;
 
 		if ($userId) {
-			// Get land count for the logged-in user
 			$landCount = $this->lands->countLandsByUserId($userId);
 		} else {
-			$landCount = 0; // Default value if user is not logged in
-		}
-
-
-		// $this->view('landowner/index', ['landCount' => $landCount]);	
-	
+			$landCount = 0; 
+		}	
 	
 	
 	
 		if ($userId) {
-			// Get land count for the logged-in user
 			$proCount = $this->lands->countProjectsByUserId($userId);
 		} else {
-			$proCount = 0; // Default value if user is not logged in
+			$proCount = 0; 
 		}
 
 
 
 	
 		if ($userId) {
-			// Get land count for the logged-in user
 			$completedproCount = $this->lands->countcompletedProjectsByUserId($userId);
 		} else {
-			$completedproCount = 0; // Default value if user is not logged in
+			$completedproCount = 0; 
 		}
 
 		if ($userId) {
-			// Get land count for the logged-in user
 			$inactivelandsCount = $this->lands->countinactivelandsByUserId($userId);
 		} else {
-			$inactivelandsCount = 0; // Default value if user is not logged in
+			$inactivelandsCount = 0; 
 		}
 
 
