@@ -35,7 +35,7 @@ class EventModel
     {
         $data['status'] = $data['status'] ?? 0;
         $data['completion_status'] = $data['completion_status'] ?? 'Pending';
-        
+
         $query = "INSERT INTO event (project_id, event_name, date, time, location, workers_required, payment_per_worker, status, description, progress_notes, completion_status, completion_images, postponed_date)
                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
@@ -59,22 +59,22 @@ class EventModel
     }
 
     // Get today's events for a list of project IDs
-    public function getTodaysEvents($projectIds)
+    public function getTodaysEvents($projectId)
     {
-        if (empty($projectIds)) return [];
+        if (empty($projectId)) {
+            return [];
+        }
 
-        $placeholders = implode(',', array_fill(0, count($projectIds), '?'));
+        // Get today's date
         $today = date('Y-m-d');
 
-        $query = "SELECT e.*, p.crop_type 
-                  FROM event e
-                  JOIN project p ON e.project_id = p.id
-                  WHERE e.project_id IN ($placeholders)
-                  AND DATE(e.date) = ?
-                  ORDER BY e.date ASC";
+        $query = "SELECT e.*, p.crop_type,p.duration 
+                 FROM {$this->table} e JOIN project p 
+                 ON e.project_id = p.id
+                 WHERE e.project_id = ? AND (( e.postponed = 'no' AND DATE(e.date) = ?) OR ( e.postponed = 'yes' AND DATE(e.postponed_date) = ?))
+                 ORDER BY e.date ASC";
 
-        $params = array_merge($projectIds, [$today]);
-        return $this->query($query, $params);
+        return $this->query($query, [$projectId, $today, $today]);
     }
 
     // Get a single event along with image list
@@ -122,7 +122,7 @@ class EventModel
 
         return $this->query($query, [$projectId, $today, $today]);
     }
-    
+
     // Get events by status
     public function getEventsByStatus($projectId, $status)
     {
@@ -130,36 +130,36 @@ class EventModel
                   WHERE project_id = :project_id 
                   AND completion_status = :status
                   ORDER BY date ASC";
-                  
+
         return $this->query($query, [
             'project_id' => $projectId,
             'status' => $status
         ]);
     }
-    
+
     // Count events by status
     public function countEventsByStatus($projectId, $status)
     {
         $query = "SELECT COUNT(*) as count FROM event 
                   WHERE project_id = :project_id 
                   AND completion_status = :status";
-                  
+
         $result = $this->query($query, [
             'project_id' => $projectId,
             'status' => $status
         ]);
-        
+
         return $result[0]->count ?? 0;
     }
-    
+
     // Get events that need attention (high priority or overdue)
     public function getEventsNeedingAttention($projectIds)
     {
         if (empty($projectIds)) return [];
-        
+
         $placeholders = implode(',', array_fill(0, count($projectIds), '?'));
         $today = date('Y-m-d');
-        
+
         $query = "SELECT e.*, p.crop_type 
                   FROM event e
                   JOIN project p ON e.project_id = p.id
@@ -169,11 +169,11 @@ class EventModel
                       (DATE(e.date) < ? AND e.completion_status != 'completed' AND e.postponed_date IS NULL)
                   )
                   ORDER BY e.status DESC, e.date ASC";
-                  
+
         $params = array_merge($projectIds, [$today]);
         return $this->query($query, $params);
     }
-    
+
     // Get events for a specific date range
     public function getEventsByDateRange($projectId, $startDate, $endDate)
     {
@@ -184,14 +184,14 @@ class EventModel
                       (postponed_date BETWEEN :start_date AND :end_date)
                   )
                   ORDER BY COALESCE(postponed_date, date) ASC";
-                  
+
         return $this->query($query, [
             'project_id' => $projectId,
             'start_date' => $startDate,
             'end_date' => $endDate
         ]);
     }
-    
+
     // Check if an event exists
     public function eventExists($eventId)
     {
@@ -199,7 +199,7 @@ class EventModel
         $result = $this->query($query, ['id' => $eventId]);
         return ($result[0]->count > 0);
     }
-    
+
     // Get events with worker requirements
     public function getEventsWithWorkerRequirements($projectId)
     {
@@ -208,17 +208,17 @@ class EventModel
                   AND workers_required > 0
                   AND completion_status != 'Completed'
                   ORDER BY date ASC";
-                  
+
         return $this->query($query, ['project_id' => $projectId]);
     }
-    
+
     // Calculate total worker payment for a project
     public function calculateTotalWorkerPayment($projectId)
     {
         $query = "SELECT SUM(workers_required * payment_per_worker) as total 
                   FROM event 
                   WHERE project_id = :project_id";
-                  
+
         $result = $this->query($query, ['project_id' => $projectId]);
         return $result[0]->total ?? 0;
     }

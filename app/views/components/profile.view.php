@@ -13,10 +13,10 @@
         <img src="<?= URLROOT ?>/assets/Images/supervisor.jpg" alt="Profile Picture" class="profile-picture">
         <h2><?php echo htmlspecialchars($user->full_name); ?></h2>
             <p>Email: <?php echo htmlspecialchars($user->email); ?></p>
-            <p>contact no: <?php echo htmlspecialchars($user->contact_no); ?></p>
+            <p>Contact No: <?php echo htmlspecialchars($user->contact_no); ?></p>
             <p>NIC: <?php echo htmlspecialchars($user->nic); ?></p>
 
-            <p>Joined: <?php echo htmlspecialchars($user->joined_date); ?></p>
+            <p>Joined Date: <?php echo htmlspecialchars($user->joined_date); ?></p>
         </div>
         <!-- <button class="btn" onclick="window.location.href='<?= URLROOT ?>/Admin/manage_supervisor/'">Go Back</a> -->
     </div>

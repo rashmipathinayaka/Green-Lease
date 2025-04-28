@@ -20,13 +20,14 @@ class Purchase_history
 
         $purchase = new Purchase();
         // Updated JOIN query to use project table as the connection
-        $query = "SELECT p.*, u.full_name as buyer_name, u.contact_no, l.address as land_address, l.crop_type 
+        $query = "SELECT p.*, b.buyer_id, u.full_name as buyer_name, u.contact_no, l.address as land_address, l.crop_type 
                  FROM purchase p 
-                 JOIN user u ON p.buyer_id = u.id 
-                 JOIN harvest h ON p.harvest_id = h.id 
+                 JOIN bid b ON p.bid_id = b.id
+                 JOIN user u ON b.buyer_id = u.id 
+                 JOIN harvest h ON b.harvest_id = h.id 
                  JOIN project pr ON h.project_id = pr.id
                  JOIN land l ON pr.land_id = l.id 
-                 WHERE p.buyer_id = :buyer_id";
+                 WHERE b.buyer_id = :buyer_id";
         
         $data['purchases'] = $purchase->query($query, ['buyer_id' => $buyer_id]);
         
@@ -59,10 +60,15 @@ class Purchase_history
             return;
         }
 
+        // Get feedback if provided
+        $feedback = isset($data->feedback) ? trim($data->feedback) : null;
+
         $purchase = new Purchase();
         
         // Verify the purchase belongs to the logged-in user and is in 'Delivered' status
-        $query = "SELECT * FROM purchase WHERE id = :purchase_id AND buyer_id = :buyer_id AND status = 'Delivered' AND rating IS NULL";
+        $query = "SELECT p.* FROM purchase p
+                  JOIN bid b ON p.bid_id = b.id
+                  WHERE p.id = :purchase_id AND b.buyer_id = :buyer_id AND p.status = 'Delivered' AND p.rating IS NULL";
         $result = $purchase->query($query, [
             'purchase_id' => $data->purchase_id,
             'buyer_id' => $_SESSION['id']
@@ -74,10 +80,11 @@ class Purchase_history
         }
 
         try {
-            // Update the rating using direct query
-            $updateQuery = "UPDATE purchase SET rating = :rating WHERE id = :purchase_id";
+            // Update the rating and feedback using direct query
+            $updateQuery = "UPDATE purchase SET rating = :rating, feedback = :feedback WHERE id = :purchase_id";
             $purchase->query($updateQuery, [
                 'rating' => $rating,
+                'feedback' => $feedback,
                 'purchase_id' => $data->purchase_id
             ]);
 

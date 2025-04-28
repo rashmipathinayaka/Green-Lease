@@ -76,12 +76,14 @@ class Payment
             return;
         }
 
+        // Calculate total payment amount
+        $total_amount = $bid->amount * $bid->unit_price;
+
         // Insert into purchase table
         $purchaseModel = new Purchase();
         $purchaseModel->insert([
-            'buyer_id' => $bid->buyer_id,
-            'harvest_id' => $bid->harvest_id,
-            'amount' => $bid->amount
+            'bid_id' => $bid->id,
+            'amount' => $total_amount
         ]);
 
         echo json_encode(['success' => true]);

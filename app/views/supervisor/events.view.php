@@ -113,6 +113,17 @@
         button.submit-btn:hover {
             background-color: #1b5e20;
         }
+        .postponed-badge {
+    display: inline-block;
+    background-color: #e67e22;
+    color: white;
+    font-size: 0.8em;
+    padding: 2px 6px;
+    border-radius: 3px;
+    margin-left: 5px;
+    cursor: help;
+}
+
 
         
     </style>
@@ -136,7 +147,8 @@
         <thead>
             <tr>
                 <th>Event Name</th>
-                <th>Date</th>
+                <th>Assigned Date</th>
+                <th>New Date</th>
                 <th>Time</th>
                 <th>Workers Required</th>
             </tr>
@@ -147,7 +159,23 @@
                     <tr>
                         <td><?= htmlspecialchars($event->event_name) ?></td>
                         <td><?= htmlspecialchars($event->date) ?></td>
-                        <td><?= htmlspecialchars($event->time) ?></td>
+                        <td>
+    <?php 
+    // Check if display_date is set, otherwise use date or postponed_date
+    $displayDate = $event->display_date ?? ($event->postponed_date ?? $event->date);
+    $isPostponed = $event->is_postponed ?? (!empty($event->postponed_date));
+    ?>
+    
+    <?= htmlspecialchars($displayDate ?? '') ?>
+    
+    <?php if ($isPostponed): ?>
+        <span class="postponed-badge" title="Originally scheduled for <?= htmlspecialchars($event->date ?? '') ?>">
+            (Postponed)
+        </span>
+    <?php endif; ?>
+</td>
+
+<td><?= htmlspecialchars($event->time) ?></td>
                         <td><?= htmlspecialchars($event->workers_required) ?></td>
                     </tr>
                 <?php endforeach; ?>
@@ -168,8 +196,8 @@
             <label for="event_name">Event Name <span style="color:red;">*</span></label>
             <input type="text" id="event_name" name="event_name" value="<?= htmlspecialchars($form_data['event_name'] ?? '') ?>" required />
 
-            <label for="event_date">Event Date <span style="color:red;">*</span></label>
-            <input type="date" id="event_date" name="date" 
+            <label for="date">Event Date <span style="color:red;">*</span></label>
+            <input type="date" id="date" name="date" 
              min="<?= date('Y-m-d') ?>" 
              value="<?= htmlspecialchars($form_data['date'] ?? '') ?>" 
              required />

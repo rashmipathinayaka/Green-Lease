@@ -105,32 +105,40 @@
                         <div class="info-card">
                             <div class="info-label">Full Name</div>
                             <input type="text" name="full_name" value="<?php echo htmlspecialchars($user->full_name); ?>" class="info-value info-input" disabled>
+                            <?php if (isset($errors['full_name'])): ?>
+                                <div class="error-message"><?php echo htmlspecialchars($errors['full_name']); ?></div>
+                            <?php endif; ?>
                         </div>
 
-                        <!-- <div class="info-card">
-                <div class="info-label">Address</div>
-                <input type="text" name="id" value="<?php echo htmlspecialchars($user->id); ?>" class="info-value info-input" disabled>
-            </div> -->
+                        <div class="info-card">
+                            <div class="info-label">Email</div>
+                            <input type="email" name="email" value="<?php echo htmlspecialchars($user->email); ?>" class="info-value info-input" disabled>
+                            <?php if (isset($errors['email'])): ?>
+                                <div class="error-message"><?php echo htmlspecialchars($errors['email']); ?></div>
+                            <?php endif; ?>
+                        </div>
 
                         <div class="info-card">
                             <div class="info-label">National ID</div>
                             <input type="number" name="nic" value="<?php echo htmlspecialchars($user->nic); ?>" class="info-value info-input" disabled>
+                            <?php if (isset($errors['nic'])): ?>
+                                <div class="error-message"><?php echo htmlspecialchars($errors['nic']); ?></div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="info-card">
                             <div class="info-label">Contact no</div>
                             <input type="number" name="contact_no" value="<?php echo htmlspecialchars($user->contact_no); ?>" class="info-value info-input" disabled>
+                            <?php if (isset($errors['contact_no'])): ?>
+                                <div class="error-message"><?php echo htmlspecialchars($errors['contact_no']); ?></div>
+                            <?php endif; ?>
                         </div>
-<!-- 
-                        <div class="info-card">
-                            <div class="info-label">Email</div>
-                            <input type="email" name="email" value="<?php echo htmlspecialchars($user->email); ?>" class="info-value info-input" disabled>
-                        </div> -->
-
-                        <!-- Add more fields as needed -->
-
                     </div>
                 </div>
+
+                <?php if (isset($error)): ?>
+                    <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+                <?php endif; ?>
 
                 <div class="footer">
                     <div class="footer-text"></div>
