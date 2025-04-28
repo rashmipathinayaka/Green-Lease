@@ -13,7 +13,7 @@
 	<div class="sidebar">
 		<ul>
 			<li>
-				<a href="<?php echo URLROOT; ?>/Supervisor/Index">Dashboard</a>
+				<a href="<?php echo URLROOT; ?>/Supervisor/dashboard">Dashboard</a>
 			</li>
 			
             <li>

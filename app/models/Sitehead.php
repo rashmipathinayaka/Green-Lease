@@ -16,18 +16,18 @@ class Sitehead
 		'zone',
 		'land_id'
 	];
-	public function getInactiveUsers()
-{
-    $query = "SELECT DISTINCT s.user_id, u.full_name
-        FROM sitehead s
-        INNER JOIN user u ON s.user_id = u.id
-        INNER JOIN supervisor sp ON sp.zone = s.zone
-        WHERE s.status = 'Inactive' 
-        AND sp.id = 1
-    ";
+// 	public function getInactiveUsers()
+// {
+//     $query = "SELECT DISTINCT s.user_id, u.full_name
+//         FROM sitehead s
+//         INNER JOIN user u ON s.user_id = u.id
+//         INNER JOIN supervisor sp ON sp.zone = s.zone
+//         WHERE s.status = 'Inactive' 
+        
+//     ";
 
-    return $this->query($query);
-}
+//     return $this->query($query);
+// }
 
 
 
@@ -38,13 +38,28 @@ public function getSiteheadsBySupervisorUserId($userId)
         INNER JOIN user u ON s.user_id = u.id
         WHERE s.zone = (
             SELECT zone FROM supervisor WHERE user_id = :userId
-        )";
+        ) ";
 
     return $this->query($query, [
         'userId' => $userId
     ]);
 }
 
+
+
+public function getInactiveUsers($userId)
+{
+    $query = "SELECT u.*, s.status, s.land_id
+        FROM sitehead s
+        INNER JOIN user u ON s.user_id = u.id
+        WHERE s.zone = (
+            SELECT zone FROM supervisor WHERE user_id = :userId
+        ) AND s.status = 'Inactive'";
+
+    return $this->query($query, [
+        'userId' => $userId
+    ]);
+}
 
     
 
