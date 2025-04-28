@@ -11,9 +11,7 @@ class Manage_sitehead
     private $project;
 
     public function __construct() {
-        // Initialize the sitehead model
         $this->sitehead = new RSitehead();
-        // $this->user=new RUser();
         $this->project=new RProject();
     }
 
@@ -36,13 +34,11 @@ class Manage_sitehead
 
     public function delete_sitehead($id){
         if ($this->sitehead->delete($id)) {
-            // Redirect to the manage sitehead page after successful deletion
             header("Location: " . URLROOT . "/Admin/manage_sitehead");
-            exit(); // Ensure no further code is executed after the redirect
+            exit(); 
         } else {
-            // Redirect to an error page if deletion fails
             header("Location: " . URLROOT . "/Admin/sorry_delete_failed");
-            exit(); // Ensure no further code is executed after the redirect
+            exit(); 
         }
     }
     
@@ -55,21 +51,17 @@ public function update_sitehead()
        
         $id = $_POST['id'];
 
-        // Retrieve other form data
         $updatedata = [
 			'id' => $_POST['id'],
-            'land_id' => $_POST['land_id'], // sitehead zone
-            'status' => $_POST['status'] // sitehead status
+            'land_id' => $_POST['land_id'], 
+            'status' => $_POST['status'] 
         ];
 
-		//$update_data=['name'=>'name','email'=>'email','number'=>'number','zone'=>'zone','status'=>'status'];
-
-        // Call the update function, passing the ID and updated data
+		
        if( $this->sitehead->update($id, $updatedata, 'id')){
 		echo "Data updated successfully.";
 	   }
 
-        // Fetch updated data and load the view
         $newdata = $this->sitehead->getSiteheadDetails();
         $this->view('admin/manage_sitehead', ['data' => $newdata]);
     }

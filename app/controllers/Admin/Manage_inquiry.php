@@ -7,29 +7,25 @@ class Manage_inquiry
 
     public function __construct()
     {
-        $this->inquiryModel = new RInquiry(); // Assuming you have an InquiryModel class for handling inquiries
+        $this->inquiryModel = new RInquiry();
     }
 
     public function index()
     {
-        $inquiries = $this->inquiryModel->getAllunsoledInquiries(); // Fetch all inquiries from the model
-        $this->view('admin/manage_inquiry', ['inquiries' => $inquiries]); // Pass the inquiries to the view
+        $inquiries = $this->inquiryModel->getAllunsoledInquiries(); 
+        $this->view('admin/manage_inquiry', ['inquiries' => $inquiries]); 
     }
 
 public function solved($id)
     {
-        // Mark the inquiry as solved
         $this->inquiryModel->markassolved($id);
-        // Redirect back to the inquiries page
         header('Location: ' . URLROOT . '/admin/manage_inquiry');
         exit;
     }
 
     public function delete($id)
     {
-        // Delete the inquiry
         $this->inquiryModel->markasdeleted(['id' => $id]);
-        // Redirect back to the inquiries page
         header('Location: ' . URLROOT . '/admin/manage_inquiry');
         exit;
     }

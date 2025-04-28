@@ -46,7 +46,7 @@ class RSitehead
     
         $query .= " GROUP BY s.id";
     
-        // Debug output
+      
         error_log("Final query: " . $query);
         error_log("Query params: " . print_r($params, true));
     
@@ -54,19 +54,33 @@ class RSitehead
     }
 
 
-         //to get profiles
+        
          public function getSiteheadbyid($id) {
             $query = 'SELECT s.*, u.full_name, u.email, u.contact_no,u.joined_date,u.nic
                       FROM sitehead s
                       JOIN user u ON s.user_id = u.id
                       WHERE s.id = :id'; 
-            $data = [':id' => $id]; // Bind the id parameter
+            $data = [':id' => $id]; 
         
             $result = $this->query($query, $data);
             
             return $result ? $result[0] : null;
         }
         
+        public function getAllSiteheads($userid){
+            $query = '
+                SELECT sh.*, u.full_name
+                FROM sitehead sh
+                JOIN user u ON sh.user_id = u.id
+                WHERE sh.zone = (SELECT zone FROM supervisor WHERE user_id = :userid)
+            ';
+        
+            $data = ['userid' => $userid];
+        
+            return $this->query($query, $data);
+        }
+        
+
 
 
 

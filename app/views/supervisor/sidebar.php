@@ -16,10 +16,7 @@
 				<a href="<?php echo URLROOT; ?>/Supervisor/dashboard">Dashboard</a>
 			</li>
 			
-            <li>
-                <a href="<?php echo URLROOT; ?>/supervisor/approve_land">Approve land</a>
-            </li>
-
+            
 			<li>
 				<a href="<?php echo URLROOT; ?>/Supervisor/Manage_fertilizer">Manage Fertilizer</a>
 			</li>

@@ -11,7 +11,6 @@ class Manage_bids
 	private $notificationModel;
 
 	public function __construct() {
-        // Initialize the Sitehead model
         $this->harvest = new RHarvest();
         if (!isset($_SESSION['id'])) {
             redirect('login');
@@ -40,10 +39,8 @@ class Manage_bids
 			$bid = $this->bidModel->first(['id' => $bid_id]);
 			
 			if ($bid) {
-				// Update bid status
 				$this->bidModel->update($bid_id, ['status' => 'Approved']);
 				
-				// Create notification for the buyer
 				$this->notificationModel->create_notification(
 					$bid->buyer_id,
 					'Bid Approved',
