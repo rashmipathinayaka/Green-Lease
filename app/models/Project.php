@@ -91,17 +91,19 @@ class Project {
      * @param int $supervisorId Supervisor ID
      * @return array Array of projects
      */
-    public function getProjectsBySupervisor($supervisorId)
-    {
-        $query = "SELECT p.*, 
-                 COALESCE(p.start_date, 'Not Started') as start_date
-                 FROM project p
-                 WHERE p.supervisor_id = :supervisor_id
-                 ORDER BY p.status, p.start_date DESC";
-        
-        $data = [':supervisor_id' => $supervisorId];
-        return $this->query($query, $data);
-    }
+    public function getProjectsByUserId($userId)
+{
+    $query = "SELECT p.*, 
+                     COALESCE(p.start_date, 'Not Started') AS start_date
+              FROM project p
+              JOIN supervisor s ON p.supervisor_id = s.id
+              WHERE s.user_id = :user_id
+              ORDER BY p.status, p.start_date DESC";
+
+    $data = [':user_id' => $userId];
+    return $this->query($query, $data);
+}
+
     
     /**
      * Get project by ID
@@ -141,7 +143,7 @@ class Project {
      */
     public function getProjectsWithEvents($supervisorId)
     {
-        $projects = $this->getProjectsBySupervisor($supervisorId);
+        $projects = $this->getProjectsByUserId($supervisorId);
         $EventModel = new EventModel();
         
         foreach ($projects as $key => $project) {

@@ -19,7 +19,7 @@ class Event
         $supervisorId = $_SESSION['id'] ?? 1;
         
         // Get all projects for this supervisor
-        $projects = $this->project->getProjectsBySupervisor($supervisorId);
+        $projects = $this->project->getProjectsByUserId($supervisorId);
         
         // Pass data to the view
         $this->view('supervisor/event', [
