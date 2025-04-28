@@ -41,7 +41,7 @@
                     <label for="nic">NIC:</label>
                     <input type="number" id="nic" name="nic" required>
                     <span class="error" id="nic_error"></span>
-
+ 
                     <label for="zone">Zone:</label>
                     <select id="zone" name="zone" required>
                         <option value="">Select Zone</option>
