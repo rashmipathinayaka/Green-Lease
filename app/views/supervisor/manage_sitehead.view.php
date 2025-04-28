@@ -30,16 +30,7 @@
       position: relative;
     }
 
-    .page-header h1:after {
-      content: '';
-      position: absolute;
-      bottom: 0;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 100px;
-      height: 3px;
-      background-color: #2e7d32;
-    }
+    
 
     /* Alert Messages */
     .alert {
