@@ -36,7 +36,7 @@ require ROOT . '/views/components/topbar.php';
                             <span class="metric-value"><?= $pending_payments_count ?></span>
                             <i class="fas fa-user"></i>
                         </div>
-                        <button>View</button>
+                        <a href="<?= URLROOT ?>/Buyer/Index"><button>View</button></a>
                     </div>
                     <div class="metric-card">
                         <h3>Bids Placed</h3>
@@ -44,15 +44,15 @@ require ROOT . '/views/components/topbar.php';
                             <span class="metric-value"><?= $bids_placed_count ?></span>
                             <i class="fas fa-user"></i>
                         </div>
-                        <button>View</button>
+                        <a href="<?= URLROOT ?>/Buyer/Manage_bids"><button>View</button></a>
                     </div>
                     <div class="metric-card">
-                        <h3>Complaints Filed</h3>
+                        <h3>Total Purchases</h3>
                         <div class="metric-content">
-                            <span class="metric-value"><?= $complaints_filed_count ?></span>
+                            <span class="metric-value"><?= $total_purchases_count ?></span>
                             <i class="fas fa-user"></i>
                         </div>
-                        <button>View</button>
+                        <a href="<?= URLROOT ?>/Buyer/Purchase_history"><button>View</button></a>
                     </div>
                 </div>
 

@@ -7,9 +7,9 @@ class Purchase
     protected $table = 'purchase';
 
     protected $allowedColumns = [
-       'buyer_id',
-       'harvest_id',
+       'bid_id',
        'amount',
-       'rating'
+       'rating',
+       'feedback'
     ];
 }

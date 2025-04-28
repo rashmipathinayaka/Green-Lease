@@ -75,6 +75,10 @@
                         <i class="fas fa-file-alt"></i>
                         Generate Report
                     </a>
+                    <a href="<?= URLROOT ?>/Admin/statistics/" class="report-button">
+                        <i class="fas fa-chart-line"></i>
+                        View Statistics
+                    </a>
                 </div>
 
                 <div class="charts-container">

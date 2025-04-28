@@ -75,6 +75,23 @@
             color: #b71c1c;
             font-size: 0.98rem;
             text-align: center;
+            padding: 12px;
+            border-radius: 8px;
+            display: none;
+        }
+        #payment-message.success {
+            background: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #a5d6a7;
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        #payment-message.error {
+            background: #ffebee;
+            color: #b71c1c;
+            border: 1px solid #ef9a9a;
+            display: block;
+            animation: fadeIn 0.5s ease-in-out;
         }
         .card-icons {
             display: flex;
@@ -99,6 +116,72 @@
         .secure-text i {
             color: #2e7d32;
         }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .success-icon {
+            color: #2e7d32;
+            font-size: 24px;
+            margin-right: 8px;
+        }
+        .confirmation-modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+        .confirmation-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 24px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+        .confirmation-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .confirm-btn {
+            background: linear-gradient(90deg, #43e97b 0%, #38f9d7 100%);
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .cancel-btn {
+            background: #f44336;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+        }
+        .payment-details {
+            background: #f8f9fa;
+            padding: 16px;
+            border-radius: 8px;
+            margin: 16px 0;
+        }
+        .payment-details p {
+            margin: 8px 0;
+            color: #333;
+        }
+        .payment-details strong {
+            color: #2e7d32;
+        }
     </style>
 </head>
 <body>
@@ -120,6 +203,24 @@
         </form>
         <div class="secure-text"><i class="fa fa-lock"></i> 100% Secure Payment</div>
     </div>
+
+    <!-- Confirmation Modal -->
+    <div id="confirmationModal" class="confirmation-modal">
+        <div class="confirmation-content">
+            <h3>Confirm Payment</h3>
+            <div class="payment-details">
+                <p><strong>Amount:</strong> LKR <?= number_format($payment->amount * $payment->unit_price, 2) ?></p>
+                <p><strong>Quantity:</strong> <?= $payment->amount ?> kg</p>
+                <p><strong>Unit Price:</strong> LKR <?= number_format($payment->unit_price, 2) ?> per kg</p>
+            </div>
+            <p>Are you sure you want to proceed with this payment?</p>
+            <div class="confirmation-buttons">
+                <button class="cancel-btn" onclick="closeConfirmation()">Cancel</button>
+                <button class="confirm-btn" onclick="proceedWithPayment()">Confirm Payment</button>
+            </div>
+        </div>
+    </div>
+
     <script>
         const stripe = Stripe('<?= $stripe_publishable_key ?>');
         let elements, clientSecret;
@@ -155,19 +256,30 @@
             card.mount('#card-element');
         }
 
-        document.getElementById('payment-form').addEventListener('submit', async function(e) {
+        document.getElementById('payment-form').addEventListener('submit', function(e) {
             e.preventDefault();
+            document.getElementById('confirmationModal').style.display = 'block';
+        });
+
+        function closeConfirmation() {
+            document.getElementById('confirmationModal').style.display = 'none';
+        }
+
+        async function proceedWithPayment() {
+            document.getElementById('confirmationModal').style.display = 'none';
             document.getElementById('submit').disabled = true;
+            
             const { error } = await stripe.confirmCardPayment(clientSecret, {
                 payment_method: { card: elements.getElement('card') }
             });
+            
             if (error) {
                 document.getElementById('payment-message').textContent = error.message;
-                document.getElementById('payment-message').classList.remove('hidden');
+                document.getElementById('payment-message').className = 'error';
                 document.getElementById('submit').disabled = false;
             } else {
-                document.getElementById('payment-message').textContent = 'Payment successful!';
-                document.getElementById('payment-message').style.color = '#2e7d32';
+                document.getElementById('payment-message').innerHTML = '<i class="fas fa-check-circle success-icon"></i> Payment successful! Redirecting to dashboard...';
+                document.getElementById('payment-message').className = 'success';
 
                 // Record purchase in backend
                 fetch('<?= URLROOT ?>/Buyer/Payment/record_purchase', {
@@ -180,7 +292,14 @@
                     }, 1500);
                 });
             }
-        });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('confirmationModal')) {
+                closeConfirmation();
+            }
+        }
 
         initializePaymentForm();
     </script>
