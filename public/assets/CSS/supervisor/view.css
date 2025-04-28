@@ -15,7 +15,6 @@
    
 .dashboard-header h1 {
     color: #2e7d32;
-    font-size: 28px;
     font-weight: 800;
     margin: 0;
     text-align: center;
@@ -28,7 +27,7 @@
 
 /* Welcome Message Moving Slowly */
 .welcome-message {
-    font-size: 28px;
+    font-size: 30px;
     font-weight: 600;
     color: #2e7d32;
     margin: 0;
@@ -99,7 +98,7 @@
 
 .metric-card h2 {
     margin: 0 0 20px 0;
-    font-size: 24px;
+    font-size: 28px;
     color: #2e7d32;
     font-weight: 600;
     position: relative;
@@ -161,7 +160,7 @@
 }
 
 .section-header h1 {
-    font-size: 22px;
+    font-size: 26px;
     font-weight: 600;
     color: #2e7d32;
     margin: 0;

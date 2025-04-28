@@ -16,24 +16,37 @@ class modelEvent
         'payment_per_worker',
         'status',
         'description',
+        'postponed',
+        'postponed_date',
         'progress_notes',
         'completion_status',
-        'completion_images',
-        'postponed_date'
+        'completion_images'
     ];
 
     // Get all events for a specific project
-    public function getEventsByProject($projectId)
-    {
-        $query = "SELECT * FROM event WHERE project_id = :project_id ORDER BY date DESC, time ASC";
-        return $this->query($query, ['project_id' => $projectId]);
+    // In app/models/modelEvent.php
+
+// Modify the getEventsByProject method
+public function getEventsByProject($projectId)
+{
+    $query = "SELECT * FROM event WHERE project_id = :project_id ORDER BY COALESCE(postponed_date, date) DESC, time ASC";
+    $events = $this->query($query, ['project_id' => $projectId]);
+    
+    // Process each event to add display properties
+    foreach ($events as $event) {
+        $event->is_postponed = !empty($event->postponed_date);
+        $event->display_date = $event->is_postponed ? $event->postponed_date : $event->date;
     }
+    
+    return $events;
+}
+
 
     // Add a new event (simplified with default values)
     public function addEvent($data)
     {
-        $query = "INSERT INTO event (project_id, event_name, date, time,  workers_required, payment_per_worker, status, description, progress_notes, completion_status, completion_images, postponed_date)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        $query = "INSERT INTO event (project_id, event_name, date, time, workers_required, payment_per_worker, status, description, progress_notes, completion_status, completion_images, postponed_date)
+                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
         $params = [
             $data['project_id'] ?? null,
@@ -42,10 +55,10 @@ class modelEvent
             $data['time'] ?? null,
             $data['workers_required'] ?? 0,
             $data['payment_per_worker'] ?? 0,
-            $data['status'],
+            $data['status'] ?? 0,
             $data['description'] ?? '',
             $data['progress_notes'] ?? '',
-            $data['completion_status'],
+            $data['completion_status'] ?? 'Pending',
             $data['completion_images'] ?? null,
             $data['postponed_date'] ?? null
         ];
@@ -69,10 +82,13 @@ class modelEvent
                   FROM event e
                   JOIN project p ON e.project_id = p.id
                   WHERE e.project_id IN ($placeholders)
-                  AND DATE(e.date) = ?
-                  ORDER BY e.date ASC";
+                  AND (
+                      (DATE(e.date) = ? AND e.postponed_date IS NULL) OR
+                      (DATE(e.postponed_date) = ?)
+                  )
+                  ORDER BY e.time ASC";
 
-        $params = array_merge($projectIds, [$today]);
+        $params = array_merge($projectIds, [$today, $today]);
         return $this->query($query, $params);
     }
 
@@ -116,7 +132,10 @@ class modelEvent
                   FROM {$this->table} e
                   JOIN project p ON e.project_id = p.id
                   WHERE e.project_id = ?
-                  AND (DATE(e.date) >= ? OR e.postponed_date >= ?)
+                  AND (
+                      (DATE(e.date) >= ? AND e.postponed_date IS NULL) OR 
+                      (DATE(e.postponed_date) >= ?)
+                  )
                   ORDER BY COALESCE(e.postponed_date, e.date) ASC";
 
         return $this->query($query, [$projectId, $today, $today]);
@@ -128,7 +147,7 @@ class modelEvent
         $query = "SELECT * FROM event 
                   WHERE project_id = :project_id 
                   AND completion_status = :status
-                  ORDER BY date ASC";
+                  ORDER BY COALESCE(postponed_date, date) ASC";
                   
         return $this->query($query, [
             'project_id' => $projectId,
@@ -165,9 +184,9 @@ class modelEvent
                   WHERE e.project_id IN ($placeholders)
                   AND (
                       (e.status = 1 AND e.completion_status != 'completed') OR
-                      (DATE(e.date) < ? AND e.completion_status != 'completed' AND e.postponed_date IS NULL)
+                      (DATE(COALESCE(e.postponed_date, e.date)) < ? AND e.completion_status != 'completed')
                   )
-                  ORDER BY e.status DESC, e.date ASC";
+                  ORDER BY e.status DESC, COALESCE(e.postponed_date, e.date) ASC";
                   
         $params = array_merge($projectIds, [$today]);
         return $this->query($query, $params);
@@ -179,7 +198,7 @@ class modelEvent
         $query = "SELECT * FROM {$this->table} 
                   WHERE project_id = :project_id 
                   AND (
-                      (date BETWEEN :start_date AND :end_date) OR
+                      (date BETWEEN :start_date AND :end_date AND postponed_date IS NULL) OR
                       (postponed_date BETWEEN :start_date AND :end_date)
                   )
                   ORDER BY COALESCE(postponed_date, date) ASC";
@@ -206,7 +225,7 @@ class modelEvent
                   WHERE project_id = :project_id 
                   AND workers_required > 0
                   AND completion_status != 'Completed'
-                  ORDER BY date ASC";
+                  ORDER BY COALESCE(postponed_date, date) ASC";
                   
         return $this->query($query, ['project_id' => $projectId]);
     }
@@ -220,5 +239,30 @@ class modelEvent
                   
         $result = $this->query($query, ['project_id' => $projectId]);
         return $result[0]->total ?? 0;
+    }
+    
+    // Helper method to get the correct display date for an event
+    public function getDisplayDate($event)
+    {
+        return !empty($event->postponed_date) ? $event->postponed_date : $event->date;
+    }
+    
+    // Helper method to check if an event is postponed
+    public function isPostponed($event)
+    {
+        return !empty($event->postponed_date);
+    }
+    
+    // Get formatted display date with postponed indicator
+    public function getFormattedDisplayDate($event)
+    {
+        $date = $this->getDisplayDate($event);
+        $formatted = date('M j, Y', strtotime($date));
+        
+        if ($this->isPostponed($event)) {
+            return $formatted . ' (Postponed)';
+        }
+        
+        return $formatted;
     }
 }
