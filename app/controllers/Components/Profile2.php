@@ -29,7 +29,7 @@ public function updateprofile()
         if ($_POST['action'] === 'save'){      
               $data = [
             'full_name' => $_POST['full_name'],
-            'email' => $_POST['email'],
+            // 'email' => $_POST['email'],
             'contact_no' => $_POST['contact_no'],
             'nic' => $_POST['nic'],
             'id' => $_POST['id']

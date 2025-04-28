@@ -18,13 +18,14 @@ class Index
 			 FROM bid b 
 			 JOIN harvest h ON b.harvest_id = h.id 
 			 WHERE b.buyer_id = :buyer_id 
-			 AND b.status = 'Approved'",
+			 AND b.status = 'Approved'
+			 AND b.id NOT IN (SELECT bid_id FROM purchase)",
 			['buyer_id' => $_SESSION['id']]
 		);
 
 		// Get pending payments count
 		$pendingPaymentsCount = $bidModel->query(
-			"SELECT COUNT(*) as count FROM bid WHERE buyer_id = :buyer_id AND status = 'Approved'",
+			"SELECT COUNT(*) as count FROM bid WHERE buyer_id = :buyer_id AND status = 'Approved' AND id NOT IN (SELECT bid_id FROM purchase)",
 			['buyer_id' => $_SESSION['id']]
 		)[0]->count;
 
@@ -41,9 +42,15 @@ class Index
 			['buyer_id' => $_SESSION['id']]
 		)[0]->count;
 
+		$totalPurchasesCount = (new Purchase())->query(
+			"SELECT COUNT(*) as count FROM purchase p JOIN bid b ON p.bid_id = b.id WHERE b.buyer_id = :buyer_id",
+			['buyer_id' => $_SESSION['id']]
+		)[0]->count;
+
 		$data['pending_payments_count'] = $pendingPaymentsCount;
 		$data['bids_placed_count'] = $bidsPlacedCount;
 		$data['complaints_filed_count'] = $complaintsFiledCount;
+		$data['total_purchases_count'] = $totalPurchasesCount;
 
 		$userModel = new User();
 		$userData = $userModel->first(['id' => $userId]);

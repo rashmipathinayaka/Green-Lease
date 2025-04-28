@@ -46,9 +46,9 @@
 				<tr>
 					<th>Buyer ID</th>
 					<th>Name</th>
-					<th>contact no</th>
-					<th>No of bids </th>
-					<th></th>
+					<th>Contact No</th>
+					<th>No of Bids </th>
+					<th>Action</th>
 
 				</tr>
 			</thead>
@@ -59,10 +59,10 @@
 							<td><?= htmlspecialchars($buyer->id) ?></td>
 							<td><?= htmlspecialchars($buyer->full_name) ?></td>
 							<td><?= htmlspecialchars($buyer->contact_no) ?></td>
-							<!-- <td><?= htmlspecialchars($buyer->kjhk) ?></td> -->
+							<td>Dummy</td>
 							<td>
 								<button class="profile-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_buyer/getid/<?= $buyer->id ?>';">
-									<img src="<?= URLROOT ?>/assets/images/user.png" class="menu-icon">view profile
+									<img src="<?= URLROOT ?>/assets/images/user.png" class="menu-icon">View Profile
 								</button>
 							</td>
 
