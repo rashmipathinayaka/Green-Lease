@@ -24,7 +24,6 @@
                         Project ID: <span id="project-id-display"><?= $proinfo ? htmlspecialchars($proinfo->id) : 'N/A' ?></span>
                     </div>
                 <?php else: ?>
-                    <p>No ongoing project found for this user.</p>
                 <?php endif; ?> 
                 <div class="project-status">Status: <span style="color: #2e7d32; font-weight: bold;">
                     <?php echo $proinfo ? htmlspecialchars($proinfo->status) : 'N/A'; ?>

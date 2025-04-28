@@ -71,7 +71,6 @@
     document.querySelector('.form').addEventListener('submit', function(e) {
         let isValid = true;
 
-        // Clear previous error messages
         document.querySelectorAll('.error').forEach(el => el.textContent = '');
 
         const fullName = document.getElementById('full_name').value.trim();
@@ -79,32 +78,28 @@
         const contact = document.getElementById('contact_no').value.trim();
         const nic = document.getElementById('nic').value.trim();
 
-        // Full name check: only letters and spaces
         if (!/^[A-Za-z\s]+$/.test(fullName)) {
             document.getElementById('full_name_error').textContent = "Please enter a valid name.";
             isValid = false;
         }
 
-        // Email format check
         if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
             document.getElementById('email_error').textContent = "Invalid email format.";
             isValid = false;
         }
 
-        // Phone number: exactly 10 digits
         if (!/^\d{10}$/.test(contact)) {
             document.getElementById('contact_error').textContent = "Phone number must be 10 digits.";
             isValid = false;
         }
 
-        // NIC: either 9 digits + 'V' or 12 digits
         if (!/^(\d{9}[Vv]|\d{12})$/.test(nic)) {
             document.getElementById('nic_error').textContent = "NIC must be 9 digits + 'V' or 12 digits.";
             isValid = false;
         }
 
         if (!isValid) {
-            e.preventDefault(); // Prevent form submission if validation fails
+            e.preventDefault(); 
         }
     });
 </script>
