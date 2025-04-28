@@ -21,8 +21,12 @@ private $sitehead;
         $eventdetails = $this->eventmodel->geteventdetailsbyid($id); // returns array
     
         // Decode completion_images for each event
-        foreach ($eventdetails as $key => $event) {
-            $eventdetails[$key]->images = json_decode($event->completion_images);
+        if (is_array($eventdetails)) {
+            foreach ($eventdetails as $key => $event) {
+                $eventdetails[$key]->images = json_decode($event->completion_images) ?? [];
+            }
+        } else {
+            $eventdetails = []; // Set to empty array if no events
         }
     
         $sitehead = $this->project->getsiteheadbyproid($projectdetails->id);

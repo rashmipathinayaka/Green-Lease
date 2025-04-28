@@ -25,14 +25,14 @@
 
 		<br><br>
 		<!-- Search and Filter Section -->
-		<div class="filter-section">
+		<!-- <div class="filter-section">
 			<form method="GET" action="" class="filter-form" style="margin-bottom: 20px; text-align: center;">
 				<label for="name">Name:</label>
 				<input type="text" name="full_name" id="full_name" value="<?= isset($_GET['full_name']) ? htmlspecialchars($_GET['full_name']) : '' ?>">
 
 				<button type="submit">Filter</button>
 			</form>
-		</div>
+		</div> -->
 
 
 	<!-- Supervisors Table -->

@@ -112,13 +112,14 @@ public function getAllSupervisorslessthanmaxcount($procount, $landzone) {
             WHERE 1=1
         ';
         
+    
         $params = [];
     
         if (!empty($filters['full_name'])) {
-            $query .= " AND u.full_name LIKE ?";
-            $params[] = "%" . $filters['full_name'] . "%";
+            $query .= " AND LOWER(u.full_name) LIKE ?";
+            $params[] =  strtolower($filters['full_name']) . "%";
         }
-    
+        
         if (!empty($filters['zone'])) {
             $query .= " AND s.zone = ?";
             $params[] = $filters['zone'];
