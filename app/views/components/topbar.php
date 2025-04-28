@@ -14,7 +14,7 @@
 
   <div class="top-bar">
     <div class="logo-section">
-      <img src="http://localhost/Green-lease/public/assets/images/logo.png" width="100px">
+      <img src="<?= URLROOT ?>/assets/images/logo.png" width="100px">
     </div>
 
     <div class="user-actions">
@@ -38,6 +38,18 @@
       <?php endif; ?>
       <a href="<?php echo URLROOT; ?>/profile2/profilenavigation"><button class="profile-btn"><i class="fas fa-user"></i></button></a>
     </div>
+
+    <div class="topbar-right">
+        <div class="language-switcher">
+            <?php $lang = $_SESSION['lang'] ?? 'en'; ?>
+            <button type="button" class="language-btn <?php echo $lang === 'en' ? 'active' : ''; ?>" data-lang="en">
+                <i class="fas fa-globe"></i> English
+            </button>
+            <button type="button" class="language-btn <?php echo $lang === 'si' ? 'active' : ''; ?>" data-lang="si">
+                <i class="fas fa-globe"></i> සිංහල
+            </button>
+        </div>
+    </div>
   </div>
   
 </body>
@@ -55,7 +67,7 @@
     const navbarLinks = document.querySelector('.navbar-links');
     const hamburger = document.querySelector('.hamburger');
 
-    if (!navbar.contains(event.target) && navbarLinks.classList.contains('active')) {
+    if (navbar && navbarLinks && !navbar.contains(event.target) && navbarLinks.classList.contains('active')) {
       navbarLinks.classList.remove('active');
     }
   });
@@ -82,3 +94,59 @@ document.addEventListener('click', function() {
     if(dropdown) dropdown.style.display = 'none';
 });
 </script>
+
+<script>
+document.querySelectorAll('.language-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        const lang = this.dataset.lang;
+        const currentUrl = window.location.href;
+
+        // Add loading state
+        this.disabled = true;
+        this.style.opacity = '0.7';
+
+        fetch('<?= URLROOT ?>/language/switch', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-Requested-With': 'XMLHttpRequest'
+            },
+            body: `lang=${lang}&redirect_url=${encodeURIComponent(currentUrl)}`
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                window.location.reload();
+            }
+        })
+        .catch(error => {
+            console.error('Error parsing JSON:', error);
+            this.disabled = false;
+            this.style.opacity = '1';
+        });
+    });
+});
+</script>
+
+<style>
+.language-switcher {
+    display: flex;
+    gap: 5px;
+    margin-right: 20px;
+}
+
+.language-switcher button {
+    padding: 5px 10px;
+    border: 1px solid #ddd;
+    background: white;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.language-switcher button.active {
+    background: #2e7d32;
+    color: white;
+    border-color: #2e7d32;
+}
+</style>

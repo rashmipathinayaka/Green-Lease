@@ -8,7 +8,7 @@
     <title>Project Completion Form</title>
 </head>
 
-<body>
+<body style="margin-top: 100px; margin-left: 20px; margin-right: 20px;">
     <?php
     require ROOT . '/views/sitehead/sidebar.php';
     require ROOT . '/views/components/topbar.php';
@@ -39,7 +39,7 @@
                 <div class="input-group">
 
 
-                    <div class="input-group-append">Rs.</div>
+                    <div class="input-group-append">Rs. </div>
 
                     <input type="number" id="profit-gained" name="profit_gained" required min="0" step="0.01">
                 </div>
@@ -55,7 +55,7 @@
             <div class="form-group">
                 <div class="checkbox-container">
                     <input type="checkbox" id="mark-complete" name="mark_complete" value="1" required>
-                    <label for="mark-complete">Mark this project as complete?</label>
+                    <label for="mark-complete">Mark this project as complete.</label>
                 </div>
                 <div class="help-text">Check this box to finalize the project and update its status to "Completed"</div>
             </div>

@@ -1,7 +1,6 @@
-<?php 
+<?php
 
-
-Trait Controller
+class Controller
 {
 	public function model($model) {
 		require_once "../app/models/" . $model . ".php";
