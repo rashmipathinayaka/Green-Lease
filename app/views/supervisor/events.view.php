@@ -210,7 +210,7 @@
            <label for="workers_required">Workers Required</label>
            <input type="number" id="workers_required" name="workers_required" min="0" value="<?= htmlspecialchars($form_data['workers_required'] ?? '0') ?>" />
 
-           <label for="payment_per_worker">Payment per Worker (₹)</label>
+           <label for="payment_per_worker">Payment per Worker </label>
 <div class="input-group">
     <input type="number" id="payment_per_worker" name="payment_per_worker" 
            min="0" step="1" 
