@@ -18,7 +18,7 @@ class Registerland
     {
         $registerland = new RLand();
         $harvest = new Rsite_visit();
-        $userId = 1; 
+        $userId = $_SESSION['id']; 
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $crop_type = $_POST['crop_type'] ?? null;

@@ -59,15 +59,15 @@
  Number of total events in this year: <strong><?= htmlspecialchars($totalevents) ?></strong><br>
         </div>       <div class="data-point">
  
- The rate of postponding an event:<strong><?= htmlspecialchars($eventpostponedrate) .'%'?></strong>
+ The rate of postponing an event: <strong><?= htmlspecialchars($eventpostponedrate) .'%'?></strong>
 </div>
     </div>
     
     <h2>Land Data</h2>
     <div class="highlight-box">
         <div class="data-point">
-            Most projects are from <strong><?= htmlspecialchars($mostlandzone['zone_name']) ?></strong> district
-            (Project count: <?= htmlspecialchars($mostlandzone['count']) ?>)
+            Most projects are from <strong><?= htmlspecialchars($mostlandzone['zone_name']) ?></strong> District
+            (Project Count: <?= htmlspecialchars($mostlandzone['count']) ?>)
         </div>
     </div>
 
@@ -137,19 +137,7 @@
     
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-    <br><br><br><br>
+    <br>
     <!-- Button to trigger PDF download -->
     <button id="downloadReport">Download PDF</button>
     </div>

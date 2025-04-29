@@ -26,12 +26,18 @@ class Dashboard
         }
         echo $proCount;
 
+        $userModel = new User();
+		$userData = $userModel->first(['id' => $supervisorId]);
+
+		$data['sname'] = $userData->full_name;
+
         // Send all data to the view
         $this->view('supervisor/dashboard', [
             'proCount' => $proCount,
             'completedproCount' => $completedproCount,
             'ongoingProjects' => $ongoingProjects,
-            'completedProjects' =>  $completedProjects
+            'completedProjects' =>  $completedProjects,
+            'sname' => $data['sname']
         ]);
     }
 }

@@ -18,7 +18,13 @@ class SBid {
     }
     
     public function getBidsByBuyer($buyer_id) {
-        return $this->where(['buyer_id' => $buyer_id]);
+        $query = "SELECT b.*, p.crop_type, l.address as land_location 
+                 FROM bid b 
+                 JOIN harvest h ON b.harvest_id = h.id 
+                 JOIN project p ON h.project_id = p.id 
+                 JOIN land l ON p.land_id = l.id 
+                 WHERE b.buyer_id = :buyer_id";
+        return $this->query($query, ['buyer_id' => $buyer_id]);
     }
     
     public function getBidsByHarvest($harvest_id) {

@@ -8,7 +8,7 @@
 	<title>Document</title>
 </head>
 
-<body>
+<body >
 	<?php
 	require ROOT . '/views/sitehead/sidebar.php';
 	require ROOT . '/views/components/topbar.php';

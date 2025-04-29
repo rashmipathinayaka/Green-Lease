@@ -20,7 +20,7 @@
 
 	<div class="content">
 		<center>
-			<h1>Manage Buyer</h1>
+			<h1>Manage Buyers</h1>
 		</center>
 
 		<br><br>
@@ -44,11 +44,11 @@
 		<table class="dashboard-table">
 			<thead>
 				<tr>
-					<th>Buyer ID</th>
-					<th>Name</th>
-					<th>Contact No</th>
-					<th>No of Bids </th>
-					<th>Action</th>
+					<th style="text-align: center;">Buyer ID</th>
+					<th style="text-align: center;">Name</th>
+					<th style="text-align: center;">Contact No</th>
+					<!-- <th>No of Bids </th> -->
+					<th style="text-align: center;">Action</th>
 
 				</tr>
 			</thead>
@@ -59,7 +59,7 @@
 							<td><?= htmlspecialchars($buyer->id) ?></td>
 							<td><?= htmlspecialchars($buyer->full_name) ?></td>
 							<td><?= htmlspecialchars($buyer->contact_no) ?></td>
-							<td>Dummy</td>
+							<!-- <td>Dummy</td> -->
 							<td>
 								<button class="profile-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_buyer/getid/<?= $buyer->id ?>';">
 									<img src="<?= URLROOT ?>/assets/images/user.png" class="menu-icon">View Profile

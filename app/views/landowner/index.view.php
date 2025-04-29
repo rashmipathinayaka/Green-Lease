@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/landowner/landowner.css">
 
-    <title>Document</title>
+    <title>Landowner Dashboard</title>
 
 </head>
 
@@ -81,7 +81,7 @@
         </div>
 
 
-        <h1>Ongoing Projects</h1><br><br>
+        <br><h1>Ongoing Projects</h1><br><br>
 
         <div id="completed-projects">
             <div class="projects-grid">
@@ -108,8 +108,7 @@
             </div>
         </div>
 
-        <br><br> <br>
-
+        <br><br>
 
 
 

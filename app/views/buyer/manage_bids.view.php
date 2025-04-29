@@ -103,7 +103,6 @@
         <input type="date" name="date_from" id="date_from" value="<?= isset($_GET['date_from']) ? htmlspecialchars($_GET['date_from']) : '' ?>" placeholder="From Date">
         <label for="date_to" style="margin-left: 8px; margin-right: 2px; color: #333; font-size: 14px;">To</label>
         <input type="date" name="date_to" id="date_to" value="<?= isset($_GET['date_to']) ? htmlspecialchars($_GET['date_to']) : '' ?>" placeholder="To Date">
-        <input type="text" name="event_name" value="<?= isset($_GET['event_name']) ? htmlspecialchars($_GET['event_name']) : '' ?>" placeholder="Event Name">
         <button type="submit">Apply Filters</button>
         </form>
 
@@ -113,10 +112,11 @@
                 <thead>
                     <tr>
                         <th>Harvest ID</th>
+                        <th>Crop Type</th>
                         <th>Amount (kg)</th>
                         <th>Unit Price (LKR)</th>
                         <th>Status</th>
-                        <th>Bidding Date</th>
+                        <th>Bidding Date and Time</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -125,8 +125,10 @@
                         <?php foreach($active_bids as $bid): ?>
                             <tr data-id="<?php echo $bid->id; ?>" 
                                 data-amount="<?php echo $bid->amount; ?>"
-                                data-unit-price="<?php echo $bid->unit_price; ?>">
+                                data-unit-price="<?php echo $bid->unit_price; ?>"
+                                data-land-location="<?php echo $bid->land_location; ?>">
                                 <td><?php echo $bid->harvest_id; ?></td>
+                                <td><?php echo $bid->crop_type; ?></td>
                                 <td><?php echo $bid->amount; ?> kg</td>
                                 <td>LKR <?php echo $bid->unit_price; ?></td>
                                 <td><?php echo ucfirst($bid->status); ?></td>
@@ -141,7 +143,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" style="text-align: center;">No Active Bids Found</td>
+                            <td colspan="7" style="text-align: center;">No Active Bids Found</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
@@ -154,10 +156,11 @@
                 <thead>
                     <tr>
                         <th>Harvest ID</th>
+                        <th>Crop Type</th>
                         <th>Amount (kg)</th>
                         <th>Unit Price (LKR)</th>
                         <th>Status</th>
-                        <th>Bidding Date</th>
+                        <th>Bidding Date and Time</th>
                         <th>Actions</th>
                     </tr>
                 </thead>
@@ -166,8 +169,10 @@
                         <?php foreach($bid_history as $bid): ?>
                             <tr data-id="<?php echo $bid->id; ?>" 
                                 data-amount="<?php echo $bid->amount; ?>"
-                                data-unit-price="<?php echo $bid->unit_price; ?>">
+                                data-unit-price="<?php echo $bid->unit_price; ?>"
+                                data-land-location="<?php echo $bid->land_location; ?>">
                                 <td><?php echo $bid->harvest_id; ?></td>
+                                <td><?php echo $bid->crop_type; ?></td>
                                 <td><?php echo $bid->amount; ?> kg</td>
                                 <td>LKR <?php echo $bid->unit_price; ?></td>
                                 <td><?php echo ucfirst($bid->status); ?></td>
@@ -179,7 +184,7 @@
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" style="text-align: center;">No Bid History Found</td>
+                            <td colspan="7" style="text-align: center;">No Bid History Found</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
@@ -212,11 +217,12 @@
             <div class="modal-body">
                 <div class="bid-details">
                     <p><strong>Harvest ID:</strong> <span id="viewHarvestId"></span></p>
+                    <p><strong>Land Location:</strong> <span id="viewLandLocation"></span></p>
                     <p><strong>Amount:</strong> <span id="viewAmount"></span> kg</p>
                     <p><strong>Unit Price:</strong> LKR <span id="viewUnitPrice"></span> per kg</p>
                     <p><strong>Total Value:</strong> LKR <span id="viewTotalValue"></span></p>
                     <p><strong>Status:</strong> <span id="viewStatus"></span></p>
-                    <p><strong>Bidding Date:</strong> <span id="viewBiddingDate"></span></p>
+                    <p><strong>Bidding Date and Time:</strong> <span id="viewBiddingDate"></span></p>
                 </div>
             </div>
             <div class="modal-footer">
@@ -258,16 +264,18 @@
             // Get the bid row data
             const bidRow = document.querySelector(`tr[data-id="${bidId}"]`);
             const harvestId = bidRow.children[0].textContent;
+            const landLocation = bidRow.dataset.landLocation;
             const amount = parseFloat(bidRow.dataset.amount);
             const unitPrice = parseFloat(bidRow.dataset.unitPrice);
-            const status = bidRow.children[3].textContent;
-            const biddingDate = bidRow.children[4].textContent;
+            const status = bidRow.children[4].textContent;
+            const biddingDate = bidRow.children[5].textContent;
 
             // Calculate total value
             const totalValue = amount * unitPrice;
 
             // Update modal content
             document.getElementById('viewHarvestId').textContent = harvestId;
+            document.getElementById('viewLandLocation').textContent = landLocation;
             document.getElementById('viewAmount').textContent = amount.toLocaleString();
             document.getElementById('viewUnitPrice').textContent = unitPrice.toLocaleString();
             document.getElementById('viewTotalValue').textContent = totalValue.toLocaleString();

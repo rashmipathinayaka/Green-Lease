@@ -1,0 +1,119 @@
+/* Purchase Management Styles */
+.purchase-management {
+    padding: 20px;
+}
+
+.purchase-management .card {
+    border: none;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+    margin-bottom: 30px;
+}
+
+.purchase-management .card-header {
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+    padding: 15px 20px;
+}
+
+.purchase-management .card-header h5 {
+    margin: 0;
+    color: #2c3e50;
+    font-weight: 600;
+}
+
+.purchase-management .table {
+    margin-bottom: 0;
+}
+
+.purchase-management .table thead th {
+    background-color: #f8f9fa;
+    border-bottom: 2px solid #e9ecef;
+    color: #2c3e50;
+    font-weight: 600;
+    padding: 12px 15px;
+}
+
+.purchase-management .table tbody td {
+    padding: 12px 15px;
+    vertical-align: middle;
+    color: #34495e;
+}
+
+.purchase-management .table tbody tr:hover {
+    background-color: #f8f9fa;
+}
+
+.purchase-management .btn-success {
+    background-color: #27ae60;
+    border-color: #27ae60;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.purchase-management .btn-success:hover {
+    background-color: #219a52;
+    border-color: #219a52;
+}
+
+.purchase-management .text-success {
+    color: #27ae60 !important;
+    font-weight: 500;
+}
+
+.purchase-management .alert {
+    border-radius: 4px;
+    margin-bottom: 20px;
+}
+
+.purchase-management .alert-success {
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+    color: #155724;
+}
+
+.purchase-management .alert-error {
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    color: #721c24;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .purchase-management .table-responsive {
+        margin-bottom: 0;
+    }
+    
+    .purchase-management .table thead {
+        display: none;
+    }
+    
+    .purchase-management .table tbody tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 1px solid #e9ecef;
+        border-radius: 4px;
+    }
+    
+    .purchase-management .table tbody td {
+        display: block;
+        text-align: right;
+        padding: 10px 15px;
+        position: relative;
+        border-bottom: 1px solid #e9ecef;
+    }
+    
+    .purchase-management .table tbody td:before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 50%;
+        padding-left: 15px;
+        font-weight: 600;
+        text-align: left;
+    }
+    
+    .purchase-management .table tbody td:last-child {
+        border-bottom: 0;
+    }
+} 

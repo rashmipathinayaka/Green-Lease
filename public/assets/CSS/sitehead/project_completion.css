@@ -164,6 +164,7 @@ textarea {
 
 .input-group-append {
     margin-left: 10px;
+    margin-right: 10px;
     color: #7f8c8d;
     font-weight: 500;
 }

@@ -290,6 +290,7 @@
             <div class="invoice-footer">
                 <p>Thank you for your business!</p>
                 <p>Green Lease - Sustainable Agriculture Solutions</p>
+                <p>Contact Us: +94 77 123 4567</p>
             </div>
 
             <div class="invoice-actions">

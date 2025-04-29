@@ -13,9 +13,11 @@ class Event
     public function getAvailableEventsForWorker($worker_id)
     {
         return $this->query("
-            SELECT e.* 
+            SELECT e.*, l.address as land_address
             FROM event e 
             LEFT JOIN worker_event we ON e.id = we.event_id AND we.worker_id = ?
+            JOIN project p ON e.project_id = p.id
+            JOIN land l ON p.land_id = l.id
             WHERE e.completion_status = 'pending' 
             AND we.id IS NULL
         ", [$worker_id]);

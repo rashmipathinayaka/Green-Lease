@@ -18,8 +18,12 @@
 	?>
 
 	<div id="manage-lands-section">
-
-		<h2>Please Note That You Can Only Remove Unused Lands</h2>
+		<div class="note-container">
+			<div class="note">
+				<i class="fas fa-info-circle"></i>
+				<p>Please Note That You Can Only Remove Unused Lands</p>
+			</div>
+		</div>
 		<br>
 		<!-- Lands Table -->
 		<table class="dashboard-table">
@@ -126,6 +130,49 @@
 			}
 		};
 	</script>
+
+	<style>
+		.note-container {
+			margin: 20px 0;
+			padding: 0 20px;
+		}
+
+		.note {
+			background-color: #fff3e0;
+			border-left: 4px solid #ff9800;
+			padding: 15px 20px;
+			border-radius: 4px;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.note i {
+			color: #ff9800;
+			font-size: 22px;
+			flex-shrink: 0;
+		}
+
+		.note p {
+			margin: 0;
+			color: #e65100;
+			font-size: 16px;
+			line-height: 1.5;
+			font-weight: 500;
+		}
+
+		@media (max-width: 768px) {
+			.note-container {
+				padding: 0 15px;
+			}
+
+			.note {
+				padding: 12px 15px;
+			}
+		}
+	</style>
 
 </body>
 

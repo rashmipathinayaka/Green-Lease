@@ -36,8 +36,8 @@
                         <p>Site Location: <?php echo htmlspecialchars($item->id); ?></p>
 
                         <!-- Display the crop type -->
-                        <p>Expected amount(kg): <?php echo htmlspecialchars($item->max_amount); ?></p>
-                        <p>Remaining amount(kg): <?php echo htmlspecialchars($item->rem_amount); ?></p>
+                        <p>Expected Amount (KG): <?php echo htmlspecialchars($item->max_amount); ?></p>
+                        <p>Remaining Amount (KG): <?php echo htmlspecialchars($item->rem_amount); ?></p>
 
                         <!-- Display additional harvest details if needed -->
                         <p>Harvest Date: <?php echo htmlspecialchars($item->harvest_date); ?></p>

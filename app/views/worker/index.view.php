@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= getCurrentLanguage() ?>">
 <head>
     <meta charset="UTF-8">
-    <title>Worker Dashboard</title>
+    <title><?= translate('Worker Dashboard') ?></title>
     <link rel="stylesheet" href="<?= URLROOT ?>/assets/css/worker.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -86,6 +86,38 @@
             color: #721c24;
             border: 1px solid #f5c6cb;
         }
+
+        /* Add these styles to your existing styles */
+        .no-events-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+        }
+
+        .no-events-icon {
+            font-size: 48px;
+            color: #6c757d;
+            margin-bottom: 20px;
+        }
+
+        .no-events-content h3 {
+            color: #2e7d32;
+            margin-bottom: 10px;
+            font-size: 24px;
+        }
+
+        .no-events-content p {
+            color: #6c757d;
+            font-size: 16px;
+            max-width: 500px;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body style="margin-top: 100px; margin-left: 20px; margin-right: 20px;">
@@ -93,12 +125,13 @@
 <?php
 require ROOT . '/views/worker/sidebar.php';
 require ROOT . '/views/components/topbar.php';
-?>
+
+$lang = $_SESSION['lang'] ?? 'en'; ?>
 
     <div class="welcome-container">
         <div class="welcome-header">
-            <h1>Hello, <span class="username"><?= htmlspecialchars($sname) ?></span> ! 👋</h1>
-            <p class="welcome-message">Welcome back to your dashboard</p>
+            <h1><?= translate('Hello') ?>, <span class="username"><?= htmlspecialchars($sname) ?></span> ! 👋</h1>
+            <p class="welcome-message"><?= translate('Welcome back to your dashboard') ?></p>
         </div>
     </div>
 
@@ -107,7 +140,7 @@ require ROOT . '/views/components/topbar.php';
 
     <div class="worker-events-section">
         <div class="worker-events-header" style="margin-top: 70px;">
-            <h2>Available Jobs</h2>
+            <h2><?= translate('Available Jobs') ?></h2>
         </div>
 
         <div class="worker-events-list">
@@ -123,17 +156,25 @@ require ROOT . '/views/components/topbar.php';
                             </div>
                             <div class="worker-event-info">
                                 <span><i class="fas fa-clock"></i> <?= $event->date?></span>
-                                <span><i class="fas fa-map-pin"></i> Project ID: <?= $event->project_id ?></span>
-                                <span><i class="fas fa-user"></i> Assigned Supervisor</span>
+                                <span><i class="fas fa-map-pin"></i> <?= translate('Project ID') ?>: <?= $event->project_id ?></span>
+                                <span><i class="fas fa-map-marker-alt"></i> <?= htmlspecialchars($event->land_address ?? translate('Location not specified')) ?></span>
                             </div>
                         </div>
                         <div class="worker-event-actions">
-                            <button class="green-btn" onclick="confirmApply(<?= $event->id ?>)">Apply</button>
+                            <button class="green-btn" onclick="confirmApply(<?= $event->id ?>)"><?= translate('Apply') ?></button>
                         </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>
-                <p class="no-events-message">No available events right now.</p>
+                <div class="no-events-container">
+                    <div class="no-events-icon">
+                        <i class="fas fa-calendar-times"></i>
+                    </div>
+                    <div class="no-events-content">
+                        <h3><?= translate('No Available Jobs') ?></h3>
+                        <p><?= translate('There are no jobs available at the moment. Please check back later for new opportunities.') ?></p>
+                    </div>
+                </div>
             <?php endif; ?>
         </div>
     </div>
@@ -142,14 +183,14 @@ require ROOT . '/views/components/topbar.php';
     <div id="confirmationModal" class="confirmation-modal">
         <div class="confirmation-modal-content">
             <div class="confirmation-modal-header">
-                <h3>Confirm Application</h3>
+                <h3><?= translate('Confirm Application') ?></h3>
             </div>
             <div class="confirmation-modal-body">
-                <p>Are you sure you want to apply for this event? Once applied, you will be notified when your application is reviewed.</p>
+                <p><?= translate('Are you sure you want to apply for this event? Once applied, you will be notified when your application is reviewed.') ?></p>
             </div>
             <div class="confirmation-modal-footer">
-                <button type="button" class="cancel-btn" onclick="closeModal()">Cancel</button>
-                <button type="button" class="confirm-btn" onclick="submitApplication()">Confirm Apply</button>
+                <button type="button" class="cancel-btn" onclick="closeModal()"><?= translate('Cancel') ?></button>
+                <button type="button" class="confirm-btn" onclick="submitApplication()"><?= translate('Confirm Apply') ?></button>
             </div>
         </div>
     </div>
