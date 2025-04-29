@@ -34,7 +34,7 @@ class WorkerEventModel
                   JOIN user u ON we.worker_id = u.id
                   JOIN event e ON we.event_id = e.id
                   WHERE e.project_id = ?
-                  AND (DATE(e.date) >= ? OR e.postponed_date >= ?)
+                  AND (( e.postponed = 'no' AND DATE(e.date) = ?) OR ( e.postponed = 'yes' AND DATE(e.postponed_date) = ?))
                   AND u.role_id = 6
                   ORDER BY  e.date";
 
