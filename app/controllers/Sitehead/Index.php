@@ -46,7 +46,7 @@ class Index
 			$data['project'] = $project;
 
 			// // Get upcoming events count (implement your logic)
-			// $data['upcomingEventsCount'] = $this->getUpcomingEventsCount($userId);
+			$data['upcomingEventsCount'] = $eventModel->getUpcomingEventsCount($project->id);
 
 			//Get notifications for the sitehead
 			if ($userData && $userData->role_id == 3) { // 3 = Sitehead

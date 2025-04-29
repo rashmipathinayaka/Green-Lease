@@ -8,55 +8,19 @@ class EventModel
 
     protected $allowedColumns = [
         'id',
-        'project_id',
         'event_name',
+        'project_id',
         'date',
-        'time',
-        'location',
-        'workers_required',
-        'payment_per_worker',
         'status',
         'description',
         'progress_notes',
         'completion_status',
         'completion_images',
+        'postponed',
+        'postpone_details',
         'postponed_date'
+
     ];
-
-    // Get all events for a specific project
-    public function getEventsByProject($projectId)
-    {
-        $query = "SELECT * FROM event WHERE project_id = :project_id ORDER BY date DESC, time ASC";
-        return $this->query($query, ['project_id' => $projectId]);
-    }
-
-    // Add a new event (simplified)
-    public function addEvent($data)
-    {
-        $data['status'] = $data['status'] ?? 0;
-        $data['completion_status'] = $data['completion_status'] ?? 'Pending';
-
-        $query = "INSERT INTO event (project_id, event_name, date, time, location, workers_required, payment_per_worker, status, description, progress_notes, completion_status, completion_images, postponed_date)
-                  VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-
-        $params = [
-            $data['project_id'] ?? null,
-            $data['event_name'] ?? null,
-            $data['date'] ?? null,
-            $data['time'] ?? null,
-            $data['location'] ?? null,
-            $data['workers_required'] ?? 0,
-            $data['payment_per_worker'] ?? 0,
-            $data['status'] ?? null,
-            $data['description'] ?? null,
-            $data['progress_notes'] ?? null,
-            $data['completion_status'] ?? null,
-            $data['completion_images'] ?? null,
-            $data['postponed_date'] ?? null
-        ];
-
-        return $this->query($query, $params);
-    }
 
     // Get today's events for a list of project IDs
     public function getTodaysEvents($projectId)
@@ -121,6 +85,15 @@ class EventModel
                   ORDER BY COALESCE(e.postponed_date, e.date) ASC";
 
         return $this->query($query, [$projectId, $today, $today]);
+    }
+
+    public function getUpcomingEventsCount($projectId)
+    {
+        // Reuse getUpcomingEvents to fetch the data
+        $upcomingEvents = $this->getUpcomingEvents($projectId);
+
+        // Return the count of the results
+        return count($upcomingEvents);
     }
 
     // Get events by status

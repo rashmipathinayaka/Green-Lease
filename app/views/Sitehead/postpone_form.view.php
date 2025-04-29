@@ -24,12 +24,12 @@
                     <span class="detail-value"><?= htmlspecialchars($event->event_name) ?></span>
                 </div>
                 <div class="detail-row">
-                    <span class="detail-label"><strong>Date:</strong></span>
+                    <span class="detail-label"><strong>Initial Planned Date:</strong></span>
                     <span class="detail-value"><?= date('F j, Y', strtotime($event->date)) ?></span>
                 </div>
             </div>
 
-            <form action="<?= URLROOT ?>/sitehead/Event/postpone_event/<?= $event->id ?>" method="post">
+            <form action="<?= URLROOT ?>/Sitehead/Event/postpone_event/<?= $event->id ?>" method="post">
                 <div class="form-group">
                     <label for="postponed_date">New Proposed Date:</label>
                     <input type="date" id="postponed_date" name="postponed_date" required
