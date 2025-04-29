@@ -59,7 +59,7 @@ class RLand
 	
 	public function findlandsbyuserid($userId)
 	{
-		$query = "SELECT land.*, project.crop_type  AS selected_crop_type
+		$query = "SELECT land.*, project.crop_type  AS selected_crop_type,project.id AS proid
 				  FROM land
 				  LEFT JOIN project ON project.land_id = land.id
 				  WHERE land.landowner_id = :landowner_id";
@@ -81,6 +81,13 @@ class RLand
 
 
 
+	public function countbuyers() {
+		$query = "SELECT COUNT(*) AS buyercount FROM user WHERE role_id = 5";
+		$result = $this->query($query);
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  
+		
+	
+}
 
 	public function countProjectsByUserId($userId)
 	{
@@ -165,7 +172,7 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 		$query = "SELECT project.*
 		FROM project
 		JOIN land ON project.land_id = land.id
-		WHERE land.landowner_id = :landowner_id
+		WHERE project.status='Completed' AND land.landowner_id = :landowner_id
 		";
 		$data = [':landowner_id' => $userId];
 

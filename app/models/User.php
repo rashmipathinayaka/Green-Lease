@@ -15,6 +15,7 @@ class User
         'full_name',
         'reset_token',
         'reset_token_expiry',
+        'joined_date'
     ];
 
    

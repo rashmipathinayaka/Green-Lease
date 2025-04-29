@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/manage-supervisor.css">
 
-	<title>Document</title>
+	<title>Manage Workers</title>
 </head>
 
 <body>
@@ -44,11 +44,11 @@
 		<table class="dashboard-table">
 			<thead>
 				<tr>
-					<th>Worker ID</th>
-					<th>Name</th>
-					<th>contact no</th>
-					<th>No of events joined</th>
-					<th></th>
+					<th style="text-align: center;">Worker ID</th>
+					<th style="text-align: center;">Name</th>
+					<th style="text-align: center;">contact no</th>
+					<th style="text-align: center;">No of events joined</th>
+					<th style="text-align: center;">Actions</th>
 
 				</tr>
 			</thead>

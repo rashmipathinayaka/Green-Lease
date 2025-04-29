@@ -58,7 +58,7 @@ $currentPage = basename($_SERVER['PHP_SELF']);
             <li class="<?= $currentPage === 'Manage_land.view.php' ? 'active' : '' ?>">
                 <a href="<?= URLROOT ?>/Admin/Manage_land">
                     <i class="fas fa-tractor"></i>
-                    <span>Manage Lands</span>
+                    <span>Manage Projects</span>
                 </a>
             </li>
             <li class="<?= $currentPage === 'Pending_approval.view.php' ? 'active' : '' ?>">

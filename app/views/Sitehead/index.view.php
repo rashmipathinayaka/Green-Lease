@@ -36,20 +36,11 @@
 					<button onclick="window.location.href='<?= URLROOT ?>/Sitehead/Manage_worker'">View</button>
 				</div>
 
-
-				<!-- Project Card (middle) -->
-				<!-- <div class="project-card">
-					<img src="<?php echo URLROOT; ?>/assets/images/ongoing2.png" alt="Project Image" class="img" />
-					<p>Project ID: <?php echo htmlspecialchars($project->id); ?></p>
-					<p>Crop Type: <?php echo htmlspecialchars($project->crop_type); ?></p>
-					<a href="<?= URLROOT ?>/Components/Project/index/<?php echo $project->id; ?>" class="view">View Project</a>
-				</div> -->
-
 				<!-- Upcoming Events Card -->
 				<div class="metric-card">
 					<h3>Upcoming Events Count</h3>
 					<div class="metric-content">
-						<span class="metric-value">10</span>
+						<span class="metric-value"><?= htmlspecialchars($upcomingEventsCount) ?></span>
 					</div>
 					<button onclick="window.location.href='<?= URLROOT ?>/Sitehead/Event/Upcoming_events'">View</button>
 				</div>

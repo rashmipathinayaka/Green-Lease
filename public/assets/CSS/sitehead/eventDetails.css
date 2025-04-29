@@ -144,14 +144,14 @@
 
 /* Postpone Link Styles */
 .postpone-link {
-    margin-top: 15px;
+    margin-top: 19px;
     text-align: center;
 }
 
 .postpone-link a {
     color: #e74c3c;
     text-decoration: none;
-    font-size: 14px;
+    font-size: 16px;
     transition: color 0.2s;
 }
 

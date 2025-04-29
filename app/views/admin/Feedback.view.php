@@ -79,7 +79,7 @@
 
 
     <div class="container">
-        <h1>Feedbacks and Issues Management</h1>
+        <h1>Feedback and Issues Management</h1>
 
         <!-- Tabs -->
         <div class="tab-navigation">

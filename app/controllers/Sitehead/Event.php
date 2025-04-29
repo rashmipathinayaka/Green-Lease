@@ -1,257 +1,274 @@
 <?php
+// app/controllers/Event.php
 class Event
 {
     use Controller;
 
-    private $project;
-    private $eventModel;
-
-    public function __construct()
-    {
-        // Initialize the Project and EventModel models in the constructor
-        $this->project = new Project;
-        $this->eventModel = new modelEvent;
-    }
-
     public function index()
     {
-        // Get supervisor ID from session (using 1 for testing)
-        $supervisorId = $_SESSION['id'] ?? 1;
 
-        // Get all projects for this supervisor
-        $projects = $this->project->getProjectsByUserId($supervisorId);
+        // Default method - you can redirect or show a list
+        //header('Location: ' . URLROOT . '/sitehead/Event/details/');
+    }
 
-        // Pass data to the view
-        $this->view('supervisor/event', [
-            'project' => $projects
+    public function details($eventId)
+    {
+        // Check if user is logged in
+        if (!isset($_SESSION['id'])) {
+            redirect('login');
+            return;
+        }
+
+        if (empty($eventId)) {
+            $this->view('_404');
+            return;
+        }
+
+        // Load required models
+        $eventModel = new EventModel();
+        $siteheadModel = new Sitehead();
+        $projectModel = new Project();
+
+        // Get event details
+        $event = $eventModel->getEventWithImages($eventId);
+
+        // Check if event exists
+        if (!$event) {
+            $this->view('_404');
+            return;
+        }
+
+        // Get project details
+        $project = $projectModel->first(['id' => $event->project_id]);
+        if (!$project) {
+            $this->view('_404');
+            return;
+        }
+
+        // Verify sitehead is assigned to this land
+        $siteheadAssignment = $siteheadModel->first([
+            'user_id' => $_SESSION['id'],
+            'land_id' => $project->land_id
         ]);
-    }
 
-    public function addEventForm($project_id)
-    {
+        if (!$siteheadAssignment) {
+            $this->view('_403');
+            return;
+        }
+
+        // Prepare data for view
         $data = [
-            'project_id' => $project_id,
-            'errors' => []
+            'event' => $event,
+            'project' => $project,
+            'success' => $_SESSION['success'] ?? null,
+            'error' => $_SESSION['error'] ?? null
         ];
-        $this->view('supervisor/add_event', $data);
+
+        // Clear flash messages
+        unset($_SESSION['success']);
+        unset($_SESSION['error']);
+
+        $this->view('sitehead/event_details', $data);
     }
 
-
-    public function addEvent()
+    public function update($eventId = null)
     {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $project_id = $_POST['project_id'] ?? null;
-            $event_name = trim($_POST['event_name'] ?? '');
-            $date = trim($_POST['date'] ?? '');
-            $today = date('Y-m-d');
-            $time = trim($_POST['time'] ?? '');
-            $location = trim($_POST['location'] ?? '');
-            $workers_required = intval($_POST['workers_required'] ?? 0);
-            $payment_per_worker = filter_var($_POST['payment_per_worker'] ?? 0, FILTER_VALIDATE_INT);
-            $description = trim($_POST['description'] ?? '');
-            $errors = [];
-
-            if (!$project_id) {
-                $errors[] = 'Invalid project.';
-            }
-            if (empty($event_name)) {
-                $errors[] = 'Event name is required.';
-            }
-            if (empty($date)) {
-                $errors[] = 'Event date is required.';
-            } elseif ($date < $today) {
-                $errors[] = 'Event date cannot be in the past.';
-            }
-            if (empty($time)) {
-                $errors[] = 'Event time is required.';
-            }
-            if ($payment_per_worker === false || $payment_per_worker < 0) {
-                $errors[] = 'Payment per worker must be a positive integer.';
-                $payment_per_worker = 0;
-            }
-
-
-            if (count($errors) == 0) {
-                $newEvent = [
-                    'project_id' => $project_id,
-                    'event_name' => $event_name,
-                    'date' => $date,
-                    'time' => $time,
-                    'location' => $location,
-                    'workers_required' => $workers_required,
-                    'payment_per_worker' => $payment_per_worker,
-                    'description' => $description,
-                    'status' => 0,
-                    'completion_status' => 'Pending',
-                    'postponed_date' => null
-                ];
-
-                if ($this->eventModel->addEvent($newEvent)) {
-                    // Redirect back to events list
-                    redirect('Supervisor/Event/viewEvents', ['project_id' => $project_id]);
-                    // } else { $errors[] = 'Failed to add event.';
-                }
-            }
-
-            // On error, reload events page with errors
-            $events = $this->eventModel->getEventsByProject($project_id);
-            $data = [
-                'project_id' => $project_id,
-                'events' => $events,
-                'errors' => $errors,
-                'form_data' => $_POST
-            ];
-            $this->view('supervisor/events', $data);
-        } else {
-            redirect('supervisor/event');
-        }
-    }
-
-    public function viewEvents()
-    {
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            $project_id = $_POST['project_id'] ?? null;
-            if (!$project_id) {
-                // Redirect or show error
-                redirect('supervisor/event');
-            }
-
-            $events = $this->eventModel->getEventsByProject($project_id);
-
-            // Process each event to determine if it's postponed
-            foreach ($events as $event) {
-                $event->is_postponed = !empty($event->postponed_date);
-                $event->display_date = $event->is_postponed ? $event->postponed_date : $event->date;
-            }
-
-            $data = [
-                'project_id' => $project_id,
-                'events' => $events,
-                'errors' => []
-            ];
-
-            $this->view('supervisor/events', $data);
-        } else {
-            redirect('supervisor/event');
-        }
-    }
-
-
-    public function update($id = null)
-    {
-        if ($id === null) {
-            redirect('Supervisor/Event');
-            exit();
+        // Check if user is logged in and request is POST
+        if (!isset($_SESSION['id']) || $_SERVER['REQUEST_METHOD'] !== 'POST') {
+            redirect('login');
+            return;
         }
 
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Sanitize inputs
-            $_POST = filter_input_array(INPUT_POST, FILTER_SANITIZE_SPECIAL_CHARS);
+        if (empty($eventId)) {
+            $_SESSION['error'] = 'Event ID required';
+            redirect('sitehead');
+            return;
+        }
 
-            // Get event details
-            $event = $this->eventModel->getEventWithImages($id);
+        // Load required models
+        $eventModel = new EventModel();
+        $siteheadModel = new Sitehead();
+        $projectModel = new Project();
 
-            if (!$event) {
-                $_SESSION['message'] = 'Event not found';
-                $_SESSION['message_type'] = 'error';
-                redirect('Supervisor/Event');
-                exit();
+        // First verify the sitehead has permission
+        $event = $eventModel->first(['id' => $eventId]);
+        if (!$event) {
+            $_SESSION['error'] = 'Event not found';
+            redirect('sitehead');
+            return;
+        }
+
+        $project = $projectModel->first(['id' => $event->project_id]);
+        $siteheadAssignment = $siteheadModel->first([
+            'user_id' => $_SESSION['id'],
+            'land_id' => $project->land_id
+        ]);
+
+        if (!$siteheadAssignment) {
+            $_SESSION['error'] = 'Unauthorized to update this event';
+            redirect('sitehead');
+            return;
+        }
+
+        // Prepare update data
+        $updateData = [
+            'progress_notes' => trim($_POST['progress_notes'] ?? ''),
+            'completion_status' => $_POST['completion_status'] ?? 'pending'
+        ];
+
+        // Handle file uploads
+        if (!empty($_FILES['completion_images']['name'][0])) {
+            $uploadedFiles = [];
+            $uploadDir = ROOT . '/uploads/event_images/';
+
+            if (!is_dir($uploadDir)) {
+                mkdir($uploadDir, 0755, true);
             }
 
-            $data = [
-                'completion_status' => trim($_POST['completion_status']),
-                'progress_notes' => trim($_POST['progress_notes'] ?? '')
-            ];
+            foreach ($_FILES['completion_images']['tmp_name'] as $key => $tmpName) {
+                if ($_FILES['completion_images']['error'][$key] === UPLOAD_ERR_OK) {
+                    $originalName = basename($_FILES['completion_images']['name'][$key]);
+                    $fileExt = strtolower(pathinfo($originalName, PATHINFO_EXTENSION));
+                    $allowedExts = ['jpg', 'jpeg', 'png', 'gif'];
 
-            // Handle image uploads if any
-            if (!empty($_FILES['completion_images']['name'][0])) {
-                $uploadDir = 'uploads/events/' . $id . '/';
+                    if (in_array($fileExt, $allowedExts)) {
+                        $fileName = time() . '_' . $eventId . '_' . uniqid() . '.' . $fileExt;
 
-                // Create directory if it doesn't exist
-                if (!file_exists($uploadDir)) {
-                    mkdir($uploadDir, 0777, true);
-                }
-
-                $uploadedImages = [];
-
-                // Process each uploaded file
-                foreach ($_FILES['completion_images']['name'] as $key => $name) {
-                    if ($_FILES['completion_images']['error'][$key] === 0) {
-                        $tmpName = $_FILES['completion_images']['tmp_name'][$key];
-                        $fileName = uniqid() . '_' . $name;
-                        $destination = $uploadDir . $fileName;
-
-                        if (move_uploaded_file($tmpName, $destination)) {
-                            $uploadedImages[] = $destination;
+                        if (move_uploaded_file($tmpName, $uploadDir . $fileName)) {
+                            $uploadedFiles[] = $fileName;
                         }
                     }
                 }
+            }
 
-                // Get existing images
+            if (!empty($uploadedFiles)) {
+                // Get existing images (initialize as empty array if null)
                 $existingImages = [];
-                if (!empty($event->completion_images)) {
-                    $existingImages = json_decode($event->completion_images, true) ?: [];
+                if ($event->completion_images) {
+                    $existingImages = json_decode($event->completion_images, true);
+                    if (json_last_error() !== JSON_ERROR_NONE) {
+                        $existingImages = []; // Reset if invalid JSON
+                    }
                 }
 
-                // Merge with new images
-                $allImages = array_merge($existingImages, $uploadedImages);
-                $data['completion_images'] = json_encode($allImages);
-            }
+                // Merge and encode
+                $updateData['completion_images'] = json_encode(array_merge($existingImages, $uploadedFiles));
 
-            // Update event
-            if ($this->eventModel->updateEvent($id, $data)) {
-                $_SESSION['message'] = 'Event updated successfully';
-                $_SESSION['message_type'] = 'success';
-            } else {
-                $_SESSION['message'] = 'Failed to update event';
-                $_SESSION['message_type'] = 'error';
+                // Debug the data being saved
+                error_log("Saving images: " . print_r($updateData['completion_images'], true));
             }
-
-            redirect('Supervisor/Event/viewEvent/' . $id);
-            exit();
-        } else {
-            redirect('Supervisor/Event');
-            exit();
         }
+
+        // Attempt to update
+        if ($eventModel->update($eventId, $updateData)) {
+            $_SESSION['success'] = 'Event updated successfully';
+        } else {
+            $_SESSION['error'] = 'Failed to update event';
+        }
+
+        header('Location: ' . URLROOT . '/sitehead/Index');
     }
 
-    public function delete_image($eventId, $image)
+
+    public function delete_image($eventId = null, $imageName = null)
     {
-        // Get event details
-        $event = $this->eventModel->getEventWithImages($eventId);
+        if (!isset($_SESSION['id'])) {
+            redirect('login');
+            return;
+        }
 
+        if (empty($eventId) || empty($imageName)) {
+            $_SESSION['error'] = 'Invalid request';
+            redirect('sitehead');
+            return;
+        }
+
+        $eventModel = new EventModel();
+        $siteheadModel = new Sitehead();
+        $projectModel = new Project();
+
+        $event = $eventModel->first(['id' => $eventId]);
         if (!$event) {
-            $_SESSION['message'] = 'Event not found';
-            $_SESSION['message_type'] = 'error';
-            redirect('Supervisor/Event');
-            exit();
+            $_SESSION['error'] = 'Event not found';
+            redirect('sitehead');
+            return;
         }
 
-        // Decode the image path
-        $imagePath = urldecode($image);
+        $project = $projectModel->first(['id' => $event->project_id]);
+        $siteheadAssignment = $siteheadModel->first([
+            'user_id' => $_SESSION['id'],
+            'land_id' => $project->land_id
+        ]);
 
-        // Remove image from filesystem if it exists
-        if (file_exists($imagePath)) {
-            unlink($imagePath);
+        if (!$siteheadAssignment) {
+            $_SESSION['error'] = 'Unauthorized to modify this event';
+            redirect('sitehead');
+            return;
         }
 
-        // Remove image from database
-        if (!empty($event->completion_images)) {
-            $images = json_decode($event->completion_images, true) ?: [];
-            $images = array_filter($images, function ($img) use ($imagePath) {
-                return $img !== $imagePath;
-            });
+        if ($event->completion_images) {
+            $images = json_decode($event->completion_images, true);
+            if (json_last_error() === JSON_ERROR_NONE) {
+                $updatedImages = array_filter($images, function ($img) use ($imageName) {
+                    return $img !== $imageName;
+                });
 
-            $this->eventModel->updateEvent($eventId, [
-                'completion_images' => json_encode(array_values($images))
+                $imagePath = ROOT . '/uploads/event_images/' . $imageName;
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
+
+                $eventModel->update($eventId, [
+                    'completion_images' => !empty($updatedImages) ? json_encode(array_values($updatedImages)) : null
+                ]);
+
+                $_SESSION['success'] = 'Image deleted successfully';
+            }
+        }
+
+        header('Location: ' . URLROOT . '/sitehead/Event/details/' . $eventId);
+    }
+
+    public function Upcoming_events()
+    {
+        // Get projects managed by this sitehead
+        $userId = $_SESSION['id'];
+
+        // Get sitehead's data
+        $siteheadModel = new Sitehead();
+        $siteheadData = $siteheadModel->first(['user_id' => $userId]);
+
+        if (!empty($siteheadData)) {
+            // Get the single active project for this sitehead
+            $projectModel = new Project();
+            $project = $projectModel->first([
+                'sitehead_id' => $siteheadData->id,
+                'status' => 'ongoing'
             ]);
 
-            $_SESSION['message'] = 'Image deleted successfully';
-            $_SESSION['message_type'] = 'success';
-        }
+            if (!empty($project)) {
+                // Get upcoming events for this single project
+                $eventModel = new EventModel();
+                $upcomingEvents = $eventModel->getUpcomingEvents($project->id);
 
-        redirect('Supervisor/Event/viewEvent/' . $eventId);
-        exit();
+                $data = [
+                    'upcomingEvents' => $upcomingEvents,
+                    'project' => $project // Now singular since only one project
+                ];
+
+                $this->view('sitehead/upcoming_events', $data);
+            } else {
+                // No active project found
+                $data = [
+                    'upcomingEvents' => [],
+                    'error' => 'No ongoing project found'
+                ];
+                $this->view('sitehead/upcoming_events', $data);
+            }
+        } else {
+            // No sitehead data found - handle error
+            redirect('sitehead/dashboard');
+        }
     }
 
     public function postpone_event($event_id)
@@ -263,7 +280,7 @@ class Event
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Handle form submission
             $data = [
-                // 'postponed' => 'yes',
+                'postponed' => 'yes',
                 'postpone_details' => $_POST['postpone_reason'],
                 'postponed_date' => $_POST['postponed_date'], // Optional: if you want to track when it was postponed
                 // 'date' => $_POST['postponed_date']
@@ -283,34 +300,5 @@ class Event
             ];
             $this->view('sitehead/postpone_form', $data);
         }
-    }
-
-
-    public function viewEvent($id = null)
-    {
-        if ($id === null) {
-            redirect('Supervisor/Event');
-            exit();
-        }
-
-        // Get event details
-        $event = $this->eventModel->getEventWithImages($id);
-
-        if (!$event) {
-            $_SESSION['message'] = 'Event not found';
-            $_SESSION['message_type'] = 'error';
-            redirect('Supervisor/Event');
-            exit();
-        }
-
-        // Check if event is postponed and set display date
-        $event->is_postponed = !empty($event->postponed_date);
-        $event->display_date = $event->is_postponed ? $event->postponed_date : $event->date;
-
-        $data = [
-            'event' => $event
-        ];
-
-        $this->view('supervisor/view_event', $data);
     }
 }

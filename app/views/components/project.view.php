@@ -185,7 +185,7 @@
                         <img src="<?php echo URLROOT . '/assets/Images/' . htmlspecialchars($sitehead->propic); ?>" alt="Site Head Avatar" />
                     </div>
                     <div class="member-info">
-                        <h4><?php echo htmlspecialchars($sitehead->full_name); ?></h4>
+                        <h4><?php echo htmlspecialchars($sitehead->full_name); ?></h4> 
                         <h4>Tel:<?php echo htmlspecialchars($sitehead->contact_no) ?></h4>
 
                         <p>Sitehead of the land</p>

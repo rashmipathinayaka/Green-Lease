@@ -46,12 +46,12 @@
         <table class="dashboard-table" >
             <thead>
                 <tr>
-                    <th>Name</th>
-                    <th>land</th>
-                    <th> land address</th>
+                    <th style="text-align: center;">Name</th>
+                    <th style="text-align: center;">Land</th>
+                    <th style="text-align: center;">Land Address</th>
 
-                    <th>Status</th>
-                    <th>Actions</th>
+                    <th style="text-align: center;">Status</th>
+                    <th style="text-align: center;">Actions</th>
                 </tr>
             </thead>
             <tbody id="supervisor-list">
@@ -63,12 +63,12 @@
                                     <button class="rprofile-btn" onclick="window.location.href='<?= URLROOT ?>/Admin/Manage_supervisor/getid/<?= $sitehead->id ?>';">
                                         <img src="<?= !empty($sitehead->propic) ? htmlspecialchars($sitehead->propic) : URLROOT . '/assets/images/supervisor.jpg' ?>" class="rmenu-icon">
                                     </button>
-                                    <span class="supervisor-name"><?= htmlspecialchars($sitehead->full_name) ?></span>
+                                    <span class="supervisor-name"><?= htmlspecialchars($sitehead->full_name ?? '') ?></span>
                                 </div>
                             </td>
-                            <td><?= htmlspecialchars($sitehead->land_id) ?></td>
-                            <td><?= htmlspecialchars($sitehead->address) ?></td>
-                            <td><?= htmlspecialchars($sitehead->status) ?></td>
+                            <td><?= htmlspecialchars($sitehead->land_id ?? '') ?></td>
+                            <td><?= htmlspecialchars($sitehead->address ?? '') ?></td>
+                            <td><?= htmlspecialchars($sitehead->status ?? '') ?></td>
 
                             <td>
                                 <button class="green-btn toggle-edit-btn" data-id="<?= $sitehead->id ?>">Edit</button>

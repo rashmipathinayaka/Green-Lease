@@ -9,6 +9,7 @@ class Router {
         'about' => ['controller' => 'About', 'method' => 'index'],
         'login' => ['controller' => 'Login', 'method' => 'index'],
         'signup' => ['controller' => 'Signup', 'method' => 'index'],
+        'signup/register' => ['controller' => 'Signup', 'method' => 'register'],
         'reset-password' => ['controller' => 'ResetPassword', 'method' => 'index'],
         'unauthorized' => ['controller' => 'Unauthorized', 'method' => 'index'],
         'inquiry/addInquiry' => ['controller' => 'Inquiry', 'method' => 'addInquiry'],
