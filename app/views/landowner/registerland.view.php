@@ -24,7 +24,7 @@
                 <div class="form-group">
 
                     <label for="address">Address of the Land</label>
-                    <input type="text" id="address" name="address" required pattern=".*,.*" title="check the address again" placeholder="Enter the address (must contain at least one comma)">
+                    <input type="text" id="address" name="address" required pattern=".*,.*" title="check the address again" placeholder="Enter the address ">
 
                     <!-- MAP + Coordinates -->
                     <div id="map" style="height: 400px;"></div>

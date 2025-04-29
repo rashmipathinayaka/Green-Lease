@@ -58,7 +58,8 @@
                     <div class="metric-card">
                         <h3>Buyer Count</h3>
                         <div class="metric-content">
-                            <span class="metric-value">240</span>
+                            <span class="metric-value">    <?php echo !empty($buyercount) ? htmlspecialchars($buyercount) : 1; ?></span>
+                            </span>
                             <i class="fas fa-user"></i>
                         </div>
                         <button onclick="showSection('manage-buyers-section')">View</button>
