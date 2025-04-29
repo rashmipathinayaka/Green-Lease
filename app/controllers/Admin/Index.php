@@ -29,6 +29,7 @@ class Index
 			'unused' => $this->lands->countinactivelands(),
 			'completed' => $this->lands->countcompletedProjects(),
 			'supervisorcount' => $this->supervisor->countsupervisors(),
+			'buyercount'=>$this->lands->countbuyers(),
 		];
 
 		$landStats = $this->lands->findRegisteredYear();
@@ -52,6 +53,7 @@ class Index
 			'supervisorcount' => $supervisorcount,
 			'yearLabels' => $landStats['labels'],
 			'yearData' => $landStats['data'],
+			'buyercount'=>$buyercount,
 		];
 
 		$this->view('admin/report', $data);

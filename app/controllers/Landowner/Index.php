@@ -19,7 +19,6 @@ $this->landowner = new RUser();
 	{
 		
 		$userId = $_SESSION['id'] ?? null;
-	$userId=1;
 
 		if ($userId) {
 			$landCount = $this->lands->countLandsByUserId($userId);

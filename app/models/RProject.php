@@ -61,8 +61,12 @@ public function getprojectdetailsbyid($id){
 
 public function getsiteheadbyproid($id)
 {
-    $query = "SELECT u.* FROM sitehead s , user u WHERE s.land_id = (SELECT land_id FROM project WHERE id = :id) AND s.user_id = u.id";
-    $data = ['id' => $id];
+    $query = "SELECT u.* 
+    FROM project p 
+    JOIN sitehead s ON p.sitehead_id = s.id 
+    JOIN user u ON s.user_id = u.id 
+    WHERE p.id = :id";
+$data = ['id' => $id];
     $result = $this->query($query, $data);
     return $result ? $result[0] : null; 
 }

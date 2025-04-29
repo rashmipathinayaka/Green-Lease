@@ -47,7 +47,7 @@ $this->view('admin/Feedback',$data);
 
 public function markSolved() {
     
-     $user_id = $_SESSION['user_id'];
+     $user_id = $_SESSION['id'];
    
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $feedbackId = $_POST['feedback_id'] ?? null;

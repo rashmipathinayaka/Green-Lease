@@ -18,7 +18,7 @@
 
     <div id="full-section">
         <br>
-        <div id="procount-section">
+        <!-- <div id="procount-section">
             <form method="GET" action="<?= URLROOT ?>/Admin/site_visit/<?= $land_id ?>" class="filter-form" style="margin-bottom: 20px; text-align: center;">
                 <label for="name">
                     <h4>Enter the maximum number of projects for a supervisor:</h4>
@@ -27,7 +27,7 @@
 
                 <button type="submit">Enter</button>
             </form>
-        </div>
+        </div> -->
         <h3>Landowner of this land has already given a preferred date range for the site visit:</h3>
         <p><?= $from_date . ' to ' . $to_date; ?></p>
 
@@ -58,10 +58,10 @@
                         </select>
                         <label for="doc">Date-range for the visit</label>
                         <input type="text" id="from_date" name="from_date" disabled value="<?php echo $from_date ?>">
-                        <input type="text" id="to_date" name="to_date" disabled value="<?php echo $to_date ?>"">
+                        <input type="text" id="to_date" name="to_date" disabled value="<?php echo $to_date ?>">
 
-<button class=" form-submit-btn" type="submit">
-                        <i class="fas fa-paper-plane"></i>&nbsp;Submit</button>
+                        <button class=" form-submit-btn" type="submit">
+                            <i class="fas fa-paper-plane"></i>&nbsp;Submit</button>
                         <div class="note">Assigned supervisor will see the site visit and confirm the date to the visit</div>
 
                     </div>
