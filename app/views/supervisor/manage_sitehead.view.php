@@ -308,9 +308,7 @@ require ROOT . '/views/components/topbar.php';
     </tbody>
   </table>
 
-  <div id="no-results-message" class="no-results-message" style="display: none;">
-    <i class="fas fa-search"></i> No results found for your search.
-  </div>
+  
 
   <!-- Activate Sitehead Modal -->
   <div id="add-sitehead-form" class="modal">
@@ -345,31 +343,7 @@ require ROOT . '/views/components/topbar.php';
 </div>
 
 <script>
-document.getElementById("sitehead-search").addEventListener("keyup", function () {
-  const filter = this.value.toLowerCase();
-  const rows = document.querySelectorAll("#sitehead-list tr");
-  let noResults = true;  // Flag to check if no results found
 
-  rows.forEach(row => {
-    const userId = row.querySelector("td:nth-child(1)").textContent.toLowerCase();
-    const name = row.querySelector("td:nth-child(2)").textContent.toLowerCase();
-
-    if (userId.includes(filter) || name.includes(filter)) {
-      row.style.display = "";
-      noResults = false;  // Show results if any row matches
-    } else {
-      row.style.display = "none";
-    }
-  });
-
-  // Show or hide the "No Results Found" message
-  const noResultsMessage = document.getElementById("no-results-message");
-  if (noResults && filter.length > 0) {
-    noResultsMessage.style.display = "block";
-  } else {
-    noResultsMessage.style.display = "none";
-  }
-});
 
 // Modal functionality
 const modal = document.getElementById("add-sitehead-form");
