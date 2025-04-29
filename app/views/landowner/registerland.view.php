@@ -24,7 +24,7 @@
                 <div class="form-group">
 
                     <label for="address">Address of the Land</label>
-                    <input type="text" id="address" name="address" required pattern=".*,.*" title="check the address again" placeholder="Enter the address (must contain at least one comma)">
+                    <input type="text" id="address" name="address" required pattern=".*,.*" title="check the address again" placeholder="Enter the address ">
 
                     <!-- MAP + Coordinates -->
                     <div id="map" style="height: 400px;"></div>
@@ -88,7 +88,7 @@
                     <label for="doc">Upload a Legal Document of the Land</label>
                     <input type="file" id="document" name="document" required>
 
-                    <h6>You Cannot Change the Details Again</h6>
+                    <h5>* You Cannot Change the Details Again</h5>
                     <button class="form-submit-btn" type="submit">
                         <i class="fas fa-paper-plane"></i>&nbsp;Submit
                     </button>

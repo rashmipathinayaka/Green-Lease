@@ -7,7 +7,50 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/admin/manage-bids.css">
     <script src="<?php echo URLROOT; ?>/assets/JS/admin.js" defer></script>
 
-    <title>Document</title>
+    <title>Pending Approvals</title>
+
+    <style>
+        .note-container {
+            margin: 20px 0;
+            padding: 0 20px;
+        }
+
+        .note {
+            background-color: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px 20px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .note i {
+            color: #4CAF50;
+            font-size: 22px;
+            flex-shrink: 0;
+        }
+
+        .note p {
+            margin: 0;
+            color: #2e7d32;
+            font-size: 16px;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            .note-container {
+                padding: 0 15px;
+            }
+
+            .note {
+                padding: 12px 15px;
+            }
+        }
+    </style>
 
 </head>
 
@@ -21,17 +64,17 @@
     <div id="manage-land-section">
         <!-- Tab Navigation -->
 
-        <div class="tab-navigation">
-            <button class="tab-btn active" data-tab-target="pending-approvals">Pending approval</button>
-            <button class="tab-btn" data-tab-target="approved-visit">Approved visits</button>
-            <button class="tab-btn" data-tab-target="initialize-project">Initialize projects</button>
+        <div class="tab-navigation" style="margin-left: 20px; margin-right: 20px; margin-top: 20px;">
+            <button class="tab-btn active" data-tab-target="pending-approvals">Pending Approval</button>
+            <button class="tab-btn" data-tab-target="approved-visit">Approved Visits</button>
+            <button class="tab-btn" data-tab-target="initialize-project">Initialize Projects</button>
         </div>
 
 
         <!-- Tab Contents -->
         <div id="pending-approvals" class="tab-content active">
             <center>
-                <h1>Manage pending lands</h1>
+                <h1>Manage Pending Lands</h1>
 
             </center>
 
@@ -43,7 +86,7 @@
                         <th>Size</th>
                         <th>Crop type</th>
                         <th>Legal Document</th>
-                        <th>Status</th>
+                        <th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="supervisor-list">
@@ -56,16 +99,16 @@
                                 <td><?= htmlspecialchars($land->crop_type) ?></td>
                                 <td>
                                     <?php if (!empty($land->document)): ?>
-                                        <a href="<?php echo URLROOT . '/' . $land->document; ?>" target="_blank">
-                                            View Document
+                                        <a href="<?php echo URLROOT . '/' . $land->document; ?>" target="_blank" class="document-link">
+                                        <i class="fas fa-file-alt"></i>  View Document
                                         </a>
                                     <?php else: ?>
-                                        No Attachment
+                                        <span class="no-document">No Attachment</span>
                                     <?php endif; ?>
                                 </td>
                                 <td>
                                     <a href="<?= URLROOT ?>/Admin/Pending_approval/opensitevisit/<?php echo $land->id; ?>">
-                                        <button class="red-btn">site visit</button>
+                                        <button class="green-btn">site visit</button>
                                     </a>
                                     <a href="<?= URLROOT ?>/Admin/Pending_approval/rejectland/<?php echo $land->id; ?>">
                                         <button class="red-btn">Reject land</button>
@@ -97,7 +140,7 @@
                             <th>Land ID</th>
                             <th>previous date</th>
                             <th>New Scheduled Date & Time</th>
-                            <th></th>
+                            <th>Actions</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -109,7 +152,7 @@
                                     <td><?= htmlspecialchars($visit1->date) ?></td>
                                     <td><?= htmlspecialchars($visit1->re_date) ?></td>
                                     <td> <a href="<?= URLROOT ?>/Admin/Pending_approval/getland/<?php echo $visit1->id; ?>">
-                                            <button class="red-btn">send email</button>
+                                            <button class="green-btn">send email</button>
                                         </a>
                                     </td>
                                 </tr>
@@ -124,11 +167,14 @@
 
         <div id="initialize-project" class="tab-content">
             <center>
-                <h1>Lands approved by the site visit</h1>
+                <h1>Lands Approved by the Site Visit</h1>
             </center>
-<div class="note">
-<h4> A project will be initialized when the following projects are approved.</h4>
-</div>
+            <div class="note-container">
+                <div class="note">
+                    <i class="fas fa-info-circle"></i>
+                    <p>A project will be initialized when the following projects are approved.</p>
+                </div>
+            </div>
             <div class="container">
 
                 <table class="dashboard-table">
@@ -143,7 +189,7 @@
                             <th>Duration</th>
                             <th>Description</th>
                             <th>Action</th>
-                            <th></th>
+                            
                         </tr>
                     </thead>
                     <tbody>
@@ -176,6 +222,34 @@
         </div>
 
     </div>
+
+    <style>
+        .document-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            padding: 5px 10px;
+            background-color: #f0f0f0;
+            border-radius: 4px;
+            color: #333;
+            text-decoration: none;
+            transition: background-color 0.3s;
+        }
+
+        .document-link:hover {
+            background-color: #e0e0e0;
+            text-decoration: none;
+        }
+
+        .document-link i {
+            color: #666;
+        }
+
+        .no-document {
+            color: #999;
+            font-style: italic;
+        }
+    </style>
 
 
 </body>

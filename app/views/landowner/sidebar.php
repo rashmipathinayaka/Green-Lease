@@ -35,7 +35,6 @@
 
     </div>
 
-    <button class="menu-btn" onclick="toggleSidebar()">☰</button>
     <!-- JavaScript for Sidebar Toggle -->
     <script>
         function toggleSidebar() {

@@ -43,12 +43,13 @@ class Rsite_visit
     }
 
     public function getAllSiteVisits($id) {
-        $query = "
-            SELECT sv.*, l.address AS address
-            FROM site_visit sv
-            JOIN land l ON sv.land_id = l.id 
-            WHERE sv.status='0' AND sv.supervisor_id = :id  ORDER BY sv.date ASC
-        ";
+        $query = "SELECT sv.*, l.address AS address
+FROM site_visit sv
+JOIN land l ON sv.land_id = l.id
+JOIN supervisor s ON sv.supervisor_id = s.id
+WHERE sv.status = '0' AND s.user_id = :id
+ORDER BY sv.date ASC";
+
         $data = [':id' => $id];
         return $this->query($query,$data);
         
@@ -71,6 +72,15 @@ class Rsite_visit
     }
     
 
+
+    public function supervisorreshedulekrpuwapennan(){
+        $query="SELECT sv.*, l.address AS address
+FROM site_visit sv
+JOIN land l ON sv.land_id = l.id
+WHERE sv.status = '1';
+";
+        return $this->query($query);
+    }
 
     public function insertApproval($id) {
         $query = "SELECT `date` FROM site_visit WHERE id = :id";
@@ -97,31 +107,31 @@ class Rsite_visit
     public function getAllapprovedSiteVisits($id) {
 
         //meka hari
-        // $query = "
-        //     SELECT sv.*, l.address, l.id as land_id, l.crop_type AS crop_type
-        //     FROM site_visit sv
-        //     JOIN land l ON sv.land_id = l.id
-        //     LEFT JOIN project p ON l.id = p.land_id  -- Joining the project table
-        //     WHERE sv.status = '1' 
-        //       AND sv.supervisor_id = :id
-        //       AND sv.re_date >= CURDATE()
-        //       AND (p.status != 'Pending' OR p.status IS NULL)  -- Excluding 'Pending' projects
-        //     ORDER BY sv.date ASC
-        // ";
+        $query = "
+            SELECT sv.*, l.address, l.id as land_id, l.crop_type AS crop_type
+            FROM site_visit sv
+            JOIN land l ON sv.land_id = l.id
+            LEFT JOIN project p ON l.id = p.land_id  -- Joining the project table
+            WHERE sv.status = '1' 
+              AND sv.supervisor_id = :id
+              AND sv.re_date >= CURDATE()
+              AND (p.status != 'Pending' OR p.status IS NULL)  -- Excluding 'Pending' projects
+            ORDER BY sv.date ASC
+        ";
     
         
-        $query = "
-        SELECT sv.*, l.address, l.id as land_id, l.crop_type AS crop_type
-        FROM site_visit sv
-        JOIN land l ON sv.land_id = l.id
-        LEFT JOIN project p ON l.id = p.land_id  -- Joining the project table
-        WHERE sv.status = '1' 
-          AND sv.supervisor_id = :id
-          AND sv.re_date >= CURDATE()
-          AND (p.status != 'Pending' OR p.status IS NULL)  -- Excluding 'Pending' projects
-          AND sv.outcome IS NULL  -- Only including rows where outcome is NULL
-        ORDER BY sv.date ASC
-    ";
+    //     $query = "
+    //     SELECT sv.*, l.address, l.id as land_id, l.crop_type AS crop_type
+    //     FROM site_visit sv
+    //     JOIN land l ON sv.land_id = l.id
+    //     LEFT JOIN project p ON l.id = p.land_id  -- Joining the project table
+    //     WHERE sv.status = '1' 
+    //       AND sv.supervisor_id = :id
+    //       AND sv.re_date >= CURDATE()
+    //       AND (p.status != 'Pending' OR p.status IS NULL)  -- Excluding 'Pending' projects
+    //       AND sv.outcome IS NULL  -- Only including rows where outcome is NULL
+    //     ORDER BY sv.date ASC
+    // ";
 
     
     

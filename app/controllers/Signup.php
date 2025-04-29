@@ -32,7 +32,7 @@ class Signup
 
         $userData = [
             'email' => filter_var(trim($_POST['email']), FILTER_SANITIZE_EMAIL),
-            'password' => htmlspecialchars(trim($_POST['password'])),
+            'password' => password_hash(trim($_POST['password']), PASSWORD_DEFAULT),
             'role_id' => $role_id,
             'full_name' => htmlspecialchars(trim($_POST['name'])),
             'contact_no' => htmlspecialchars(trim($_POST['contact'])),
@@ -45,9 +45,6 @@ class Signup
             $this->view('signup', $data);
             return;
         }
-
-        // Hash the password
-        // $userData['password'] = password_hash($userData['password'], PASSWORD_DEFAULT);
 
         // Register user
         $user->register($userData);

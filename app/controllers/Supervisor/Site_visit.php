@@ -23,12 +23,12 @@ private $project;
 
 	public function index()
 {
-	 $user_id=$_SESSION['id'];
-	$userid=32;
+	 $userid=$_SESSION['id'];
+	
     $visitdata = $this->sitevisit->getAllSiteVisits($userid);
 
-    $sitehead = $this->siteheadmodel->getAllSiteheads($user_id);
-$visitdata1=$this->sitevisit->getAllapprovedSiteVisits($userid);
+    $sitehead = $this->siteheadmodel->getAllSiteheads($userid);
+$visitdata1=$this->sitevisit->supervisorreshedulekrpuwapennan($userid);
 
 $data = [
 	'visitdata' => $visitdata,
