@@ -26,7 +26,7 @@
                 $today = date('Y-m-d');
                 foreach ($upcomingEvents as $event) :
                     $isToday = date('Y-m-d', strtotime($event->date)) === $today;
-                    $isPostponed = !empty($event->postponed_date);
+                    $isPostponed = ($event->postponed === 'yes');
                     $displayDate = $isPostponed ? $event->postponed_date : $event->date;
                     $isDisplayToday = date('Y-m-d', strtotime($displayDate)) === $today;
                 ?>

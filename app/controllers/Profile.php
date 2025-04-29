@@ -19,7 +19,6 @@ private $buyer;
 
     public function index($id = null)
     {
-        // If no ID is provided in the URL, check if it's coming from a form submission
         if (!$id) {
             if (isset($_POST['supervisor_id'])) {
                 $id = $_POST['supervisor_id'];
@@ -47,7 +46,6 @@ private $buyer;
             }
         }
 
-        // If ID is provided in the URL, try both models
         $user = $this->sitehead->getSiteheadbyid($id);
         if ($user) {
             $this->view('components/profile', ['user' => $user, 'user_type' => 'sitehead']);

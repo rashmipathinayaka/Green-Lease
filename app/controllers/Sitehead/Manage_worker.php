@@ -53,9 +53,9 @@ class Manage_worker
 		$workerEventModel = new WorkerEventModel();
 
 		// Update status to approved
-		if ($workerEventModel->updateStatus($workerId, $eventId, 'approved')) {
+		if ($workerEventModel->updateStatus($workerId, $eventId, 'Approved')) {
 			// Success
-			header('Location: ' . URLROOT . '/manage_worker');
+			header('Location: ' . URLROOT . '/sitehead/manage_worker');
 		} else {
 			// Error
 			die('Something went wrong');

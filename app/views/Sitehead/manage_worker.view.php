@@ -4,16 +4,29 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/sitehead.css">
+	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/sitehead.css">
 	<title>Manage Workers</title>
 	<style>
+		.event-container {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
+		.event-item {
+			display: flex;
+			align-items: center;
+			gap: 10px;
+			padding: 8px;
+			border-radius: 4px;
+			background-color: #f5f5f5;
+		}
+
 		.event-badge {
-			background-color: #e0e0e0;
 			border-radius: 12px;
-			padding: 2px 8px;
-			margin: 2px;
-			display: inline-block;
+			padding: 4px 10px;
 			font-size: 12px;
+			flex-grow: 1;
 		}
 
 		.event-badge.pending {
@@ -29,6 +42,21 @@
 		.event-badge.rejected {
 			background-color: #f8d7da;
 			color: #721c24;
+		}
+
+		.approve-btn {
+			background-color: #28a745;
+			color: white;
+			border: none;
+			padding: 4px 8px;
+			border-radius: 4px;
+			cursor: pointer;
+			text-decoration: none;
+			font-size: 12px;
+		}
+
+		.approve-btn:hover {
+			background-color: #218838;
 		}
 	</style>
 </head>
@@ -72,30 +100,41 @@
 						<td><?= htmlspecialchars($worker['phone']) ?></td>
 						<td><?= htmlspecialchars($worker['status']) ?></td>
 						<td>
-							<?php foreach ($worker['applied_events'] as $event): ?>
-								<div class="event-badge <?= $event['status'] ?>">
-									<?= htmlspecialchars($event['event_name']) ?>
-									(<?= date('M j, Y', strtotime($event['date'])) ?>)
-									<?php if ($event['status'] == 'pending'): ?>
-										<a href="<?= URLROOT ?>/manage_worker/approve_event/<?= $worker['id'] ?>/<?= $event['event_id'] ?>"
-											class="approve-btn"
-											onclick="return confirm('Approve this worker for <?= htmlspecialchars($event['event_name']) ?>?')">
-											Approve
-										</a>
-									<?php endif; ?>
-								</div>
-							<?php endforeach; ?>
-							<?php if (empty($worker['applied_events'])): ?>
-								No events applied
-							<?php endif; ?>
+							<div class="event-container">
+								<?php foreach ($worker['applied_events'] as $event): ?>
+									<div class="event-badge <?= $event['status'] ?>">
+										<?= htmlspecialchars($event['event_name']) ?>
+										(<?= date('M j, Y', strtotime($event['date'])) ?>)
+									</div>
+								<?php endforeach; ?>
+								<?php if (empty($worker['applied_events'])): ?>
+									<div class="event-badge">No events applied</div>
+								<?php endif; ?>
+							</div>
 						</td>
 						<td>
-							<button class="green-btn edit-btn" data-id="<?= $worker['id'] ?>">Edit</button>
-							<?php if ($worker['status'] == 'Active'): ?>
-								<button class="red-btn deactivate-btn" data-id="<?= $worker['id'] ?>">Deactivate</button>
-							<?php else: ?>
-								<button class="blue-btn activate-btn" data-id="<?= $worker['id'] ?>">Activate</button>
-							<?php endif; ?>
+							<div class="event-container">
+								<?php foreach ($worker['applied_events'] as $event): ?>
+									<?php if ($event['status'] == 'Pending'): ?>
+										<div class="event-item">
+											<a href="<?= URLROOT ?>/manage_worker/approve_event/<?= $worker['id'] ?>/<?= $event['event_id'] ?>"
+												class="approve-btn"
+												onclick="return confirm('Approve this worker for <?= htmlspecialchars($event['event_name']) ?>?')">
+												Approve
+											</a>
+										</div>
+									<?php else: ?>
+										<div class="event-item">
+											<span class="event-badge <?= $event['status'] ?>">
+												<?= ucfirst($event['status']) ?>
+											</span>
+										</div>
+									<?php endif; ?>
+								<?php endforeach; ?>
+								<?php if (empty($worker['applied_events'])): ?>
+									<div class="event-item">-</div>
+								<?php endif; ?>
+							</div>
 						</td>
 					</tr>
 				<?php endforeach; ?>
@@ -103,31 +142,8 @@
 		</table>
 	</div>
 
-	<!-- Edit Worker Form -->
-	<div id="edit-worker-form" class="modal">
-		<div class="modal-content">
-			<span class="close-form">&times;</span>
-			<h2>Edit Worker</h2>
-			<form id="edit-worker-form" class="form-styles">
-				<input type="hidden" id="edit-worker-id">
-				<label for="edit-name">Full Name:</label>
-				<input type="text" id="edit-name" name="name" required>
-				<label for="edit-email">Email:</label>
-				<input type="email" id="edit-email" name="email" required>
-				<label for="edit-phone">Phone Number:</label>
-				<input type="tel" id="edit-phone" name="phone" required>
-				<label for="edit-status">Status:</label>
-				<select id="edit-status" name="status" required>
-					<option value="Active">Active</option>
-					<option value="Inactive">Inactive</option>
-				</select>
-				<button type="submit">Update Worker</button>
-			</form>
-		</div>
-	</div>
-
 	<script>
-		// Add your JavaScript for handling modals, search, etc. here
+		// Search functionality
 		document.getElementById('search-bar').addEventListener('input', function() {
 			const searchTerm = this.value.toLowerCase();
 			const rows = document.querySelectorAll('#worker-list tr');
@@ -143,6 +159,7 @@
 			});
 		});
 
+		// Status filter functionality
 		document.getElementById('status-filter').addEventListener('change', function() {
 			const status = this.value.toLowerCase();
 			const rows = document.querySelectorAll('#worker-list tr');

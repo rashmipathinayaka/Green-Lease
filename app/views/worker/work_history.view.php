@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<?= getCurrentLanguage() ?>">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Work Records</title>
+    <title><?= translate('Work Records') ?></title>
     <link rel="stylesheet" href="<?= URLROOT; ?>/assets/css/worker.css">
     <style>
         /* Tab Navigation Styles */
@@ -78,22 +78,21 @@ require ROOT . '/views/components/topbar.php';
 
 <div id="work-records-section" class="section">
     <center>
-        <h1>Work Records</h1>
+        <h1><?= translate('Work Records') ?></h1>
     </center>
 
     <!-- Tab Navigation -->
     <div class="tab-navigation">
-        <button class="tab-btn active" onclick="switchTabs(this, 'pending-work')">Pending</button>
-        <button class="tab-btn" onclick="switchTabs(this, 'completed-work')">Completed</button>
+        <button class="tab-btn active" onclick="switchTabs(this, 'pending-work')"><?= translate('Pending') ?></button>
+        <button class="tab-btn" onclick="switchTabs(this, 'completed-work')"><?= translate('Completed') ?></button>
     </div>
 
 	<form method="GET" action="" class="filter-form">
-        <label for="date_from" style="margin-right: 2px; color: #333; font-size: 14px;">From</label>
-        <input type="date" name="date_from" id="date_from" value="<?= isset($_GET['date_from']) ? htmlspecialchars($_GET['date_from']) : '' ?>" placeholder="From Date">
-        <label for="date_to" style="margin-left: 8px; margin-right: 2px; color: #333; font-size: 14px;">To</label>
-        <input type="date" name="date_to" id="date_to" value="<?= isset($_GET['date_to']) ? htmlspecialchars($_GET['date_to']) : '' ?>" placeholder="To Date">
-        <input type="text" name="event_name" value="<?= isset($_GET['event_name']) ? htmlspecialchars($_GET['event_name']) : '' ?>" placeholder="Event Name">
-        <button type="submit">Apply Filters</button>
+        <label for="date_from" style="margin-right: 2px; color: #333; font-size: 14px;"><?= translate('From') ?></label>
+        <input type="date" name="date_from" id="date_from" value="<?= isset($_GET['date_from']) ? htmlspecialchars($_GET['date_from']) : '' ?>" placeholder="<?= translate('From Date') ?>">
+        <label for="date_to" style="margin-left: 8px; margin-right: 2px; color: #333; font-size: 14px;"><?= translate('To') ?></label>
+        <input type="date" name="date_to" id="date_to" value="<?= isset($_GET['date_to']) ? htmlspecialchars($_GET['date_to']) : '' ?>" placeholder="<?= translate('To Date') ?>">
+        <button type="submit"><?= translate('Apply Filters') ?></button>
     </form>
 
     <!-- Pending Work Tab -->
@@ -101,10 +100,10 @@ require ROOT . '/views/components/topbar.php';
         <table class="dashboard-table">
             <thead>
                 <tr>
-                    <th>Land Location</th>
-                    <th>Event Name</th>
-                    <th>Date</th>
-                    <th>Payment (LKR)</th>
+                    <th><?= translate('Land Location') ?></th>
+                    <th><?= translate('Event Name') ?></th>
+                    <th><?= translate('Date') ?></th>
+                    <th><?= translate('Payment (LKR)') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -119,7 +118,7 @@ require ROOT . '/views/components/topbar.php';
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="4" style="text-align: center;">No pending work found.</td>
+                        <td colspan="4" style="text-align: center;"><?= translate('No pending work found.') ?></td>
                     </tr>
                 <?php endif; ?>
             </tbody>
@@ -131,10 +130,10 @@ require ROOT . '/views/components/topbar.php';
         <table class="dashboard-table">
             <thead>
                 <tr>
-                    <th>Land Location</th>
-                    <th>Event Name</th>
-                    <th>Date</th>
-                    <th>Payment (LKR)</th>
+                    <th><?= translate('Land Location') ?></th>
+                    <th><?= translate('Event Name') ?></th>
+                    <th><?= translate('Date') ?></th>
+                    <th><?= translate('Payment (LKR)') ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -149,7 +148,7 @@ require ROOT . '/views/components/topbar.php';
                     <?php endforeach; ?>
                 <?php else : ?>
                     <tr>
-                        <td colspan="4" style="text-align: center;">No completed work found.</td>
+                        <td colspan="4" style="text-align: center;"><?= translate('No completed work found.') ?></td>
                     </tr>
                 <?php endif; ?>
             </tbody>

@@ -16,27 +16,25 @@ class Site_visit
             $formdata = [
                 'land_id' => $land_id,
                 'supervisor_id' => $supervisor_id,
-                // 'date' => $date
+                
             ];
 
 
 
 
-            // Insert site visit into database
             $sitevisit = new Rsite_visit();
             $sitevisit->insertsupervisor($formdata);
 
 
-            // Get supervisor email
+           
             
 
-            // Redirect after processing
+            
             header('Location: ' . URLROOT . '/admin/pending_approval');
             exit;
         }
 
         $supervisorModel = new RSupervisor();
-        // Get all supervisors for the form
         $landzone = $supervisorModel->getlandzone($land_id);
         $procount = $_GET['procount'] ?? 5;
 
@@ -46,7 +44,6 @@ class Site_visit
 $daterange=$sitevisit->getdaterange($land_id);
 
 
-        // Pass data to the view
         $data = [
             'supervisors' => $supervisors,
             'land_id' => $land_id,

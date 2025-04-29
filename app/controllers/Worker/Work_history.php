@@ -1,8 +1,7 @@
 <?php
 
-class Work_history
+class Work_history extends Controller2
 {
-    use Controller;
 
     public function index()
     {

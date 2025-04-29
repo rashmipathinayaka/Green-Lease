@@ -21,9 +21,12 @@
             <div id="dashboard-section" class="section">
                 <!-- Dashboard Header -->
                 <!-- Dashboard Header -->
-<div class="dashboard-header">
-    <h1 class="welcome-message" style="font-size: 42px !important; font-weight: 800 !important;">Welcome to Supervisor Dashboard</h1>
-</div>
+                <div class="welcome-container">
+				<div class="welcome-header">
+					<h1>Hello, <span class="username"><?= htmlspecialchars($sname) ?></span> ! 👋</h1>
+					<p class="welcome-message">Welcome back to your dashboard</p>
+				</div>
+			</div>
 
 
 

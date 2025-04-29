@@ -2,9 +2,8 @@
 /**
  * File_complaint class
  */
-class File_complaint
+class File_complaint extends Controller2
 {
-    use Controller;
     
     public function index()
     {

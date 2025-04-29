@@ -80,7 +80,7 @@ textarea {
     font-weight: normal;
 }
 
-.button-group {
+/* .button-group {
     display: flex;
     justify-content: space-between;
     margin-top: 35px;
@@ -119,7 +119,7 @@ textarea {
 
 .btn-secondary:hover {
     background-color: #e6e6e6;
-}
+} */
 
 .form-header {
     display: flex;
@@ -137,7 +137,7 @@ textarea {
 
 .project-id span {
     font-weight: bold;
-    color: #2ecc71;
+    color: #07622d;
 }
 
 .required {
@@ -164,6 +164,7 @@ textarea {
 
 .input-group-append {
     margin-left: 10px;
+    margin-right: 10px;
     color: #7f8c8d;
     font-weight: 500;
 }

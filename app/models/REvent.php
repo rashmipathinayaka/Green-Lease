@@ -41,9 +41,9 @@ $data=['project_id'=>$id];
 
     public function geteventdetailsbyid($id)
     {
-        $query = "SELECT * FROM event WHERE project_id = :project_id ORDER BY date ASC"; // or DESC
+        $query = "SELECT * FROM event WHERE project_id = :project_id ORDER BY date ASC"; 
         $data = ['project_id' => $id];
-        return $this->query($query, $data); // returns an array of events
+        return $this->query($query, $data); 
     }
     
 
