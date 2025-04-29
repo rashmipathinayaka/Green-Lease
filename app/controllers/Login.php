@@ -14,7 +14,16 @@ class Login
             $userm = new User();
             $user = $userm->findUserByUsernameOrEmail($email);
 
-            if ($user && $password == $user->password) {
+            if ($user) {
+                // Debug output
+                error_log("User found: " . $user->email);
+                error_log("Stored password hash: " . $user->password);
+                error_log("Password verification result: " . (password_verify($password, $user->password) ? "true" : "false"));
+            } else {
+                error_log("No user found with email: " . $email);
+            }
+
+            if ($user && password_verify($password, $user->password)) {
                 $auth = Auth::getInstance();
                 $auth->login($user);
 

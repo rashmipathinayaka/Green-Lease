@@ -14,7 +14,7 @@ class ResetPassword
         } elseif ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $newPassword = $_POST['password'];
             $userModel->update($user->id, [
-                'password' => $newPassword,
+                'password' => password_hash($newPassword, PASSWORD_DEFAULT),
                 'reset_token' => null,
                 'reset_token_expiry' => null
             ]);
