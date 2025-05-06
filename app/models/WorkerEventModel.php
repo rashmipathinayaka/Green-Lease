@@ -22,20 +22,21 @@ class WorkerEventModel
         $today = date('Y-m-d');
 
         $query = "SELECT 
-        u.id AS worker_id,
-        u.full_name AS worker_name,
-        u.email AS worker_email,
-        u.contact_no AS worker_phone,
-        e.id AS event_id,
-        e.event_name,
-        e.date AS event_date,
-        we.status AS application_status
-      FROM worker_event we
-      JOIN user u ON we.worker_id = u.id
-      JOIN event e ON we.event_id = e.id
-      WHERE e.project_id = ?
-      AND u.role_id = 6
-      ORDER BY e.date";
+                    u.id AS worker_id,
+                    u.full_name AS worker_name,
+                    u.email AS worker_email,
+                    u.contact_no AS worker_phone,
+                    e.id AS event_id,
+                    e.event_name,
+                    e.date AS event_date,
+                    we.status AS application_status
+                  FROM worker_event we
+                  JOIN user u ON we.worker_id = u.id
+                  JOIN event e ON we.event_id = e.id
+                  WHERE e.project_id = ?
+                  AND (DATE(e.date) >= ? OR e.postponed_date >= ?)
+                  AND u.role_id = 6
+                  ORDER BY  e.date";
 
         $params = [$projectId];
 

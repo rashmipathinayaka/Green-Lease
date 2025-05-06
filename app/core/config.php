@@ -2,17 +2,17 @@
 
 if ($_SERVER['SERVER_NAME'] == 'localhost') {
 	/** database config **/
-	// define('DBNAME', 'green_lease');
-	// define('DBHOST', 'localhost');
-	// define('DBUSER', 'root');
-	// define('DBPASS', '');
-	// define('DBDRIVER', '');
+	//define('DBNAME', 'green_lease');
+	//define('DBHOST', 'localhost');
+	//define('DBUSER', 'root');
+	//define('DBPASS', '');
+	//define('DBDRIVER', '');
 
 	define('DBNAME', 'sasmitha_green_lease');
 	 define('DBHOST', 'mysql-sasmitha.alwaysdata.net');
-	 define('DBUSER', 'sasmitha');
+	define('DBUSER', 'sasmitha');
 	 define('DBPASS', 'greenlease@123');
-	define('DBDRIVER', '');
+	 define('DBDRIVER', '');
 
 	define('ROOT', dirname(dirname(__FILE__)));
 	define('URLROOT', 'http://localhost/Green-Lease/public');
