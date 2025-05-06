@@ -1,0 +1,187 @@
+.report-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.05);
+    border-radius: 12px;
+}
+
+.report-header {
+    text-align: center;
+    margin-bottom: 40px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.report-header h1 {
+    color: green;
+    margin-bottom: 15px;
+    font-size: 2.5em;
+    font-weight: 600;
+}
+
+.report-date {
+    color: #7f8c8d;
+    font-size: 1em;
+    font-weight: 500;
+}
+
+.metric-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.metric-item {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid #e0e0e0;
+}
+
+.metric-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
+
+.metric-label {
+    color: #7f8c8d;
+    font-size: 1em;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.metric-value {
+    color: #2c3e50;
+    font-size: 2em;
+    font-weight: 700;
+}
+
+h2 {
+    color: #2c3e50;
+    margin: 30px 0 20px;
+    font-size: 1.8em;
+    font-weight: 600;
+}
+
+.highlight-box {
+    background-color: #ffffff;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 35px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #e0e0e0;
+}
+
+.data-point {
+    margin-bottom: 20px;
+    line-height: 1.6;
+    font-size: 1.1em;
+    color: #34495e;
+}
+
+.data-point:last-child {
+    margin-bottom: 0;
+}
+
+.data-point strong {
+    color: green;
+    font-weight: 600;
+}
+
+.success-rate {
+    color: green;
+    font-weight: 700;
+    font-size: 1.2em;
+}
+
+.income-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 20px;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.income-table th,
+.income-table td {
+    padding: 15px;
+    text-align: left;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.income-table th {
+    background-color: #f8f9fa;
+    font-weight: 600;
+    color: #2c3e50;
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 0.5px;
+}
+
+.income-table tr:hover {
+    background-color: #f8f9fa;
+}
+
+.income-table tr:last-child td {
+    border-bottom: none;
+}
+
+.footer-note {
+    margin-top: 40px;
+    padding-top: 25px;
+    border-top: 2px solid #e0e0e0;
+    color: #7f8c8d;
+    font-size: 0.95em;
+    text-align: center;
+    font-style: italic;
+}
+
+#downloadReport {
+    display: block;
+    margin: 40px auto;
+    padding: 15px 30px;
+    background-color: green;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1.1em;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0, 128, 0, 0.2);
+}
+
+#downloadReport:hover {
+    background-color: #006400;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 128, 0, 0.3);
+}
+
+@media print {
+    .report-container {
+        box-shadow: none;
+        padding: 20px;
+    }
+    
+    #downloadReport {
+        display: none;
+    }
+    
+    .metric-item {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+    
+    .highlight-box {
+        box-shadow: none;
+        border: 1px solid #ddd;
+    }
+} 

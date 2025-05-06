@@ -1,21 +1,14 @@
 <?php
-/**
- * File_complaint class
- */
-class File_complaint
+class File_complaint extends Controller2
 {
-    use Controller;
     
     public function index()
     {
-        // Check if user is logged in
         if(!isset($_SESSION['id'])) {
-            // Redirect to login page if user is not logged in
             header("Location: " . URLROOT . "/login");
             exit();
         }
-        
-        // Get the user ID from the session
+
         $worker_id = $_SESSION['id'];
         
         if($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -25,14 +18,13 @@ class File_complaint
                 'worker_id' => $worker_id,
                 'complaint_type' => $_POST['complaint-type'],
                 'description' => $_POST['description'],
-                'attachment' => ''
+                'attachment' => '',
+                'site_address' => $_POST['address']
             ];
-            
-            // Handle file upload if present
+
             if(!empty($_FILES['attachment']['name'])) {
                 $upload_dir = "uploads/complaints/worker/";
                 
-                // Create directory if it doesn't exist
                 if(!file_exists($upload_dir)) {
                     mkdir($upload_dir, 0777, true);
                 }
@@ -44,9 +36,8 @@ class File_complaint
                     $data['attachment'] = $file_name;
                 }
             }
-            
-            // Insert data using the model
-            if(!$complaint->insert($data)) {
+
+            if($complaint->insert($data)) {
                 $this->view('Worker/File_complaint', ['success' => 'Your complaint has been submitted successfully!']);
             } else {
                 $this->view('Worker/File_complaint', ['error' => 'Failed to submit complaint. Please try again.']);

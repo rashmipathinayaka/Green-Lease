@@ -13,8 +13,13 @@ class User
         'nic',
         'contact_no',
         'full_name',
+        'reset_token',
+        'reset_token_expiry',
+        'joined_date'
     ];
 
+   
+    
     public function emailExists($email)
     {
         // Use getRow to check if the email exists
@@ -34,5 +39,7 @@ class User
                   (full_name, email, password, role_id, nic, contact_no, joined_date) 
                   VALUES (:full_name, :email, :password, :role_id, :nic, :contact_no, NOW())";
         return $this->query($query, $userData);
+ 
     }
+
 }

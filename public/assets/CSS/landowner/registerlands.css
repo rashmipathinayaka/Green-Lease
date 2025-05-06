@@ -183,12 +183,77 @@ select:focus {
     color: #555;
     font-weight: 500;
 }
-
-h6 {
+.date{
+    display: block;
+    margin-bottom: 8px;
+    color: #2e7d32;
+    font-weight: 600;
+    font-size: 15px;
+}
+h5 {
     color: #d32f2f;
     font-size: 12px;
     font-style: italic;
     margin-bottom: 20px;
+}
+  .rmodal {
+            display: none; /* Hidden by default */
+            position: fixed; /* Stay in place */
+            z-index: 1; /* Sit on top */
+            left: 0;
+            top: 0;
+            width: 100%; /* Full width */
+            height: 100%; /* Full height */
+            overflow: auto; /* Enable scroll if needed */
+            background-color: rgba(0, 0, 0, 0.4); /* Background color with transparency */
+        }
+
+        /* Modal Content */
+        .rmodal-content {
+            background-color: #fff;
+            margin: 15% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px; /* Adjust width as needed */
+            text-align: center;
+        }
+
+        .rclose {
+            color: #aaa;
+            font-size: 28px;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            right: 10px;
+        }
+
+        .rclose:hover,
+        .rclose:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            cursor: pointer;
+        }
+
+        #cancel-btn {
+            background-color: #f44336;
+            color: white;
+        }
+
+        #confirm-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+.error {
+    color: red;
+    font-size: 0.85em;
+    margin-top: 4px;
+    display: block;
 }
 
 /* Submit Button */
@@ -259,10 +324,10 @@ input[type="date"]:first-of-type {
 
 
 /* Custom styling for the datalist */
-input[list="cropType"] {
+/* input[list="cropType"] {
     background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232e7d32' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 16px;
     padding-right: 40px;
-}
+} */

@@ -18,8 +18,12 @@
 	?>
 
 	<div id="manage-lands-section">
-
-		<h2>Please Note That You Can Only Remove Unused Lands</h2>
+		<div class="note-container">
+			<div class="note">
+				<i class="fas fa-info-circle"></i>
+				<p>Please Note That You Can Only Remove Unused Lands</p>
+			</div>
+		</div>
 		<br>
 		<!-- Lands Table -->
 		<table class="dashboard-table">
@@ -28,7 +32,8 @@
 					<th>Land ID</th>
 					<th>Address</th>
 					<th>Size</th>
-					<th>Crop Type</th>
+					<th>Preffered crop Type</th>
+					<!-- <th>Seleted crop type</th> -->
 					<th>Document</th>
 					<th>Status</th>
 					<th>Action</th>
@@ -42,6 +47,9 @@
 							<td><?= htmlspecialchars($land->address) ?></td>
 							<td><?= htmlspecialchars($land->size) ?> Sqm</td>
 							<td><?= htmlspecialchars($land->crop_type) ?></td>
+							<!-- <td><?= htmlspecialchars($land->selected_crop_type) ?></td> -->
+
+
 							<td>
 								<?php if (!empty($land->document)): ?>
 									<a href="<?php echo URLROOT . '/' .  $land->document; ?>" target="_blank">
@@ -52,27 +60,27 @@
 									No Attachment
 								<?php endif; ?>
 							</td>
-							
+
 							<td>
 								<?php
-								if ($land->status == '4') {
-									echo 'unused';
+								if ($land->status == '3') {
+									echo 'Completed';
 								} elseif ($land->status == '1') {
-									echo 'pending';
+									echo 'Pending';
 								} elseif ($land->status == '2') {
-									echo 'ongoing project';
+									echo 'Ongoing Project';
 								} else {
-									echo 'project completed';
+									echo 'Unused';
 								}
 								?>
 							</td>
-							
+
 							<td>
 								<?php if ($land->status == '4'): ?>
 									<button class="red-btn" onclick="openModal('<?= URLROOT ?>/Landowner/Manageland/deleteland/<?php echo $land->id; ?>')">Remove</button>
 								<?php elseif ($land->status == '2' || $land->status == '3'): ?>
-									<button class="green-btn">View project</button>
-								<?php else: ?>
+									<button class="green-btn" onclick="window.location.href='<?= URLROOT ?>/project/index/<?= $land->proid ?>';">View project</button>
+									<?php else: ?>
 									<span class="status-pending">Pending for approval</span>
 								<?php endif; ?>
 							</td>
@@ -122,6 +130,49 @@
 			}
 		};
 	</script>
+
+	<style>
+		.note-container {
+			margin: 20px 0;
+			padding: 0 20px;
+		}
+
+		.note {
+			background-color: #fff3e0;
+			border-left: 4px solid #ff9800;
+			padding: 15px 20px;
+			border-radius: 4px;
+			display: flex;
+			align-items: center;
+			gap: 12px;
+			max-width: 800px;
+			margin: 0 auto;
+		}
+
+		.note i {
+			color: #ff9800;
+			font-size: 22px;
+			flex-shrink: 0;
+		}
+
+		.note p {
+			margin: 0;
+			color: #e65100;
+			font-size: 16px;
+			line-height: 1.5;
+			font-weight: 500;
+		}
+
+		@media (max-width: 768px) {
+			.note-container {
+				padding: 0 15px;
+			}
+
+			.note {
+				padding: 12px 15px;
+			}
+		}
+	</style>
 
 </body>
 

@@ -2,7 +2,7 @@
 
 class InquiryModel
 {
-    use Model; // Use the Model trait to inherit insert functionality
+    use Model; 
 
     protected $table = 'inquiry';
 
@@ -11,7 +11,7 @@ class InquiryModel
         'email',
         'subject',
         'message',
-        'is_resolved',  // Add any other fields if needed
+        'is_solved',  
         'is_deleted',
     ];
 
@@ -19,7 +19,6 @@ class InquiryModel
     {
         $this->errors = [];
 
-        // Simple validation
         if (empty($data['name'])) {
             $this->errors['name'] = "Name is required";
         }

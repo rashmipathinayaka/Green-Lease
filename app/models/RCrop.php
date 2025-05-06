@@ -53,7 +53,7 @@ public function getAllCrops()
     }
     
     public function insertNewCrop($crop) {
-        $query = "INSERT INTO crop (crop_type) VALUES (:crop)";
+        $query = "INSERT INTO crop (crop_type,is_new) VALUES (:crop,'1')";
         $this->query($query, ['crop' => $crop]);
     }
     

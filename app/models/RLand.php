@@ -10,7 +10,6 @@ class RLand
 
 	protected $table = 'land';
 
-	// protected $order_column = 'landID';
 
 	protected $allowedColumns = [
 
@@ -40,7 +39,13 @@ class RLand
 		if (empty($data['size'])) {
 			$this->errors['size'] = "size is required";
 		}
-
+		if (empty($data['duration'])) {
+			$this->errors['duration'] = "Duration is required";
+		}
+		if (empty($data['crop_type'])) {
+			$this->errors['crop_type'] = "Crop type is required";
+		}
+		
 
 
 		if (empty($this->errors)) {
@@ -51,80 +56,80 @@ class RLand
 	}
 
 
-	//for landowners managelands
-	public function findlandsbyuserid($userId){
-		$query = "select * from land where landowner_id = $userId";
-		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
+	
+	public function findlandsbyuserid($userId)
+	{
+		$query = "SELECT land.*, project.crop_type  AS selected_crop_type,project.id AS proid
+				  FROM land
+				  LEFT JOIN project ON project.land_id = land.id
+				  WHERE land.landowner_id = :landowner_id";
+		$data = [':landowner_id' => $userId];
 
-		return $this->query($query);
+		return $this->query($query, $data);
 	}
+
 
 	public function countLandsByUserId($userId)
 	{
 
 		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id";
-		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
+		$data = [':landowner_id' => $userId]; 
 
-		// Call query
 		$result = $this->query($query, $data);
-		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  
 	}
 
 
 
+	public function countbuyers() {
+		$query = "SELECT COUNT(*) AS buyercount FROM user WHERE role_id = 5";
+		$result = $this->query($query);
+		return $result ? (int) $result[0]->buyercount : 0;  
+	}
 
 	public function countProjectsByUserId($userId)
 	{
 
 		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='2'";
-		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
+		$data = [':landowner_id' => $userId]; 
 
-		// Call query
 		$result = $this->query($query, $data);
-		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  
 	}
 
 	public function countOngoingProjects()
 	{
 
 		$query = "SELECT COUNT(*) FROM land WHERE status='2'";
-		// Make sure 'userId' is passed correctly
-
-		// Call query
 		$result = $this->query($query);
-		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  
 	}
 
 	public function countcompletedProjectsByUserId($userId)
 	{
 
 		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='3'";
-		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
-
-		// Call query
+		$data = [':landowner_id' => $userId]; 
 		$result = $this->query($query, $data);
-		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0; 
 	}
 
 	public function countcompletedProjects()
 	{
 
 		$query = "SELECT COUNT(*) FROM land WHERE  status='3'";
-
-		// Call query
 		$result = $this->query($query);
-		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0; 
 	}
 
 	public function countinactivelandsByUserId($userId)
 	{
 
 		$query = "SELECT COUNT(*) FROM land WHERE landowner_id = :landowner_id AND status='4'";
-		$data = [':landowner_id' => $userId]; // Make sure 'userId' is passed correctly
+		$data = [':landowner_id' => $userId]; 
 
-		// Call query
 		$result = $this->query($query, $data);
-		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0; 
 	}
 
 
@@ -133,9 +138,8 @@ class RLand
 
 		$query = "SELECT COUNT(*) FROM land WHERE  status='4'";
 
-		// Call query
 		$result = $this->query($query);
-		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  // Convert to integer
+		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  
 	}
 
 
@@ -144,7 +148,7 @@ class RLand
 		$query = "SELECT COUNT(*) AS total FROM land";
 		$result = $this->query($query);
 
-		return $result ? (int) $result[0]->total : 0;  // Access total as an object property
+		return $result ? (int) $result[0]->total : 0;  
 	}
 
 
@@ -166,14 +170,14 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 		$query = "SELECT project.*
 		FROM project
 		JOIN land ON project.land_id = land.id
-		WHERE project.status = 'completed' AND land.landowner_id = :landowner_id
+		WHERE project.status='Completed' AND land.landowner_id = :landowner_id
 		";
 		$data = [':landowner_id' => $userId];
 
 		return $this->query($query, $data);
 	}
 
-	//bar chart
+	//b.c
 	public function findRegisteredYear()
 	{
 		$yearLabels = [];
@@ -193,7 +197,8 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 		return ['labels' => $yearLabels, 'data' => $yearData];
 	}
 
-	public function getpendinglands() {
+	public function getpendinglands()
+	{
 		$query = "SELECT * 
 			FROM land 
 			WHERE status = '1' 
@@ -203,17 +208,31 @@ WHERE project.status = 'ongoing' AND land.landowner_id = :landowner_id
 				WHERE supervisor_id = '0'
 			)
 		";
-	
+
 		return $this->query($query);
 	}
+
+
+
+
+
 	
-	
+	public function getFilteredLands($filters = [])
+{
+	$query = "SELECT project.*, 
+                 land.size, 
+                 land.zone, 
+                 land.address, 
+                 land.id AS land_id, 
+                 land.document, 
+                 zone.zone_name, 
+                 project.crop_type, 
+                 project.id AS project_id
+          FROM project
+          LEFT JOIN land ON project.land_id = land.id
+          LEFT JOIN zone ON land.zone = zone.id";
 
 
-
-
-public function getFilteredLands($filters = []) {
-    $query = "SELECT * FROM land WHERE 1=1 ORDER BY registered_date DESC";
     $params = [];
 
     if (!empty($filters['crop_type'])) {
@@ -222,54 +241,56 @@ public function getFilteredLands($filters = []) {
     }
 
     if ($filters['status'] !== '') {
-        $query .= " AND status = ?";
+        $query .= " AND land.status = ?";
         $params[] = $filters['status'];
     }
+
+    if (!empty($filters['zone_id'])) {
+        $query .= " AND land.zone = ?";
+        $params[] = $filters['zone_id'];
+    }
+
+    $query .= " ORDER BY registered_date DESC";
 
     return $this->query($query, $params);
 }
 
-public function takeLandId() {
-    $query = 'SELECT id FROM land ORDER BY id DESC LIMIT 1';
-    $result = $this->query($query); // returns an array of stdClass objects
-    if ($result && isset($result[0]->id)) {
-        return $result[0]->id;
-    }
-    return null;
+
+	public function takeLandId()
+	{
+		$query = 'SELECT id FROM land ORDER BY id DESC LIMIT 1';
+		$result = $this->query($query); 
+		if ($result && isset($result[0]->id)) {
+			return $result[0]->id;
+		}
+		return null;
+	}
+
+
+
+	public function getRegisteredLandsCount()
+	{
+		$query = "SELECT COUNT(*) as count FROM land";
+
+		return (int) $this->query($query)[0]->count; 
+	}
+
+	public function getSupervisorsCount()
+	{
+		$query = "SELECT COUNT(*) as count FROM user WHERE role_id = '2'";
+		return (int) $this->query($query)[0]->count; 
+	}
+
+	
+
+//landowenr reject lands
+public function rejectland($id){
+	$query="UPDATE land SET status='4' where  id = :id";
+	$data = [':id' => $id];
+
+	
+		return $this->query($query, $data);
 }
-
-
-
-public function getRegisteredLandsCount()
-{
-$query="SELECT COUNT(*) as count FROM land";
-    
-    return (int) $this->query($query)[0]->count; // Access count as an object property
-}
-
-public function getSupervisorsCount()
-{
-    $query="SELECT COUNT(*) as count FROM user WHERE role_id = '2'";
-    return (int) $this->query($query)[0]->count; // Access count as an object property
-}
-
-// public function getBidsCount()
-// {
-//     $stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM bids");
-//     $stmt->execute();
-//     $result = $stmt->get_result()->fetch_assoc();
-//     return $result['count'];
-// }
-
-// public function getBuyersCount()
-// {
-//     $stmt = $this->conn->prepare("SELECT COUNT(*) as count FROM buyers");
-//     $stmt->execute();
-//     $result = $stmt->get_result()->fetch_assoc();
-//     return $result['count'];
-// }
-
-
 
 
 

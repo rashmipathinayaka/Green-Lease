@@ -27,7 +27,7 @@
 
                     <!-- Hidden form -->
                      <div class="updateForm">
-                    <form id="updateForm" class="updateForm" action="<?= URLROOT ?>/Components/profile2/updatepropic" method="POST" enctype="multipart/form-data" style="display: none;">
+                    <form id="updateForm" class="updateForm" action="<?= URLROOT ?>/profile2/updatepropic" method="POST" enctype="multipart/form-data" style="display: none;">
                         <!-- <h4>Select new profile photo</h4> -->
                         <input type="file" name="profile_pic" accept="image/*" required>
                         <button type="submit" class="update-btn" name="submit_pic">Submit</button>
@@ -86,14 +86,14 @@
                         <svg class="contact-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
                             <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"></path>
                         </svg>
-                        <span class="contact-text">425 Evergreen Terrace, Springfield</span>
+                        <span class="contact-text"><?php echo htmlspecialchars($user->joined_date); ?></span>
                     </div>
                 </div>
             </div>
 
 
 
-            <form action="<?= URLROOT ?>/Components/Profile2/updateprofile" method="POST" id="profileForm">
+            <form action="<?= URLROOT ?>/Profile2/updateprofile" method="POST" id="profileForm">
                 <div class="profile-details">
                     <div class="details-header">
                         <h2 class="details-title">Profile Information</h2>
@@ -105,32 +105,40 @@
                         <div class="info-card">
                             <div class="info-label">Full Name</div>
                             <input type="text" name="full_name" value="<?php echo htmlspecialchars($user->full_name); ?>" class="info-value info-input" disabled>
-                        </div>
-
-                        <!-- <div class="info-card">
-                <div class="info-label">Address</div>
-                <input type="text" name="id" value="<?php echo htmlspecialchars($user->id); ?>" class="info-value info-input" disabled>
-            </div> -->
-
-                        <div class="info-card">
-                            <div class="info-label">National ID</div>
-                            <input type="number" name="nic" value="<?php echo htmlspecialchars($user->nic); ?>" class="info-value info-input" disabled>
-                        </div>
-
-                        <div class="info-card">
-                            <div class="info-label">Contact no</div>
-                            <input type="number" name="contact_no" value="<?php echo htmlspecialchars($user->contact_no); ?>" class="info-value info-input" disabled>
+                            <?php if (isset($errors['full_name'])): ?>
+                                <div class="error-message"><?php echo htmlspecialchars($errors['full_name']); ?></div>
+                            <?php endif; ?>
                         </div>
 
                         <div class="info-card">
                             <div class="info-label">Email</div>
                             <input type="email" name="email" value="<?php echo htmlspecialchars($user->email); ?>" class="info-value info-input" disabled>
+                            <?php if (isset($errors['email'])): ?>
+                                <div class="error-message"><?php echo htmlspecialchars($errors['email']); ?></div>
+                            <?php endif; ?>
                         </div>
 
-                        <!-- Add more fields as needed -->
+                        <div class="info-card">
+                            <div class="info-label">National ID</div>
+                            <input type="number" name="nic" value="<?php echo htmlspecialchars($user->nic); ?>" class="info-value info-input" disabled>
+                            <?php if (isset($errors['nic'])): ?>
+                                <div class="error-message"><?php echo htmlspecialchars($errors['nic']); ?></div>
+                            <?php endif; ?>
+                        </div>
 
+                        <div class="info-card">
+                            <div class="info-label">Contact no</div>
+                            <input type="number" name="contact_no" value="<?php echo htmlspecialchars($user->contact_no); ?>" class="info-value info-input" disabled>
+                            <?php if (isset($errors['contact_no'])): ?>
+                                <div class="error-message"><?php echo htmlspecialchars($errors['contact_no']); ?></div>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
+
+                <?php if (isset($error)): ?>
+                    <div class="error-message"><?php echo htmlspecialchars($error); ?></div>
+                <?php endif; ?>
 
                 <div class="footer">
                     <div class="footer-text"></div>

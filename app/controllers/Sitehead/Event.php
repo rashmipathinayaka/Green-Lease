@@ -11,7 +11,7 @@ class Event
         //header('Location: ' . URLROOT . '/sitehead/Event/details/');
     }
 
-    public function details($eventId = null)
+    public function details($eventId)
     {
         // Check if user is logged in
         if (!isset($_SESSION['id'])) {
@@ -22,7 +22,7 @@ class Event
         if (empty($eventId)) {
             $this->view('_404');
             return;
-        } 
+        }
 
         // Load required models
         $eventModel = new EventModel();
@@ -227,5 +227,78 @@ class Event
         }
 
         header('Location: ' . URLROOT . '/sitehead/Event/details/' . $eventId);
+    }
+
+    public function Upcoming_events()
+    {
+        // Get projects managed by this sitehead
+        $userId = $_SESSION['id'];
+
+        // Get sitehead's data
+        $siteheadModel = new Sitehead();
+        $siteheadData = $siteheadModel->first(['user_id' => $userId]);
+
+        if (!empty($siteheadData)) {
+            // Get the single active project for this sitehead
+            $projectModel = new Project();
+            $project = $projectModel->first([
+                'sitehead_id' => $siteheadData->id,
+                'status' => 'ongoing'
+            ]);
+
+            if (!empty($project)) {
+                // Get upcoming events for this single project
+                $eventModel = new EventModel();
+                $upcomingEvents = $eventModel->getUpcomingEvents($project->id);
+
+                $data = [
+                    'upcomingEvents' => $upcomingEvents,
+                    'project' => $project // Now singular since only one project
+                ];
+
+                $this->view('sitehead/upcoming_events', $data);
+            } else {
+                // No active project found
+                $data = [
+                    'upcomingEvents' => [],
+                    'error' => 'No ongoing project found'
+                ];
+                $this->view('sitehead/upcoming_events', $data);
+            }
+        } else {
+            // No sitehead data found - handle error
+            redirect('sitehead/dashboard');
+        }
+    }
+
+    public function postpone_event($event_id)
+    {
+        // Load the event
+        $eventModel = new EventModel();
+        $event = $eventModel->first(['id' => $event_id]);
+
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            // Handle form submission
+            $data = [
+                'postponed' => 'yes',
+                'postpone_details' => $_POST['postpone_reason'],
+                'postponed_date' => $_POST['postponed_date'], // Optional: if you want to track when it was postponed
+                // 'date' => $_POST['postponed_date']
+            ];
+
+            if ($eventModel->update($event_id, $data)) {
+                // Success - redirect back to upcoming events
+                header('Location: ' . URLROOT . '/sitehead/Event/Upcoming_events');
+            } else {
+                // Error handling
+                die('Something went wrong');
+            }
+        } else {
+            // Show postpone form
+            $data = [
+                'event' => $event
+            ];
+            $this->view('sitehead/postpone_form', $data);
+        }
     }
 }

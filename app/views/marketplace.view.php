@@ -6,7 +6,6 @@
     <title>Green Lease Marketplace</title>
     <link rel="stylesheet" href="<?= URLROOT ?>/assets/css/marketplace.css">
     <style>
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -69,19 +68,35 @@
             color: white;
             border: none;
         }
+
+
+        .countdown {
+            background-color: #ffd700;
+            color: #000;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-weight: bold;
+            display: inline-block;
+            margin: 5px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
     </style>
 </head>
 <body>
     <?php include 'components/navbar.php'; ?>
 
     <div class="container">
-        <!-- Display messages if any -->
         <?php if(isset($_SESSION['message'])): ?>
-            <div class="alert alert-<?= $_SESSION['message_type'] ?>">
+            <div class="alert alert-<?= $_SESSION['message_type'] === 'success' ? 'success' : 'error' ?>">
                 <?= $_SESSION['message'] ?>
             </div>
             <?php 
-                // Clear the message after displaying
                 unset($_SESSION['message']);
                 unset($_SESSION['message_type']);
             ?>
@@ -90,8 +105,34 @@
         <section class="filter-section">
             <form method="GET" action="<?= URLROOT ?>/marketplace" class="filter-form">
                 <div class="filter-grid">
-                    <input type="text" name="location" placeholder="Search by location" 
-                           class="filter-input" value="<?= isset($_GET['location']) ? htmlspecialchars($_GET['location']) : '' ?>">
+                    <select name="location" class="filter-input">
+                        <option value="">Select District</option>
+                        <option value="Ampara" <?= (isset($_GET['location']) && $_GET['location'] == 'Ampara') ? 'selected' : '' ?>>Ampara</option>
+                        <option value="Anuradhapura" <?= (isset($_GET['location']) && $_GET['location'] == 'Anuradhapura') ? 'selected' : '' ?>>Anuradhapura</option>
+                        <option value="Badulla" <?= (isset($_GET['location']) && $_GET['location'] == 'Badulla') ? 'selected' : '' ?>>Badulla</option>
+                        <option value="Batticaloa" <?= (isset($_GET['location']) && $_GET['location'] == 'Batticaloa') ? 'selected' : '' ?>>Batticaloa</option>
+                        <option value="Colombo" <?= (isset($_GET['location']) && $_GET['location'] == 'Colombo') ? 'selected' : '' ?>>Colombo</option>
+                        <option value="Galle" <?= (isset($_GET['location']) && $_GET['location'] == 'Galle') ? 'selected' : '' ?>>Galle</option>
+                        <option value="Gampaha" <?= (isset($_GET['location']) && $_GET['location'] == 'Gampaha') ? 'selected' : '' ?>>Gampaha</option>
+                        <option value="Hambantota" <?= (isset($_GET['location']) && $_GET['location'] == 'Hambantota') ? 'selected' : '' ?>>Hambantota</option>
+                        <option value="Jaffna" <?= (isset($_GET['location']) && $_GET['location'] == 'Jaffna') ? 'selected' : '' ?>>Jaffna</option>
+                        <option value="Kalutara" <?= (isset($_GET['location']) && $_GET['location'] == 'Kalutara') ? 'selected' : '' ?>>Kalutara</option>
+                        <option value="Kandy" <?= (isset($_GET['location']) && $_GET['location'] == 'Kandy') ? 'selected' : '' ?>>Kandy</option>
+                        <option value="Kegalle" <?= (isset($_GET['location']) && $_GET['location'] == 'Kegalle') ? 'selected' : '' ?>>Kegalle</option>
+                        <option value="Kilinochchi" <?= (isset($_GET['location']) && $_GET['location'] == 'Kilinochchi') ? 'selected' : '' ?>>Kilinochchi</option>
+                        <option value="Kurunegala" <?= (isset($_GET['location']) && $_GET['location'] == 'Kurunegala') ? 'selected' : '' ?>>Kurunegala</option>
+                        <option value="Mannar" <?= (isset($_GET['location']) && $_GET['location'] == 'Mannar') ? 'selected' : '' ?>>Mannar</option>
+                        <option value="Matale" <?= (isset($_GET['location']) && $_GET['location'] == 'Matale') ? 'selected' : '' ?>>Matale</option>
+                        <option value="Matara" <?= (isset($_GET['location']) && $_GET['location'] == 'Matara') ? 'selected' : '' ?>>Matara</option>
+                        <option value="Monaragala" <?= (isset($_GET['location']) && $_GET['location'] == 'Monaragala') ? 'selected' : '' ?>>Monaragala</option>
+                        <option value="Mullaitivu" <?= (isset($_GET['location']) && $_GET['location'] == 'Mullaitivu') ? 'selected' : '' ?>>Mullaitivu</option>
+                        <option value="Nuwara Eliya" <?= (isset($_GET['location']) && $_GET['location'] == 'Nuwara Eliya') ? 'selected' : '' ?>>Nuwara Eliya</option>
+                        <option value="Polonnaruwa" <?= (isset($_GET['location']) && $_GET['location'] == 'Polonnaruwa') ? 'selected' : '' ?>>Polonnaruwa</option>
+                        <option value="Puttalam" <?= (isset($_GET['location']) && $_GET['location'] == 'Puttalam') ? 'selected' : '' ?>>Puttalam</option>
+                        <option value="Ratnapura" <?= (isset($_GET['location']) && $_GET['location'] == 'Ratnapura') ? 'selected' : '' ?>>Ratnapura</option>
+                        <option value="Trincomalee" <?= (isset($_GET['location']) && $_GET['location'] == 'Trincomalee') ? 'selected' : '' ?>>Trincomalee</option>
+                        <option value="Vavuniya" <?= (isset($_GET['location']) && $_GET['location'] == 'Vavuniya') ? 'selected' : '' ?>>Vavuniya</option>
+                    </select>
                     
                     <input type="text" name="crop_type" placeholder="Harvest type" 
                            class="filter-input" value="<?= isset($_GET['crop_type']) ? htmlspecialchars($_GET['crop_type']) : '' ?>">
@@ -122,19 +163,16 @@
                     <div class="listing-card">
                         <div class="listing-image"></div>
                         <div class="listing-content">
-                            <h2 class="listing-title"><?= htmlspecialchars($harvest->crop_type) ?> Harvest</h2>
+                            <h2 class="listing-title"><?= htmlspecialchars($harvest->crop_type) ?> Harvest - <?= htmlspecialchars($harvest->address) ?></h2>
                             <div class="listing-details">
-                                <p>Location: <?= htmlspecialchars($harvest->address) ?> (Zone <?= htmlspecialchars($harvest->zone) ?>)</p>
-                                <p>Land Size: <?= htmlspecialchars($harvest->size) ?> Acres</p>
                                 <p>Harvest Date: <?= htmlspecialchars($harvest->harvest_date) ?></p>
                                 <p>Remaining: <?= htmlspecialchars($harvest->rem_amount) ?> Tons</p>
-                                <p>Bidding Period: <?= date('Y-m-d H:i', strtotime($harvest->bidding_start)) ?> to <?= date('Y-m-d H:i', strtotime($harvest->bidding_end)) ?></p>
+                                <!-- <b><p>Bidding Period: <?= date('Y-m-d', strtotime($harvest->bidding_start)) ?> to <?= date('Y-m-d', strtotime($harvest->bidding_end)) ?></p></b> -->
                                 <p class="countdown" data-end="<?= htmlspecialchars($harvest->bidding_end) ?>">Time Remaining: Calculating...</p>
                             </div>
                             <div class="current-bid">Minimum Bid (1kg): LKR <?= htmlspecialchars($harvest->min_bid) ?></div>
                             
-                            <!-- Updated Bid Form -->
-                            <form method="POST" action="<?= URLROOT ?>/marketplace/placebid" class="bid-form" onsubmit="return showConfirmation(this, event)">
+                            <form method="POST" action="<?= URLROOT ?>/marketplace/placeBid" class="bid-form" onsubmit="return showConfirmation(this, event)">
                                 <input type="hidden" name="harvest_id" value="<?= $harvest->id ?>">
                                 <input type="hidden" name="crop_type" value="<?= htmlspecialchars($harvest->crop_type) ?>">
                                 
@@ -159,7 +197,6 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
     <div id="confirmationModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -185,7 +222,6 @@
     <?php include 'components/footer.php'; ?>
     
     <script>
-        // Update countdown timers
         function updateCountdowns() {
             const countdowns = document.querySelectorAll('.countdown');
             countdowns.forEach(countdown => {
@@ -201,16 +237,15 @@
                 const days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
                 const hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
 
-                countdown.textContent = `Time Remaining: ${days}d ${hours}h ${minutes}m`;
+                countdown.textContent = `Time Remaining: ${days}d ${hours}h ${minutes}m ${seconds}s`;
             });
         }
 
-        // Update countdown every minute instead of every second
-        setInterval(updateCountdowns, 60000);
-        updateCountdowns(); // Initial update
+        setInterval(updateCountdowns, 1000);
+        updateCountdowns(); 
 
-        // Add bid validation
         function validateBid(input, minBid) {
             const form = input.closest('form');
             const errorDiv = form.querySelector('.error-message');
@@ -228,7 +263,6 @@
             }
         }
 
-        // Modal handling
         let currentForm = null;
 
         function showConfirmation(form, event) {
@@ -260,7 +294,6 @@
             }
         }
 
-        // Close modal if clicking outside
         window.onclick = function(event) {
             const modal = document.getElementById('confirmationModal');
             if (event.target == modal) {

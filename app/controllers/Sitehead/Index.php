@@ -11,43 +11,48 @@ class Index
 	{
 		// Initialize with empty array to prevent foreach errors
 		$data = [
-			'todaysEvents' => []
-			// 'workerCount' => 0,
-			// 'upcomingEventsCount' => 0
+			'todaysEvents' => [],
+			'notifications' => []
 		];
 
 		// Only proceed if user is logged in
 		if (isset($_SESSION['id'])) {
 			$userId = $_SESSION['id'];
-			$userName = $_SESSION['name'];
+			// $userName = $_SESSION['name'];
+			$userModel = new User();
+			$userData = $userModel->first(['id' => $userId]);
 
 			// Get sitehead's data
 			$siteheadModel = new Sitehead();
-			$siteheadData = $siteheadModel->where(['user_id' => $userId]);
+			$siteheadData = $siteheadModel->first(['user_id' => $userId]);
 
 			if (!empty($siteheadData)) {
-				// Get project IDs of the sitehead
+				// Get ongoing project ID of the sitehead
 				$projectModel = new Project();
-				$projectIds = [];
 
-				foreach ($siteheadData as $sdata) {
-					$projects = $projectModel->where(['land_id' => $sdata->land_id]);
-					foreach ($projects as $project) {
-						$projectIds[] = $project->id;
-					}
-				}
+				$project = $projectModel->first([
+					'sitehead_id' => $siteheadData->id,
+					'status' => 'ongoing'
+				]);
 
 				// Get today's events if we have projects
-				if (!empty($projectIds)) {
+				if ($project !== false) {
 					$eventModel = new EventModel();
-					$data['todaysEvents'] = $eventModel->getTodaysEvents($projectIds);
+					$data['todaysEvents'] = $eventModel->getTodaysEvents($project->id);
 				}
 			}
 
-			$data['sname'] = $userName;
+			$data['sname'] = $userData->full_name;
+			$data['project'] = $project;
 
 			// // Get upcoming events count (implement your logic)
-			// $data['upcomingEventsCount'] = $this->getUpcomingEventsCount($userId);
+			$data['upcomingEventsCount'] = $eventModel->getUpcomingEventsCount($project->id);
+
+			//Get notifications for the sitehead
+			if ($userData && $userData->role_id == 3) { // 3 = Sitehead
+				$notificationModel = new Notification();
+				$data['notifications'] = $notificationModel->getForUser($userId, true);
+			}
 		}
 
 		$this->view('sitehead/index', $data);

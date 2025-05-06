@@ -87,9 +87,14 @@ Trait Database
     // Method to connect to the database
     private function connect()
     {
-        $string = "mysql:hostname=" . DBHOST . ";dbname=" . DBNAME;
-        $con = new PDO($string, DBUSER, DBPASS);
-        return $con;
+        $string = "mysql:host=" . DBHOST . ";dbname=" . DBNAME;
+        try {
+            $con = new PDO($string, DBUSER, DBPASS);
+            $con->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // Set error mode to exception
+            return $con;
+        } catch (PDOException $e) {
+            die("Database connection failed: " . $e->getMessage());
+        }
     }
 
     // Method to run a query and return multiple results

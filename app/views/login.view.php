@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enhanced Login</title>
+    <title>Login</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -50,6 +50,12 @@
             </div>
         </div>
         <div class="main-content">
+            <?php if (!empty(
+                $error)) : ?>
+                <div class="alert alert-danger" style="margin-top: -20px; margin-bottom: 13px; color: #b71c1c; background: #ffebee; border: 1px solid #ffcdd2; padding: 10px 16px; border-radius: 4px; text-align: center; font-size: 15px;">
+                    <?= htmlspecialchars($error) ?>
+                </div>
+            <?php endif; ?>
             <form class="form-container" method="POST" action="<?= URLROOT ?>/login">
                 <div class="login-header">
                     <h2>Log in to your account</h2>
@@ -73,7 +79,7 @@
                         Remember me
                     </label>
                     <div class="forgot-password">
-                        <a href="#">Forgot password?</a>
+                        <a href="<?= URLROOT ?>/forgotpassword">Forgot password?</a>
                     </div>
                 </div>
 

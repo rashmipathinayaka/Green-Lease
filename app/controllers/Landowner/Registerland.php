@@ -6,30 +6,33 @@ class Registerland
 {
     use Controller;
     private $crop_types;
+    private $zonemodel;
 
     public function __construct()
     {
         $this->crop_types = new RCrop();
+        $this->zonemodel = new RZone();
     }
 
     public function index() 
     {
         $registerland = new RLand();
         $harvest = new Rsite_visit();
-        $userId = 1; // Replace with session user id in real use
+        $userId = $_SESSION['id']; 
     
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $crop_type = $_POST['crop_type'] ?? null;
     
-            // 👇 Insert crop only if it's not empty and doesn't already exist
             if (!empty($crop_type) && !$this->crop_types->cropExists($crop_type)) {
                 $this->crop_types->insertNewCrop($crop_type);
             }
-    
+
+
+          
             $formData = [
                 'landowner_id' => $userId,
                 'address' => $_POST['address'] ?? null,
-                'zone' => $_POST['district'] ?? null,
+                'zone' => $_POST['zone_id'] ?? null,
                 'size' => $_POST['size'] ?? null,
                 'duration'  => $_POST['duration'] ?? null,
                 'crop_type' => $crop_type,
@@ -41,7 +44,7 @@ class Registerland
                 'longitude'=>$_POST['longitude'],
             ];
     
-            // File upload logic
+            
             $uploadDir = "uploads/";
             if (!is_dir($uploadDir)) mkdir($uploadDir, 0777, true);
     
@@ -58,7 +61,9 @@ class Registerland
             }
     
             if ($registerland->validate($formData) && empty($data['errors'])) {
-                $registerland->insert($formData);
+               if( $registerland->insert($formData)){
+                echo "hariiiiii";
+               };
                 $land_id = $registerland->takeLandId();
     
                 $harvest->insert([
@@ -74,11 +79,13 @@ class Registerland
             }
         }
     
-        // This always runs for GET requests
         $crops = $this->crop_types->getAllCrops();
+$zones=$this->zonemodel->getAllZones();
+
         $data = [
             'errors' => [],
             'crop_types' => $crops,
+            'zones'=>$zones
         ];
     
         $this->view('landowner/registerland', $data);

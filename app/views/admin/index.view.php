@@ -11,7 +11,7 @@
 
 </head>
 
-<body>
+<body style="margin-top: -40px;">
     <?php
 
     require ROOT . '/views/admin/sidebar.php';
@@ -58,7 +58,8 @@
                     <div class="metric-card">
                         <h3>Buyer Count</h3>
                         <div class="metric-content">
-                            <span class="metric-value">240</span>
+                            <span class="metric-value">    <?php echo !empty($buyercount) ? htmlspecialchars($buyercount) : 1; ?></span>
+                            </span>
                             <i class="fas fa-user"></i>
                         </div>
                         <button onclick="showSection('manage-buyers-section')">View</button>
@@ -68,136 +69,121 @@
               
             </div>
 
-<style>
-            .report-button {
-    background-color: #f44336;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
-}
-
-.report-button:hover {
-    background-color: #c62828;
-}
-</style>
-
-            <!-- Add this anywhere in the dashboard section -->
-<div style="text-align: right; margin: 20px;"><button>
-<a href="<?= URLROOT ?>/Admin/report/" class="report-button">Generate Report</a>
-</button>
-</div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            <div class="charts">
-                <div class="chart-box">
-                    <div class="chart-title">Project Distribution</div>
-                    <canvas id="landPieChart"></canvas>
-                <div class="landPieChart">
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                    <script>
-                        const ctx = document.getElementById('landPieChart').getContext('2d');
-
-                        const landPieChart = new Chart(ctx, {
-                            type: 'pie',
-                            data: {
-                                labels: ['Ongoing', 'Unused', 'Completed'],
-                                datasets: [{
-                                    label: 'Land count',
-                                    data: [<?= $ongoing ?>, <?= $unused ?>, <?= $completed ?>],
-                                    backgroundColor: ['#ce39ad', '#22c298', '#d62115'],
-                                    borderColor: '#fff',
-                                    borderWidth: 1
-                                }]
-                            },
-                            options: {
-                                responsive: true,
-                                plugins: {
-                                    legend: {
-                                        position: 'bottom',
-                                    },
-                                    title: {
-                                        display: true,
-                                        text: ''
-                                    }
-                                }
-                            }
-                        });
-                    </script>
-                </div>
+            <div class="dashboard-section">
+                <div class="section-header">
+                    <h2>Analytics Dashboard</h2>
+                    <a href="<?= URLROOT ?>/Admin/report/" class="report-button">
+                        <i class="fas fa-file-alt"></i>
+                        Generate Report
+                    </a>
+                    <a href="<?= URLROOT ?>/Admin/statistics/" class="report-button">
+                        <i class="fas fa-chart-line"></i>
+                        View Statistics
+                    </a>
                 </div>
 
+                <div class="charts-container">
+                    <div class="chart-box">
+                        <div class="chart-header">
+                            <h3>Project Distribution</h3>
+                            <div class="chart-legend">
+                                <span class="legend-item"><span class="legend-color" style="background: #ce39ad"></span>Ongoing</span>
+                                <span class="legend-item"><span class="legend-color" style="background: #22c298"></span>Unused</span>
+                                <span class="legend-item"><span class="legend-color" style="background: #d62115"></span>Completed</span>
+                            </div>
+                        </div>
+                        <div class="chart-content">
+                            <canvas id="landPieChart"></canvas>
+                        </div>
+                    </div>
 
+                    <div class="chart-box">
+                        <div class="chart-header">
+                            <h3>Lands Registered Per Year</h3>
+                        </div>
+                        <div class="chart-content">
+                            <canvas id="landBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-                <div class="chart-box">
-                    <div class="chart-title">Lands Registered Per Year</div>
-                    <br><br><br><br><br><br><br>
-                    <canvas id="landBarChart"></canvas>
-                   
-                <div class="landBarChart">
-
-
-                    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-                    <br><br>
-
-
-
-                    <script>
-                        const barctx = document.getElementById('landBarChart').getContext('2d');
-
-                        const landBarChart = new Chart(barctx, {
-    type: 'bar',
-    data: {
-        labels: <?= json_encode($yearLabels); ?>,
-        datasets: [{
-            label: 'Lands Registered',
-            data: <?= json_encode($yearData); ?>,
-            backgroundColor: 'rgba(66, 191, 52, 0.6)',
-            borderColor: 'rgba(54, 162, 235, 1)',
-            borderWidth: 1
-        }]
-    },
-    options: {
-        responsive: true,
-        animation: {
-            duration: 1500,
-            easing: 'easeOutBounce'
-        },
-        plugins: {
-            legend: { display: false }
-        },
-        scales: {
-            y: {
-                beginAtZero: true,
-                title: { display: true, text: 'Number of Lands' }
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Pie Chart
+        const ctx = document.getElementById('landPieChart').getContext('2d');
+        const landPieChart = new Chart(ctx, {
+            type: 'pie',
+            data: {
+                labels: ['Ongoing', 'Unused', 'Completed'],
+                datasets: [{
+                    data: [<?= $ongoing ?>, <?= $unused ?>, <?= $completed ?>],
+                    backgroundColor: ['#ce39ad', '#22c298', '#d62115'],
+                    borderColor: '#fff',
+                    borderWidth: 1
+                }]
             },
-            x: {
-                title: { display: true, text: 'Year' }
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
             }
-        }
-    }
-});
+        });
 
-                    </script>
-                </div>
-            </div></div>
+        // Bar Chart
+        const barctx = document.getElementById('landBarChart').getContext('2d');
+        const landBarChart = new Chart(barctx, {
+            type: 'bar',
+            data: {
+                labels: <?= json_encode($yearLabels); ?>,
+                datasets: [{
+                    label: 'Lands Registered',
+                    data: <?= json_encode($yearData); ?>,
+                    backgroundColor: 'rgba(66, 191, 52, 0.6)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                animation: {
+                    duration: 1500,
+                    easing: 'easeOutBounce'
+                },
+                plugins: {
+                    legend: { display: false }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: { 
+                            display: true, 
+                            text: 'Number of Lands',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    },
+                    x: {
+                        title: { 
+                            display: true, 
+                            text: 'Year',
+                            font: {
+                                weight: 'bold'
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    </script>
 </body>
 
 </html>

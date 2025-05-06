@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/supervisor.css">
+	<link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/supervisor.css">
 	<script>
 		const URLROOT = "<?php echo URLROOT; ?>";
 	</script>
@@ -14,7 +14,7 @@
 	<title>Document</title>
 </head>
 
-<body>
+<body style="margin-top: 100px; margin-left: 20px; margin-right: 20px;">
 	<?php
 	require ROOT . '/views/supervisor/sidebar.php';
 	require ROOT . '/views/components/topbar.php';
@@ -57,7 +57,7 @@
 								</td>
 								<td>
 
-									<button class="green-btn" onclick="confirmMarkAsSolved(<?php echo $issue->id; ?>)">Mark as Solved</button>
+									<button style="padding: 10px 78px;" class="green-btn" onclick="confirmMarkAsSolved(<?php echo $issue->id; ?>)">Mark as Solved</button>
 									<!-- <button class="red-btn" onclick="confirmRemoveIssue(<?php echo $issue->id; ?>)">Remove</button> -->
 								</td>
 							</tr>

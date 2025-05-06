@@ -7,36 +7,39 @@ class Manage_land
 {
 	use Controller;
     private $manageland;
+    private $cropmodel;
+    private $zonemodel;
+
     public function __construct()
     {
        $this-> manageland =new RLand();
+       $this-> cropmodel = new RCrop();
+       $this-> zonemodel = new RZone();
     }
 
 	public function index()
 	{
-        $crop_type = $_GET['crop_type'] ?? '';
+        $crop_type = $_GET['crop_type'] ?? ''; 
         $status = $_GET['status'] ?? '';
+        $zone_id = $_GET['zone_id'] ?? '';  
     
         $filters = [
             'crop_type' => $crop_type,
-            'status' => $status
+            'status' => $status,
+            'zone_id' => $zone_id,
         ];
     
-        $lands = $this->manageland->getFilteredLands($filters);
-    
-        $this->view('admin/manage_land', ['lands' => $lands]);
+$zones=$this->zonemodel->getAllZones();
 
-        // $lands = $this->manageland->findAll();
-        // $this->view('admin/manage_land',['lands'=> $lands]);
+        $lands = $this->manageland->getFilteredLands($filters);
+  
+    
+        $this->view('admin/manage_land', ['lands' => $lands,'zones'=>$zones]);
+
+        
 		
 	}
  
 
-public function updateland($id){
-    $data=['status'=>1];
-    $this->manageland->update($id,$data,'id');
 
-    $lands = $this->manageland->findAll();
-    $this->view('admin/manage_land',['lands'=> $lands]);
-}
 }

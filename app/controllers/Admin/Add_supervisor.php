@@ -2,7 +2,7 @@
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
-require_once '../vendor/autoload.php'; // Adjust if needed
+require_once '../vendor/autoload.php'; 
 
 class Add_supervisor
 {
@@ -20,6 +20,7 @@ class Add_supervisor
 
     public function index()
     {
+        
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $full_name = $_POST['full_name'] ?? null;
             $zone = $_POST['zone'] ?? null;
@@ -28,22 +29,20 @@ class Add_supervisor
             $status = 'inactive';
             $nic = $_POST['nic'] ?? null;
             
-            // Generate a random plain password for the supervisor
-            $password = $this->generateRandomPassword(8); // Password length of 12
+            $password = $this->generateRandomPassword(8); 
 
-            // User data for user table (storing the plain password here)
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
             $formData1 = [
                 'full_name' => $full_name,
                 'email' => $email,
                 'contact_no' => $contact_no,
                 'nic' => $nic,
-                'password' => $password, // Storing the plain password directly
+                'password' => $hashedPassword, 
             ];
 
-            // Insert into user table and get the user ID
             $this->userModel->insertsupervisor($formData1);
             
-            // Retrieve the user ID by NIC
             $user = $this->userModel->getUserIdByNic($nic);
 
             if ($user) {
@@ -54,48 +53,42 @@ class Add_supervisor
                     'user_id' => $user, 
                 ];
 
-               //supervisor table ekta data insert karanna
-               $this->supervisor->insert($formData2);
-
+               if($this->supervisor->insert($formData2)){
+               
+               }
             
        
-
-                // Send an email with the plain password to the supervisor
                 $this->sendEmailToSupervisor($email, $full_name, $password);
+                
+
             }
         }
-$zones = $this->zoneModel->getAllZones(); // Fetch all zones for the dropdown
+$zones = $this->zoneModel->getAllZones(); 
         $this->view('admin/add_supervisor', ['zones' => $zones]);
     }
 
-    // Function to generate a random password
     private function generateRandomPassword($length = 12) {
-        return bin2hex(random_bytes($length)); // Generate a random password
+        return bin2hex(random_bytes($length)); 
     }
 
-    // Function to send the password to the supervisor via email
     private function sendEmailToSupervisor($email, $full_name, $password)
     {
-        // Create PHPMailer instance
         $mail = new PHPMailer(true);
 
         try {
-            // SMTP configuration
             $mail->isSMTP();
             $mail->Host = 'smtp.gmail.com';
             $mail->SMTPAuth = true;
-            $mail->Username = 'rashipathinayaka@gmail.com'; // Your Gmail address
-            $mail->Password = 'hlxx uucx rsdl jvyh'; // Your Gmail App password (not the regular password)
-            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; // Use TLS encryption
-            $mail->Port = 587; // SMTP port for TLS
+            $mail->Username = 'rashipathinayaka@gmail.com'; 
+            $mail->Password = 'bzpg bosn cfuf jabn'; 
+            $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS; 
+            $mail->Port = 587; 
 
-            // Set from and to addresses
-            $mail->setFrom('rashipathinayaka@gmail.com', 'Green Lease'); // Sender's email
-            $mail->addAddress($email); // Receiver's email (Supervisor)
+            $mail->setFrom('rashipathinayaka@gmail.com', 'Green Lease'); 
+            $mail->addAddress($email); 
 
-            // Set email format to HTML
             $mail->isHTML(true);
-            $mail->Subject = "Your Supervisor Account Password"; // Email subject
+            $mail->Subject = "Your Supervisor Account Password"; 
             $mail->Body = "
                 Hello $full_name,<br><br>
                 Your supervisor account has been created successfully.<br><br>
@@ -107,14 +100,14 @@ $zones = $this->zoneModel->getAllZones(); // Fetch all zones for the dropdown
 
             // Send email
             if ($mail->send()) {
-                echo "Email sent successfully to $email!";
+                // echo "Email sent successfully to $email!";
             } else {
-                throw new Exception("Email could not be sent.");
+                // throw new Exception("Email could not be sent.");
             }
         } catch (Exception $e) {
             // Log error to PHP error log
-            error_log("Email error: {$mail->ErrorInfo}");
-            echo "There was an issue sending the email: " . $e->getMessage();  // Optionally display error message in dev
+            // error_log("Email error: {$mail->ErrorInfo}");
+            // echo "There was an issue sending the email: " . $e->getMessage();  // Optionally display error message in dev
         }
     }
 }

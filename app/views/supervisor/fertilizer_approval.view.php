@@ -43,13 +43,13 @@
                     <div class="form-group">
                         <label for="actual_amount">Amount to Approve (kg)</label>
                         <input type="number" name="actual_amount" id="actual_amount"
-                            value="<?= $request->amount ?>" min="1" max="<?= $request->amount ?>">
+                            value="<?= $request->amount ?>" min="1" max="<?= $request->amount ?>" required>
                     </div>
 
                     <div class="form-group">
-                        <label for="delivery_date">Actual Delivery Date</label>
-                        <input type="date" name="delivery_date" id="delivery_date"
-                            value="<?= date('Y-m-d') ?>" min="<?= date('Y-m-d') ?>">
+                        <label for="planned_date">Actual Delivery Date</label>
+                        <input type="date" name="planned_date" id="planned_date"
+                            value="<?= $request->preferred_date ?>" min="<?= date('Y-m-d') ?>" required>
                     </div>
 
                     <div class="form-group">

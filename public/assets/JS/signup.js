@@ -1,4 +1,3 @@
-
 // Select all necessary elements
 const form = document.getElementById('signup-form');
 const inputs = form.querySelectorAll('input[required]');
@@ -68,6 +67,13 @@ confirmPasswordInput.addEventListener('input', () => {
 
 // Add form submit handler
 form.addEventListener('submit', (e) => {
+    // Check if a role is selected
+    const roleSelected = Array.from(roleInputs).some(radio => radio.checked);
+    if (!roleSelected) {
+        e.preventDefault();
+        alert('Please select a user role.');
+        return false;
+    }
     if (!checkPasswordsMatch()) {
         e.preventDefault();
         alert("Passwords don't match!");

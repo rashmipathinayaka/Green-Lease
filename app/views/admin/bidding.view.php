@@ -9,7 +9,7 @@
 
 </head>
 
-<body>
+<body style="margin-top: 20px; margin-left: 20px; margin-right: 20px;">
     <?php
     require ROOT . '/views/admin/sidebar.php';
     require ROOT . '/views/components/topbar.php';
@@ -26,8 +26,9 @@
         const harvestId = <?= json_encode($data['harvest_id']) ?>;
     </script>
 
-
-    <h2 style="color: green;">The bids are arranged in the order which gives the highest profit</h2>
+    <div class="bidding-header">
+        <h2>The bids are arranged in the order which gives the highest profit</h2>
+    </div>
 
     <!-- Progress bar showing harvest capacity -->
     <div class="progress-container">
@@ -49,8 +50,8 @@
             <tr>
                 <th>Buyer ID</th>
                 <th>Bid ID</th>
-                <th>Amount</th>
-                <th>Unit Price</th>
+                <th>Amount (KG)</th>
+                <th>Unit Price (LKR)</th>
                 <th>Status</th>
                 <th>Actions</th>
             </tr>
@@ -59,7 +60,7 @@
             <?php if (!empty($biddings)): ?>
                 <?php foreach ($biddings as $bid): ?>
                     <?php if ($bid !== null): ?>
-                        <tr data-bid-id="<?= htmlspecialchars($bid->bid_id) ?>">
+                        <tr data-bid-id="<?= htmlspecialchars($bid->id) ?>">
                             <td><?= htmlspecialchars($bid->buyer_id) ?></td>
                             <td><?= htmlspecialchars($bid->id) ?></td>
                             <td><?= htmlspecialchars($bid->amount) ?></td>
@@ -67,9 +68,9 @@
                             <td><?= htmlspecialchars($bid->status) ?></td>
                             <td>
                                 <?php if ($bid->status === 'Pending'): ?>
-                                    <button class="red-btn" onclick="showApprovalModal(<?= htmlspecialchars($bid->id) ?>, <?= htmlspecialchars($bid->amount) ?>, <?= $remaining_amount ?>)">Approve</button>
+                                    <button class="green-btn" onclick="showApprovalModal(<?= htmlspecialchars($bid->id) ?>, <?= htmlspecialchars($bid->amount) ?>, <?= $remaining_amount ?>)">Approve</button>
                                 <?php else: ?>
-                                    <button class="green-btn">View</button>
+                                    <!-- <button class="blue-btn">View</button> -->
                                 <?php endif; ?>
                             </td>
                         </tr>

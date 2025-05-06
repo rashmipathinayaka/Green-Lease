@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/CSS/landowner/landowner.css">
 
-    <title>Document</title>
+    <title>Landowner Dashboard</title>
 
 </head>
 
@@ -34,7 +34,7 @@
                 <h2>Total Lands</h2>
                 <div class="metric-content">
                     <span class="metric-value">
-                        <?php echo !empty($landCount) ? htmlspecialchars($landCount) : 5; ?>
+                        <?php echo !empty($landCount) ? htmlspecialchars($landCount) : 0; ?>
                     </span>
                     <i class="fas fa-user"></i>
                 </div>
@@ -46,7 +46,7 @@
                 <h2>Ongoing Projects</h2>
                 <div class="metric-content">
                     <span class="metric-value">
-                        <?php echo !empty($proCount) ? htmlspecialchars($proCount) : 5; ?>
+                        <?php echo !empty($proCount) ? htmlspecialchars($proCount) : 0; ?>
                     </span>
                     <i class="fas fa-user"></i>
                 </div>
@@ -59,7 +59,7 @@
                 <h2>Completed Projects</h2>
                 <div class="metric-content">
                     <span class="metric-value">
-                        <?php echo !empty($completedproCount) ? htmlspecialchars($completedproCount) : 5; ?>
+                        <?php echo !empty($completedproCount) ? htmlspecialchars($completedproCount) : 0; ?>
                     </span>
                     <i class="fas fa-user"></i>
                 </div>
@@ -72,7 +72,7 @@
                 <h2>Unused Lands</h2>
                 <div class="metric-content">
                     <span class="metric-value">
-                        <?php echo !empty($inactivelandsCount) ? htmlspecialchars($inactivelandsCount) : 5; ?>
+                        <?php echo !empty($inactivelandsCount) ? htmlspecialchars($inactivelandsCount) : 0; ?>
                     </span>
                     <i class="fas fa-user"></i>
                 </div>
@@ -81,7 +81,7 @@
         </div>
 
 
-        <h1>Ongoing Projects</h1><br><br>
+        <br><h1>Ongoing Projects</h1><br><br>
 
         <div id="completed-projects">
             <div class="projects-grid">
@@ -89,13 +89,13 @@
                     <?php foreach ($lands as $land) : ?>
                         <div class="project-card">
                             <img src="<?php echo URLROOT; ?>/assets/images/ongoing2.png" alt="Project Image"  class="img"/>
-
+ 
                             <p>Project ID: <?php echo htmlspecialchars($land->id); ?></p>
 
                             <p>Crop Type: <?php echo htmlspecialchars($land->crop_type); ?></p>
 
                          
-                            <a href="<?= URLROOT ?>/Components/Project/index/<?php echo $land->id; ?>"
+                            <a href="<?= URLROOT ?>/Project/index/<?php echo $land->id; ?>"
                             class="view">View Project</a>
 
 
@@ -108,8 +108,7 @@
             </div>
         </div>
 
-        <br><br> <br>
-
+        <br><br>
 
 
 
@@ -130,7 +129,7 @@
                             <!-- methena redirect wena eka hadanna-->
 
 
-                            <a href="<?= URLROOT ?>/Components/Project/index/<?php echo $land->id; ?>"
+                            <a href="<?= URLROOT ?>/Project/index/<?php echo $item->id; ?>"
                             class="view">View Project</a>
                         </div>
                     <?php endforeach; ?>

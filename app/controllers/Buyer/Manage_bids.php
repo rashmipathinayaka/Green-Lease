@@ -1,65 +1,59 @@
 <?php 
-
-/**
- * home class
- */
 class Manage_bids
 {
 	use Controller;
 
-	public function index()
+	private $bidModel;
+
+	public function __construct()
 	{
-		if(!isset($_SESSION['id'])) {
-            // Redirect to login page if user is not logged in
-            header("Location: " . URLROOT . "/login");
-            exit();
-        }
-        
-        // Get the user ID from the session
-        $buyer_id = $_SESSION['id'];
-
-        $bids = new SBid();
-        // Fetch purchases for the current buyer
-        $data['bids'] = $bids->getBidsByBuyer($buyer_id);
-
-		$this->view('buyer/Manage_bids', $data);
+		if (!isset($_SESSION['id'])) {
+			redirect('login');
+		}
+		$this->bidModel = new SBid();
 	}
 
-    public function removeBid($id)
-    {
-        if(!isset($_SESSION['id'])) {
-            header("Location: " . URLROOT . "/login");
-            exit();
-        }
+	public function index()
+	{
+		$status = isset($_GET['status']) ? $_GET['status'] : '';
+		$date_from = isset($_GET['date_from']) ? $_GET['date_from'] : '';
+		$date_to = isset($_GET['date_to']) ? $_GET['date_to'] : '';
 
-        $bid = new SBid();
-        
-        // Get the bid to check ownership
-        $bids = $bid->where(['id' => $id, 'buyer_id' => $_SESSION['id']]);
-        if (empty($bids)) {
-            $_SESSION['message'] = 'Bid not found or unauthorized';
-            $_SESSION['message_type'] = 'error';
-            header("Location: " . URLROOT . "/Buyer/Manage_bids");
-            exit();
-        }
+		$all_bids = $this->bidModel->getBidsByBuyer($_SESSION['id']);
 
-        $current_bid = $bids[0];
-        if ($current_bid->status !== 'Pending') {
-            $_SESSION['message'] = 'Only pending bids can be removed';
-            $_SESSION['message_type'] = 'error';
-            header("Location: " . URLROOT . "/Buyer/Manage_bids");
-            exit();
-        }
-        
-        if ($bid->delete($id)) {
-            $_SESSION['message'] = 'Bid removed successfully';
-            $_SESSION['message_type'] = 'success';
-        } else {
-            $_SESSION['message'] = 'Failed to remove bid';
-            $_SESSION['message_type'] = 'error';
-        }
-        
-        header("Location: " . URLROOT . "/Buyer/Manage_bids");
-        exit();
-    }
+		$active_bids = array_filter($all_bids, function($bid) use ($status, $date_from, $date_to) {
+			if ($status && $bid->status !== $status) return false;
+			if ($date_from && strtotime($bid->bidding_date) < strtotime($date_from)) return false;
+			if ($date_to && strtotime($bid->bidding_date) > strtotime($date_to)) return false;
+			return in_array($bid->status, ['Pending', 'Approved']);
+		});
+
+		$bid_history = array_filter($all_bids, function($bid) use ($status, $date_from, $date_to) {
+			if ($status && $bid->status !== $status) return false;
+			if ($date_from && strtotime($bid->bidding_date) < strtotime($date_from)) return false;
+			if ($date_to && strtotime($bid->bidding_date) > strtotime($date_to)) return false;
+			return in_array($bid->status, ['Not Approved', 'Rejected (No Payment)', 'Completed']);
+		});
+
+		$data = [
+			'active_bids' => array_values($active_bids),
+			'bid_history' => array_values($bid_history)
+		];
+
+		$this->view('buyer/manage_bids', $data);
+	}
+
+	public function removeBid($id)
+	{
+		if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+			if ($this->bidModel->removeBid($id)) {
+				$_SESSION['message'] = 'Bid removed successfully';
+				$_SESSION['message_type'] = 'success';
+			} else {
+				$_SESSION['message'] = 'Failed to remove bid';
+				$_SESSION['message_type'] = 'error';
+			}
+			redirect('Buyer/Manage_bids');
+		}
+	}
 }

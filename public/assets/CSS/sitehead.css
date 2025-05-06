@@ -135,7 +135,7 @@ body {
   width: 100%;
   padding: 10px;
   background-color: black;
-  color: white;
+  color: rgb(254, 252, 252);
   border: none;
   border-radius: 5px;
   font-size: 14px;
@@ -149,6 +149,63 @@ body {
   background-color: green;
 }
 
+
+
+/* Project Card Specific Styling */
+.project-card {
+  background-color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.project-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.project-card .img {
+  width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+  margin-bottom: 15px;
+}
+
+.project-card p {
+  margin: 8px 0;
+  color: #333;
+}
+
+.project-card .view {
+  display: inline-block;
+  margin-top: 15px;
+  padding: 8px 15px;
+  background-color: black;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.project-card .view:hover {
+  background-color: green;
+}
+
+/* Responsive adjustments */
+@media (max-width: 900px) {
+  .metric-grid {
+    grid-template-columns: 1fr; /* Stack on small screens */
+  }
+  
+  .project-card {
+    order: 3; /* Move project card to bottom on mobile */
+  }
+}
 /* Table */
 /* Enhanced Dashboard Table Styles */
 .dashboard-table {
@@ -578,18 +635,76 @@ body {
   padding: 20px;
 }
 
+.event-header {
+  display: flex;
+  align-items: center;
+  gap: 20px; /* Space between title and badge */
+  margin-bottom: 3px;
+}
 .events-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 20px;
-  padding-bottom: 10px;
+  padding-bottom: 6px;
   border-bottom: 2px solid #f0f0f0;
 }
 
+.update-btn {
+  padding: 8px 26px;
+  border-radius: 4px;
+  background: #e3f2fd;
+  color: #1a7fe4;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  border-color:rgb(48, 58, 193);
+cursor: pointer;
+font-weight: bold;
+display: inline-block;
+border-style :  solid ; 
+}
+
+.update-btn:hover {
+  background: #bbdefb;
+}
+
+.update-btn i {
+  font-size: 0.8rem;
+}
+/* padding: 8px 12px;
+border: none;
+cursor: pointer;
+color: white;
+font-weight: bold;
+border-radius: 14px;
+margin: 5px;
+display: inline-block;
+width: calc(50% - 10px);
+}
+
+.green-btn {
+background: linear-gradient(135deg, #43a047 0%, #2e7d32 100%);
+box-shadow: 0 2px 6px rgba(46, 125, 50, 0.3);
+}
+
+.red-btn {
+background-color: red;
+}
+
+.green-btn:hover {
+background-color: #218838;
+}
+
+.red-btn:hover {
+background-color: #c82333;
+} */ */
 .events-header h2 {
-  color: #333;
-  font-size: 1.5rem;
+  color:black;
+  font-size: 1.55rem;
   margin: 0;
 }
 
@@ -599,8 +714,9 @@ body {
 }
 
 .current-date {
-  color: #666;
-  font-size: 0.9rem;
+  color:black;
+  font-size: 1.27rem;
+  margin-right: 17px;
 }
 
 .events-list {
@@ -643,17 +759,10 @@ body {
   flex: 1;
 }
 
-.event-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 8px;
-}
-
 .event-header h3 {
   margin: 0;
   color: #333;
-  font-size: 1.1rem;
+  font-size: 1.2rem;
 }
 
 .priority-badge {
@@ -673,12 +782,23 @@ body {
   color: #f57c00;
 }
 
+.event-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 6px;
+  padding-right: 30px; /* 👈 Add this line */
+}
+
+
 .event-info {
   display: flex;
   gap: 15px;
   color: #666;
   font-size: 0.9rem;
+  flex-wrap: wrap; /* if items overflow on small screens */
 }
+
 
 .event-info span {
   display: flex;
@@ -942,4 +1062,51 @@ body {
   0%, 100% { transform: rotate(0deg); }
   25% { transform: rotate(-10deg); }
   75% { transform: rotate(10deg); }
+}
+
+.cancel-btn {
+  padding: 12px 25px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  text-decoration: none;
+  text-align: center;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.cancel-btn:hover {
+  background-color: #218838;
+}
+
+.postpone-btn {
+  padding: 12px 25px;
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.postpone-btn:hover {
+  background-color: #c82333;
+}
+
+.Issue-history-link {
+  text-align: center;
+}
+
+.Issue-history-link a {
+  color: #3739c3fd;
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.Issue-history-link a:hover {
+  color: #170ff3;
+  text-decoration: underline;
 }

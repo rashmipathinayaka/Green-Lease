@@ -45,9 +45,13 @@
 							<i class="fas fa-paper-plane"></i>&nbsp; Submit Issue
 						</button>
 					</div>
-				</form>
+					<div class="Issue-history-link">
+						Do you want to see all your sent issues? Click <a href="<?= URLROOT ?>/sitehead/Feedback">here</a> to view your Issues History.
+					</div>
 			</div>
+			</form>
 		</div>
+	</div>
 	</div>
 </body>
 
