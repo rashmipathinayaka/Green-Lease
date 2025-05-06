@@ -61,7 +61,7 @@
 	</style>
 </head>
 
-<body>
+<body style="margin-top: 100px; margin-left: 20px; margin-right: 20px;">
 	<?php
 	require ROOT . '/views/sitehead/sidebar.php';
 	require ROOT . '/views/components/topbar.php';
@@ -76,8 +76,8 @@
 			<input type="text" id="search-bar" placeholder="Search workers by name or email">
 			<select id="status-filter">
 				<option value="">All Status</option>
-				<option value="active">Active</option>
-				<option value="inactive">Inactive</option>
+				<option value="pending">Pending</option>
+				<option value="approved">Approved</option>
 			</select>
 		</div>
 		<!-- Workers Table -->

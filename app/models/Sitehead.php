@@ -1,8 +1,5 @@
 <?php
 
-/**
- * Sitehead class
- */
 class Sitehead
 {
 	use Model;
@@ -15,9 +12,7 @@ class Sitehead
 		'zone',
 		'land_id'
 	];
-	
-	// Get sitehead by user_id
-	// Get sitehead by user_id
+
 public function getSiteheadByUserId($userId)
 {
     $query = "SELECT * FROM sitehead WHERE user_id = :userId LIMIT 1";
@@ -27,7 +22,6 @@ public function getSiteheadByUserId($userId)
 }
 
 	
-	// Get supervisor's zone
 	public function getSupervisorZone($userId)
 	{
 	    $query = "SELECT zone FROM supervisor WHERE user_id = :userId";

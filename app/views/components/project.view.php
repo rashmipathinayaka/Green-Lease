@@ -71,7 +71,7 @@
 
 
             <div class="project-info">
-                <h2 class="project-title">Details about the land</h2>
+                <h2 class="project-title">Details About the Land</h2>
 
                 <div class="project-meta">
                     <div class="meta-item">
@@ -90,11 +90,11 @@
                     </div>
 
                     <div class="meta-item">
-                        <h4>Size of the land</h4>
+                        <h4>Size of the Land</h4>
                         <p><?php echo htmlspecialchars($landdetails->size) ?></p>
                     </div>
                     <div class="meta-item">
-                        <h4>leased time period</h4>
+                        <h4>Leased Time Period</h4>
                         <p><?php echo htmlspecialchars($landdetails->duration) ?> years</p>
                     </div>
                     <div class="meta-item">
@@ -107,23 +107,23 @@
 
                 </div>
                 <br><br>
-                <h2 class="project-title">Details abut the project</h2>
+                <h2 class="project-title">Details About the Project</h2>
 
                 <div class="project-meta">
                     <div class="meta-item">
-                        <h4>project ID</h4>
+                        <h4>Project ID</h4>
                         <p><?php echo htmlspecialchars($projectdetails->id) ?></p>
                     </div>
                     <div class="meta-item">
-                        <h4>Expected end date</h4>
-                        <p><?php echo htmlspecialchars($projectdetails->end_date) ?></p>
+                        <h4>Expected End Date</h4>
+                        <p><?php echo htmlspecialchars($projectdetails->end_date ?? ' ') ?></p>
                     </div>
                     <div class="meta-item">
-                        <h4>Preffered crop</h4>
+                        <h4>Preffered Crop</h4>
                         <p><?php echo htmlspecialchars($landdetails->crop_type) ?></p>
                     </div>
                     <div class="meta-item">
-                        <h4>Selected crop</h4>
+                        <h4>Selected Crop</h4>
                         <p><?php echo htmlspecialchars($projectdetails->crop_type) ?></p>
                     </div>
                     <div class="meta-item">
@@ -153,7 +153,7 @@
                                     if ($event->id == '1') {
                                         echo "Done";
                                     } else {
-                                        echo "Upcomming";
+                                        echo "Upcoming";
                                     }
                                     ?>
                                 </h3>
@@ -220,12 +220,12 @@
                 <div class="footer-content">
                     <div class="footer-section">
 
-                        <h2>Give you feedbacks about the project here.</h2>
-                        <h3> Your sitehead,supervisor would see
-                            your feedbacks and will make sure to improve the project.</h3>
+                        <h2>Give Your Feedback About the Project Here.</h2>
+                        <h3> Your Sitehead, Supervisor would see
+                            your feedbacks and will make sure to improve the project.</h3><br>
                         <form action="<?= URLROOT ?>/components/project/getfeedback/<?php echo $projectdetails->id; ?>" method="POST">
-                            <input type="text" name="feedback" placeholder="Enter your feedback here..." class="feedback-input">
-                            <button type="submit" class="feedback-button">Submit</button>
+                            <input style="margin-bottom: 10px;" type="text" name="feedback" placeholder="Enter your feedback here" class="feedback-input">
+                            <button style="padding: 10px 100px;" type="submit" class="feedback-button">Submit</button>
                         </form>
 
 

@@ -8,18 +8,15 @@ class Purchase_history
 
     public function index()
     {
-        // Check if user is logged in
         if(!isset($_SESSION['id'])) {
-            // Redirect to login page if user is not logged in
             header("Location: " . URLROOT . "/login");
             exit();
         }
         
-        // Get the user ID from the session
         $buyer_id = $_SESSION['id'];
 
         $purchase = new Purchase();
-        // Updated JOIN query to use project table as the connection
+
         $query = "SELECT p.*, b.buyer_id, u.full_name as buyer_name, u.contact_no, l.address as land_address, l.crop_type 
                  FROM purchase p 
                  JOIN bid b ON p.bid_id = b.id
@@ -38,13 +35,11 @@ class Purchase_history
     {
         header('Content-Type: application/json');
 
-        // Check if user is logged in
         if(!isset($_SESSION['id'])) {
             echo json_encode(['success' => false, 'message' => 'User not logged in']);
             return;
         }
 
-        // Get JSON data from request body
         $json = file_get_contents('php://input');
         $data = json_decode($json);
 
@@ -53,19 +48,16 @@ class Purchase_history
             return;
         }
 
-        // Validate rating value
         $rating = floatval($data->rating);
         if ($rating < 1 || $rating > 5) {
             echo json_encode(['success' => false, 'message' => 'Invalid rating value']);
             return;
         }
 
-        // Get feedback if provided
         $feedback = isset($data->feedback) ? trim($data->feedback) : null;
 
         $purchase = new Purchase();
-        
-        // Verify the purchase belongs to the logged-in user and is in 'Delivered' status
+
         $query = "SELECT p.* FROM purchase p
                   JOIN bid b ON p.bid_id = b.id
                   WHERE p.id = :purchase_id AND b.buyer_id = :buyer_id AND p.status = 'Delivered' AND p.rating IS NULL";
@@ -80,7 +72,7 @@ class Purchase_history
         }
 
         try {
-            // Update the rating and feedback using direct query
+
             $updateQuery = "UPDATE purchase SET rating = :rating, feedback = :feedback WHERE id = :purchase_id";
             $purchase->query($updateQuery, [
                 'rating' => $rating,
@@ -88,7 +80,6 @@ class Purchase_history
                 'purchase_id' => $data->purchase_id
             ]);
 
-            // Verify if the update was successful by checking if the rating was actually set
             $verifyQuery = "SELECT rating FROM purchase WHERE id = :purchase_id";
             $verifyResult = $purchase->query($verifyQuery, ['purchase_id' => $data->purchase_id]);
 

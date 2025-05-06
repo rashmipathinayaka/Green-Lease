@@ -138,7 +138,7 @@
                         <tr>
                             <th>Visit ID</th>
                             <th>Land ID</th>
-                            <th>previous date</th>
+                            <!-- <th>previous date</th> -->
                             <th>New Scheduled Date & Time</th>
                             <th>Actions</th>
                         </tr>
@@ -149,7 +149,7 @@
                                 <tr data-land-id="<?= htmlspecialchars($visit1->id) ?>">
                                     <td><?= htmlspecialchars($visit1->id) ?></td>
                                     <td><?= htmlspecialchars($visit1->address) ?></td>
-                                    <td><?= htmlspecialchars($visit1->date) ?></td>
+                                    <!-- <td><?= htmlspecialchars($visit1->date) ?></td> -->
                                     <td><?= htmlspecialchars($visit1->re_date) ?></td>
                                     <td> <a href="<?= URLROOT ?>/Admin/Pending_approval/getland/<?php echo $visit1->id; ?>">
                                             <button class="green-btn">send email</button>

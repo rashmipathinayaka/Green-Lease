@@ -17,20 +17,23 @@ class ManageIssues
 
     public function index()
     {
-
+        error_log("ManageIssues controller started");
         $data = ['errors' => []]; // Initialize errors array
 
         // Check if user is logged in
         if (!isset($_SESSION['id'])) {
+            error_log("User not logged in");
             $this->view('404');
             return;
         }
 
         $userId = $_SESSION['id'];
+        error_log("User ID: " . $userId);
 
         // Get sitehead's data
         $supervisorModel = new supervisor();
         $supervisorData = $supervisorModel->first(['user_id' => $userId]);
+        error_log("Supervisor data: " . print_r($supervisorData, true));
 
         if (!empty($supervisorData)) {
             // Get project IDs of the superviosr
@@ -41,6 +44,7 @@ class ManageIssues
                 'supervisor_id' => $supervisorData->id,
                 'status' => 'ongoing'
             ]);
+            error_log("Projects found: " . print_r($projects, true));
 
             foreach ($projects as $project) {
                 $data['projects'][] = $project; // Store full project objects
@@ -48,14 +52,18 @@ class ManageIssues
 
             // Fetch all pending issues with user details
             $pendingIssues = $this->getIssuesWithUserDetails('pending', $projects);
+            error_log("Pending issues: " . print_r($pendingIssues, true));
 
             // Fetch all solved issues with user details
             $solvedIssues = $this->getIssuesWithUserDetails('solved', $projects);
+            error_log("Solved issues: " . print_r($solvedIssues, true));
 
             $this->view('supervisor/issue', [
                 'pendingIssues' => $pendingIssues,
                 'solvedIssues' => $solvedIssues,
             ]);
+        } else {
+            error_log("No supervisor data found for user ID: " . $userId);
         }
     }
 

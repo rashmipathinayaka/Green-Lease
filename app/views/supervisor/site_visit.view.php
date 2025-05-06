@@ -9,7 +9,7 @@
     <script src="<?php echo URLROOT; ?>/assets/js/sitevisit.js" defer></script>
 </head>
 
-<body>
+<body style="margin-left: 20px; margin-right: 20px;">
 
 <?php
 require ROOT . '/views/supervisor/sidebar.php';
@@ -21,7 +21,7 @@ require ROOT . '/views/components/topbar.php';
     <div class="tab-navigation">
         <button class="tab-btn active" data-tab-target="pending-approvals">Pending approval</button>
         <button class="tab-btn" data-tab-target="approved-visit">Approved visits</button>
-    </div>
+    </div><br>
 
     <div id="pending-approvals" class="tab-content active">
         <div class="container">
@@ -37,7 +37,7 @@ require ROOT . '/views/components/topbar.php';
                     <th>Scheduled Date From</th>
                     <th>Scheduled Date To</th>
                     <th>Action</th>
-                    <th>Status</th>
+                    <!-- <th>Status</th> -->
                 </tr>
                 </thead>
                 <tbody>
@@ -54,7 +54,6 @@ require ROOT . '/views/components/topbar.php';
                                     Schedule
                                 </button>
                             </td>
-                            <td></td>
                         </tr>
                     <?php endforeach; ?>
                 <?php endif; ?>
@@ -101,8 +100,8 @@ require ROOT . '/views/components/topbar.php';
     </div>
 
     <div id="approved-visit" class="tab-content">
-        <h4>You will receive emails regarding these field-visits.</h4>
-        <h5>Only the upcoming visits from today onwards are shown here.</h5>
+        <h4 class="email-notification">You will receive emails regarding these field-visits.</h4>
+        <h5 class="email-notification-sub">Only the upcoming visits from today onwards are shown here.</h5>
         <br><br>
 
         <div class="container">
@@ -151,7 +150,7 @@ require ROOT . '/views/components/topbar.php';
                     <input type="text" id="crop_type" name="crop_type" required>
                 </div>
 
-                <input type="hidden" id="land_id" name="land_id value="<?= htmlspecialchars($visit1->land_id) ?>">>
+                <input type="hidden" id="land_id" name="land_id value="<?= htmlspecialchars($visit1->land_id) ?>">
 
                 <div class="form-group">
                     <label for="duration">Duration of the project (in days)</label>

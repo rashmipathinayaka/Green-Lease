@@ -74,4 +74,9 @@ class SWorker
             return [];
         }
     }
+
+    public function getWorkerComplaints(){
+      $query = "SELECT * FROM worker_complaint";
+      return $this->query($query);
+    }
 }

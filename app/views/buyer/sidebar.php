@@ -13,7 +13,6 @@ $currentPage = basename($_SERVER['PHP_SELF']);
 <body>
 <div class="sidebar">
     <div class="sidebar-header">
-        <!-- <h3>Buyer Portal</h3> -->
     </div>
 
     <nav class="sidebar-nav">

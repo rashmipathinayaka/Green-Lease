@@ -15,7 +15,6 @@ class Login
             $user = $userm->findUserByUsernameOrEmail($email);
 
             if ($user) {
-                // Debug output
                 error_log("User found: " . $user->email);
                 error_log("Stored password hash: " . $user->password);
                 error_log("Password verification result: " . (password_verify($password, $user->password) ? "true" : "false"));
@@ -27,24 +26,23 @@ class Login
                 $auth = Auth::getInstance();
                 $auth->login($user);
 
-                // Redirect based on role
                 switch ($user->role_id) {
-                    case 1: // Admin
+                    case 1: 
                         redirect('admin/Index');
                         break;
-                    case 2: // Supervisor
+                    case 2: 
                         redirect('supervisor/dashboard');
                         break;
-                    case 3: // Sitehead
+                    case 3: 
                         redirect('sitehead/Index');
                         break;
-                    case 4: // Landowner
+                    case 4: 
                         redirect('landowner/Index');
                         break;
-                    case 5: // Buyer
+                    case 5: 
                         redirect('buyer/Index');
                         break;
-                    case 6: // Worker
+                    case 6: 
                         redirect('worker/Index');
                         break;
                     default:

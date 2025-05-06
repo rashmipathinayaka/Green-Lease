@@ -5,7 +5,6 @@ class Work_history extends Controller2
 
     public function index()
     {
-        // You can retrieve worker_id from session if user is logged in
         $worker_id = $_SESSION['id'] ?? null;
 
         if (!$worker_id) {
@@ -26,15 +25,13 @@ class Work_history extends Controller2
         $completed_work = [];
 
         foreach ($all_records as $work) {
-            // Filter by status (if set)
             if ($filters['status'] && $work->status !== $filters['status']) continue;
-            // Filter by date
+
             if ($filters['date_from'] && strtotime($work->date) < strtotime($filters['date_from'])) continue;
             if ($filters['date_to'] && strtotime($work->date) > strtotime($filters['date_to'])) continue;
-            // Filter by event name
+
             if ($filters['event_name'] && stripos($work->event_name, $filters['event_name']) === false) continue;
 
-            // Separate by status for tabs
             if ($work->status === 'Pending') {
                 $pending_work[] = $work;
             } elseif ($work->status === 'Completed') {

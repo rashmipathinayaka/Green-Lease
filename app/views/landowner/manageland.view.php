@@ -64,13 +64,13 @@
 							<td>
 								<?php
 								if ($land->status == '3') {
-									echo 'project completed';
+									echo 'Completed';
 								} elseif ($land->status == '1') {
-									echo 'pending';
+									echo 'Pending';
 								} elseif ($land->status == '2') {
-									echo 'ongoing project';
+									echo 'Ongoing Project';
 								} else {
-									echo 'unused';
+									echo 'Unused';
 								}
 								?>
 							</td>

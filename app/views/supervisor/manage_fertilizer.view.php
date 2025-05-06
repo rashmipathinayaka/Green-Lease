@@ -13,7 +13,7 @@
 	<title>Document</title>
 </head>
 
-<body>
+<body style="margin-top: 100px; margin-left: 20px; margin-right: 20px;">
 	<?php
 	require ROOT . '/views/supervisor/sidebar.php';
 	require ROOT . '/views/components/topbar.php';
@@ -146,7 +146,7 @@
 				</div>
 			</div>
 			<center>
-				<h1>Fertilizer Inventory</h1>
+				<h1>Fertilizer Inventory</h1><br>
 			</center>
 
 			<div class="search-bar-container">

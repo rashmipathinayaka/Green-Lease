@@ -6,7 +6,6 @@
     <title><?= translate('Work Records') ?></title>
     <link rel="stylesheet" href="<?= URLROOT; ?>/assets/css/worker.css">
     <style>
-        /* Tab Navigation Styles */
         .tab-navigation {
             display: flex;
             gap: 10px;
@@ -39,7 +38,6 @@
             display: block;
         }
 
-        /* Filter Form Styles */
         .filter-form {
             display: flex;
             gap: 15px;
@@ -81,7 +79,6 @@ require ROOT . '/views/components/topbar.php';
         <h1><?= translate('Work Records') ?></h1>
     </center>
 
-    <!-- Tab Navigation -->
     <div class="tab-navigation">
         <button class="tab-btn active" onclick="switchTabs(this, 'pending-work')"><?= translate('Pending') ?></button>
         <button class="tab-btn" onclick="switchTabs(this, 'completed-work')"><?= translate('Completed') ?></button>
@@ -95,7 +92,6 @@ require ROOT . '/views/components/topbar.php';
         <button type="submit"><?= translate('Apply Filters') ?></button>
     </form>
 
-    <!-- Pending Work Tab -->
     <div id="pending-work" class="tab-content active">
         <table class="dashboard-table">
             <thead>
@@ -125,7 +121,6 @@ require ROOT . '/views/components/topbar.php';
         </table>
     </div>
 
-    <!-- Completed Work Tab -->
     <div id="completed-work" class="tab-content">
         <table class="dashboard-table">
             <thead>

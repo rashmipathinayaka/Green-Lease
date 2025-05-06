@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/buyer.css">
     <title>Manage Bids</title>
     <style>
-        /* Tab Navigation Styles */
+       
         .tab-navigation {
             display: flex;
             gap: 10px;
@@ -39,7 +39,6 @@
             display: block;
         }
 
-        /* Filter Form Styles */
         .filter-form {
             display: flex;
             gap: 15px;
@@ -97,7 +96,6 @@
             <button class="tab-btn" onclick="switchTabs(this, 'bid-history')">Bid History</button>
         </div>
 
-        <!-- Filter Form -->
         <form method="GET" action="" class="filter-form">
         <label for="date_from" style="margin-right: 2px; color: #333; font-size: 14px;">From</label>
         <input type="date" name="date_from" id="date_from" value="<?= isset($_GET['date_from']) ? htmlspecialchars($_GET['date_from']) : '' ?>" placeholder="From Date">
@@ -106,7 +104,6 @@
         <button type="submit">Apply Filters</button>
         </form>
 
-        <!-- Active Bids Tab -->
         <div id="active-bids" class="tab-content active">
             <table class="dashboard-table">
                 <thead>
@@ -150,7 +147,6 @@
             </table>
         </div>
 
-        <!-- Bid History Tab -->
         <div id="bid-history" class="tab-content">
             <table class="dashboard-table">
                 <thead>
@@ -192,7 +188,6 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
     <div id="confirmationModal" class="confirmation-modal">
         <div class="confirmation-modal-content">
             <div class="confirmation-modal-header">
@@ -208,7 +203,6 @@
         </div>
     </div>
 
-    <!-- Bid Details Modal -->
     <div id="bidDetailsModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -235,11 +229,9 @@
         let currentBidId = null;
 
         function switchTabs(button, tabId) {
-            // Remove active class from all tabs and buttons
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
             
-            // Add active class to clicked button and corresponding tab
             button.classList.add('active');
             document.getElementById(tabId).classList.add('active');
         }
@@ -261,7 +253,6 @@
         }
 
         function viewBidDetails(bidId) {
-            // Get the bid row data
             const bidRow = document.querySelector(`tr[data-id="${bidId}"]`);
             const harvestId = bidRow.children[0].textContent;
             const landLocation = bidRow.dataset.landLocation;
@@ -270,10 +261,8 @@
             const status = bidRow.children[4].textContent;
             const biddingDate = bidRow.children[5].textContent;
 
-            // Calculate total value
             const totalValue = amount * unitPrice;
 
-            // Update modal content
             document.getElementById('viewHarvestId').textContent = harvestId;
             document.getElementById('viewLandLocation').textContent = landLocation;
             document.getElementById('viewAmount').textContent = amount.toLocaleString();
@@ -282,7 +271,7 @@
             document.getElementById('viewStatus').textContent = status;
             document.getElementById('viewBiddingDate').textContent = biddingDate;
 
-            // Show the modal
+
             document.getElementById('bidDetailsModal').style.display = 'block';
         }
 
@@ -290,7 +279,6 @@
             document.getElementById('bidDetailsModal').style.display = 'none';
         }
 
-        // Close modal if clicking outside
         window.onclick = function(event) {
             const bidDetailsModal = document.getElementById('bidDetailsModal');
             const confirmationModal = document.getElementById('confirmationModal');
@@ -304,7 +292,6 @@
         }
     </script>
 
-    <!-- Add these styles to the existing CSS -->
     <style>
     .modal {
         display: none;

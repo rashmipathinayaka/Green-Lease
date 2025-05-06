@@ -17,7 +17,6 @@ class Harvest {
     }
 
     public function index() {
-        // Get all purchases with their associated harvest and buyer information
         $query = "SELECT p.*, b.amount as bid_amount, b.unit_price, b.harvest_id, 
                          h.harvest_date, h.max_amount, h.rem_amount,
                          u.full_name as buyer_name, u.contact_no
@@ -29,7 +28,6 @@ class Harvest {
         
         $purchases = $this->purchaseModel->query($query);
         
-        // Group purchases by status
         $pendingPurchases = array_filter($purchases, function($purchase) {
             return $purchase->status !== 'Delivered';
         });

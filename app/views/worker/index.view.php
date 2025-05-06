@@ -6,7 +6,6 @@
     <link rel="stylesheet" href="<?= URLROOT ?>/assets/css/worker.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        /* Modal Styles */
         .confirmation-modal {
             display: none;
             position: fixed;
@@ -64,7 +63,6 @@
             border: none;
         }
 
-        /* Alert Styles */
         .alert {
             padding: 10px 15px;
             margin: 10px 20px;
@@ -87,7 +85,6 @@
             border: 1px solid #f5c6cb;
         }
 
-        /* Add these styles to your existing styles */
         .no-events-container {
             display: flex;
             flex-direction: column;
@@ -135,7 +132,6 @@ $lang = $_SESSION['lang'] ?? 'en'; ?>
         </div>
     </div>
 
-    <!-- Alert container -->
     <div id="alertContainer" style="margin: 20px;"></div>
 
     <div class="worker-events-section">
@@ -179,7 +175,6 @@ $lang = $_SESSION['lang'] ?? 'en'; ?>
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
     <div id="confirmationModal" class="confirmation-modal">
         <div class="confirmation-modal-content">
             <div class="confirmation-modal-header">
@@ -225,7 +220,6 @@ $lang = $_SESSION['lang'] ?? 'en'; ?>
             form.submit();
         }
 
-        // Show alert message
         function showAlert(message, type) {
             const alertContainer = document.getElementById('alertContainer');
             const alert = document.createElement('div');
@@ -236,13 +230,11 @@ $lang = $_SESSION['lang'] ?? 'en'; ?>
             alertContainer.innerHTML = '';
             alertContainer.appendChild(alert);
 
-            // Auto-hide after 5 seconds
             setTimeout(() => {
                 alert.style.display = 'none';
             }, 5000);
         }
 
-        // Close modal if clicking outside
         window.onclick = function(event) {
             const modal = document.getElementById('confirmationModal');
             if (event.target == modal) {
@@ -250,7 +242,6 @@ $lang = $_SESSION['lang'] ?? 'en'; ?>
             }
         }
 
-        // Show alert if there's a message in session
         <?php if(isset($_SESSION['message'])): ?>
             showAlert('<?= $_SESSION['message'] ?>', '<?= $_SESSION['message_type'] ?>');
             <?php 

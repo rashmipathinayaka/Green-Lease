@@ -20,6 +20,7 @@ class Index
 
 		$landCount = $userId ? $this->lands->countLands() : 0;
 		$bidCount = $userId ? $this->bids->countbids() : 0;
+		
 
 		$data = [
 			'landCount' => $landCount,

@@ -43,7 +43,7 @@ class Rsite_visit
     }
 
     public function getAllSiteVisits($id) {
-        $query = "SELECT sv.*, l.address AS address
+        $query = "SELECT sv.*, l.address AS address, l.crop_type AS crop_type
 FROM site_visit sv
 JOIN land l ON sv.land_id = l.id
 JOIN supervisor s ON sv.supervisor_id = s.id
@@ -73,13 +73,14 @@ ORDER BY sv.date ASC";
     
 
 
-    public function supervisorreshedulekrpuwapennan(){
-        $query="SELECT sv.*, l.address AS address
+    public function supervisorreshedulekrpuwapennan($userid) {
+        $query = "SELECT sv.*, l.address AS address, l.crop_type AS crop_type
 FROM site_visit sv
 JOIN land l ON sv.land_id = l.id
-WHERE sv.status = '1';
-";
-        return $this->query($query);
+JOIN supervisor s ON sv.supervisor_id = s.id
+WHERE sv.status = '1' AND s.user_id = :id";
+        $data = [':id' => $userid];
+        return $this->query($query, $data);
     }
 
     public function insertApproval($id) {

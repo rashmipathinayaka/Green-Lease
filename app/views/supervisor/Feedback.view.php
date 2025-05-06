@@ -55,7 +55,7 @@
                                 </div>
                                 <div class="project-id">
                                     Project ID: <?php echo htmlspecialchars($us->project_id); ?>
-                                    <a href="<?= URLROOT ?>/Components/Project/index/<?php echo htmlspecialchars($us->project_id); ?>" class="view-project">View</a>
+                                    <a href="<?= URLROOT ?>/Project/index/<?php echo htmlspecialchars($us->project_id); ?>" class="view-project">View</a>
                                 </div>
                             </div>
                             <div class="feedback-content">
@@ -87,7 +87,7 @@
                                 </div>
                                 <div class="project-id">
                                     Project ID: <?php echo htmlspecialchars($sl->project_id); ?>
-                                    <a href="<?= URLROOT ?>/Components/Project/index/<?php echo htmlspecialchars($sl->project_id); ?>" class="view-project">View</a>
+                                    <a href="<?= URLROOT ?>/Project/index/<?php echo htmlspecialchars($sl->project_id); ?>" class="view-project">View</a>
                                 </div>
                             </div>
                             <div class="feedback-content">

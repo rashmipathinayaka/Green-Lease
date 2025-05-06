@@ -43,6 +43,10 @@ require ROOT . '/views/components/topbar.php';
                     <label for="description"><?= translate('Complaint Description') ?></label>
                     <textarea id="description" name="description" required
                         placeholder="<?= translate('Please provide detailed information about your complaint...') ?>"></textarea>
+
+                    <label for="name">Site Address</label>
+                    <input type="text" id="address" name="address" required>
+
                     <label for="attachment"><?= translate('Supporting Documents (if any)') ?></label>
                     <input type="file" id="attachment" name="attachment">
                     <p class="attachment-note"><?= translate('Accepted file formats: PDF, JPG, PNG (Max size: 5MB)') ?></p>

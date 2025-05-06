@@ -13,10 +13,8 @@ class Marketplace {
             exit();
         }
 
-        // Create the SHarvest model object
         $harvestModel = new SHarvest();
         
-        // Apply filters if set
         $filters = [];
         
         if (isset($_GET['location']) && !empty($_GET['location'])) {
@@ -27,12 +25,9 @@ class Marketplace {
             $filters['crop_type'] = $_GET['crop_type'];
         }
         
-        // Get harvests with filters
         $harvests = $harvestModel->getFilteredHarvests($filters);
         
-        // Check if harvests is valid before attempting to sort
         if ($harvests && is_array($harvests)) {
-            // Apply sorting if set
             if (isset($_GET['sort']) && !empty($_GET['sort'])) {
                 $sort = $_GET['sort'];
                 
@@ -53,16 +48,13 @@ class Marketplace {
                         });
                         break;
                     default:
-                        // No sorting
                         break;
                 }
             }
         } else {
-            // If no harvests found or query returned false, set to empty array
             $harvests = [];
         }
         
-        // Pass data to the view
         $this->view('marketplace', ['harvests' => $harvests]);
     }
 
@@ -71,7 +63,6 @@ class Marketplace {
             session_start();
         }
 
-        // Check if user is logged in
         if (!isset($_SESSION['id'])) {
             $_SESSION['message'] = 'Please login first';
             $_SESSION['message_type'] = 'error';
@@ -79,11 +70,9 @@ class Marketplace {
             exit();
         }
 
-        // Create bid model
         $bidModel = new SBid();
         
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Get POST data
             $formData = [
                 'buyer_id' => $_SESSION['id'],
                 'harvest_id' => $_POST['harvest_id'] ?? null,
@@ -92,7 +81,6 @@ class Marketplace {
                 'status' => 'Pending'
             ];
 
-            // Validate required fields
             if (!$formData['harvest_id'] || !$formData['amount'] || !$formData['unit_price']) {
                 $_SESSION['message'] = 'All fields are required';
                 $_SESSION['message_type'] = 'error';
@@ -100,12 +88,10 @@ class Marketplace {
                 exit();
             }
 
-            // Convert to integers
             $formData['harvest_id'] = (int)$formData['harvest_id'];
             $formData['amount'] = (int)$formData['amount'];
             $formData['unit_price'] = (int)$formData['unit_price'];
 
-            // Validate positive numbers
             if ($formData['amount'] <= 0 || $formData['unit_price'] <= 0) {
                 $_SESSION['message'] = 'Amount and price must be positive';
                 $_SESSION['message_type'] = 'error';
@@ -113,7 +99,6 @@ class Marketplace {
                 exit();
             }
 
-            // Get harvest details for validation
             $harvestModel = new SHarvest();
             $harvest = $harvestModel->getHarvestById($formData['harvest_id']);
             
@@ -124,7 +109,6 @@ class Marketplace {
                 exit();
             }
 
-            // Validate bidding period
             $now = new DateTime();
             $bidding_start = new DateTime($harvest->bidding_start);
             $bidding_end = new DateTime($harvest->bidding_end);
@@ -136,7 +120,6 @@ class Marketplace {
                 exit();
             }
 
-            // Validate amount
             if ($formData['amount'] > $harvest->rem_amount * 1000) {
                 $_SESSION['message'] = 'Amount exceeds available harvest';
                 $_SESSION['message_type'] = 'error';
@@ -144,7 +127,6 @@ class Marketplace {
                 exit();
             }
 
-            // Validate minimum bid
             if ($formData['unit_price'] < $harvest->min_bid) {
                 $_SESSION['message'] = 'Bid must be at least LKR ' . $harvest->min_bid;
                 $_SESSION['message_type'] = 'error';
@@ -152,7 +134,6 @@ class Marketplace {
                 exit();
             }
 
-            // Insert bid
             if ($bidModel->createBid($formData)) {
                 $_SESSION['message'] = 'Bid placed successfully! Your bid of LKR ' . number_format($formData['unit_price']) . ' per kg for ' . number_format($formData['amount']) . ' kg has been submitted.';
                 $_SESSION['message_type'] = 'success';

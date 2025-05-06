@@ -17,6 +17,20 @@
     margin: 30px auto;
 }
 
+.email-notification {
+    color: #2c3e50;
+    font-weight: 500;
+    margin-bottom: 5px;
+    font-size: 1.1em;
+}
+
+.email-notification-sub {
+    color: #7f8c8d;
+    font-weight: 400;
+    font-size: 0.95em;
+    margin-top: 0;
+}
+
 
 /* Cancel Button Style */
 /* Close button styling */

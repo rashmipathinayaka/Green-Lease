@@ -84,10 +84,8 @@ class RLand
 	public function countbuyers() {
 		$query = "SELECT COUNT(*) AS buyercount FROM user WHERE role_id = 5";
 		$result = $this->query($query);
-		return $result ? (int) $result[0]->{'COUNT(*)'} : 0;  
-		
-	
-}
+		return $result ? (int) $result[0]->buyercount : 0;  
+	}
 
 	public function countProjectsByUserId($userId)
 	{

@@ -97,7 +97,7 @@ class Project {
                      COALESCE(p.start_date, 'Not Started') AS start_date
               FROM project p
               JOIN supervisor s ON p.supervisor_id = s.id
-              WHERE s.user_id = :user_id
+              WHERE s.user_id = :user_id AND p.status = 'Ongoing'
               ORDER BY p.status, p.start_date DESC";
 
     $data = [':user_id' => $userId];

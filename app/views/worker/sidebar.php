@@ -36,6 +36,12 @@ $currentPage = basename($_SERVER['PHP_SELF']);
                     <span><?= translate('File a Complaint') ?></span>
                 </a>
             </li>
+            <li class="<?= $currentPage === 'complaint_history.view.php' ? 'active' : '' ?>">
+                <a href="<?= URLROOT ?>/Worker/Complaint_history">
+                    <i class="fas fa-history"></i>
+                    <span><?= translate('Complaint History') ?></span>
+                </a>
+            </li>
         </ul>
     </nav>
 

@@ -161,7 +161,19 @@
                         <div class="feedback-card">
                             <div class="feedback-header">
                                 <div>
-                                    <span class="from-user">From: <?php echo htmlspecialchars($sl->feedback_user_id); ?></span>
+                                    <span class="from-user">From: <?php
+                                        if ($sl->role_id == 1) {
+                                            echo $sl->full_name." (Admin)";
+                                        } elseif ($sl->role_id == 2) {
+                                            echo $sl->full_name." (Supervisor)";
+                                        } elseif ($sl->role_id == 3) {
+                                            echo $sl->full_name." (Site Head)";
+                                        } elseif ($sl->role_id == 4) {
+                                            echo $sl->full_name." (Landowner)";
+                                        } else {
+                                            echo "Unknown Role";
+                                        }
+                                        ?></span>
                                 </div>
                                 <div class="project-id">
                                     Project ID: <?php echo htmlspecialchars($sl->project_id); ?>

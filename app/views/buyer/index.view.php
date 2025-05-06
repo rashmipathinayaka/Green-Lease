@@ -8,7 +8,6 @@
     <link rel="stylesheet" href="<?= URLROOT; ?>/assets/css/buyer.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <script src="https://js.stripe.com/v3/"></script>
-    <!-- <script src="buyer.js" defer></script> -->
 </head>
 
 <body>

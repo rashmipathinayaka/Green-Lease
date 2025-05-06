@@ -43,7 +43,6 @@
             <form id="signup-form" method="POST" action="<?= URLROOT ?>/Signup/register">
                 <div class="signup-header">
                     <h2>Create an account</h2>
-                    <!-- <p>Welcome on Board! Please enter your details</p> -->
                 </div>
                 <div class="role-select-container">
                     <div class="role-options">
@@ -86,7 +85,6 @@
                             <div class="form-group">
                                 <label for="password">Password</label>
                                 <input type="password" id="password" name="password" required>
-                                <!-- <div class="password-strength"></div> -->
                             </div>
                         </div>
                         <div class="form-column">

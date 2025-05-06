@@ -7,6 +7,7 @@ class WorkerComplaint
        'worker_id',
        'complaint_type',
        'description',
-       'attachment'
+       'attachment',
+       'site_address'
     ];
 }

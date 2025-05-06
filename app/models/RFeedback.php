@@ -28,7 +28,7 @@ public function getunsolvedFeedbacks() {
 
 
 public function getsolvedFeedbacks() {
-    $query = "SELECT pf.*, u.role_id 
+    $query = "SELECT pf.*, u.role_id, u.full_name 
     FROM project_feedback pf
     JOIN user u ON pf.remark_user_id = u.id
     WHERE pf.is_solved = 1

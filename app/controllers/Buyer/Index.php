@@ -11,7 +11,6 @@ class Index
 
 		$userId = $_SESSION['id'];
 
-		// Get pending payments
 		$bidModel = new SBid();
 		$data['pending_payments'] = $bidModel->query(
 			"SELECT b.*, h.harvest_date 
@@ -23,19 +22,16 @@ class Index
 			['buyer_id' => $_SESSION['id']]
 		);
 
-		// Get pending payments count
 		$pendingPaymentsCount = $bidModel->query(
 			"SELECT COUNT(*) as count FROM bid WHERE buyer_id = :buyer_id AND status = 'Approved' AND id NOT IN (SELECT bid_id FROM purchase)",
 			['buyer_id' => $_SESSION['id']]
 		)[0]->count;
 
-		// Get bids placed count
 		$bidsPlacedCount = $bidModel->query(
 			"SELECT COUNT(*) as count FROM bid WHERE buyer_id = :buyer_id",
 			['buyer_id' => $_SESSION['id']]
 		)[0]->count;
 
-		// Get complaints filed count
 		$complaintModel = new BuyerComplaint();
 		$complaintsFiledCount = $complaintModel->query(
 			"SELECT COUNT(*) as count FROM buyer_complaint WHERE buyer_id = :buyer_id",
@@ -64,7 +60,6 @@ class Index
 		$worker_id = $_SESSION['id'];
 		$workerEventModel = new WorkerEventModel();
 
-		// Check if worker has already applied
 		$existing = $workerEventModel->first([
 			'worker_id' => $worker_id,
 			'event_id' => $event_id
@@ -77,7 +72,6 @@ class Index
 			return;
 		}
 
-		// Store the application
 		$result = $workerEventModel->insert([
 			'worker_id' => $worker_id,
 			'event_id' => $event_id,
@@ -92,23 +86,18 @@ class Index
 			$_SESSION['message_type'] = 'error';
 		}
 
-		// --- Notification Logic ---
-		// 1. Get the project_id from the event
 		$eventModel = new Event();
 		$event = $eventModel->first(['id' => $event_id]);
 		$projectId = $event ? $event->project_id : null;
 
-		// 2. Get the sitehead_id from the project
 		$projectModel = new Project();
 		$project = $projectModel->first(['id' => $projectId]);
 		$siteheadId = $project ? $project->sitehead_id : null;
 
-		// 3. Get the user_id from the sitehead table
 		$siteheadModel = new Sitehead();
 		$sitehead = $siteheadModel->first(['id' => $siteheadId]);
 		$siteheadUserId = $sitehead ? $sitehead->user_id : null;
 
-		// 4. Insert notification for that user
 		if ($siteheadUserId) {
 			$notificationModel = new Notification();
 			$notificationModel->create([

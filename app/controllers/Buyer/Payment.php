@@ -15,11 +15,11 @@ class Payment
         header('Content-Type: application/json');
 
         $input = json_decode(file_get_contents('php://input'), true);
-        $amount = $input['amount']; // Amount in LKR (should be in cents)
+        $amount = $input['amount']; 
         $bid_id = $input['bid_id'];
 
         $fields = [
-            'amount' => $amount * 100, // Stripe expects amount in cents
+            'amount' => $amount * 100, 
             'currency' => 'lkr',
             'payment_method_types[]' => 'card',
             'metadata[bid_id]' => $bid_id
@@ -44,12 +44,12 @@ class Payment
 
         curl_close($ch);
 
-        echo $response; // This will include the client_secret needed for Stripe Elements
+        echo $response; 
     }
 
     public function checkout($bid_id)
     {
-        // Fetch payment/bid info from your model
+
         $bidModel = new SBid();
         $payment = $bidModel->first(['id' => $bid_id]);
         if (!$payment) {
@@ -64,11 +64,10 @@ class Payment
 
     public function record_purchase()
     {
-        // Get POST data
+
         $input = json_decode(file_get_contents('php://input'), true);
         $bid_id = $input['bid_id'];
 
-        // Get bid info
         $bidModel = new SBid();
         $bid = $bidModel->first(['id' => $bid_id]);
         if (!$bid) {
@@ -76,10 +75,8 @@ class Payment
             return;
         }
 
-        // Calculate total payment amount
         $total_amount = $bid->amount * $bid->unit_price;
 
-        // Insert into purchase table
         $purchaseModel = new Purchase();
         $purchaseModel->insert([
             'bid_id' => $bid->id,

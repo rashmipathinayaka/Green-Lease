@@ -6,11 +6,11 @@
     <link rel="stylesheet" href="<?php echo URLROOT; ?>/assets/css/buyer.css">
     <title>Purchase History</title>
     <script>
-        // Define URLROOT for JavaScript
+
         const URLROOT = '<?php echo URLROOT; ?>';
     </script>
     <style>
-        /* Invoice Modal Styles */
+
         .invoice-modal {
             display: none;
             position: fixed;
@@ -258,7 +258,7 @@
         </table>
     </div>
 
-    <!-- Invoice Modal -->
+
     <div id="invoiceModal" class="invoice-modal">
         <div class="invoice-modal-content">
             <span class="close-invoice" onclick="closeInvoice()">&times;</span>
@@ -300,7 +300,6 @@
         </div>
     </div>
 
-    <!-- Rating Modal -->
     <div id="ratingModal" class="rating-modal">
         <div class="rating-modal-content">
             <h2>Rate Your Purchase</h2>
@@ -333,7 +332,6 @@
             const cropType = row.dataset.cropType;
             const landAddress = row.dataset.landAddress;
 
-            // Update modal content
             document.getElementById('invoiceNumber').textContent = purchaseId;
             document.getElementById('invoiceDate').textContent = new Date().toLocaleDateString();
             document.getElementById('buyerName').textContent = buyerName;
@@ -347,7 +345,6 @@
                 maximumFractionDigits: 2
             });
 
-            // Show the modal
             document.getElementById('invoiceModal').style.display = 'block';
         }
 
@@ -359,7 +356,6 @@
             window.print();
         }
 
-        // Rating Modal Functions
         function showRatingModal(purchaseId) {
             document.getElementById('currentPurchaseId').value = purchaseId;
             document.getElementById('ratingModal').style.display = 'block';
@@ -378,7 +374,7 @@
             });
         }
 
-        // Star rating functionality
+
         document.querySelectorAll('.star').forEach(star => {
             star.addEventListener('mouseover', function() {
                 const rating = this.getAttribute('data-rating');
@@ -422,7 +418,6 @@
             console.log('Submitting rating to:', url);
             console.log('Data:', { purchase_id: purchaseId, rating: rating, feedback: feedbackText });
 
-            // Submit rating via AJAX
             fetch(url, {
                 method: 'POST',
                 headers: {
@@ -454,7 +449,6 @@
             });
         }
 
-        // Close modals when clicking outside
         window.onclick = function(event) {
             const invoiceModal = document.getElementById('invoiceModal');
             const ratingModal = document.getElementById('ratingModal');

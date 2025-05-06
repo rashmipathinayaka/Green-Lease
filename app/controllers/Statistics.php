@@ -7,10 +7,6 @@ class Statistics {
     private $financialModel;
 
     public function __construct() {
-        // $auth = Auth::getInstance();
-        // if (!$auth->isLoggedIn() || !$auth->hasRole(1)) { // 1 is admin role
-        //     redirect('unauthorized');
-        // }
         $this->financialModel = $this->model('SFinancial');
     }
 

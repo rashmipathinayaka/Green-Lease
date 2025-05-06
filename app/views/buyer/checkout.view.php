@@ -204,7 +204,6 @@
         <div class="secure-text"><i class="fa fa-lock"></i> 100% Secure Payment</div>
     </div>
 
-    <!-- Confirmation Modal -->
     <div id="confirmationModal" class="confirmation-modal">
         <div class="confirmation-content">
             <h3>Confirm Payment</h3>
@@ -281,7 +280,6 @@
                 document.getElementById('payment-message').innerHTML = '<i class="fas fa-check-circle success-icon"></i> Payment successful! Redirecting to dashboard...';
                 document.getElementById('payment-message').className = 'success';
 
-                // Record purchase in backend
                 fetch('<?= URLROOT ?>/Buyer/Payment/record_purchase', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -294,7 +292,6 @@
             }
         }
 
-        // Close modal when clicking outside
         window.onclick = function(event) {
             if (event.target == document.getElementById('confirmationModal')) {
                 closeConfirmation();

@@ -241,6 +241,7 @@ body {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   text-transform: none; /* Added to override any uppercase transformation */
   box-sizing: border-box; /* Ensure padding is included in width */
+
 }
 
 /* Green Button (formerly accept-btn) */
@@ -1028,7 +1029,7 @@ body {
   font-weight: 600; /* Slightly bolder */
   background: linear-gradient(135deg, #1a472a 0%, #2d8433 100%);
   border: none;
-  padding: 0 28px;
+  padding: 10px 38px;
   font-size: 16px;
   cursor: pointer;
   border-radius: 6px; /* Softer rounded corners */

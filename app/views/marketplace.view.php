@@ -6,7 +6,6 @@
     <title>Green Lease Marketplace</title>
     <link rel="stylesheet" href="<?= URLROOT ?>/assets/css/marketplace.css">
     <style>
-        /* Modal Styles */
         .modal {
             display: none;
             position: fixed;
@@ -70,7 +69,7 @@
             border: none;
         }
 
-        /* Countdown Timer Styles */
+
         .countdown {
             background-color: #ffd700;
             color: #000;
@@ -93,13 +92,11 @@
     <?php include 'components/navbar.php'; ?>
 
     <div class="container">
-        <!-- Display messages if any -->
         <?php if(isset($_SESSION['message'])): ?>
             <div class="alert alert-<?= $_SESSION['message_type'] === 'success' ? 'success' : 'error' ?>">
                 <?= $_SESSION['message'] ?>
             </div>
             <?php 
-                // Clear the message after displaying
                 unset($_SESSION['message']);
                 unset($_SESSION['message_type']);
             ?>
@@ -175,7 +172,6 @@
                             </div>
                             <div class="current-bid">Minimum Bid (1kg): LKR <?= htmlspecialchars($harvest->min_bid) ?></div>
                             
-                            <!-- Updated Bid Form -->
                             <form method="POST" action="<?= URLROOT ?>/marketplace/placeBid" class="bid-form" onsubmit="return showConfirmation(this, event)">
                                 <input type="hidden" name="harvest_id" value="<?= $harvest->id ?>">
                                 <input type="hidden" name="crop_type" value="<?= htmlspecialchars($harvest->crop_type) ?>">
@@ -201,7 +197,6 @@
         </div>
     </div>
 
-    <!-- Confirmation Modal -->
     <div id="confirmationModal" class="modal">
         <div class="modal-content">
             <div class="modal-header">
@@ -227,7 +222,6 @@
     <?php include 'components/footer.php'; ?>
     
     <script>
-        // Update countdown timers
         function updateCountdowns() {
             const countdowns = document.querySelectorAll('.countdown');
             countdowns.forEach(countdown => {
@@ -249,11 +243,9 @@
             });
         }
 
-        // Update countdown every second
         setInterval(updateCountdowns, 1000);
-        updateCountdowns(); // Initial update
+        updateCountdowns(); 
 
-        // Add bid validation
         function validateBid(input, minBid) {
             const form = input.closest('form');
             const errorDiv = form.querySelector('.error-message');
@@ -271,7 +263,6 @@
             }
         }
 
-        // Modal handling
         let currentForm = null;
 
         function showConfirmation(form, event) {
@@ -303,7 +294,6 @@
             }
         }
 
-        // Close modal if clicking outside
         window.onclick = function(event) {
             const modal = document.getElementById('confirmationModal');
             if (event.target == modal) {
